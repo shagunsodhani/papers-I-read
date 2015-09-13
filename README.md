@@ -6,3 +6,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 * [Never Ending Learning](https://medium.com/@shagun/never-ending-learning-e7b78006e713)
 * [Cuckoo Hashing](https://medium.com/@shagun/cuckoo-hashing-eb160dfab804)
+* [A Theoretician’s Guide to the Experimental Analysis of Algorithms](https://medium.com/@shagun/dos-and-dont-s-of-research-fe33322c7aff)
