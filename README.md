@@ -11,3 +11,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [Dynamo: Amazon’s Highly Available Key-value Store](https://medium.com/@shagun/dynamo-9665c22a1ddb)
 * [Scaling Memcache at Facebook](https://medium.com/@shagun/scaling-memcache-at-facebook-1ba77d71c082)
 * [Fast Data in the Era of Big Data: Twitter’s Real-Time Related Query Suggestion Architecture](https://medium.com/@shagun/fast-data-in-the-era-of-big-data-e6208e6d3575)
+* [Spark: Cluster Computing with Working Sets](https://medium.com/@shagun/spark-8ca626d55d21)
