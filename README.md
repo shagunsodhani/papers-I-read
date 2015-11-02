@@ -13,3 +13,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [Fast Data in the Era of Big Data: Twitter’s Real-Time Related Query Suggestion Architecture](https://medium.com/@shagun/fast-data-in-the-era-of-big-data-e6208e6d3575)
 * [Spark: Cluster Computing with Working Sets](https://medium.com/@shagun/spark-8ca626d55d21)
 * [Spark SQL: Relational Data Processing in Spark](https://medium.com/@shagun/spark-sql-68a6fac271fe)
+* [BigTable: A Distributed Storage System for Structured Data](https://medium.com/@shagun/bigtable-bf580262f030)
