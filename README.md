@@ -14,3 +14,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [Spark: Cluster Computing with Working Sets](https://medium.com/@shagun/spark-8ca626d55d21)
 * [Spark SQL: Relational Data Processing in Spark](https://medium.com/@shagun/spark-sql-68a6fac271fe)
 * [BigTable: A Distributed Storage System for Structured Data](https://medium.com/@shagun/bigtable-bf580262f030)
+* [MapReduce: Simplified Data Processing on Large Clusters](https://medium.com/@shagun/mapreduce-1c88f8a7c3d2)
