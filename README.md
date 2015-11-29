@@ -16,3 +16,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [BigTable: A Distributed Storage System for Structured Data](https://medium.com/@shagun/bigtable-bf580262f030)
 * [MapReduce: Simplified Data Processing on Large Clusters](https://medium.com/@shagun/mapreduce-1c88f8a7c3d2)
 * [Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing](https://medium.com/@shagun/resilient-distributed-datasets-97c28c3a9411)
+* [Pig Latin: A Not-So-Foreign Language for Data Processing](https://medium.com/@shagun/pig-latin-e840ac23db93)
