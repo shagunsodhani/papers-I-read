@@ -18,3 +18,4 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [Resilient Distributed Datasets: A Fault-Tolerant Abstraction for In-Memory Cluster Computing](https://medium.com/@shagun/resilient-distributed-datasets-97c28c3a9411)
 * [Pig Latin: A Not-So-Foreign Language for Data Processing](https://medium.com/@shagun/pig-latin-e840ac23db93)
 * [GraphX: Unifying Data-Parallel and Graph-Parallel Analytics](https://gist.github.com/shagunsodhani/c72bc1928aeef40280c9)
+* [Pregel: A System for Large-Scale Graph Processing](https://gist.github.com/shagunsodhani/af9677bdc79bb34be698)
