@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Hive – A Petabyte Scale Data Warehouse Using Hadoop](https://gist.github.com/shagunsodhani/b0651ade0dc39aeb7cfd)
 * [Kafka: a Distributed Messaging System for Log Processing](https://medium.com/@shagun/notes-about-kafka-cc6c1b5c5025)
 * [Power-law distributions in Empirical data](https://github.com/shagunsodhani/powerlaw/blob/master/paper/README.md)
 * [Pregel: A System for Large-Scale Graph Processing](https://gist.github.com/shagunsodhani/af9677bdc79bb34be698)
