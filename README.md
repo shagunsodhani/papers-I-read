@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://gist.github.com/shagunsodhani/4441216a298df0fe6ab0)
 * [The Unified Logging Infrastructure for Data Analytics at Twitter](https://gist.github.com/shagunsodhani/0083f8a2d276e026b15c)
 * [A Few Useful Things to Know about Machine Learning](https://gist.github.com/shagunsodhani/5c2cdfc269bf8aa50b72)
 * [Hive – A Petabyte Scale Data Warehouse Using Hadoop](https://gist.github.com/shagunsodhani/b0651ade0dc39aeb7cfd)
