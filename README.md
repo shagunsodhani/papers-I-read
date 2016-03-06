@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Fractional Max-Pooling](https://gist.github.com/shagunsodhani/ccfe3134f46fd3738aa0)
 * [TAO: Facebook’s Distributed Data Store for the Social Graph](https://gist.github.com/shagunsodhani/1c91987c2a4a098fa9f1)
 * [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://gist.github.com/shagunsodhani/4441216a298df0fe6ab0)
 * [The Unified Logging Infrastructure for Data Analytics at Twitter](https://gist.github.com/shagunsodhani/0083f8a2d276e026b15c)
