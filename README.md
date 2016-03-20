@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Efficient Estimation of Word Representations in Vector Space](https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6)
 * [Regularization and variable selection via the elastic net](https://gist.github.com/shagunsodhani/1cd5d136c8ca30432de5)
 * [Fractional Max-Pooling](https://gist.github.com/shagunsodhani/ccfe3134f46fd3738aa0)
 * [TAO: Facebook’s Distributed Data Store for the Social Graph](https://gist.github.com/shagunsodhani/1c91987c2a4a098fa9f1)
