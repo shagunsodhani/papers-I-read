@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Learning To Execute](https://gist.github.com/shagunsodhani/b44b29b86cdfe1b6bae4286253f76350)
 * [Distributed GraphLab: A Framework for Machine Learning and Data Mining in the Cloud](https://gist.github.com/shagunsodhani/1bb05a7134c27cffa1e2f57dc6b1c136)
 * [Large Scale Distributed Deep Networks](https://gist.github.com/shagunsodhani/5733fffe6b1a268998bd93f29ec9fbeb)
 * [Efficient Estimation of Word Representations in Vector Space](https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6)
