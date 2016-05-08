@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Curriculum Learning](https://gist.github.com/shagunsodhani/7e4e1c9817c46e3cb1932f62aac8806b)
 * [End-To-End Memory Networks](https://gist.github.com/shagunsodhani/17881da05d9ee1f6539b2baa8067a6ef)
 * [Memory Networks](https://gist.github.com/shagunsodhani/c7a03a47b3d709e7c592fa7011b0f33e)
 * [Learning To Execute](https://gist.github.com/shagunsodhani/b44b29b86cdfe1b6bae4286253f76350)
