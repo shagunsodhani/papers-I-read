@@ -1,5 +1,6 @@
 # papers-I-read
 
+[![Analytics](https://ga-beacon.appspot.com/UA-68140113-4/https://github.com/shagunsodhani/papers-I-read?pixel)](https://github.com/igrigorik/ga-beacon)
 I am trying a new initiative - a-paper-a-week. This repository will hold all those papers and related summaries and notes.
 
 ## List of papers
