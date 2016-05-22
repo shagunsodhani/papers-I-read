@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Visualizing Large-scale and High-dimensional Data](https://gist.github.com/shagunsodhani/6c267cf6122399e9be36491a2f510641)
 * [Visualizing Data using t-SNE](https://gist.github.com/shagunsodhani/2153e01d026712ac94a2b4928a2dbf3e)
 * [Curriculum Learning](https://gist.github.com/shagunsodhani/7e4e1c9817c46e3cb1932f62aac8806b)
 * [End-To-End Memory Networks](https://gist.github.com/shagunsodhani/17881da05d9ee1f6539b2baa8067a6ef)
