@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [The Difficulty of Training Deep Architectures and the Effect of Unsupervised Pre-Training](https://gist.github.com/shagunsodhani/e3608ccf262d6e5a6b537128c917c92c)
 * [Question Answering with Subgraph Embeddings](https://gist.github.com/shagunsodhani/b65e299ff5f79a4f9da4a2e9281a0676)
 * [Towards AI-Complete Question Answering: A Set of Prerequisite Toy Tasks](https://gist.github.com/shagunsodhani/12691b76addf149a224c24ab64b5bdcc)
 * [Visualizing Large-scale and High-dimensional Data](https://gist.github.com/shagunsodhani/6c267cf6122399e9be36491a2f510641)
