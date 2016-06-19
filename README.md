@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Query Regression Networks for Machine Comprehension](https://gist.github.com/shagunsodhani/93caa283af3c151372f4be86ed4c4b99)
 * [Sequence to Sequence Learning with Neural Networks](https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f)
 * [The Difficulty of Training Deep Architectures and the Effect of Unsupervised Pre-Training](https://gist.github.com/shagunsodhani/e3608ccf262d6e5a6b537128c917c92c)
 * [Question Answering with Subgraph Embeddings](https://gist.github.com/shagunsodhani/b65e299ff5f79a4f9da4a2e9281a0676)
