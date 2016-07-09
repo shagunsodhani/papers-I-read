@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [A Neural Conversational Model](https://gist.github.com/shagunsodhani/ec6835964df0e49fdef0459c8b334b94)
 * [Key-Value Memory Networks for Directly Reading Documents](https://gist.github.com/shagunsodhani/a5e0baa075b4a917c0a69edc575772a8)
 * [Advances In Optimizing Recurrent Networks](https://gist.github.com/shagunsodhani/75dc31e3c7999ad4a1edf4f289deaa88)
 * [Query Regression Networks for Machine Comprehension](https://gist.github.com/shagunsodhani/93caa283af3c151372f4be86ed4c4b99)
