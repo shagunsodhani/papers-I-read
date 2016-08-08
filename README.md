@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
 * [Recurrent Neural Network Regularization](https://gist.github.com/shagunsodhani/d66245692b276cd0b6dcbaf43e4211db)
 * [Deep Math: Deep Sequence Models for Premise Selection](https://gist.github.com/shagunsodhani/d8387256f2bb08f39509600f9d7db498)
 * [A Neural Conversational Model](https://gist.github.com/shagunsodhani/ec6835964df0e49fdef0459c8b334b94)
