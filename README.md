@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [WikiReading : A Novel Large-scale Language Understanding Task over Wikipedia](https://gist.github.com/shagunsodhani/2788ac9dbcac5523cb8b2d0a3d70f2d2)
 * [WikiQA: A challenge dataset for open-domain question answering](https://gist.github.com/shagunsodhani/7cf3677ff2b0028a33e6702fbd260bc5)
 * [Teaching Machines to Read and Comprehend](https://gist.github.com/shagunsodhani/a863eb099bb7a1ab4831cd37bffffb04)
 * [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
