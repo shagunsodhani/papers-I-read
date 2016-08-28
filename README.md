@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Neural Generation of Regular Expressions from Natural Language with Minimal Domain Knowledge](https://gist.github.com/shagunsodhani/004d803bc021f579d4aa3b24cec5b994)
 * [WikiReading : A Novel Large-scale Language Understanding Task over Wikipedia](https://gist.github.com/shagunsodhani/2788ac9dbcac5523cb8b2d0a3d70f2d2)
 * [WikiQA: A challenge dataset for open-domain question answering](https://gist.github.com/shagunsodhani/7cf3677ff2b0028a33e6702fbd260bc5)
 * [Teaching Machines to Read and Comprehend](https://gist.github.com/shagunsodhani/a863eb099bb7a1ab4831cd37bffffb04)
