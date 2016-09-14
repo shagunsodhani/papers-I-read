@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [SimRank: A Measure of Structural-Context Similarity](https://gist.github.com/shagunsodhani/6329486212643fd61f58a5a3eb5abb3c)
 * [How NOT To Evaluate Your Dialogue System: An Empirical Study of Unsupervised Evaluation Metrics for Dialogue Response Generation](https://gist.github.com/shagunsodhani/f05748b6339ceff26420ceecfc79d58d)
 * [Neural Generation of Regular Expressions from Natural Language with Minimal Domain Knowledge](https://gist.github.com/shagunsodhani/004d803bc021f579d4aa3b24cec5b994)
 * [WikiReading : A Novel Large-scale Language Understanding Task over Wikipedia](https://gist.github.com/shagunsodhani/2788ac9dbcac5523cb8b2d0a3d70f2d2)
