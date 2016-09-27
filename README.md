@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Bag of Tricks for Efficient Text Classification](https://gist.github.com/shagunsodhani/432746f15889f7f4a798bf7f9ec4b7d8)
 * [GloVe: Global Vectors for Word Representation](https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8)
 * [SimRank: A Measure of Structural-Context Similarity](https://gist.github.com/shagunsodhani/6329486212643fd61f58a5a3eb5abb3c)
 * [How NOT To Evaluate Your Dialogue System: An Empirical Study of Unsupervised Evaluation Metrics for Dialogue Response Generation](https://gist.github.com/shagunsodhani/f05748b6339ceff26420ceecfc79d58d)
