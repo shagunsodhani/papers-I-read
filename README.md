@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Deep Inside Convolutional Networks: Visualising Image Classification Models and Saliency Maps](https://gist.github.com/shagunsodhani/f48da7f77418aa22751ffed115779126)
 * [Bag of Tricks for Efficient Text Classification](https://gist.github.com/shagunsodhani/432746f15889f7f4a798bf7f9ec4b7d8)
 * [GloVe: Global Vectors for Word Representation](https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8)
 * [SimRank: A Measure of Structural-Context Similarity](https://gist.github.com/shagunsodhani/6329486212643fd61f58a5a3eb5abb3c)
