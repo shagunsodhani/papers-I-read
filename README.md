@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Convolutional Neural Network For Sentence Classification](https://gist.github.com/shagunsodhani/9ae6d2364c278c97b1b2f4ec53255c56)
 * [Conditional Image Generation with PixelCNN Decoders](https://gist.github.com/shagunsodhani/3cc7066ce7de051d769908b8fab11990)
 * [Pixel Recurrent Neural Networks](https://gist.github.com/shagunsodhani/e741ebd5ba0e0fc0f49d7836e30891a7)
 * [Deep Inside Convolutional Networks: Visualising Image Classification Models and Saliency Maps](https://gist.github.com/shagunsodhani/f48da7f77418aa22751ffed115779126)
