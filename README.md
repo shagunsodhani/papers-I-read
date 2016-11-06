@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [A Roadmap towards Machine Intelligence](https://gist.github.com/shagunsodhani/9928673525b1713c2d41fd0fac38f81f)
 * [Smart Reply: Automated Response Suggestion for Email](https://gist.github.com/shagunsodhani/da411f15b71ed6a664f9d5ac46409b42)
 * [Convolutional Neural Network For Sentence Classification](https://gist.github.com/shagunsodhani/9ae6d2364c278c97b1b2f4ec53255c56)
 * [Conditional Image Generation with PixelCNN Decoders](https://gist.github.com/shagunsodhani/3cc7066ce7de051d769908b8fab11990)
