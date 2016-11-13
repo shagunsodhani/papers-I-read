@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Generative Adversarial Nets](https://gist.github.com/shagunsodhani/1f9dc0444142be8bd8a7404a226880eb)
 * [A Roadmap towards Machine Intelligence](https://gist.github.com/shagunsodhani/9928673525b1713c2d41fd0fac38f81f)
 * [Smart Reply: Automated Response Suggestion for Email](https://gist.github.com/shagunsodhani/da411f15b71ed6a664f9d5ac46409b42)
 * [Convolutional Neural Network For Sentence Classification](https://gist.github.com/shagunsodhani/9ae6d2364c278c97b1b2f4ec53255c56)
