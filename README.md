@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Skip-Thought Vectors](https://gist.github.com/shagunsodhani/4a4eb32de8cabf21bda9a4ada15c46e8)
 * [Deep Convolutional Generative Adversarial Nets](https://gist.github.com/shagunsodhani/aa79796c70565e3761e86d0f932a3de5)
 * [Generative Adversarial Nets](https://gist.github.com/shagunsodhani/1f9dc0444142be8bd8a7404a226880eb)
 * [A Roadmap towards Machine Intelligence](https://gist.github.com/shagunsodhani/9928673525b1713c2d41fd0fac38f81f)
