@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank](https://gist.github.com/shagunsodhani/6ca136088f58d24f7b08056ec8b97595)
 * [Improving Word Representations via Global Context and Multiple Word Prototypes](https://gist.github.com/shagunsodhani/1be86a9bcbd7f120ce55994dcd932bbf)
 * [Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation](https://gist.github.com/shagunsodhani/9dccec626e68e495fd4577ecdca36b7b)
 * [Skip-Thought Vectors](https://gist.github.com/shagunsodhani/4a4eb32de8cabf21bda9a4ada15c46e8)
