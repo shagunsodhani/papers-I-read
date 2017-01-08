@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Addressing the Rare Word Problem in Neural Machine Translation](https://gist.github.com/shagunsodhani/a18fe14b74c7292129c6c5ecb37f33b5)
 * [Achieving Open Vocabulary Neural Machine Translation with Hybrid Word-Character Models](https://gist.github.com/shagunsodhani/d32e665b27696ce0436c79174a136410)
 * [Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank](https://gist.github.com/shagunsodhani/6ca136088f58d24f7b08056ec8b97595)
 * [Improving Word Representations via Global Context and Multiple Word Prototypes](https://gist.github.com/shagunsodhani/1be86a9bcbd7f120ce55994dcd932bbf)
