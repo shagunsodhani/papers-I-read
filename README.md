@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [“Why Should I Trust You?” Explaining the Predictions of Any Classifier](https://gist.github.com/shagunsodhani/bd744ab6c17a2289ca139ea586d1d65e)
 * [Conditional Generative Adversarial Nets](https://gist.github.com/shagunsodhani/5d726334de3014defeeb701099a3b4b3)
 * [Addressing the Rare Word Problem in Neural Machine Translation](https://gist.github.com/shagunsodhani/a18fe14b74c7292129c6c5ecb37f33b5)
 * [Achieving Open Vocabulary Neural Machine Translation with Hybrid Word-Character Models](https://gist.github.com/shagunsodhani/d32e665b27696ce0436c79174a136410)
