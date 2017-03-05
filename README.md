@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [PPDB: The Paraphrase Database](https://gist.github.com/shagunsodhani/fa1f387f084355dfafdf7550b1899af6)
 * [NewsQA: A Machine Comprehension Dataset](https://gist.github.com/shagunsodhani/c47f0d5c1dfe60ce5da0dd8241e506ea)
 * [A Persona-Based Neural Conversation Model](https://gist.github.com/shagunsodhani/8ad464e7d0ea4c7c6ed5189ac4e44095)
 * [“Why Should I Trust You?” Explaining the Predictions of Any Classifier](https://gist.github.com/shagunsodhani/bd744ab6c17a2289ca139ea586d1d65e)
