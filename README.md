@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Semantic Parsing via Paraphrasing](https://gist.github.com/shagunsodhani/93c96d7dd0488d0d00bd7078889dd6f6)
 * [Traversing Knowledge Graphs in Vector Space](https://gist.github.com/shagunsodhani/e8e6213906ec2642f27b1aca3a6201c6)
 * [PPDB: The Paraphrase Database](https://gist.github.com/shagunsodhani/fa1f387f084355dfafdf7550b1899af6)
 * [NewsQA: A Machine Comprehension Dataset](https://gist.github.com/shagunsodhani/c47f0d5c1dfe60ce5da0dd8241e506ea)
