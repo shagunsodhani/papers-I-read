@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [GuessWhat?! Visual object discovery through multi-modal dialogue](https://gist.github.com/shagunsodhani/2418238e6aefd7b1e8c922cda9e10488)
 * [Semantic Parsing via Paraphrasing](https://gist.github.com/shagunsodhani/93c96d7dd0488d0d00bd7078889dd6f6)
 * [Traversing Knowledge Graphs in Vector Space](https://gist.github.com/shagunsodhani/e8e6213906ec2642f27b1aca3a6201c6)
 * [PPDB: The Paraphrase Database](https://gist.github.com/shagunsodhani/fa1f387f084355dfafdf7550b1899af6)
