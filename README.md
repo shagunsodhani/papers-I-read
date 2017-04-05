@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [End-to-end optimization of goal-driven and visually grounded dialogue systems](https://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786)
 * [GuessWhat?! Visual object discovery through multi-modal dialogue](https://gist.github.com/shagunsodhani/2418238e6aefd7b1e8c922cda9e10488)
 * [Semantic Parsing via Paraphrasing](https://gist.github.com/shagunsodhani/93c96d7dd0488d0d00bd7078889dd6f6)
 * [Traversing Knowledge Graphs in Vector Space](https://gist.github.com/shagunsodhani/e8e6213906ec2642f27b1aca3a6201c6)
@@ -35,7 +36,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [WikiReading : A Novel Large-scale Language Understanding Task over Wikipedia](https://gist.github.com/shagunsodhani/2788ac9dbcac5523cb8b2d0a3d70f2d2)
 * [WikiQA: A challenge dataset for open-domain question answering](https://gist.github.com/shagunsodhani/7cf3677ff2b0028a33e6702fbd260bc5)
 * [Teaching Machines to Read and Comprehend](https://gist.github.com/shagunsodhani/a863eb099bb7a1ab4831cd37bffffb04)
-* [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
+* [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systhttps://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786ems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
 * [Recurrent Neural Network Regularization](https://gist.github.com/shagunsodhani/d66245692b276cd0b6dcbaf43e4211db)
 * [Deep Math: Deep Sequence Models for Premise Selection](https://gist.github.com/shagunsodhani/d8387256f2bb08f39509600f9d7db498)
 * [A Neural Conversational Model](https://gist.github.com/shagunsodhani/ec6835964df0e49fdef0459c8b334b94)
@@ -43,7 +44,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [Advances In Optimizing Recurrent Networks](https://gist.github.com/shagunsodhani/75dc31e3c7999ad4a1edf4f289deaa88)
 * [Query Regression Networks for Machine Comprehension](https://gist.github.com/shagunsodhani/93caa283af3c151372f4be86ed4c4b99)
 * [Sequence to Sequence Learning with Neural Networks](https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f)
-* [The Difficulty of Training Deep Architectures and the Effect of Unsupervised Pre-Training](https://gist.github.com/shagunsodhani/e3608ccf262d6e5a6b537128c917c92c)
+* [The Difficulty of Training Deep Architectures and the Effect of Unsupervised Pre-Training](https://gist.github.com/shagunsodhani/e3608ccf262d6e5a6b537128c917c92https://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786c)
 * [Question Answering with Subgraph Embeddings](https://gist.github.com/shagunsodhani/b65e299ff5f79a4f9da4a2e9281a0676)
 * [Towards AI-Complete Question Answering: A Set of Prerequisite Toy Tasks](https://gist.github.com/shagunsodhani/12691b76addf149a224c24ab64b5bdcc)
 * [Visualizing Large-scale and High-dimensional Data](https://gist.github.com/shagunsodhani/6c267cf6122399e9be36491a2f510641)
