@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Seeing the Arrow of Time](https://gist.github.com/shagunsodhani/828d8de0034a350d97738bbedadc9373)
 * [End-to-end optimization of goal-driven and visually grounded dialogue systems](https://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786)
 * [GuessWhat?! Visual object discovery through multi-modal dialogue](https://gist.github.com/shagunsodhani/2418238e6aefd7b1e8c922cda9e10488)
 * [Semantic Parsing via Paraphrasing](https://gist.github.com/shagunsodhani/93c96d7dd0488d0d00bd7078889dd6f6)
