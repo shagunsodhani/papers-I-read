@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Learning to Generate Reviews and Discovering Sentiment](https://gist.github.com/shagunsodhani/634dbe1aa678188399254bb3d0078e1d)
 * [Seeing the Arrow of Time](https://gist.github.com/shagunsodhani/828d8de0034a350d97738bbedadc9373)
 * [End-to-end optimization of goal-driven and visually grounded dialogue systems](https://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786)
 * [GuessWhat?! Visual object discovery through multi-modal dialogue](https://gist.github.com/shagunsodhani/2418238e6aefd7b1e8c922cda9e10488)
