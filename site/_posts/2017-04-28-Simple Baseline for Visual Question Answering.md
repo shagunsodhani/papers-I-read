@@ -32,3 +32,4 @@ tags: [CV, VQA, AI, NLP, '2015']
 * Question words generally can influence the answer given the bias in images occurring in COCO dataset.
 * Given the simple linear transformation being used, it is possible to quantify the importance of each single words (in the question) to the answer.
 * The paper uses the Class Activation Mapping (CAM) approach (which uses the linear relation between softmax and final image feature map) to highlight the informative image regions relevant to the predicted answer.
+* While the results reported by the paper are not themselves so significant, the described approach provides a way to interpret the strengths and weakness of different VQA datasets.
