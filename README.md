@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Simple Baseline for Visual Question Answering](https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering)
 * [VQA: Visual Question Answering](https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering)
 * [Learning to Generate Reviews and Discovering Sentiment](https://gist.github.com/shagunsodhani/634dbe1aa678188399254bb3d0078e1d)
 * [Seeing the Arrow of Time](https://gist.github.com/shagunsodhani/828d8de0034a350d97738bbedadc9373)
