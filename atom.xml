@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-05-07T13:29:01+05:30</updated>
+ <updated>2017-05-07T13:34:23+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -38,16 +38,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;Given a triplet of images &lt;em&gt;(x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, x&lt;sub&gt;3&lt;/sub&gt;)&lt;/em&gt; and a condition &lt;em&gt;c&lt;/em&gt; (the notion of similarity), an oracle (say crowd) is used to determmine if &lt;em&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; is more similar to &lt;em&gt;x&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; or &lt;em&gt;x&lt;sub&gt;3&lt;/sub&gt;&lt;/em&gt; as per the given criteria &lt;em&gt;c&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;In general, for images &lt;em&gt;i, j, l&lt;/em&gt;, the triplet &lt;em&gt;t&lt;/em&gt; is ordered {i, j, l&lt;/td&gt;
-          &lt;td&gt;c} if &lt;em&gt;i&lt;/em&gt; is more similar to &lt;em&gt;j&lt;/em&gt; than &lt;em&gt;l&lt;/em&gt;.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;In general, for images &lt;em&gt;i, j, l&lt;/em&gt;, the triplet &lt;em&gt;t&lt;/em&gt; is ordered {i, j, l | c} if &lt;em&gt;i&lt;/em&gt; is more similar to &lt;em&gt;j&lt;/em&gt; than &lt;em&gt;l&lt;/em&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;learning-from-triplets&quot;&gt;Learning From Triplets&lt;/h3&gt;
