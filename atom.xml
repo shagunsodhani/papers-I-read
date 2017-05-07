@@ -4,13 +4,133 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-04-28T15:58:55+05:30</updated>
+ <updated>2017-05-07T13:29:01+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Conditional Similarity Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks"/>
+   <updated>2017-05-07T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Conditional Similarity Networks</id>
+   <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A common way of measuring image similarity is to embed them into feature spaces where distance acts as a proxy for similarity.&lt;/li&gt;
+  &lt;li&gt;But this feature space can capture one (or a weighted combination) of the many possible notions of similarity.&lt;/li&gt;
+  &lt;li&gt;What if contracting notions of similarity could be captured at the same time - in terms of semantically distinct subspaces.&lt;/li&gt;
+  &lt;li&gt;The paper proposes a new architecture called as Conditional Similarity Networks (CSNs) which learns a disentangled embedding such that the features, for different notions of similarity, are encoded into separate dimensions.&lt;/li&gt;
+  &lt;li&gt;It jointly learns masks (or feature extractors) that select and reweights relevant dimensions to induce a subspace that encodes a specific notion of similarity.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://vision.cornell.edu/se3/conditional-similarity-networks/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conditional-similarity-networks&quot;&gt;Conditional Similarity Networks&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an image, &lt;em&gt;x&lt;/em&gt;, learn a non-linear feature embedding &lt;em&gt;f(x)&lt;/em&gt; such that for any 2 images &lt;em&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;x&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;, the euclidean distance between &lt;em&gt;f(x&lt;sub&gt;1&lt;/sub&gt;)&lt;/em&gt; and &lt;em&gt;f(x&lt;sub&gt;2&lt;/sub&gt;)&lt;/em&gt; reflects their similarity.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;conditional-similarity-triplets&quot;&gt;Conditional Similarity Triplets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given a triplet of images &lt;em&gt;(x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, x&lt;sub&gt;3&lt;/sub&gt;)&lt;/em&gt; and a condition &lt;em&gt;c&lt;/em&gt; (the notion of similarity), an oracle (say crowd) is used to determmine if &lt;em&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; is more similar to &lt;em&gt;x&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; or &lt;em&gt;x&lt;sub&gt;3&lt;/sub&gt;&lt;/em&gt; as per the given criteria &lt;em&gt;c&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;In general, for images &lt;em&gt;i, j, l&lt;/em&gt;, the triplet &lt;em&gt;t&lt;/em&gt; is ordered {i, j, l&lt;/td&gt;
+          &lt;td&gt;c} if &lt;em&gt;i&lt;/em&gt; is more similar to &lt;em&gt;j&lt;/em&gt; than &lt;em&gt;l&lt;/em&gt;.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;learning-from-triplets&quot;&gt;Learning From Triplets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Define a loss function &lt;em&gt;L&lt;sub&gt;T&lt;/sub&gt;()&lt;/em&gt; to model the similarity structure over the triplets.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;L&lt;sub&gt;T&lt;/sub&gt;(i, j, l) = max{0, D(i, j) - D(i, l) + h}&lt;/em&gt; where &lt;em&gt;D&lt;/em&gt; is the euclidean distance function and &lt;em&gt;h&lt;/em&gt; is the similarity scalar margin to prevent trivial solutions.&lt;/li&gt;
+  &lt;li&gt;To model conditional similarities, masks &lt;em&gt;m&lt;/em&gt; are defined as &lt;em&gt;m = σ(β)&lt;/em&gt; where σ is the RELU unit and β is a set of parameters to be learnt.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;m&lt;sub&gt;c&lt;/sub&gt;&lt;/em&gt; denotes the selection of the c-th mask column from feature vector. It thus acts as an element-wise gating function which selects the relevant dimensions of the embedding to attend to a particular similarity concept.&lt;/li&gt;
+  &lt;li&gt;The euclidean function &lt;em&gt;D&lt;/em&gt; now computes the masked distance (&lt;em&gt;f(i, c)m&lt;sub&gt;c&lt;/sub&gt;&lt;/em&gt;) between the two given images.&lt;/li&gt;
+  &lt;li&gt;Two regularising terms are also added - L2 norm for &lt;em&gt;D&lt;/em&gt; and L1 norm for &lt;em&gt;m&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fonts dataset by Bernhardsson
+    &lt;ul&gt;
+      &lt;li&gt;3.1 million 64 by 64-pixel grey scale images.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Zappos50k shoe dataset
+    &lt;ul&gt;
+      &lt;li&gt;Contains 50,000 images of individual richly annotated shoes.&lt;/li&gt;
+      &lt;li&gt;Characteristics of interest:
+        &lt;ul&gt;
+          &lt;li&gt;Type of the shoes (i.e., shoes, boots, sandals or slippers)&lt;/li&gt;
+          &lt;li&gt;Suggested gender of the shoes (i.e., for women, men, girls or boys)&lt;/li&gt;
+          &lt;li&gt;Height of the shoes’ heels (0 to 5 inches)&lt;/li&gt;
+          &lt;li&gt;Closing mechanism of the shoes (buckle, pull on, slip on, hook and loop or laced up)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;models&quot;&gt;Models&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Initial model for the experiments is a ConvNet pre-trained on ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Standard Triplet Network&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Learn from all available triplets jointly as if they have the same notion of similarity.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Set of Task Specific Triplet Networks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Train n separate triplet networks such that each is trained on a single notion of similarity.&lt;/li&gt;
+      &lt;li&gt;Needs far more parameters and compute.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Conditional Similarity Networks - fixed disjoint masks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;In this version, only the convolutional filters and the embedding is learnt and masks are predefined to be disjoint.&lt;/li&gt;
+      &lt;li&gt;Aims to learn a fully disjoint embedding.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Conditional Similarity Networks - learned masks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Learns all the components - conv filters, embedding and the masks.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Refer paper for details on hyperparameters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Visual exploration of the learned subspaces (t-sne visualisation) show that network successfully disentangles different features in the embedded vector space.&lt;/li&gt;
+  &lt;li&gt;The learned masks are very sparse and share dimensions. This shows that CSNs may learn to only use the required number of dimensions thereby doing away with the need of picking the right size of embedding.&lt;/li&gt;
+  &lt;li&gt;Order of performance:
+    &lt;ul&gt;
+      &lt;li&gt;CSNs with learned masks &amp;gt; CSNs with fixed masks &amp;gt; Task-specific networks &amp;gt; standard triplet network.&lt;/li&gt;
+      &lt;li&gt;Though CSNs with learned masks require more training data.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CSNs also outperform Standard Triplet Network when used as off the shelf features for (brand) classification task and is very close to the performance of ResNet trained on ImageNet.&lt;/li&gt;
+  &lt;li&gt;This shows that while CSN retained most of the information in the original network, the training mechanism of Standard Triplet Network hurts the underlying conv features and their generalising capability&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Simple Baseline for Visual Question Answering</title>
