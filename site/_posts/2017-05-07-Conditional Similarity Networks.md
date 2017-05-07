@@ -22,7 +22,7 @@ tags: [CV, AI, CVPR, Embedding, 'CVPR2017', '2017']
 ### Conditional Similarity Triplets
 
 * Given a triplet of images *(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>)* and a condition *c* (the notion of similarity), an oracle (say crowd) is used to determmine if *x<sub>1</sub>* is more similar to *x<sub>2</sub>* or *x<sub>3</sub>* as per the given criteria *c*.
-* In general, for images *i, j, l*, the triplet *t* is ordered {i, j, l | c} if *i* is more similar to *j* than *l*.
+* In general, for images *i, j, l*, the triplet *t* is ordered {i, j, l \| c} if *i* is more similar to *j* than *l*.
 
 ### Learning From Triplets
 
