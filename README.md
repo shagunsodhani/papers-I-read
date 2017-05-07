@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Conditional Similarity Networks](https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks)
 * [Simple Baseline for Visual Question Answering](https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering)
 * [VQA: Visual Question Answering](https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering)
 * [Learning to Generate Reviews and Discovering Sentiment](https://gist.github.com/shagunsodhani/634dbe1aa678188399254bb3d0078e1d)
