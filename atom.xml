@@ -4,13 +4,59 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-05-07T13:34:23+05:30</updated>
+ <updated>2017-05-14T17:52:15+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
+   <updated>2017-05-14T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
+   <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Standard VQA models benefit from the inherent bias in the structure of the world and the language of the question.&lt;/li&gt;
+  &lt;li&gt;For example, if the question starts with “Do you see a …”, it is more likely to be “yes” than “no”.&lt;/li&gt;
+  &lt;li&gt;To truly assess the capability of any VQA system, we need to have evaluation tasks that require the use of both the visual and the language modality.&lt;/li&gt;
+  &lt;li&gt;The authors present a balanced version of &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering&quot;&gt;VQA dataset&lt;/a&gt; where each question in the dataset is associated with a pair of similar images such that the same question would give different answers on the two images.&lt;/li&gt;
+  &lt;li&gt;The proposed data collection procedure enables the authors to develop a novel interpretable model which, given an image and a question, identifies an image that is similar to the original image but has a different answer to the same question thereby building trust for the system.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1612.00837&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dataset-collection&quot;&gt;Dataset Collection&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an (image, question, answer) triplet (I, Q, A) from the VQA dataset, a human worker (on AMT) is asked to identify an image I’ which is similar to I but for which the answer to question Q is A’ (different from A).&lt;/li&gt;
+  &lt;li&gt;To facilitate the search for I’, the worker is shown 24 nearest-neighbor images of I (based on VGGNet features) and is asked to choose the most similar image to I, for which Q makes sense and answer for Q is different than A. In case none of the 24 images qualifies, the worker may select “not possible”.&lt;/li&gt;
+  &lt;li&gt;In the second round, the workers were asked to answer Q for I’.&lt;/li&gt;
+  &lt;li&gt;This 2-stage protocol results in a significantly more balanced dataset than the previous dataset.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;observation&quot;&gt;Observation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;State-of-the-art models trained on unbalanced VQA dataset perform significantly worse on the new, balanced dataset indicating that those models benefitted from the language bias in the older dataset.&lt;/li&gt;
+  &lt;li&gt;Training on balanced dataset improves performance on the unbalanced dataset.&lt;/li&gt;
+  &lt;li&gt;Further, the VQA model, trained on the balanced dataset, learns to differentiate between otherwise similar images.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;counter-example-explanations&quot;&gt;Counter-example Explanations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an image and a question, the model not only answers the question, it also provides an image (from the k nearest neighbours of I, based on VGGNet features) which is similar to the input image but for which the model would have given different answer for the same image.&lt;/li&gt;
+  &lt;li&gt;Supervising signal is provided by the data collection procedure where humans pick the image I’ from the same set of candidate images.&lt;/li&gt;
+  &lt;li&gt;For each image in the candidate set, compute the inner product of question-image embedding and answer embedding.&lt;/li&gt;
+  &lt;li&gt;The K inner product values are passed through a fully connected layer to generate K scores.&lt;/li&gt;
+  &lt;li&gt;Trained with pairwise hinge ranking loss so that the score of the human picked image is higher than the score of all other images by a margin of M (hyperparameter).&lt;/li&gt;
+  &lt;li&gt;The proposed explanation model achieves a recall@5 of 43.49%&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Conditional Similarity Networks</title>

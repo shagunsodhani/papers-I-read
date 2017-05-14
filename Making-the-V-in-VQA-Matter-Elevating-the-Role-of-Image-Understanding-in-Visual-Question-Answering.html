@@ -11,7 +11,7 @@
 
   <title>
     
-      Simple Baseline for Visual Question Answering &middot; Papers I Read
+      Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering &middot; Papers I Read
     
   </title>
 
@@ -103,42 +103,46 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Simple Baseline for Visual Question Answering</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a></p>
-  <span class="post-date">28 Apr 2017</span>
+  <h1 class="post-title">Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
+  <span class="post-date">14 May 2017</span>
   <h3 id="problem-statement">Problem Statement</h3>
 
 <ul>
-  <li>VQA Task: Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.</li>
-  <li>The paper attempts to fine tune the simple baseline method of Bag-of-Words + Image features (iBOWIMG) to make it competitive against more sophisticated LSTM models.</li>
-  <li><a href="http://arxiv.org/pdf/1512.02167.pdf">Link to the paper</a></li>
+  <li>Standard VQA models benefit from the inherent bias in the structure of the world and the language of the question.</li>
+  <li>For example, if the question starts with “Do you see a …”, it is more likely to be “yes” than “no”.</li>
+  <li>To truly assess the capability of any VQA system, we need to have evaluation tasks that require the use of both the visual and the language modality.</li>
+  <li>The authors present a balanced version of <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering">VQA dataset</a> where each question in the dataset is associated with a pair of similar images such that the same question would give different answers on the two images.</li>
+  <li>The proposed data collection procedure enables the authors to develop a novel interpretable model which, given an image and a question, identifies an image that is similar to the original image but has a different answer to the same question thereby building trust for the system.</li>
+  <li><a href="https://arxiv.org/abs/1612.00837">Link to the paper</a></li>
 </ul>
 
-<h3 id="model">Model</h3>
+<h3 id="dataset-collection">Dataset Collection</h3>
 
 <ul>
-  <li>VQA modelled as a classification task where the system learns to choose among one of the top k most prominent answers.</li>
-  <li><strong>Text Features</strong> - Convert input question to a one-hot vector and then transform to word vectors using a word embedding.</li>
-  <li><strong>Image Features</strong> - Last layer activations from GoogLeNet.</li>
-  <li>Text features are concatenated with image features and fed into a softmax.</li>
-  <li>Different learning rates and weight clipping for word embedding layer and softmax layer with the learning rate for embedding layer much higher than that of softmax layer.</li>
+  <li>Given an (image, question, answer) triplet (I, Q, A) from the VQA dataset, a human worker (on AMT) is asked to identify an image I’ which is similar to I but for which the answer to question Q is A’ (different from A).</li>
+  <li>To facilitate the search for I’, the worker is shown 24 nearest-neighbor images of I (based on VGGNet features) and is asked to choose the most similar image to I, for which Q makes sense and answer for Q is different than A. In case none of the 24 images qualifies, the worker may select “not possible”.</li>
+  <li>In the second round, the workers were asked to answer Q for I’.</li>
+  <li>This 2-stage protocol results in a significantly more balanced dataset than the previous dataset.</li>
 </ul>
 
-<h3 id="results">Results</h3>
+<h3 id="observation">Observation</h3>
 
 <ul>
-  <li>iBOWIMG model reports an accuracy of 55.89% for Open-ended questions and 61.97% for Multiple-Choice questions which is comparable to the performance of other, more sophisticated models.</li>
+  <li>State-of-the-art models trained on unbalanced VQA dataset perform significantly worse on the new, balanced dataset indicating that those models benefitted from the language bias in the older dataset.</li>
+  <li>Training on balanced dataset improves performance on the unbalanced dataset.</li>
+  <li>Further, the VQA model, trained on the balanced dataset, learns to differentiate between otherwise similar images.</li>
 </ul>
 
-<h3 id="interpretation-of-the-model">Interpretation of the model</h3>
+<h3 id="counter-example-explanations">Counter-example Explanations</h3>
 
 <ul>
-  <li>Since the model is very simple, it is possible to interpret the model to know what exactly is the model learning. This is the greatest strength of the paper even though the model is very simple and naive.</li>
-  <li>The model attempts to memorise the correlation between the answer class and the informative words (in the question) and image features.</li>
-  <li>Question words generally can influence the answer given the bias in images occurring in COCO dataset.</li>
-  <li>Given the simple linear transformation being used, it is possible to quantify the importance of each single words (in the question) to the answer.</li>
-  <li>The paper uses the Class Activation Mapping (CAM) approach (which uses the linear relation between softmax and final image feature map) to highlight the informative image regions relevant to the predicted answer.</li>
-  <li>While the results reported by the paper are not themselves so significant, the described approach provides a way to interpret the strengths and weakness of different VQA datasets.</li>
+  <li>Given an image and a question, the model not only answers the question, it also provides an image (from the k nearest neighbours of I, based on VGGNet features) which is similar to the input image but for which the model would have given different answer for the same image.</li>
+  <li>Supervising signal is provided by the data collection procedure where humans pick the image I’ from the same set of candidate images.</li>
+  <li>For each image in the candidate set, compute the inner product of question-image embedding and answer embedding.</li>
+  <li>The K inner product values are passed through a fully connected layer to generate K scores.</li>
+  <li>Trained with pairwise hinge ranking loss so that the score of the human picked image is higher than the score of all other images by a margin of M (hyperparameter).</li>
+  <li>The proposed explanation model achieves a recall@5 of 43.49%</li>
 </ul>
 
 </div>
@@ -149,18 +153,18 @@
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering">
-            Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering
-            <small>14 May 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks">
+            Conditional Similarity Networks
+            <small>07 May 2017</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks">
-            Conditional Similarity Networks
-            <small>07 May 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering">
+            Simple Baseline for Visual Question Answering
+            <small>28 Apr 2017</small>
           </a>
         </h3>
       </li>
@@ -190,8 +194,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Simple-Baseline-for-Visual-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
