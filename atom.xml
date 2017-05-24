@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Papers I Read</title>
- <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
- <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-05-14T17:52:15+05:30</updated>
- <id>https://shagunsodhani.in/papers-I-read</id>
+ <link href="/atom.xml" rel="self"/>
+ <link href="/"/>
+ <updated>2017-05-24T15:04:45+05:30</updated>
+ <id></id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
@@ -13,10 +13,92 @@
 
  
  <entry>
+   <title>Neural Module Networks</title>
+   <link href="/Neural-Module-Networks"/>
+   <updated>2017-05-23T00:00:00+05:30</updated>
+   <id>/Neural Module Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For the task of &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering&quot;&gt;Visual Question Answering&lt;/a&gt;, decompose a question into its linguistic substructures and train a neural network module for each substructure.&lt;/li&gt;
+  &lt;li&gt;Jointly train the modules and dynamically compose them into deep networks which can learn to answer the question.&lt;/li&gt;
+  &lt;li&gt;Start by analyzing the question and decide what logical units are needed to answer the question and what should be the relationship between them.&lt;/li&gt;
+  &lt;li&gt;The paper also introduces a new dataset for Visual Question Answering which has challenging, highly compositional questions about abstract shapes.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1511.02799&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;inspiration&quot;&gt;Inspiration&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Questions tend to be compositional.&lt;/li&gt;
+  &lt;li&gt;Different architectures are needed for different tasks - CNNs for object detection, RNNs for counting.&lt;/li&gt;
+  &lt;li&gt;Recurrent and Recursive Neural Networks also use the idea of a different network graph for each input.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;neural-module-network-for-vqa&quot;&gt;Neural Module Network for VQA&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Training samples of form &lt;em&gt;(w, x, y)&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;w&lt;/em&gt; - Natural Language Question&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;x&lt;/em&gt; - Images&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;y&lt;/em&gt; - Answer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Model specified by collection of modules &lt;em&gt;{m}&lt;/em&gt; and a network layout predictor &lt;em&gt;P&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Model instantiates a network based on &lt;em&gt;P(w)&lt;/em&gt; and uses that to encode a distribution &lt;em&gt;P(y|w, x, model_params)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;modules&quot;&gt;Modules&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Find: Finds objects of interest.&lt;/li&gt;
+  &lt;li&gt;Transform: Shift regions of attention.&lt;/li&gt;
+  &lt;li&gt;Combine: Merge two attention maps into a single one.&lt;/li&gt;
+  &lt;li&gt;Describe: Map a pair of attention and input image to a distribution over the labels.&lt;/li&gt;
+  &lt;li&gt;Measure: Map attention to a distribution over the labels.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;natural-language-question-to-networks&quot;&gt;Natural Language Question to Networks&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Map question to the layout which specifies the set of modules and connections between them.&lt;/li&gt;
+  &lt;li&gt;Assemble the final network using the layout.&lt;/li&gt;
+  &lt;li&gt;Parse the input question to obtain set of dependencies and obtain a representation similar to combinatory logic.&lt;/li&gt;
+  &lt;li&gt;eg “what is the colour of the truck?” becomes “colour(truck)”&lt;/li&gt;
+  &lt;li&gt;The symbolic representation is mapped to a layout:
+    &lt;ul&gt;
+      &lt;li&gt;All leaves become &lt;em&gt;find&lt;/em&gt; module.&lt;/li&gt;
+      &lt;li&gt;All internal nodes become &lt;em&gt;transform/combine&lt;/em&gt; module.&lt;/li&gt;
+      &lt;li&gt;All root nodes become &lt;em&gt;describe/measure&lt;/em&gt; module.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;answering-natural-language-question&quot;&gt;Answering Natural Language Question&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Final model combines output from a simple LSTM question encoder with the output of the neural module network.&lt;/li&gt;
+  &lt;li&gt;This helps in modelling the syntactic and semantic regularities of the question.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Since some modules are updated more frequently than others, adaptive per weight learning rates are better.&lt;/li&gt;
+  &lt;li&gt;The paper introduces a small SHAPES datasets (64 images and 244 unique questions per image).&lt;/li&gt;
+  &lt;li&gt;Neural Module Network achieves a score of 90% on SHAPES dataset while VIS + LSTM baseline achieves an accuracy of 65.3%.&lt;/li&gt;
+  &lt;li&gt;Even on natural images (VQA dataset), the neural module network outperforms the VIS + LSTM baseline.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
+   <link href="/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
    <updated>2017-05-14T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
+   <id>/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -60,9 +142,9 @@
  
  <entry>
    <title>Conditional Similarity Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks"/>
+   <link href="/Conditional-Similarity-Networks"/>
    <updated>2017-05-07T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Conditional Similarity Networks</id>
+   <id>/Conditional Similarity Networks</id>
    <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -171,9 +253,9 @@
  
  <entry>
    <title>Simple Baseline for Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"/>
+   <link href="/Simple-Baseline-for-Visual-Question-Answering"/>
    <updated>2017-04-28T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Simple Baseline for Visual Question Answering</id>
+   <id>/Simple Baseline for Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -213,9 +295,9 @@
  
  <entry>
    <title>VQA-Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"/>
+   <link href="/VQA-Visual-Question-Answering"/>
    <updated>2017-04-27T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/VQA Visual Question Answering</id>
+   <id>/VQA Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
