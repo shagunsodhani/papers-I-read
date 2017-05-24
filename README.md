@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Neural Module Networks](https://shagunsodhani.in/papers-I-read/Neural-Module-Networks)
 * [Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering](https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering)
 * [Conditional Similarity Networks](https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks)
 * [Simple Baseline for Visual Question Answering](https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering)
