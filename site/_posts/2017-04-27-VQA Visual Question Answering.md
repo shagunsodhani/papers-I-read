@@ -3,7 +3,7 @@ layout: post
 title: VQA-Visual Question Answering
 comments: True
 excerpt: Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.
-tags: [CV, VQA, AI, NLP, ICCV, 'ICCV2015', '2015']
+tags: ['2015', 'ICCV2015', AI, CV, Dataset, ICCV, NLP, VQA]
 ---
 
 ### Problem Statement
