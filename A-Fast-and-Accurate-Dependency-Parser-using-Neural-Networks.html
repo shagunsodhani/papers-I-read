@@ -11,7 +11,7 @@
 
   <title>
     
-      Neural Module Networks &middot; Papers I Read
+      A Fast and Accurate Dependency Parser using Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -107,83 +107,76 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Neural Module Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CVPR2016" title="Pages tagged CVPR2016" rel="tag">CVPR2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CVPR" title="Pages tagged CVPR" rel="tag">CVPR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NeuralModuleNetwork" title="Pages tagged NeuralModuleNetwork" rel="tag">NeuralModuleNetwork</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
-  <span class="post-date">23 May 2017</span>
+  <h1 class="post-title">A Fast and Accurate Dependency Parser using Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2014" title="Pages tagged 2014" rel="tag">2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#EMNLP2014" title="Pages tagged EMNLP2014" rel="tag">EMNLP2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#DependencyParsing" title="Pages tagged DependencyParsing" rel="tag">DependencyParsing</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#EMNLP" title="Pages tagged EMNLP" rel="tag">EMNLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">03 Jun 2017</span>
   <h2 id="introduction">Introduction</h2>
-
 <ul>
-  <li>For the task of <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering">Visual Question Answering</a>, decompose a question into its linguistic substructures and train a neural network module for each substructure.</li>
-  <li>Jointly train the modules and dynamically compose them into deep networks which can learn to answer the question.</li>
-  <li>Start by analyzing the question and decide what logical units are needed to answer the question and what should be the relationship between them.</li>
-  <li>The paper also introduces a new dataset for Visual Question Answering which has challenging, highly compositional questions about abstract shapes.</li>
-  <li><a href="https://arxiv.org/abs/1511.02799">Link to the paper</a></li>
+  <li>The paper proposes a neural network classifier to perform transition-based dependency parsing using dense vector representation for the features.</li>
+  <li>Earlier approaches used a large, manually designed sparse feature vector which took a lot of time and effort to compute and was often incomplete.</li>
+  <li><a href="http://cs.stanford.edu/people/danqi/papers/emnlp2014.pdf">Link to the paper</a></li>
 </ul>
 
-<h2 id="inspiration">Inspiration</h2>
+<h2 id="description-of-the-system">Description of the system</h2>
 
 <ul>
-  <li>Questions tend to be compositional.</li>
-  <li>Different architectures are needed for different tasks - CNNs for object detection, RNNs for counting.</li>
-  <li>Recurrent and Recursive Neural Networks also use the idea of a different network graph for each input.</li>
-</ul>
-
-<h2 id="neural-module-network-for-vqa">Neural Module Network for VQA</h2>
-
-<ul>
-  <li>Training samples of form <em>(w, x, y)</em>
-    <ul>
-      <li><em>w</em> - Natural Language Question</li>
-      <li><em>x</em> - Images</li>
-      <li><em>y</em> - Answer</li>
-    </ul>
-  </li>
-  <li>Model specified by collection of modules <em>{m}</em> and a network layout predictor <em>P</em>.</li>
-  <li>Model instantiates a network based on <em>P(w)</em> and uses that to encode a distribution <em>P(y|w, x, model_params)</em></li>
-</ul>
-
-<h2 id="modules">Modules</h2>
-
-<ul>
-  <li>Find: Finds objects of interest.</li>
-  <li>Transform: Shift regions of attention.</li>
-  <li>Combine: Merge two attention maps into a single one.</li>
-  <li>Describe: Map a pair of attention and input image to a distribution over the labels.</li>
-  <li>Measure: Map attention to a distribution over the labels.</li>
-</ul>
-
-<h2 id="natural-language-question-to-networks">Natural Language Question to Networks</h2>
-
-<ul>
-  <li>Map question to the layout which specifies the set of modules and connections between them.</li>
-  <li>Assemble the final network using the layout.</li>
-  <li>Parse the input question to obtain set of dependencies and obtain a representation similar to combinatory logic.</li>
-  <li>eg “what is the colour of the truck?” becomes “colour(truck)”</li>
-  <li>The symbolic representation is mapped to a layout:
-    <ul>
-      <li>All leaves become <em>find</em> module.</li>
-      <li>All internal nodes become <em>transform/combine</em> module.</li>
-      <li>All root nodes become <em>describe/measure</em> module.</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="answering-natural-language-question">Answering Natural Language Question</h2>
-
-<ul>
-  <li>Final model combines output from a simple LSTM question encoder with the output of the neural module network.</li>
-  <li>This helps in modelling the syntactic and semantic regularities of the question.</li>
+  <li>The system described in the paper uses <a href="http://www.mitpressjournals.org/doi/pdf/10.1162/coli.07-056-R1-07-027"><strong>arc-standard</strong> system</a> (a greedy, transition-based dependency parsing system).</li>
+  <li>Words, POS tags and arc labels are represented as d dimensional vectors.</li>
+  <li>S<sup>w</sup>, S<sup>t</sup>, S<sup>l</sup> denote the set of words, POS and labels respectively.</li>
+  <li>Neural network takes as input selected words from the 3 sets and uses a single hidden layer followed by Softmax which models the different actions that can be chosen by the arc-standard system.</li>
+  <li>Uses a cube activation function to allow interaction between features coming from the set of words, POS and labels in the first layer itself. These features come from different embeddings and are not related as such.</li>
+  <li>Using separate embedding for POS tags and labels allow for capturing aspects like NN (singular noun) should be closer to NNS (plural noun) than DT (determiner).</li>
+  <li>Input to the network contains words on the stack and buffer and their left and right children (read upon transition-based parsing), their labels and corresponding arc labels.</li>
+  <li>Output generated by the system is the action to be taken (transition to be performed) when reading each word in the input.</li>
+  <li>This sequential and deterministic nature of the input-output mapping allows the problem to be modelled as a supervised learning problem and a cross entropy loss can be used.</li>
+  <li>L2-regularization term is also added to the loss.</li>
+  <li>During inference, a greedy decoding strategy is used and transition with the highest score is chosen.</li>
+  <li>The paper mentions a pre-computation trick where matrix computation of most frequent top 10000 words is performed beforehand and cached.</li>
 </ul>
 
 <h2 id="experiments">Experiments</h2>
 
 <ul>
-  <li>Since some modules are updated more frequently than others, adaptive per weight learning rates are better.</li>
-  <li>The paper introduces a small SHAPES datasets (64 images and 244 unique questions per image).</li>
-  <li>Neural Module Network achieves a score of 90% on SHAPES dataset while VIS + LSTM baseline achieves an accuracy of 65.3%.</li>
-  <li>Even on natural images (VQA dataset), the neural module network outperforms the VIS + LSTM baseline.</li>
+  <li>Dataset
+    <ul>
+      <li>English Penn Treebank (PTB)</li>
+      <li>Chinese Penn Treebank (CTB)</li>
+    </ul>
+  </li>
+  <li>Two dependency representations used:
+    <ul>
+      <li>CoNLL Syntactic Dependencies (CD)</li>
+      <li>Stanford Basic Dependencies (SD)</li>
+    </ul>
+  </li>
+  <li>Metrics:
+    <ul>
+      <li>Unlabeled Attached Scores (UAS)</li>
+      <li>Labeled Attached Scores (LAS)</li>
+    </ul>
+  </li>
+  <li>Benchmarked against:
+    <ul>
+      <li>Greedy arc-eager parser</li>
+      <li>Greedy arc-standard parser</li>
+      <li>Malt-Parser</li>
+      <li>MSTParser</li>
+    </ul>
+  </li>
+  <li>Results
+    <ul>
+      <li>The system proposed in the paper outperforms all other parsers in both speed and accuracy.</li>
+    </ul>
+  </li>
 </ul>
 
+<h2 id="analysis">Analysis</h2>
+
+<ul>
+  <li>Cube function gives a 0.8-1.2% improvement over tanh.</li>
+  <li>Pretained embeddings give 0.7-1.7% improvement over training embeddings from scratch.</li>
+  <li>Using POS and labels gives an improvement of 1.7% and 0.4% respectively.</li>
+</ul>
 
 </div>
 
@@ -193,9 +186,9 @@
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks">
-            A Fast and Accurate Dependency Parser using Neural Networks
-            <small>03 Jun 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/Neural-Module-Networks">
+            Neural Module Networks
+            <small>23 May 2017</small>
           </a>
         </h3>
       </li>
@@ -234,8 +227,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Neural-Module-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Neural-Module-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
