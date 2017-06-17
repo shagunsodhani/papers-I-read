@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [A Decomposable Attention Model for Natural Language Inference](https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference)
 * [A Fast and Accurate Dependency Parser using Neural Networks](https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks)
 * [Neural Module Networks](https://shagunsodhani.in/papers-I-read/Neural-Module-Networks)
 * [Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering](https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering)
