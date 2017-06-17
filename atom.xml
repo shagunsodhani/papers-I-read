@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Papers I Read</title>
- <link href="/atom.xml" rel="self"/>
- <link href="/"/>
- <updated>2017-06-17T15:07:15+05:30</updated>
- <id></id>
+ <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
+ <link href="https://shagunsodhani.in/papers-I-read/"/>
+ <updated>2017-06-17T15:09:54+05:30</updated>
+ <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>A Decomposable Attention Model for Natural Language Inference</title>
-   <link href="/A-Decomposable-Attention-Model-for-Natural-Language-Inference"/>
+   <link href="https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference"/>
    <updated>2017-06-17T00:00:00+05:30</updated>
-   <id>/A Decomposable Attention Model for Natural Language Inference</id>
+   <id>https://shagunsodhani.in/papers-I-read/A Decomposable Attention Model for Natural Language Inference</id>
    <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -88,9 +88,9 @@
  
  <entry>
    <title>A Fast and Accurate Dependency Parser using Neural Networks</title>
-   <link href="/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
+   <link href="https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
    <updated>2017-06-03T00:00:00+05:30</updated>
-   <id>/A Fast and Accurate Dependency Parser using Neural Networks</id>
+   <id>https://shagunsodhani.in/papers-I-read/A Fast and Accurate Dependency Parser using Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;The paper proposes a neural network classifier to perform transition-based dependency parsing using dense vector representation for the features.&lt;/li&gt;
@@ -163,9 +163,9 @@
  
  <entry>
    <title>Neural Module Networks</title>
-   <link href="/Neural-Module-Networks"/>
+   <link href="https://shagunsodhani.in/papers-I-read/Neural-Module-Networks"/>
    <updated>2017-05-23T00:00:00+05:30</updated>
-   <id>/Neural Module Networks</id>
+   <id>https://shagunsodhani.in/papers-I-read/Neural Module Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -245,9 +245,9 @@
  
  <entry>
    <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
-   <link href="/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
+   <link href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
    <updated>2017-05-14T00:00:00+05:30</updated>
-   <id>/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
+   <id>https://shagunsodhani.in/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -291,9 +291,9 @@
  
  <entry>
    <title>Conditional Similarity Networks</title>
-   <link href="/Conditional-Similarity-Networks"/>
+   <link href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks"/>
    <updated>2017-05-07T00:00:00+05:30</updated>
-   <id>/Conditional Similarity Networks</id>
+   <id>https://shagunsodhani.in/papers-I-read/Conditional Similarity Networks</id>
    <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -402,9 +402,9 @@
  
  <entry>
    <title>Simple Baseline for Visual Question Answering</title>
-   <link href="/Simple-Baseline-for-Visual-Question-Answering"/>
+   <link href="https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"/>
    <updated>2017-04-28T00:00:00+05:30</updated>
-   <id>/Simple Baseline for Visual Question Answering</id>
+   <id>https://shagunsodhani.in/papers-I-read/Simple Baseline for Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -444,9 +444,9 @@
  
  <entry>
    <title>VQA-Visual Question Answering</title>
-   <link href="/VQA-Visual-Question-Answering"/>
+   <link href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"/>
    <updated>2017-04-27T00:00:00+05:30</updated>
-   <id>/VQA Visual Question Answering</id>
+   <id>https://shagunsodhani.in/papers-I-read/VQA Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
