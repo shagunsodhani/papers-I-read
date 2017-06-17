@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Papers I Read</title>
- <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
- <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-06-03T16:14:35+05:30</updated>
- <id>https://shagunsodhani.in/papers-I-read</id>
+ <link href="/atom.xml" rel="self"/>
+ <link href="/"/>
+ <updated>2017-06-17T15:07:15+05:30</updated>
+ <id></id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
@@ -13,10 +13,84 @@
 
  
  <entry>
+   <title>A Decomposable Attention Model for Natural Language Inference</title>
+   <link href="/A-Decomposable-Attention-Model-for-Natural-Language-Inference"/>
+   <updated>2017-06-17T00:00:00+05:30</updated>
+   <id>/A Decomposable Attention Model for Natural Language Inference</id>
+   <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper proposes an attention based mechanism to decompose the problem of Natural Language Inference (NLI) into parallelizable subproblems.&lt;/li&gt;
+  &lt;li&gt;Further, it uses much fewer parameters as compared to any other model while obtaining state of the art results.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1606.01933&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;The motivation behind the paper is that the tasks like NLI do not require deep modelling of the sentence structure and comparison of local text substructures followed by aggregation can also work very well&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;approach&quot;&gt;Approach&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given two sentences &lt;strong&gt;a&lt;/strong&gt; and &lt;strong&gt;b&lt;/strong&gt;, the model has to predict whether they have an “entailment” relationship, “neutral” relationship or “contradiction” relationship.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;All the words are mapped to their corresponding word vector representation. In subsequent steps, “word” refers to the word vector representation of the actual word.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Attend&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;For each word &lt;em&gt;i&lt;/em&gt; in &lt;strong&gt;a&lt;/strong&gt; and &lt;em&gt;j&lt;/em&gt; in &lt;strong&gt;b&lt;/strong&gt;, obtain unnormalized attention weights *e(i, j)=F(i)&lt;sup&gt;T&lt;/sup&gt;F(j) where F is a feed-forward neural network.&lt;/li&gt;
+      &lt;li&gt;For &lt;em&gt;i&lt;/em&gt;, compute a β&lt;sub&gt;i&lt;/sub&gt; by performing softmax-like normalization of &lt;em&gt;j&lt;/em&gt; using &lt;em&gt;e(i, j)&lt;/em&gt; as the weight and normalizing for all words &lt;em&gt;j&lt;/em&gt; in &lt;strong&gt;b&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;β&lt;sub&gt;i&lt;/sub&gt; captures the subphrase in &lt;strong&gt;b&lt;/strong&gt; that is softly aligned to &lt;em&gt;a&lt;/em&gt;.&lt;/li&gt;
+      &lt;li&gt;Similarly compute α&lt;sub&gt;j&lt;/sub&gt; for &lt;em&gt;j&lt;/em&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Compare&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Create two set of comparison vectors, one for &lt;strong&gt;a&lt;/strong&gt; and another for &lt;strong&gt;b&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;For &lt;strong&gt;a&lt;/strong&gt;, &lt;strong&gt;v&lt;sub&gt;1, i&lt;/sub&gt;&lt;/strong&gt; = G(concatenate(i, β&lt;sub&gt;i&lt;/sub&gt;)).&lt;/li&gt;
+      &lt;li&gt;Similarly for &lt;strong&gt;b&lt;/strong&gt;, &lt;strong&gt;v&lt;sub&gt;2, j&lt;/sub&gt;&lt;/strong&gt; = G(concatenate(j, α&lt;sub&gt;j&lt;/sub&gt;))&lt;/li&gt;
+      &lt;li&gt;G is another feed-forward neural network.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Aggregate&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Aggregate over the two set of comparison vectors to obtain &lt;strong&gt;v&lt;sub&gt;1&lt;/sub&gt;&lt;/strong&gt; and &lt;strong&gt;v&lt;sub&gt;2&lt;/sub&gt;&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;Feed the aggregated results through the final classifier layer.&lt;/li&gt;
+      &lt;li&gt;Multi-class cross-entropy loss function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The paper also explains how this representation can be augmented using intra-sentence attention to the model compositional relationship between words.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;computational-complexity&quot;&gt;Computational Complexity&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Computationally, the proposed model is asymptotically as good as LSTM with attention.&lt;/li&gt;
+  &lt;li&gt;Assuming that dimensionality of word vectors &amp;gt; length of the sentence (reasonable for the given SNLI dataset), the model is asymptotically as good as regular LSTM.&lt;/li&gt;
+  &lt;li&gt;Further, the model has the advantage of being parallelizable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;On Stanford Natural Language Inference (SNLI) dataset, the proposed model achieves the state of the art results even when it uses an order of magnitude lesser parameters than the next best model.&lt;/li&gt;
+  &lt;li&gt;Adding intra-sentence attention further improve the test accuracy by 0.5 percent.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;notes&quot;&gt;Notes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A similar approach could be tried on paraphrase detection problem as even that problem should not require very deep sentence representation. &lt;a href=&quot;https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs&quot;&gt;Quora Duplicate Question Detection Challenege&lt;/a&gt;  would have been an ideal dataset but it has a lot of out-of-vocabulary information related to named entities which need to be accounted for.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>A Fast and Accurate Dependency Parser using Neural Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
+   <link href="/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
    <updated>2017-06-03T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/A Fast and Accurate Dependency Parser using Neural Networks</id>
+   <id>/A Fast and Accurate Dependency Parser using Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;The paper proposes a neural network classifier to perform transition-based dependency parsing using dense vector representation for the features.&lt;/li&gt;
@@ -89,9 +163,9 @@
  
  <entry>
    <title>Neural Module Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Neural-Module-Networks"/>
+   <link href="/Neural-Module-Networks"/>
    <updated>2017-05-23T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Neural Module Networks</id>
+   <id>/Neural Module Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -171,9 +245,9 @@
  
  <entry>
    <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
+   <link href="/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
    <updated>2017-05-14T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
+   <id>/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -217,9 +291,9 @@
  
  <entry>
    <title>Conditional Similarity Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks"/>
+   <link href="/Conditional-Similarity-Networks"/>
    <updated>2017-05-07T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Conditional Similarity Networks</id>
+   <id>/Conditional Similarity Networks</id>
    <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -328,9 +402,9 @@
  
  <entry>
    <title>Simple Baseline for Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"/>
+   <link href="/Simple-Baseline-for-Visual-Question-Answering"/>
    <updated>2017-04-28T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Simple Baseline for Visual Question Answering</id>
+   <id>/Simple Baseline for Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
@@ -370,9 +444,9 @@
  
  <entry>
    <title>VQA-Visual Question Answering</title>
-   <link href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"/>
+   <link href="/VQA-Visual-Question-Answering"/>
    <updated>2017-04-27T00:00:00+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/VQA Visual Question Answering</id>
+   <id>/VQA Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
 &lt;ul&gt;
