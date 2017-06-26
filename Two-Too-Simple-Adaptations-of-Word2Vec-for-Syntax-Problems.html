@@ -11,7 +11,7 @@
 
   <title>
     
-      A Decomposable Attention Model for Natural Language Inference &middot; Papers I Read
+      Two/Too Simple Adaptations of Word2Vec for Syntax Problems &middot; Papers I Read
     
   </title>
 
@@ -107,74 +107,17 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">A Decomposable Attention Model for Natural Language Inference</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#EMNLP+2016" title="Pages tagged EMNLP 2016" rel="tag">EMNLP 2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Attention" title="Pages tagged Attention" rel="tag">Attention</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#EMNLP" title="Pages tagged EMNLP" rel="tag">EMNLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Natural+Language+Inference" title="Pages tagged Natural Language Inference" rel="tag">Natural Language Inference</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">17 Jun 2017</span>
-  <h3 id="introduction">Introduction</h3>
-
-<ul>
-  <li>The paper proposes an attention based mechanism to decompose the problem of Natural Language Inference (NLI) into parallelizable subproblems.</li>
-  <li>Further, it uses much fewer parameters as compared to any other model while obtaining state of the art results.</li>
-  <li><a href="https://arxiv.org/abs/1606.01933">Link to the paper</a></li>
-  <li>The motivation behind the paper is that the tasks like NLI do not require deep modelling of the sentence structure and comparison of local text substructures followed by aggregation can also work very well</li>
-</ul>
-
-<h3 id="approach">Approach</h3>
-
-<ul>
-  <li>
-    <p>Given two sentences <strong>a</strong> and <strong>b</strong>, the model has to predict whether they have an “entailment” relationship, “neutral” relationship or “contradiction” relationship.</p>
-  </li>
-  <li><strong>Embed</strong>
-    <ul>
-      <li>All the words are mapped to their corresponding word vector representation. In subsequent steps, “word” refers to the word vector representation of the actual word.</li>
-    </ul>
-  </li>
-  <li><strong>Attend</strong>
-    <ul>
-      <li>For each word <em>i</em> in <strong>a</strong> and <em>j</em> in <strong>b</strong>, obtain unnormalized attention weights *e(i, j)=F(i)<sup>T</sup>F(j) where F is a feed-forward neural network.</li>
-      <li>For <em>i</em>, compute a β<sub>i</sub> by performing softmax-like normalization of <em>j</em> using <em>e(i, j)</em> as the weight and normalizing for all words <em>j</em> in <strong>b</strong>.</li>
-      <li>β<sub>i</sub> captures the subphrase in <strong>b</strong> that is softly aligned to <em>a</em>.</li>
-      <li>Similarly compute α<sub>j</sub> for <em>j</em>.</li>
-    </ul>
-  </li>
-  <li><strong>Compare</strong>
-    <ul>
-      <li>Create two set of comparison vectors, one for <strong>a</strong> and another for <strong>b</strong></li>
-      <li>For <strong>a</strong>, <strong>v<sub>1, i</sub></strong> = G(concatenate(i, β<sub>i</sub>)).</li>
-      <li>Similarly for <strong>b</strong>, <strong>v<sub>2, j</sub></strong> = G(concatenate(j, α<sub>j</sub>))</li>
-      <li>G is another feed-forward neural network.</li>
-    </ul>
-  </li>
-  <li><strong>Aggregate</strong>
-    <ul>
-      <li>Aggregate over the two set of comparison vectors to obtain <strong>v<sub>1</sub></strong> and <strong>v<sub>2</sub></strong>.</li>
-      <li>Feed the aggregated results through the final classifier layer.</li>
-      <li>Multi-class cross-entropy loss function.</li>
-    </ul>
-  </li>
-  <li>The paper also explains how this representation can be augmented using intra-sentence attention to the model compositional relationship between words.</li>
-</ul>
-
-<h3 id="computational-complexity">Computational Complexity</h3>
-
-<ul>
-  <li>Computationally, the proposed model is asymptotically as good as LSTM with attention.</li>
-  <li>Assuming that dimensionality of word vectors &gt; length of the sentence (reasonable for the given SNLI dataset), the model is asymptotically as good as regular LSTM.</li>
-  <li>Further, the model has the advantage of being parallelizable.</li>
-</ul>
-
-<h3 id="experiment">Experiment</h3>
-
-<ul>
-  <li>On Stanford Natural Language Inference (SNLI) dataset, the proposed model achieves the state of the art results even when it uses an order of magnitude lesser parameters than the next best model.</li>
-  <li>Adding intra-sentence attention further improve the test accuracy by 0.5 percent.</li>
-</ul>
-
-<h3 id="notes">Notes</h3>
-
-<ul>
-  <li>A similar approach could be tried on paraphrase detection problem as even that problem should not require very deep sentence representation. <a href="https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs">Quora Duplicate Question Detection Challenege</a>  would have been an ideal dataset but it has a lot of out-of-vocabulary information related to named entities which need to be accounted for.</li>
+  <h1 class="post-title">Two/Too Simple Adaptations of Word2Vec for Syntax Problems</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL+2015" title="Pages tagged ACL 2015" rel="tag">ACL 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a></p>
+  <span class="post-date">26 Jun 2017</span>
+  <ul>
+  <li>The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.</li>
+  <li><a href="http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf">Link to the paper</a></li>
+  <li>In the original Skip-Gram setting, the model predicts the <em>2c</em> words in the context window (<em>c</em> is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.</li>
+  <li>Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.</li>
+  <li>The paper proposes to use a set of <em>2c</em> matrices each for a different word in the context window for both Skip-Gram and CBOW models.</li>
+  <li>This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.</li>
+  <li>The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.</li>
 </ul>
 
 </div>
@@ -185,9 +128,9 @@
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems">
-            Two/Too Simple Adaptations of Word2Vec for Syntax Problems
-            <small>26 Jun 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference">
+            A Decomposable Attention Model for Natural Language Inference
+            <small>17 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -226,8 +169,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/A-Decomposable-Attention-Model-for-Natural-Language-Inference"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

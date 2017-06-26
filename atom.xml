@@ -4,13 +4,30 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-06-17T15:09:54+05:30</updated>
+ <updated>2017-06-26T16:36:14+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Two/Too Simple Adaptations of Word2Vec for Syntax Problems</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"/>
+   <updated>2017-06-26T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Two-Too Simple Adaptations of Word2Vec for Syntax Problems</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;In the original Skip-Gram setting, the model predicts the &lt;em&gt;2c&lt;/em&gt; words in the context window (&lt;em&gt;c&lt;/em&gt; is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.&lt;/li&gt;
+  &lt;li&gt;Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.&lt;/li&gt;
+  &lt;li&gt;The paper proposes to use a set of &lt;em&gt;2c&lt;/em&gt; matrices each for a different word in the context window for both Skip-Gram and CBOW models.&lt;/li&gt;
+  &lt;li&gt;This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.&lt;/li&gt;
+  &lt;li&gt;The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>A Decomposable Attention Model for Natural Language Inference</title>
