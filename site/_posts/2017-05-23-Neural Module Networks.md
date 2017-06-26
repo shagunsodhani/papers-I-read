@@ -3,7 +3,7 @@ layout: post
 title: Neural Module Networks
 comments: True
 excerpt: Standard VQA models benefit from the inherent bias in the structure of the world and the language of the question.
-tags: ['2016', 'CVPR2016', AI, CV, CVPR, Dataset, Neural Module Network, NLP, VQA]
+tags: ['2016', 'CVPR 2016', AI, CV, CVPR, Dataset, Neural Module Network, NLP, VQA]
 ---
 
 ## Introduction

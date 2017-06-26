@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Two/Too Simple Adaptations of Word2Vec for Syntax Problems](https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems)
 * [A Decomposable Attention Model for Natural Language Inference](https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference)
 * [A Fast and Accurate Dependency Parser using Neural Networks](https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks)
 * [Neural Module Networks](https://shagunsodhani.in/papers-I-read/Neural-Module-Networks)

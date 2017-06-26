@@ -3,7 +3,7 @@ layout: post
 title: A Fast and Accurate Dependency Parser using Neural Networks
 comments: True
 excerpt: The paper proposes a neural network classifier to perform transition-based dependency parsing using dense vector representation for the features.
-tags: ['2014', 'EMNLP2014', Dependency Parsing, EMNLP, NLP]
+tags: ['2014', 'EMNLP 2014', Dependency Parsing, EMNLP, NLP]
 ---
 
 ## Introduction

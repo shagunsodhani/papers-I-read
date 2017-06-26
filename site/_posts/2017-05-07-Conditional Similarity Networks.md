@@ -3,7 +3,7 @@ layout: post
 title: Conditional Similarity Networks
 comments: True
 excerpt: A common way of measuring image similarity is to embed them into feature spaces where distance acts as a proxy for similarity.
-tags: [CV, AI, CVPR, Embedding, 'CVPR2017', '2017']
+tags: [CV, AI, CVPR, Embedding, 'CVPR 2017', '2017']
 ---
 
 ## Problem Statement
