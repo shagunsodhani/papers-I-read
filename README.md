@@ -47,7 +47,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 * [WikiReading : A Novel Large-scale Language Understanding Task over Wikipedia](https://gist.github.com/shagunsodhani/2788ac9dbcac5523cb8b2d0a3d70f2d2)
 * [WikiQA: A challenge dataset for open-domain question answering](https://gist.github.com/shagunsodhani/7cf3677ff2b0028a33e6702fbd260bc5)
 * [Teaching Machines to Read and Comprehend](https://gist.github.com/shagunsodhani/a863eb099bb7a1ab4831cd37bffffb04)
-* [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systhttps://gist.github.com/shagunsodhani/bbbc739e6815ab6217e0cf0a8f706786ems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
+* [Evaluating Prerequisite Qualities for Learning End-to-end Dialog Systems](https://gist.github.com/shagunsodhani/5e7c40f61c18502eec2809e5cf1ead6b)
 * [Recurrent Neural Network Regularization](https://gist.github.com/shagunsodhani/d66245692b276cd0b6dcbaf43e4211db)
 * [Deep Math: Deep Sequence Models for Premise Selection](https://gist.github.com/shagunsodhani/d8387256f2bb08f39509600f9d7db498)
 * [A Neural Conversational Model](https://gist.github.com/shagunsodhani/ec6835964df0e49fdef0459c8b334b94)
