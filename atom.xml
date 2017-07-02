@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-07-02T16:04:29+05:30</updated>
+ <updated>2017-07-02T16:07:30+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -145,39 +145,55 @@
 
 &lt;h2 id=&quot;tasks&quot;&gt;Tasks&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* WSJ speech corpus
-
-* ImageNet dataset
-
-* COCO image captioning dataset
-
-* WSJ parsing dataset
-
-* WMT English-German translation corpus
-
-* German-English translation
-
-* WMT English-French translation corpus
-
-* German-French translation
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;WSJ speech corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ImageNet dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;COCO image captioning dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WSJ parsing dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WMT English-German translation corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;German-English translation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WMT English-French translation corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;German-French translation&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* The experimental section is not very rigorous with many details skipped (would probably be added later).
-
-* While MultiModel does not beat the state of the art models, it does outperform some recent models.
-
-* Jointly trained model performs similar to single trained models on tasks with a lot of data and sometimes outperformed single trained models on tasks with less data (like parsing).
-
-* Interestingly, jointly training the model for parsing task and Imagenet tasks improves the performance of parsing task even though the two tasks are seemingly unrelated.
-
-* Another experiment was done to evaluate the effect of components (like MoE) on tasks (like Imagenet) which do not explicitly need them. It was observed that either the performance either went down or remained the same when MoE component was removed. This indicates that mixing different components does help to improve performance over multiple tasks.
-
-* But this observation is not conclusive as a different combination of say the encoder (that does not use MoE) could achieve better performance than one that does. The paper does not explore possibilities like these.  
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experimental section is not very rigorous with many details skipped (would probably be added later).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While MultiModel does not beat the state of the art models, it does outperform some recent models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Jointly trained model performs similar to single trained models on tasks with a lot of data and sometimes outperformed single trained models on tasks with less data (like parsing).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interestingly, jointly training the model for parsing task and Imagenet tasks improves the performance of parsing task even though the two tasks are seemingly unrelated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another experiment was done to evaluate the effect of components (like MoE) on tasks (like Imagenet) which do not explicitly need them. It was observed that either the performance either went down or remained the same when MoE component was removed. This indicates that mixing different components does help to improve performance over multiple tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;But this observation is not conclusive as a different combination of say the encoder (that does not use MoE) could achieve better performance than one that does. The paper does not explore possibilities like these.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </content>
  </entry>
  

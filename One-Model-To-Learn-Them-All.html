@@ -238,39 +238,55 @@
 
 <h2 id="tasks">Tasks</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>* WSJ speech corpus
-
-* ImageNet dataset
-
-* COCO image captioning dataset
-
-* WSJ parsing dataset
-
-* WMT English-German translation corpus
-
-* German-English translation
-
-* WMT English-French translation corpus
-
-* German-French translation
-</code></pre>
-</div>
+<ul>
+  <li>
+    <p>WSJ speech corpus</p>
+  </li>
+  <li>
+    <p>ImageNet dataset</p>
+  </li>
+  <li>
+    <p>COCO image captioning dataset</p>
+  </li>
+  <li>
+    <p>WSJ parsing dataset</p>
+  </li>
+  <li>
+    <p>WMT English-German translation corpus</p>
+  </li>
+  <li>
+    <p>German-English translation</p>
+  </li>
+  <li>
+    <p>WMT English-French translation corpus</p>
+  </li>
+  <li>
+    <p>German-French translation</p>
+  </li>
+</ul>
 
 <h2 id="experiments">Experiments</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>* The experimental section is not very rigorous with many details skipped (would probably be added later).
-
-* While MultiModel does not beat the state of the art models, it does outperform some recent models.
-
-* Jointly trained model performs similar to single trained models on tasks with a lot of data and sometimes outperformed single trained models on tasks with less data (like parsing).
-
-* Interestingly, jointly training the model for parsing task and Imagenet tasks improves the performance of parsing task even though the two tasks are seemingly unrelated.
-
-* Another experiment was done to evaluate the effect of components (like MoE) on tasks (like Imagenet) which do not explicitly need them. It was observed that either the performance either went down or remained the same when MoE component was removed. This indicates that mixing different components does help to improve performance over multiple tasks.
-
-* But this observation is not conclusive as a different combination of say the encoder (that does not use MoE) could achieve better performance than one that does. The paper does not explore possibilities like these.  
-</code></pre>
-</div>
+<ul>
+  <li>
+    <p>The experimental section is not very rigorous with many details skipped (would probably be added later).</p>
+  </li>
+  <li>
+    <p>While MultiModel does not beat the state of the art models, it does outperform some recent models.</p>
+  </li>
+  <li>
+    <p>Jointly trained model performs similar to single trained models on tasks with a lot of data and sometimes outperformed single trained models on tasks with less data (like parsing).</p>
+  </li>
+  <li>
+    <p>Interestingly, jointly training the model for parsing task and Imagenet tasks improves the performance of parsing task even though the two tasks are seemingly unrelated.</p>
+  </li>
+  <li>
+    <p>Another experiment was done to evaluate the effect of components (like MoE) on tasks (like Imagenet) which do not explicitly need them. It was observed that either the performance either went down or remained the same when MoE component was removed. This indicates that mixing different components does help to improve performance over multiple tasks.</p>
+  </li>
+  <li>
+    <p>But this observation is not conclusive as a different combination of say the encoder (that does not use MoE) could achieve better performance than one that does. The paper does not explore possibilities like these.</p>
+  </li>
+</ul>
 
 </div>
 
