@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Ask Me Anything: Dynamic Memory Networks for Natural Language Processing](https://shagunsodhani.in/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing)
 * [One Model To Learn Them All](https://shagunsodhani.in/papers-I-read/One-Model-To-Learn-Them-All)
 * [Two/Too Simple Adaptations of Word2Vec for Syntax Problems](https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems)
 * [A Decomposable Attention Model for Natural Language Inference](https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference)
