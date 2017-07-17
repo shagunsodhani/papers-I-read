@@ -11,7 +11,7 @@
 
   <title>
     
-      Two/Too Simple Adaptations of Word2Vec for Syntax Problems &middot; Papers I Read
+      Principled Detection of Out-of-Distribution Examples in Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -111,17 +111,128 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Two/Too Simple Adaptations of Word2Vec for Syntax Problems</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL+2015" title="Pages tagged ACL 2015" rel="tag">ACL 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a></p>
-  <span class="post-date">26 Jun 2017</span>
-  <ul>
-  <li>The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.</li>
-  <li><a href="http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf">Link to the paper</a></li>
-  <li>In the original Skip-Gram setting, the model predicts the <em>2c</em> words in the context window (<em>c</em> is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.</li>
-  <li>Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.</li>
-  <li>The paper proposes to use a set of <em>2c</em> matrices each for a different word in the context window for both Skip-Gram and CBOW models.</li>
-  <li>This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.</li>
-  <li>The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.</li>
+  <h1 class="post-title">Principled Detection of Out-of-Distribution Examples in Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Out+of+Distribution" title="Pages tagged Out of Distribution" rel="tag">Out of Distribution</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Softmax" title="Pages tagged Softmax" rel="tag">Softmax</a></p>
+  <span class="post-date">17 Jul 2017</span>
+  <h2 id="problem-statement">Problem Statement</h2>
+
+<ul>
+  <li>
+    <p>Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).</p>
+  </li>
+  <li>
+    <p>For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.</p>
+  </li>
+  <li>
+    <p>Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.</p>
+  </li>
+  <li>
+    <p>The paper proposes <em>ODIN</em> which can detect such out-of-distribution examples without changing the pre-trained model itself.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1706.02690">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="odin">ODIN</h2>
+
+<ul>
+  <li>
+    <p>Uses 2 major techniques</p>
+
+    <ul>
+      <li><strong>Temperature Scaling</strong>
+        <ul>
+          <li>
+            <p>Softmax classifier for the classification network can be written as:</p>
+
+            <p><em>p<sub>i</sub>(x, T) = exp(f<sub>i</sub>(x)/T) / sum(exp(f<sub>j</sub>(x)/T))</em></p>
+          </li>
+        </ul>
+
+        <p>where <em>x</em> is the input, <em>p</em> is the softmax probability and <em>T</em> is the temperature scaling parameter.</p>
+
+        <ul>
+          <li>Increasing <em>T</em> (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.</li>
+        </ul>
+      </li>
+      <li><strong>Input Preprocessing</strong>
+        <ul>
+          <li>
+            <p>Add small perturbations to the input (image) before feeding it into the network.</p>
+          </li>
+          <li>
+            <p><em>x_perturbed = x - ε * sign(-δ<sub>x</sub>log(p<sub>y</sub>(x, T)))</em></p>
+          </li>
+        </ul>
+
+        <p>where ε is the perturbation magnitude</p>
+
+        <ul>
+          <li>The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Given an input (image), first perturb the input.</li>
+  <li>Feed the perturbed input to the network to get its softmax score.</li>
+  <li>If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.</li>
+  <li>Otherwise, mark the input as out-of-distribution.</li>
+  <li>For detailed mathematical treatment, refer section 6 and appendix in the <a href="https://arxiv.org/abs/1706.02690">paper</a></li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Code available on <a href="https://github.com/ShiyuLiang/odin-pytorch">github</a></p>
+  </li>
+  <li>
+    <p>Models</p>
+
+    <ul>
+      <li>DenseNet with depth L = 100 and growth rate k = 12</li>
+      <li>Wide ResNet with depth = 28 and widen factor = 10</li>
+    </ul>
+  </li>
+  <li>
+    <p>In-Distribution Datasets</p>
+
+    <ul>
+      <li>CIFAR-10</li>
+      <li>CIFAR-100</li>
+    </ul>
+  </li>
+  <li>
+    <p>Out-of-Distribution Datasets</p>
+
+    <ul>
+      <li>TinyImageNet</li>
+      <li>LSUN</li>
+      <li>iSUN</li>
+      <li>Gaussian Noise</li>
+    </ul>
+  </li>
+  <li>
+    <p>Metrics</p>
+
+    <ul>
+      <li>False Positive Rate at 95% True Positive Rate</li>
+      <li>Detection Error - minimum misclassification probability over all thresholds</li>
+      <li>Area Under the Receiver Operating Characteristic Curve</li>
+      <li>Area Under the Precision-Recall Curve</li>
+    </ul>
+  </li>
+  <li>
+    <p>ODIN outperforms the baseline across all datasets and all models by a good margin.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+  <li>Very simple and straightforward approach with theoretical justification under some conditions.</li>
+  <li>Limited to examples from Vision so can not judge its applicability for NLP tasks.</li>
 </ul>
 
 </div>
@@ -129,15 +240,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks">
-            Principled Detection of Out-of-Distribution Examples in Neural Networks
-            <small>17 Jul 2017</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -153,6 +255,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/One-Model-To-Learn-Them-All">
             One Model To Learn Them All
             <small>01 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems">
+            Two/Too Simple Adaptations of Word2Vec for Syntax Problems
+            <small>26 Jun 2017</small>
           </a>
         </h3>
       </li>
@@ -173,8 +284,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

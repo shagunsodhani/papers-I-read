@@ -4,13 +4,141 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-07-09T13:23:37+05:30</updated>
+ <updated>2017-07-17T10:26:06+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Principled Detection of Out-of-Distribution Examples in Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"/>
+   <updated>2017-07-17T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Principled Detection of Out of Distribution Examples in Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes &lt;em&gt;ODIN&lt;/em&gt; which can detect such out-of-distribution examples without changing the pre-trained model itself.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1706.02690&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;odin&quot;&gt;ODIN&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uses 2 major techniques&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Temperature Scaling&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Softmax classifier for the classification network can be written as:&lt;/p&gt;
+
+            &lt;p&gt;&lt;em&gt;p&lt;sub&gt;i&lt;/sub&gt;(x, T) = exp(f&lt;sub&gt;i&lt;/sub&gt;(x)/T) / sum(exp(f&lt;sub&gt;j&lt;/sub&gt;(x)/T))&lt;/em&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;where &lt;em&gt;x&lt;/em&gt; is the input, &lt;em&gt;p&lt;/em&gt; is the softmax probability and &lt;em&gt;T&lt;/em&gt; is the temperature scaling parameter.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Increasing &lt;em&gt;T&lt;/em&gt; (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Input Preprocessing&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Add small perturbations to the input (image) before feeding it into the network.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;&lt;em&gt;x_perturbed = x - ε * sign(-δ&lt;sub&gt;x&lt;/sub&gt;log(p&lt;sub&gt;y&lt;/sub&gt;(x, T)))&lt;/em&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;where ε is the perturbation magnitude&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Given an input (image), first perturb the input.&lt;/li&gt;
+  &lt;li&gt;Feed the perturbed input to the network to get its softmax score.&lt;/li&gt;
+  &lt;li&gt;If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.&lt;/li&gt;
+  &lt;li&gt;Otherwise, mark the input as out-of-distribution.&lt;/li&gt;
+  &lt;li&gt;For detailed mathematical treatment, refer section 6 and appendix in the &lt;a href=&quot;https://arxiv.org/abs/1706.02690&quot;&gt;paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Code available on &lt;a href=&quot;https://github.com/ShiyuLiang/odin-pytorch&quot;&gt;github&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;DenseNet with depth L = 100 and growth rate k = 12&lt;/li&gt;
+      &lt;li&gt;Wide ResNet with depth = 28 and widen factor = 10&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In-Distribution Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;CIFAR-10&lt;/li&gt;
+      &lt;li&gt;CIFAR-100&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Out-of-Distribution Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;TinyImageNet&lt;/li&gt;
+      &lt;li&gt;LSUN&lt;/li&gt;
+      &lt;li&gt;iSUN&lt;/li&gt;
+      &lt;li&gt;Gaussian Noise&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;False Positive Rate at 95% True Positive Rate&lt;/li&gt;
+      &lt;li&gt;Detection Error - minimum misclassification probability over all thresholds&lt;/li&gt;
+      &lt;li&gt;Area Under the Receiver Operating Characteristic Curve&lt;/li&gt;
+      &lt;li&gt;Area Under the Precision-Recall Curve&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ODIN outperforms the baseline across all datasets and all models by a good margin.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Very simple and straightforward approach with theoretical justification under some conditions.&lt;/li&gt;
+  &lt;li&gt;Limited to examples from Vision so can not judge its applicability for NLP tasks.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing</title>
