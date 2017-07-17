@@ -3,7 +3,7 @@ layout: post
 title: Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing
 comments: True
 excerpt: Dynamic Memory Networks (DMN) is a neural network based general framework that can be used for tasks like sequence tagging, classification, sequence to sequence and question answering requiring transitive reasoning.
-tags: ['2016', AI, Attention, NLP, POS, QA, Sentiment Analysis, SOTA]
+tags: ['2016', AI, Attention, Machine Comprehension, NLP, POS, QA, Sentiment Analysis, SOTA]
 ---
 
 ## Introduction
