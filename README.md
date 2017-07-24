@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [ReasoNet - Learning to Stop Reading in Machine Comprehension](https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension)
 * [Principled Detection of Out-of-Distribution Examples in Neural Networks](https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks)
 * [Ask Me Anything: Dynamic Memory Networks for Natural Language Processing](https://shagunsodhani.in/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing)
 * [One Model To Learn Them All](https://shagunsodhani.in/papers-I-read/One-Model-To-Learn-Them-All)
