@@ -4,13 +4,150 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-07-17T10:26:06+05:30</updated>
+ <updated>2017-07-24T22:15:39+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>ReasoNet - Learning to Stop Reading in Machine Comprehension</title>
+   <link href="https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"/>
+   <updated>2017-07-24T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/ReasoNet - Learning to Stop Reading in Machine Comprehension</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the domain of machine comprehension, making multiple passes over the given document is an effective technique to extract the relation between the given passage, question and answer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unlike previous approaches, which perform a fixed number of passes over the passage, Reasoning Network (ReasoNet) uses reinforcement learning (RL) to decide how many times a document should be read.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Every time the document is read, ReasoNet determines whether the document should be read again or has the termination state been reached. If termination state is reached, the answer module is triggered to generate the answer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since the termination state is discrete and not connected to the final output, RL approach is used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1609.05284&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CNN, DailyMail Dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SQuAD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graph Reachability Dataset&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;2 synthetic datasets to test if the network can answer questions like “Is node_1 connected to node_12”?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Memory (M)&lt;/strong&gt; - Comprises of the vector representation of the document and the question (encoded using GRU or other RNNs).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Attention&lt;/strong&gt; - Attention vector (&lt;strong&gt;x&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;) is a function of current internal state &lt;strong&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; and external memory &lt;strong&gt;M&lt;/strong&gt;. The state and memory are passed through FCs and fed to a similarity function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Internal State (s&lt;sub&gt;t&lt;/sub&gt;)&lt;/strong&gt; - Vector representation of the question state computed by a RNN using the previous internal state and the attention vector &lt;strong&gt;x&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Termination Gate (T&lt;sub&gt;t&lt;/sub&gt;)&lt;/strong&gt; - Uses a logistic regression model to generate a random binary variable using the current internal state &lt;strong&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Answer&lt;/strong&gt; - Answer module is triggered when &lt;strong&gt;T&lt;sub&gt;t&lt;/sub&gt; = 1&lt;/strong&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;For CNN and DailyMail, a linear projection of GRU outputs is used to predict the answer from candidate entities.&lt;/li&gt;
+      &lt;li&gt;For SQuAD, the position of the first and the last word from the answer span are predicted.&lt;/li&gt;
+      &lt;li&gt;For Graph Reachability, a logistic regression module is used to predict yes/no as the answer.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Reinforcement Learning&lt;/strong&gt; - For the RL setting, reward at time &lt;strong&gt;t&lt;/strong&gt;, &lt;strong&gt;r&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; = 1 if &lt;strong&gt;T&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; = 1 and answer is correct. Otherwise &lt;strong&gt;r&lt;sub&gt;t&lt;/sub&gt; = 0&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Workflow&lt;/strong&gt; - Given a passage p, query q and answer a:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extract memory using p&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extract initial hidden state using q&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;ReasoNet executes all possible episodes that can be enumerated by setting an upper limit on the number of passes.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;These episodes generate actions and answers that are used to train the ReasoNet.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;CNN, DailyMail Corpus&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;ReasoNet outperforms all the baselines which use fixed number of reasoning steps and could benefit by capturing the word alignment signals between query and passage.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;SQuAD&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;At the time of submission, ReasoNet was ranked 2nd on the &lt;a href=&quot;https://rajpurkar.github.io/SQuAD-explorer/&quot;&gt;SQuAD leaderboard&lt;/a&gt; and as of 9th July 2017, it is ranked 4th.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Graph Reachability Dataset&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet - Standard ReasoNet as described above.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet-Last - Use the prediction from the &lt;strong&gt;T&lt;sub&gt;max&lt;/sub&gt;&lt;/strong&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet &amp;gt; ReasoNet-Last &amp;gt; Deep LSTM Reader&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet converges faster than ReasoNet-Last indicating that the terminate gate is useful.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Notes&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;As such there is nothing discouraging the ReasoNet to make unnecessary passes over the passage.&lt;/li&gt;
+      &lt;li&gt;In fact, the modal value of the number of passes = upper bound on the number of passes.&lt;/li&gt;
+      &lt;li&gt;This effect is more prominent for large graph indicating that the ReasoNet may try to play safe by performing extra passes.&lt;/li&gt;
+      &lt;li&gt;It would be interesting to see if the network can be discouraged from making unnecessary passed by awarding a small negative reward for each pass.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Principled Detection of Out-of-Distribution Examples in Neural Networks</title>
