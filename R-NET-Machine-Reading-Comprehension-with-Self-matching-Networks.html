@@ -11,7 +11,7 @@
 
   <title>
     
-      Simple Baseline for Visual Question Answering &middot; Papers I Read
+      R-NET - Machine Reading Comprehension with Self-matching Networks &middot; Papers I Read
     
   </title>
 
@@ -111,42 +111,98 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Simple Baseline for Visual Question Answering</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a></p>
-  <span class="post-date">28 Apr 2017</span>
-  <h3 id="problem-statement">Problem Statement</h3>
+  <h1 class="post-title">R-NET - Machine Reading Comprehension with Self-matching Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
+  <span class="post-date">07 Aug 2017</span>
+  <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>VQA Task: Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.</li>
-  <li>The paper attempts to fine tune the simple baseline method of Bag-of-Words + Image features (iBOWIMG) to make it competitive against more sophisticated LSTM models.</li>
-  <li><a href="http://arxiv.org/pdf/1512.02167.pdf">Link to the paper</a></li>
+  <li>
+    <p>R-NET is an end-to-end trained neural network model for machine comprehension.</p>
+  </li>
+  <li>
+    <p>It starts by matching the question and the given passage (using gated attention based RNN) to obtain question-aware passage representation.</p>
+  </li>
+  <li>
+    <p>Next, it uses a self-matching attention mechanism to refine the passage representation by matching the passage against itself.</p>
+  </li>
+  <li>
+    <p>Lastly, it uses pointer networks to determine the position of the answer in the passage.</p>
+  </li>
+  <li>
+    <p><a href="https://www.microsoft.com/en-us/research/publication/mrc/">Link to the paper</a></p>
+  </li>
 </ul>
 
-<h3 id="model">Model</h3>
+<h2 id="datasets">Datasets</h2>
 
 <ul>
-  <li>VQA modelled as a classification task where the system learns to choose among one of the top k most prominent answers.</li>
-  <li><strong>Text Features</strong> - Convert input question to a one-hot vector and then transform to word vectors using a word embedding.</li>
-  <li><strong>Image Features</strong> - Last layer activations from GoogLeNet.</li>
-  <li>Text features are concatenated with image features and fed into a softmax.</li>
-  <li>Different learning rates and weight clipping for word embedding layer and softmax layer with the learning rate for embedding layer much higher than that of softmax layer.</li>
+  <li>
+    <p>SQuAD</p>
+  </li>
+  <li>
+    <p>MS-MARCO</p>
+  </li>
 </ul>
 
-<h3 id="results">Results</h3>
+<h2 id="architecture">Architecture</h2>
 
 <ul>
-  <li>iBOWIMG model reports an accuracy of 55.89% for Open-ended questions and 61.97% for Multiple-Choice questions which is comparable to the performance of other, more sophisticated models.</li>
-</ul>
+  <li>
+    <p>Question / Passage Encoder</p>
 
-<h3 id="interpretation-of-the-model">Interpretation of the model</h3>
+    <ul>
+      <li>Concatenate the word level and character level embeddings for each word and feed into a bidirectional GRU to obtain question and passage representation.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Gated Attention based RNN</p>
 
-<ul>
-  <li>Since the model is very simple, it is possible to interpret the model to know what exactly is the model learning. This is the greatest strength of the paper even though the model is very simple and naive.</li>
-  <li>The model attempts to memorise the correlation between the answer class and the informative words (in the question) and image features.</li>
-  <li>Question words generally can influence the answer given the bias in images occurring in COCO dataset.</li>
-  <li>Given the simple linear transformation being used, it is possible to quantify the importance of each single words (in the question) to the answer.</li>
-  <li>The paper uses the Class Activation Mapping (CAM) approach (which uses the linear relation between softmax and final image feature map) to highlight the informative image regions relevant to the predicted answer.</li>
-  <li>While the results reported by the paper are not themselves so significant, the described approach provides a way to interpret the strengths and weakness of different VQA datasets.</li>
+    <ul>
+      <li>
+        <p>Given question and passage representation, sentence pair representation is generated via soft-alignment of the words in the question and in the passage.</p>
+      </li>
+      <li>
+        <p>The newly added gate captures the relation between the question and the current passage word as only some parts of the passage are relevant for answering the given question.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Self Matching Attention</p>
+
+    <ul>
+      <li>
+        <p>The passage representation obtained so far would not capture most of the context.</p>
+      </li>
+      <li>
+        <p>So the current representation is matched against itself so as to collect evidence from the entire passage and encode the evidence relevant to the current passage word and question.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Output Layer</p>
+
+    <ul>
+      <li>
+        <p>Use pointer network (initialized using attention pooling over answer representation) to predict the position of the answer.</p>
+      </li>
+      <li>
+        <p>Loss function is the sum of negative log probabilities of start and end positions.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>
+        <p>R-NET is ranked second on <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD Leaderboard</a> as of 7th August, 2017 and achieves best-published results on MS-MARCO dataset.</p>
+      </li>
+      <li>
+        <p>Using ideas like sentence ranking, using syntax information performing multihop inference and augmenting question dataset (using seqToseq network) do not help in improving the performance.</p>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 </div>
@@ -154,15 +210,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks">
-            R-NET - Machine Reading Comprehension with Self-matching Networks
-            <small>07 Aug 2017</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -178,6 +225,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks">
             Principled Detection of Out-of-Distribution Examples in Neural Networks
             <small>17 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing">
+            Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing
+            <small>09 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -198,8 +254,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Simple-Baseline-for-Visual-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
