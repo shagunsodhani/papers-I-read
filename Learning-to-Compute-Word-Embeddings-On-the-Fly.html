@@ -11,7 +11,7 @@
 
   <title>
     
-      Principled Detection of Out-of-Distribution Examples in Neural Networks &middot; Papers I Read
+      Learning to Compute Word Embeddings On the Fly &middot; Papers I Read
     
   </title>
 
@@ -111,128 +111,87 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Principled Detection of Out-of-Distribution Examples in Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Out+of+Distribution" title="Pages tagged Out of Distribution" rel="tag">Out of Distribution</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Softmax" title="Pages tagged Softmax" rel="tag">Softmax</a></p>
-  <span class="post-date">17 Jul 2017</span>
-  <h2 id="problem-statement">Problem Statement</h2>
+  <h1 class="post-title">Learning to Compute Word Embeddings On the Fly</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Out+of+Vocabulary+Words" title="Pages tagged Out of Vocabulary Words" rel="tag">Out of Vocabulary Words</a></p>
+  <span class="post-date">21 Aug 2017</span>
+  <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).</p>
+    <p>Word based language models suffer from the problem of rare or Out of Vocabulary (OOV) words.</p>
   </li>
   <li>
-    <p>For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.</p>
+    <p>Learning representations for OOV words directly on the end task often results in poor representation.</p>
   </li>
   <li>
-    <p>Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.</p>
+    <p>The alternative is to replace all the rare words with a single, unique representation (loss of information) or use character level models to obtain word representations (they tend to miss on the semantic relationship).</p>
   </li>
   <li>
-    <p>The paper proposes <em>ODIN</em> which can detect such out-of-distribution examples without changing the pre-trained model itself.</p>
+    <p>The paper proposes to learn a network that can predict the representations of words using auxiliary data (referred to as definitions) such as dictionary definitions, Wikipedia infoboxes, the spelling of the word etc.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1706.02690">Link to the paper</a></p>
+    <p>The auxiliary data encoders are trained jointly with the end task to ensure that word representations align with the requirements of the end task.</p>
   </li>
 </ul>
 
-<h2 id="odin">ODIN</h2>
+<h2 id="approach">Approach</h2>
 
 <ul>
   <li>
-    <p>Uses 2 major techniques</p>
-
-    <ul>
-      <li><strong>Temperature Scaling</strong>
-        <ul>
-          <li>
-            <p>Softmax classifier for the classification network can be written as:</p>
-
-            <p><em>p<sub>i</sub>(x, T) = exp(f<sub>i</sub>(x)/T) / sum(exp(f<sub>j</sub>(x)/T))</em></p>
-          </li>
-        </ul>
-
-        <p>where <em>x</em> is the input, <em>p</em> is the softmax probability and <em>T</em> is the temperature scaling parameter.</p>
-
-        <ul>
-          <li>Increasing <em>T</em> (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.</li>
-        </ul>
-      </li>
-      <li><strong>Input Preprocessing</strong>
-        <ul>
-          <li>
-            <p>Add small perturbations to the input (image) before feeding it into the network.</p>
-          </li>
-          <li>
-            <p><em>x_perturbed = x - ε * sign(-δ<sub>x</sub>log(p<sub>y</sub>(x, T)))</em></p>
-          </li>
-        </ul>
-
-        <p>where ε is the perturbation magnitude</p>
-
-        <ul>
-          <li>The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.</li>
-        </ul>
-      </li>
-    </ul>
+    <p>Given a rare word <em>w</em>, let <em>d(w) = &lt;x<sub>1</sub>, x<sub>2</sub>…&gt;</em> denote its defination where <em>x<sub>i</sub></em> are words.</p>
   </li>
-  <li>Given an input (image), first perturb the input.</li>
-  <li>Feed the perturbed input to the network to get its softmax score.</li>
-  <li>If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.</li>
-  <li>Otherwise, mark the input as out-of-distribution.</li>
-  <li>For detailed mathematical treatment, refer section 6 and appendix in the <a href="https://arxiv.org/abs/1706.02690">paper</a></li>
+  <li>
+    <p><em>d(w)</em> is fed to a <em>defination reader</em> network <em>f</em> (LSTM) and its last state is used as the <em>defination embedding e<sub>d</sub>(w)</em></p>
+  </li>
+  <li>
+    <p>In case <em>w</em> has multiple definitions, the embeddings are combined using mean pooling.</p>
+  </li>
+  <li>
+    <p>The approach can be extended to in-vocabulary words as well by using the <em>definition embedding</em> of such words to update their original embeddings.</p>
+  </li>
 </ul>
 
 <h2 id="experiments">Experiments</h2>
 
 <ul>
-  <li>
-    <p>Code available on <a href="https://github.com/ShiyuLiang/odin-pytorch">github</a></p>
-  </li>
-  <li>
-    <p>Models</p>
-
+  <li>Auxiliary data sources
     <ul>
-      <li>DenseNet with depth L = 100 and growth rate k = 12</li>
-      <li>Wide ResNet with depth = 28 and widen factor = 10</li>
+      <li>Word definitions from WordNet</li>
+      <li>Spelling of words</li>
     </ul>
   </li>
   <li>
-    <p>In-Distribution Datasets</p>
+    <p>The proposed approach was tested on following tasks:</p>
 
     <ul>
-      <li>CIFAR-10</li>
-      <li>CIFAR-100</li>
+      <li>Extractive Question Answering over SQuAD
+        <ul>
+          <li>Base model from <a href="https://arxiv.org/abs/1611.01604">Xiong et al. 2016</a></li>
+        </ul>
+      </li>
+      <li>Entailment Prediction over SNLI corpus
+        <ul>
+          <li>Base models from <a href="https://nlp.stanford.edu/pubs/snli_paper.pdf">Bowman et al. 2015</a> and <a href="https://arxiv.org/abs/1609.06038">Chen et al. 2016</a></li>
+        </ul>
+      </li>
+      <li>One Billion Words Language Modelling</li>
     </ul>
   </li>
   <li>
-    <p>Out-of-Distribution Datasets</p>
-
-    <ul>
-      <li>TinyImageNet</li>
-      <li>LSUN</li>
-      <li>iSUN</li>
-      <li>Gaussian Noise</li>
-    </ul>
+    <p>For all the tasks, models using both spelling and dictionary (SD) outperformed the model using just one.</p>
   </li>
-  <li>
-    <p>Metrics</p>
-
-    <ul>
-      <li>False Positive Rate at 95% True Positive Rate</li>
-      <li>Detection Error - minimum misclassification probability over all thresholds</li>
-      <li>Area Under the Receiver Operating Characteristic Curve</li>
-      <li>Area Under the Precision-Recall Curve</li>
-    </ul>
-  </li>
-  <li>
-    <p>ODIN outperforms the baseline across all datasets and all models by a good margin.</p>
-  </li>
+  <li>While SD does not outperform the Glove model (with full vocabulary), it does bridge the performance gap significantly.</li>
 </ul>
 
-<h2 id="notes">Notes</h2>
+<h2 id="future-work">Future Work</h2>
 
 <ul>
-  <li>Very simple and straightforward approach with theoretical justification under some conditions.</li>
-  <li>Limited to examples from Vision so can not judge its applicability for NLP tasks.</li>
+  <li>
+    <p>Multi-token words like “San Francisco” are not accounted for now.</p>
+  </li>
+  <li>
+    <p>The model does not handle the rare words which appear in the definition and just replaces them by the <UNK> token. Making the model recursive would be a useful addition.</UNK></p>
+  </li>
 </ul>
 
 </div>
@@ -240,15 +199,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly">
-            Learning to Compute Word Embeddings On the Fly
-            <small>21 Aug 2017</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -264,6 +214,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension">
             ReasoNet - Learning to Stop Reading in Machine Comprehension
             <small>24 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks">
+            Principled Detection of Out-of-Distribution Examples in Neural Networks
+            <small>17 Jul 2017</small>
           </a>
         </h3>
       </li>
@@ -284,8 +243,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Learning-to-Compute-Word-Embeddings-On-the-Fly"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

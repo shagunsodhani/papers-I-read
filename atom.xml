@@ -4,13 +4,100 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-08-07T15:34:47+05:30</updated>
+ <updated>2017-08-21T10:00:21+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Learning to Compute Word Embeddings On the Fly</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly"/>
+   <updated>2017-08-21T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learning to Compute Word Embeddings On the Fly</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Word based language models suffer from the problem of rare or Out of Vocabulary (OOV) words.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Learning representations for OOV words directly on the end task often results in poor representation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The alternative is to replace all the rare words with a single, unique representation (loss of information) or use character level models to obtain word representations (they tend to miss on the semantic relationship).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to learn a network that can predict the representations of words using auxiliary data (referred to as definitions) such as dictionary definitions, Wikipedia infoboxes, the spelling of the word etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The auxiliary data encoders are trained jointly with the end task to ensure that word representations align with the requirements of the end task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a rare word &lt;em&gt;w&lt;/em&gt;, let &lt;em&gt;d(w) = &amp;lt;x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;…&amp;gt;&lt;/em&gt; denote its defination where &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; are words.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;d(w)&lt;/em&gt; is fed to a &lt;em&gt;defination reader&lt;/em&gt; network &lt;em&gt;f&lt;/em&gt; (LSTM) and its last state is used as the &lt;em&gt;defination embedding e&lt;sub&gt;d&lt;/sub&gt;(w)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case &lt;em&gt;w&lt;/em&gt; has multiple definitions, the embeddings are combined using mean pooling.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The approach can be extended to in-vocabulary words as well by using the &lt;em&gt;definition embedding&lt;/em&gt; of such words to update their original embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Auxiliary data sources
+    &lt;ul&gt;
+      &lt;li&gt;Word definitions from WordNet&lt;/li&gt;
+      &lt;li&gt;Spelling of words&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed approach was tested on following tasks:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Extractive Question Answering over SQuAD
+        &lt;ul&gt;
+          &lt;li&gt;Base model from &lt;a href=&quot;https://arxiv.org/abs/1611.01604&quot;&gt;Xiong et al. 2016&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Entailment Prediction over SNLI corpus
+        &lt;ul&gt;
+          &lt;li&gt;Base models from &lt;a href=&quot;https://nlp.stanford.edu/pubs/snli_paper.pdf&quot;&gt;Bowman et al. 2015&lt;/a&gt; and &lt;a href=&quot;https://arxiv.org/abs/1609.06038&quot;&gt;Chen et al. 2016&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;One Billion Words Language Modelling&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For all the tasks, models using both spelling and dictionary (SD) outperformed the model using just one.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;While SD does not outperform the Glove model (with full vocabulary), it does bridge the performance gap significantly.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multi-token words like “San Francisco” are not accounted for now.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model does not handle the rare words which appear in the definition and just replaces them by the &lt;UNK&gt; token. Making the model recursive would be a useful addition.&lt;/UNK&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>R-NET - Machine Reading Comprehension with Self-matching Networks</title>
