@@ -4,13 +4,85 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-08-21T10:00:21+05:30</updated>
+ <updated>2017-08-27T14:04:12+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Pointer Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Pointer-Networks"/>
+   <updated>2017-08-27T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Pointer Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces a novel architecture that generates an output sequence such that the elements of the output sequence are discrete tokens corresponding to positions in the input sequence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Such a problem can not be solved using &lt;a href=&quot;https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f&quot;&gt;Seq2Seq&lt;/a&gt; or Neural Turing Machines as the size of the output softmax is variable (as it depends on the size of the input sequence).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1506.03134&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Traditional attention-base sequence-to-sequence models compute an attention vector for each step of the output decoder and use that to blend the individual context vectors of the input into a single, consolidated attention vector. This attention vector is used to compute a fixed size softmax.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In Pointer Nets, the normalized attention vector (over all the tokens in the input sequence) is normalized and treated as the softmax output over the input tokens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;So Pointer Net is a very simple modification of the attention model.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;application&quot;&gt;Application&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any problem where the size of the output depends on the size of the input because of which fixed length softmax is ruled out.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;eg combinatorial problems such as planar convex hull where the size of the output would depend on the size of the input.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers the following 3 problems:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Convex Hull&lt;/li&gt;
+      &lt;li&gt;Delaunay triangulations&lt;/li&gt;
+      &lt;li&gt;Travelling Salesman Problem (TSP)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since some of the problems are NP hard, the paper considers approximate solutions whereever the exact solutions are not feasible to compute.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors used the exact same architecture and model parameters of all the instances of the 3 problems to show the generality of the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proosed Pointer Nets outperforms LSTMs and LSTMs with attention and can generalise quite well for much larger sequences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interestingly, the order in which the inputs are fed to the system affects its performance. The authors discussed this apsect in their subsequent paper titled &lt;a href=&quot;https://arxiv.org/pdf/1511.06391v4.pdf&quot;&gt;Order Matters: Sequence To Sequence for Sets&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Learning to Compute Word Embeddings On the Fly</title>
