@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Pointer Networks](https://shagunsodhani.in/papers-I-read/Pointer-Networks)
 * [Learning to Compute Word Embeddings On the Fly](https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly)
 * [R-NET - Machine Reading Comprehension with Self-matching Networks](https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks)
 * [ReasoNet - Learning to Stop Reading in Machine Comprehension](https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension)
