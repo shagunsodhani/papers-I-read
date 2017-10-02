@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-01T21:05:54-04:00</updated>
+ <updated>2017-10-01T21:09:29-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -74,19 +74,7 @@
       &lt;/tbody&gt;
     &lt;/table&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Value network minimises *C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
-          &lt;td&gt;R-R~&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
-          &lt;td&gt;&lt;sup&gt;2&lt;/sup&gt;)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Value network minimises *C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(||R-R~||&lt;sup&gt;2&lt;/sup&gt;)&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; are minimised using SGD.&lt;/li&gt;
   &lt;li&gt;An entropy regulation term is added to prevent the probability distribution from reaching the peak.&lt;/li&gt;
 &lt;/ul&gt;
