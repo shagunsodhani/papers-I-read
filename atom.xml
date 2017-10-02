@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-01T21:09:29-04:00</updated>
+ <updated>2017-10-01T21:10:53-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -64,17 +64,8 @@
 &lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;The model is trained using REINFORCE algorithm which minimizes the *C&lt;sub&gt;a&lt;/sub&gt; = (R − R~) * sum(log(P(t&lt;/td&gt;
-          &lt;td&gt;q))) where R~ is the baseline.*&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Value network minimises *C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(||R-R~||&lt;sup&gt;2&lt;/sup&gt;)&lt;/li&gt;
+  &lt;li&gt;The model is trained using REINFORCE algorithm which minimizes the &lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt; = (R − R~) * sum(log(P(t|q))) where R~ is the baseline.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Value network minimises &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(||R-R~||&lt;sup&gt;2&lt;/sup&gt;)&lt;/em&gt;&lt;/li&gt;
   &lt;li&gt;&lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; are minimised using SGD.&lt;/li&gt;
   &lt;li&gt;An entropy regulation term is added to prevent the probability distribution from reaching the peak.&lt;/li&gt;
 &lt;/ul&gt;

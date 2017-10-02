@@ -165,17 +165,8 @@
 <h2 id="training">Training</h2>
 
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>The model is trained using REINFORCE algorithm which minimizes the *C<sub>a</sub> = (R − R~) * sum(log(P(t</td>
-          <td>q))) where R~ is the baseline.*</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>Value network minimises *C<sub>b</sub> = &amp;\alpha(||R-R~||<sup>2</sup>)</li>
+  <li>The model is trained using REINFORCE algorithm which minimizes the <em>C<sub>a</sub> = (R − R~) * sum(log(P(t|q))) where R~ is the baseline.</em></li>
+  <li>Value network minimises <em>C<sub>b</sub> = &amp;\alpha(||R-R~||<sup>2</sup>)</em></li>
   <li><em>C<sub>a</sub></em> and <em>C<sub>b</sub></em> are minimised using SGD.</li>
   <li>An entropy regulation term is added to prevent the probability distribution from reaching the peak.</li>
 </ul>
