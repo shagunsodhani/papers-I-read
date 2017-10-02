@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Task-Oriented Query Reformulation with Reinforcement Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2017. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Task-Oriented Query Reformulation with Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Information+Retrieval" title="Pages tagged Information Retrieval" rel="tag">Information Retrieval</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SIGIR" title="Pages tagged SIGIR" rel="tag">SIGIR</a></p>
+  <span class="post-date">01 Oct 2017</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>The paper introduces a query reformulation system that rewrites a query to maximise the number of “relevant” documents that are extracted from a given black box search engine.</li>
+  <li>A Reinforcement Learning (RL) agent selects the terms that are to be added to the reformulated query and the rewards are decided on the basis of document recall.</li>
+  <li><a href="https://arxiv.org/abs/1704.04572">Link to the paper</a></li>
+  <li><a href="https://github.com/nyu-dl/QueryReformulator">Implementation</a></li>
+</ul>
+
+<h2 id="key-aspect">Key Aspect</h2>
+
+<ul>
+  <li>The underlying problem is as follows: when the end user makes a query to a search engine, the engine often relies on word matching techniques to perform retrieval. This means relevant documents could be missed if there is no exactly matching words between the query and the document.</li>
+  <li>This problem can be handled at two levels: First, the search engine itself takes care of query semantics. Alternatively, we assume the search engine to be dumb and instead have a system in place that can improve the original queries (automatic query reformulation).</li>
+  <li>The paper takes the latter approach and expands the original query by adding terms from the set of retrieved documents (pseudo relevance feedback).</li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>TREC - Complex Answer Retrieval (TREC-CAR)</li>
+  <li>Jeopardy Q&amp;A dataset</li>
+  <li>Microsoft Academic (MSA) dataset - created by the authors using papers crawled from Microsoft Academic API</li>
+</ul>
+
+<h2 id="framework">Framework</h2>
+
+<ul>
+  <li>Query Reformulation task is modeled as an RL problem where:
+    <ul>
+      <li>Environment is the search engine.</li>
+      <li>Actions are whether a word is to be added to the query or not and if yes, then what word is added.</li>
+      <li>Reward is the retrieval accuracy.</li>
+    </ul>
+  </li>
+  <li>The input to the system is a query q<sub>0</sub> consisting of a sequence of words w<sub>1</sub>, …, w<sub>n</sub> and a candidate term t<sub>i</sub> with some context words.</li>
+  <li>Candidate terms are all the terms that appear in the original query and the documents retrieved using the query.</li>
+  <li>The words are mapped to vectors and then a fixed size representation is obtained for the sequence using CNN’s or RNNs.</li>
+  <li>Similarly, a representation is obtained for the candidate words by feeding them and their context words to the CNN or RNNs.</li>
+  <li>Finally, a sigmoidal score is computed for all the candidate words.</li>
+  <li>An RNN sequentially applies this model to emit query words till an end token is emitted.</li>
+  <li>Vocabulary is used only from the extracted documents and not the entire vocabulary set, to keep the inference fast.</li>
+</ul>
+
+<h2 id="training">Training</h2>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>The model is trained using REINFORCE algorithm which minimizes the *C<sub>a</sub> = (R − R~) * sum(log(P(t</td>
+          <td>q))) where R~ is the baseline.*</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Value network minimises *C<sub>b</sub> = &amp;\alpha(</td>
+          <td> </td>
+          <td>R-R~</td>
+          <td> </td>
+          <td><sup>2</sup>)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><em>C<sub>a</sub></em> and <em>C<sub>b</sub></em> are minimised using SGD.</li>
+  <li>An entropy regulation term is added to prevent the probability distribution from reaching the peak.</li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="baseline-methods">Baseline Methods</h3>
+
+<ul>
+  <li>
+    <p><strong>Raw</strong> - Original query is fed to the search engine without any modification.</p>
+  </li>
+  <li>
+    <p><strong>Pseudo-Relevance Feedback (PRF-TFIDF)</strong> - The query is expanded using the top-N TF-IDF terms.</p>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>PRF-Relevance Model (PRF-RM)</strong> - Probability of adding token <em>t</em> to the query <em>q0</em> is given by *P(t</td>
+          <td>q0) = (1 − λ)P′(t</td>
+          <td>q0) + λ sum (P(d)P(t</td>
+          <td>d)P(q0</td>
+          <td>d))*</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="proposed-methods">Proposed Methods</h3>
+
+<ul>
+  <li><strong>Supervised Learning</strong>
+    <ul>
+      <li>Assumes that the query words contribute indepently to the query retrival performace. (Too strong an assumption).</li>
+      <li>A term is marked as relevant if <em>(R(new_query) - R(old_query))/R(old_query) &gt; 0.005</em></li>
+    </ul>
+  </li>
+  <li><strong>Reinforcement Learning</strong>
+    <ul>
+      <li>RL-RNN/CNN - RL Framework + RNN/CNN to encode the input features.</li>
+      <li>RL-RNN-SEQ - Add a sequential generator.</li>
+    </ul>
+  </li>
+  <li><strong>Metrics</strong>
+    <ul>
+      <li>Recall@K</li>
+      <li>Precision@K</li>
+      <li>Mean Average Precision@K</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Reward</strong> - The paper uses Recall@K as a reward when training the RL-based models with the argument that the “metric has shown to be effective in improving the other metrics as well”, without any justification though.</p>
+  </li>
+  <li>
+    <p><strong>SL-Oracle</strong> - classifier that perfectly selects terms that will increase performance based on the supervised learning approach.</p>
+  </li>
+  <li><strong>RL-Oracle</strong> - Produces a conservative upper-bound for the performance of the RL Agent. It splits the test data into N subsets and trains an RL agent for each subset. Then, the reward is averaged over all the N subsets.</li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>Reformulation based methods &gt; original query</li>
+  <li>RL methods &gt; Supervised methods &gt; unsupervised methods</li>
+  <li>RL-RNN-SEQ performs slightly worse than RL-RNN but is much faster (as it produces shorter queries).</li>
+  <li>RL-based model benefits from more candidate terms while the classical PRF method quickly saturates.</li>
+</ul>
+
+<h2 id="comments">Comments</h2>
+
+<ul>
+  <li>Interestingly, for each raw query, they carried out the reformulation step just once and not multiple times. The number of times a query is reformulated could also have become a part of the RL framework.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation">
+            Refining Source Representations with Relation Networks for Neural Machine Translation
+            <small>22 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Pointer-Networks">
+            Pointer Networks
+            <small>27 Aug 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly">
+            Learning to Compute Word Embeddings On the Fly
+            <small>21 Aug 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

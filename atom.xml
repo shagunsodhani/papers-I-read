@@ -4,13 +4,166 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-09-22T20:11:14-04:00</updated>
+ <updated>2017-10-01T21:05:54-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Task-Oriented Query Reformulation with Reinforcement Learning</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning"/>
+   <updated>2017-10-01T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Task-Oriented Query Reformulation with Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper introduces a query reformulation system that rewrites a query to maximise the number of “relevant” documents that are extracted from a given black box search engine.&lt;/li&gt;
+  &lt;li&gt;A Reinforcement Learning (RL) agent selects the terms that are to be added to the reformulated query and the rewards are decided on the basis of document recall.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.04572&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nyu-dl/QueryReformulator&quot;&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-aspect&quot;&gt;Key Aspect&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The underlying problem is as follows: when the end user makes a query to a search engine, the engine often relies on word matching techniques to perform retrieval. This means relevant documents could be missed if there is no exactly matching words between the query and the document.&lt;/li&gt;
+  &lt;li&gt;This problem can be handled at two levels: First, the search engine itself takes care of query semantics. Alternatively, we assume the search engine to be dumb and instead have a system in place that can improve the original queries (automatic query reformulation).&lt;/li&gt;
+  &lt;li&gt;The paper takes the latter approach and expands the original query by adding terms from the set of retrieved documents (pseudo relevance feedback).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TREC - Complex Answer Retrieval (TREC-CAR)&lt;/li&gt;
+  &lt;li&gt;Jeopardy Q&amp;amp;A dataset&lt;/li&gt;
+  &lt;li&gt;Microsoft Academic (MSA) dataset - created by the authors using papers crawled from Microsoft Academic API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;framework&quot;&gt;Framework&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Query Reformulation task is modeled as an RL problem where:
+    &lt;ul&gt;
+      &lt;li&gt;Environment is the search engine.&lt;/li&gt;
+      &lt;li&gt;Actions are whether a word is to be added to the query or not and if yes, then what word is added.&lt;/li&gt;
+      &lt;li&gt;Reward is the retrieval accuracy.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The input to the system is a query q&lt;sub&gt;0&lt;/sub&gt; consisting of a sequence of words w&lt;sub&gt;1&lt;/sub&gt;, …, w&lt;sub&gt;n&lt;/sub&gt; and a candidate term t&lt;sub&gt;i&lt;/sub&gt; with some context words.&lt;/li&gt;
+  &lt;li&gt;Candidate terms are all the terms that appear in the original query and the documents retrieved using the query.&lt;/li&gt;
+  &lt;li&gt;The words are mapped to vectors and then a fixed size representation is obtained for the sequence using CNN’s or RNNs.&lt;/li&gt;
+  &lt;li&gt;Similarly, a representation is obtained for the candidate words by feeding them and their context words to the CNN or RNNs.&lt;/li&gt;
+  &lt;li&gt;Finally, a sigmoidal score is computed for all the candidate words.&lt;/li&gt;
+  &lt;li&gt;An RNN sequentially applies this model to emit query words till an end token is emitted.&lt;/li&gt;
+  &lt;li&gt;Vocabulary is used only from the extracted documents and not the entire vocabulary set, to keep the inference fast.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;The model is trained using REINFORCE algorithm which minimizes the *C&lt;sub&gt;a&lt;/sub&gt; = (R − R~) * sum(log(P(t&lt;/td&gt;
+          &lt;td&gt;q))) where R~ is the baseline.*&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Value network minimises *C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;R-R~&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;&lt;sup&gt;2&lt;/sup&gt;)&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; are minimised using SGD.&lt;/li&gt;
+  &lt;li&gt;An entropy regulation term is added to prevent the probability distribution from reaching the peak.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;baseline-methods&quot;&gt;Baseline Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Raw&lt;/strong&gt; - Original query is fed to the search engine without any modification.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Pseudo-Relevance Feedback (PRF-TFIDF)&lt;/strong&gt; - The query is expanded using the top-N TF-IDF terms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;PRF-Relevance Model (PRF-RM)&lt;/strong&gt; - Probability of adding token &lt;em&gt;t&lt;/em&gt; to the query &lt;em&gt;q0&lt;/em&gt; is given by *P(t&lt;/td&gt;
+          &lt;td&gt;q0) = (1 − λ)P′(t&lt;/td&gt;
+          &lt;td&gt;q0) + λ sum (P(d)P(t&lt;/td&gt;
+          &lt;td&gt;d)P(q0&lt;/td&gt;
+          &lt;td&gt;d))*&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;proposed-methods&quot;&gt;Proposed Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Supervised Learning&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Assumes that the query words contribute indepently to the query retrival performace. (Too strong an assumption).&lt;/li&gt;
+      &lt;li&gt;A term is marked as relevant if &lt;em&gt;(R(new_query) - R(old_query))/R(old_query) &amp;gt; 0.005&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Reinforcement Learning&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;RL-RNN/CNN - RL Framework + RNN/CNN to encode the input features.&lt;/li&gt;
+      &lt;li&gt;RL-RNN-SEQ - Add a sequential generator.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Metrics&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Recall@K&lt;/li&gt;
+      &lt;li&gt;Precision@K&lt;/li&gt;
+      &lt;li&gt;Mean Average Precision@K&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Reward&lt;/strong&gt; - The paper uses Recall@K as a reward when training the RL-based models with the argument that the “metric has shown to be effective in improving the other metrics as well”, without any justification though.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;SL-Oracle&lt;/strong&gt; - classifier that perfectly selects terms that will increase performance based on the supervised learning approach.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RL-Oracle&lt;/strong&gt; - Produces a conservative upper-bound for the performance of the RL Agent. It splits the test data into N subsets and trains an RL agent for each subset. Then, the reward is averaged over all the N subsets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Reformulation based methods &amp;gt; original query&lt;/li&gt;
+  &lt;li&gt;RL methods &amp;gt; Supervised methods &amp;gt; unsupervised methods&lt;/li&gt;
+  &lt;li&gt;RL-RNN-SEQ performs slightly worse than RL-RNN but is much faster (as it produces shorter queries).&lt;/li&gt;
+  &lt;li&gt;RL-based model benefits from more candidate terms while the classical PRF method quickly saturates.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comments&quot;&gt;Comments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Interestingly, for each raw query, they carried out the reformulation step just once and not multiple times. The number of times a query is reformulated could also have become a part of the RL framework.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Refining Source Representations with Relation Networks for Neural Machine Translation</title>
