@@ -2,7 +2,7 @@
 layout: post
 title: Refining Source Representations with Relation Networks for Neural Machine Translation
 comments: True
-excerpt: 
+excerpt: The paper introduces Relation Network (RN) that refines the encoding representation of the given source document (or sentence).
 tags: ['2017', 'Relational Network', 'Representation Learning', AI, NLP, NMT]
 ---
 

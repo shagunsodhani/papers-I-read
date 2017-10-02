@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Task-Oriented Query Reformulation with Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning)
 * [Refining Source Representations with Relation Networks for Neural Machine Translation](https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation)
 * [Pointer Networks](https://shagunsodhani.in/papers-I-read/Pointer-Networks)
 * [Learning to Compute Word Embeddings On the Fly](https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly)
