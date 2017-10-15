@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-01T21:10:53-04:00</updated>
+ <updated>2017-10-15T19:53:41-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -233,6 +233,88 @@
   &lt;li&gt;As sentences become larger (more than 50 words), RNMT clearly outperforms other baselines.&lt;/li&gt;
   &lt;li&gt;Qualitative evaluation shows that RNMT+ model captures the word alignment better than the NMT+ models.&lt;/li&gt;
   &lt;li&gt;Similarly, NMT+ system tends to miss some information from the source sentence (more so for longer sentences). While both CNNs and RNNs are weak at capturing long-term dependency, using the relation layer mitigates this issue to some extent.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Reading Wikipedia to Answer Open-Domain Questions</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions"/>
+   <updated>2017-09-15T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Reading Wikipedia to Answer Open-Domain Questions</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a new machine comprehension dataset for question answering in real life setting (say when interacting with Cortana/Siri).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.00051&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;unique-aspects-of-the-dataset&quot;&gt;Unique Aspects of the dataset&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Existing machine comprehension (MC) datasets are either too small or synthetic (with a distribution different from that or real-questions posted by humans). MARCO questions are sampled from real, anonymized user queries.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most datasets would provide a comparatively small and clean context to answer the question. In MARCO, the context documents (which may or may not contain the answer) are extracted using Bing from real-world documents. As such the questions and the context documents are noisy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, the answer to the questions are restricted to an entity or text span within the document. In case of MARCO, the human judges are encouraged to generate complete sentences as answers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset-description&quot;&gt;Dataset Description&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;First release consists of 100K questions with the aim of releasing 1M questions in the future releases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All questions are tagged with segment information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A subset of questions has multiple answers and another subset has no answers at all.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each record in the dataset contains the following information:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Query&lt;/strong&gt; - The actual question&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Passage&lt;/strong&gt; - Top 10 contextual passages extracted from web search engine (which may or may not contain the answer to the question).&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Document URLs&lt;/strong&gt; - URLs for the top documents (which are the source of the contextual passages).&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Answer&lt;/strong&gt; - Answer synthesised by human evaluators.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Segment&lt;/strong&gt; - Query type, description, neumeric, entity, location, person.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-results&quot;&gt;Experimental Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Accuracy and precision/recall for numeric questions&lt;/li&gt;
+      &lt;li&gt;ROGUE-L/paraphrasing aware evaluation framework for long, textual answers.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Among generative models, Memory Networks performed better than seq-to-seq.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the cloze-style test, &lt;a href=&quot;https://arxiv.org/abs/1609.05284&quot;&gt;ReasoNet&lt;/a&gt; achieved an accuracy of approx. 59% while &lt;a href=&quot;ASR&quot;&gt;Attention Sum Reader&lt;/a&gt; achieved an accuracy of approx 55%.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Current QA systems (including the ones using memory and attention) derive their power from supervised data and are very different from how humans do reasoning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Imagenet dataset pushed the state-of-the-art performance on object classification to beyond human accuracy. Similar was the case with speech recognition dataset from DARPA which led to the advancement of speech recognition. Having a large, diverse and human-like questions dataset is a fundamental requirement to advance the field and the paper aims to provide just the right kind of dataset.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
