@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      VQA-Visual Question Answering &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2017. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">VQA-Visual Question Answering</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICCV+2015" title="Pages tagged ICCV 2015" rel="tag">ICCV 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICCV" title="Pages tagged ICCV" rel="tag">ICCV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
+  <span class="post-date">27 Apr 2017</span>
+  <h3 id="problem-statement">Problem Statement</h3>
+
+<ul>
+  <li>
+    <p>Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1505.00468v6">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h3 id="vqa-challenge-and-workshop"><a href="http://www.visualqa.org/">VQA Challenge and Workshop</a></h3>
+
+<ul>
+  <li>The authors organise an annual challenge and workshop to discuss the state-of-the-art methods and best practices in this domain.</li>
+  <li>Interestingly, the second version is starting on 27th April 2017 (today).</li>
+</ul>
+
+<h3 id="benefits-over-tasks-like-image-captioning">Benefits over tasks like image captioning:</h3>
+
+<ul>
+  <li>Simple, <em>n-gram</em> statistics based methods are not sufficient.</li>
+  <li>Requires the system to blend in different aspects of knowledge - object detection, activity recognition, commonsense reasoning etc.</li>
+  <li>Since only short answers are expected, evaluation is easier.</li>
+</ul>
+
+<h3 id="dataset">Dataset</h3>
+
+<ul>
+  <li>Created a new dataset of 50000 realistic, abstract images.</li>
+  <li>Used AMT to crowdsource the task of collecting questions and answers for MS COCO dataset (&gt;200K images) and abstract images.</li>
+  <li>Three questions per image and ten answers per question (along with their confidence) were collected.</li>
+  <li>The entire dataset contains over 760K questions and 10M answers.</li>
+  <li>The authors also performed an exhaustive analysis of the dataset to establish its diversity and to explore how the content of these question-answers differ from that of standard image captioning datasets.</li>
+</ul>
+
+<h3 id="highlights-of-data-collection-methodology">Highlights of data collection methodology</h3>
+
+<ul>
+  <li>Emphasis on questions that require an image, and not just common sense, to be answered correctly.</li>
+  <li>Workers were shown previous questions when writing new questions to increase diversity.</li>
+  <li>Answers collected from multiple users to account for discrepancies in answers by humans.</li>
+  <li>Two modalities supported:
+    <ul>
+      <li><strong>Open-ended</strong> - produce the answer</li>
+      <li><strong>multiple-choice</strong> - select from a set of options provided (18 options comprising of popular, plausible, random and ofc correct answer)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="highlights-from-data-analysis">Highlights from data analysis</h3>
+
+<ul>
+  <li>Most questions range from four to ten words while answers range from one to three words.</li>
+  <li>Around 40% questions are “yes/no” questions.</li>
+  <li>Significant (&gt;80%) inter-human agreement for answers.</li>
+  <li>The authors performed a study where human evaluators were asked to answer the questions without looking at the images.</li>
+  <li>Further, they performed a study where evaluators were asked to label if a question could be answered using common sense and what was the youngest age group, they felt, could answer the question.</li>
+  <li>The idea was to establish that a sufficient number of questions in the dataset required more than just common sense to answer.</li>
+</ul>
+
+<h3 id="baseline-models">Baseline Models</h3>
+
+<ul>
+  <li><strong>random</strong> selection</li>
+  <li><strong>prior (“yes”)</strong> - always answer as yes.</li>
+  <li><strong>per Q-type prior</strong> - pick the most popular answer per question type.</li>
+  <li><strong>nearest neighbor</strong> - find the k nearest neighbors for the given (image, question) pair.</li>
+</ul>
+
+<h3 id="methods">Methods</h3>
+
+<ul>
+  <li>
+    <p>2-channel model (using vision and language models) followed by softmax over (K = 1000) most frequent answers.</p>
+  </li>
+  <li><strong>Image Channel</strong>
+    <ul>
+      <li><strong>I</strong> - Used last hidden layer of VGGNet to obtain 4096-dim image embedding.</li>
+      <li><strong>norm I</strong> - : l2 normalized version of <strong>I</strong>.</li>
+    </ul>
+  </li>
+  <li><strong>Question Channel</strong>
+    <ul>
+      <li><strong>BoW Q</strong> - Bag-of-Words representation for the questions using the top 1000 words plus the top 1- first, second and third words of the questions.</li>
+      <li><strong>LSTM Q</strong> - Each word is encoded into 300-dim vectors using fully connected + tanh non-linearity. These embeddings are fed to an LSTM to obtain 1024d-dim embedding.</li>
+      <li><strong>Deeper LSTM Q</strong> - Same as LSTM Q but uses two hidden layers to obtain 2048-dim embedding.</li>
+    </ul>
+  </li>
+  <li><strong>Multi-Layer Perceptron (MLP)</strong> - Combine image and question embeddings to obtain a single embedding.
+    <ul>
+      <li><strong>BoW Q + I</strong> method - concatenate BoW Q and I embeddings.</li>
+      <li><strong>LSTM Q + I, deeper LSTM Q + norm I</strong> methods - image embedding transformed to 1024-dim using a FC layer and tanh non-linearity followed by element-wise multiplication of image and question vectors.</li>
+    </ul>
+  </li>
+  <li>Pass combined embedding to an MLP - FC neural network with 2 hidden layers (1000 neurons and 0.5 dropout) with tanh, followed by softmax.</li>
+  <li>Cross-entropy loss with VGGNet parameters frozen.</li>
+</ul>
+
+<h3 id="results">Results</h3>
+
+<ul>
+  <li>Deeper LSTM Q + norm I is the best model with 58.16% accuracy on open-ended dataset and 63.09% on multiple-choice but far behind the human evaluators (&gt;80% and &gt;90% respectively).</li>
+  <li>The best model performs well for answers involving common visual objects but performs poorly for answers involving counts.</li>
+  <li>Vision only model performs even worse than the model which always produces “yes” as the answer.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning">
+            Task-Oriented Query Reformulation with Reinforcement Learning
+            <small>01 Oct 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation">
+            Refining Source Representations with Relation Networks for Neural Machine Translation
+            <small>22 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions">
+            Reading Wikipedia to Answer Open-Domain Questions
+            <small>15 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/VQA-Visual-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

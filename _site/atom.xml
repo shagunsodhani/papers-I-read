@@ -1,0 +1,1591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Papers I Read</title>
+ <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
+ <link href="https://shagunsodhani.in/papers-I-read/"/>
+ <updated>2017-10-15T19:53:41-04:00</updated>
+ <id>https://shagunsodhani.in/papers-I-read</id>
+ <author>
+   <name>Shagun Sodhani</name>
+   <email>sshagunsodhani@gmail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Task-Oriented Query Reformulation with Reinforcement Learning</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning"/>
+   <updated>2017-10-01T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Task-Oriented Query Reformulation with Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper introduces a query reformulation system that rewrites a query to maximise the number of “relevant” documents that are extracted from a given black box search engine.&lt;/li&gt;
+  &lt;li&gt;A Reinforcement Learning (RL) agent selects the terms that are to be added to the reformulated query and the rewards are decided on the basis of document recall.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.04572&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nyu-dl/QueryReformulator&quot;&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-aspect&quot;&gt;Key Aspect&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The underlying problem is as follows: when the end user makes a query to a search engine, the engine often relies on word matching techniques to perform retrieval. This means relevant documents could be missed if there is no exactly matching words between the query and the document.&lt;/li&gt;
+  &lt;li&gt;This problem can be handled at two levels: First, the search engine itself takes care of query semantics. Alternatively, we assume the search engine to be dumb and instead have a system in place that can improve the original queries (automatic query reformulation).&lt;/li&gt;
+  &lt;li&gt;The paper takes the latter approach and expands the original query by adding terms from the set of retrieved documents (pseudo relevance feedback).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TREC - Complex Answer Retrieval (TREC-CAR)&lt;/li&gt;
+  &lt;li&gt;Jeopardy Q&amp;amp;A dataset&lt;/li&gt;
+  &lt;li&gt;Microsoft Academic (MSA) dataset - created by the authors using papers crawled from Microsoft Academic API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;framework&quot;&gt;Framework&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Query Reformulation task is modeled as an RL problem where:
+    &lt;ul&gt;
+      &lt;li&gt;Environment is the search engine.&lt;/li&gt;
+      &lt;li&gt;Actions are whether a word is to be added to the query or not and if yes, then what word is added.&lt;/li&gt;
+      &lt;li&gt;Reward is the retrieval accuracy.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The input to the system is a query q&lt;sub&gt;0&lt;/sub&gt; consisting of a sequence of words w&lt;sub&gt;1&lt;/sub&gt;, …, w&lt;sub&gt;n&lt;/sub&gt; and a candidate term t&lt;sub&gt;i&lt;/sub&gt; with some context words.&lt;/li&gt;
+  &lt;li&gt;Candidate terms are all the terms that appear in the original query and the documents retrieved using the query.&lt;/li&gt;
+  &lt;li&gt;The words are mapped to vectors and then a fixed size representation is obtained for the sequence using CNN’s or RNNs.&lt;/li&gt;
+  &lt;li&gt;Similarly, a representation is obtained for the candidate words by feeding them and their context words to the CNN or RNNs.&lt;/li&gt;
+  &lt;li&gt;Finally, a sigmoidal score is computed for all the candidate words.&lt;/li&gt;
+  &lt;li&gt;An RNN sequentially applies this model to emit query words till an end token is emitted.&lt;/li&gt;
+  &lt;li&gt;Vocabulary is used only from the extracted documents and not the entire vocabulary set, to keep the inference fast.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training&quot;&gt;Training&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The model is trained using REINFORCE algorithm which minimizes the &lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt; = (R − R~) * sum(log(P(t|q))) where R~ is the baseline.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Value network minimises &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt; = &amp;amp;\alpha(||R-R~||&lt;sup&gt;2&lt;/sup&gt;)&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;C&lt;sub&gt;a&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;C&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; are minimised using SGD.&lt;/li&gt;
+  &lt;li&gt;An entropy regulation term is added to prevent the probability distribution from reaching the peak.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;baseline-methods&quot;&gt;Baseline Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Raw&lt;/strong&gt; - Original query is fed to the search engine without any modification.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Pseudo-Relevance Feedback (PRF-TFIDF)&lt;/strong&gt; - The query is expanded using the top-N TF-IDF terms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;PRF-Relevance Model (PRF-RM)&lt;/strong&gt; - Probability of adding token &lt;em&gt;t&lt;/em&gt; to the query &lt;em&gt;q0&lt;/em&gt; is given by *P(t&lt;/td&gt;
+          &lt;td&gt;q0) = (1 − λ)P′(t&lt;/td&gt;
+          &lt;td&gt;q0) + λ sum (P(d)P(t&lt;/td&gt;
+          &lt;td&gt;d)P(q0&lt;/td&gt;
+          &lt;td&gt;d))*&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;proposed-methods&quot;&gt;Proposed Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Supervised Learning&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Assumes that the query words contribute indepently to the query retrival performace. (Too strong an assumption).&lt;/li&gt;
+      &lt;li&gt;A term is marked as relevant if &lt;em&gt;(R(new_query) - R(old_query))/R(old_query) &amp;gt; 0.005&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Reinforcement Learning&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;RL-RNN/CNN - RL Framework + RNN/CNN to encode the input features.&lt;/li&gt;
+      &lt;li&gt;RL-RNN-SEQ - Add a sequential generator.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Metrics&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Recall@K&lt;/li&gt;
+      &lt;li&gt;Precision@K&lt;/li&gt;
+      &lt;li&gt;Mean Average Precision@K&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Reward&lt;/strong&gt; - The paper uses Recall@K as a reward when training the RL-based models with the argument that the “metric has shown to be effective in improving the other metrics as well”, without any justification though.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;SL-Oracle&lt;/strong&gt; - classifier that perfectly selects terms that will increase performance based on the supervised learning approach.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;RL-Oracle&lt;/strong&gt; - Produces a conservative upper-bound for the performance of the RL Agent. It splits the test data into N subsets and trains an RL agent for each subset. Then, the reward is averaged over all the N subsets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Reformulation based methods &amp;gt; original query&lt;/li&gt;
+  &lt;li&gt;RL methods &amp;gt; Supervised methods &amp;gt; unsupervised methods&lt;/li&gt;
+  &lt;li&gt;RL-RNN-SEQ performs slightly worse than RL-RNN but is much faster (as it produces shorter queries).&lt;/li&gt;
+  &lt;li&gt;RL-based model benefits from more candidate terms while the classical PRF method quickly saturates.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comments&quot;&gt;Comments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Interestingly, for each raw query, they carried out the reformulation step just once and not multiple times. The number of times a query is reformulated could also have become a part of the RL framework.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Refining Source Representations with Relation Networks for Neural Machine Translation</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation"/>
+   <updated>2017-09-22T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Refining Source Representations with Relation Networks for Neural Machine Translation</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper introduces Relation Network (RN) that refines the encoding representation of the given source document (or sentence).&lt;/li&gt;
+  &lt;li&gt;This refined source representation can then be used in Neural Machine Translation (NMT) systems to counter the problem of RNNs forgetting old information.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1709.03980&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;limitations-of-existing-nmt-models&quot;&gt;Limitations of existing NMT models&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The RNN encoder-decoder architecture is the standard choice for NMT systems. But the RNNs are prone to forgetting old information.&lt;/li&gt;
+  &lt;li&gt;In NMT models, the attention is modeled in the unit of words while the use of phrases (instead of words) would be a better choice.&lt;/li&gt;
+  &lt;li&gt;While NMT systems might be able to capture certain relationships between words, they are not explicitly designed to capture such information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;contributions-of-the-paper&quot;&gt;Contributions of the paper&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Learn the relationship between the source words using the context (neighboring words).&lt;/li&gt;
+  &lt;li&gt;Relation Networks (RNs) build pairwise relations between source words using the representations generated by the RNNs. The RN would sit between the encoder and the attention layer of the encoder-decoder framework thereby keeping the main architecture unaffected.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;relation-network&quot;&gt;Relation Network&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Neural network which is desgined for relational reasoning.&lt;/li&gt;
+  &lt;li&gt;Given a set of inputs * O = o&lt;sub&gt;1&lt;/sub&gt;, …, o&lt;sub&gt;n&lt;/sub&gt; *, RN is formed as a composition of inputs:
+   RN(O) = f(sum(g(o&lt;sub&gt;i&lt;/sub&gt;, o&lt;sub&gt;j&lt;/sub&gt;))), f and g are functions used to learn the relations (feed forward networks)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;g&lt;/em&gt; learns how the objects are related hence the name “relation”.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Components&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;CNN Layer
+        &lt;ul&gt;
+          &lt;li&gt;Extract information from the words surrounding the given word (context).&lt;/li&gt;
+          &lt;li&gt;The final output of this layer is the sequence of vectors for different kernel width.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Graph Propagation (GP) Layer
+        &lt;ul&gt;
+          &lt;li&gt;Connect all the words with each other in the form of a graph.&lt;/li&gt;
+          &lt;li&gt;Each output vector from the CNN corresponds to a node in the graph and there is an edge between all possible pair of nodes.&lt;/li&gt;
+          &lt;li&gt;The information flows between the nodes of the graph in a message passing sort of fashion (graph propagation) to obtain a new set of vectors for each node.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Multi-Layer Perceptron (MLP) Layer
+        &lt;ul&gt;
+          &lt;li&gt;The representation from the GP Layer is fed to the MLP layer.&lt;/li&gt;
+          &lt;li&gt;The layer uses residual connections from previous layers in form of concatenation.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;IWSLT Data - 44K sentences from tourism and travel domain.&lt;/li&gt;
+  &lt;li&gt;NIST Data - 1M Chinese-English parallel sentence pairs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;models&quot;&gt;Models&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MOSES - Open source translation system - http://www.statmt.org/moses/&lt;/li&gt;
+  &lt;li&gt;NMT - Attention based NMT&lt;/li&gt;
+  &lt;li&gt;NMT+ - NMT with improved decoder&lt;/li&gt;
+  &lt;li&gt;TRANSFORMER - Google’s new NMT&lt;/li&gt;
+  &lt;li&gt;RNMT+ - Relation Network integrated with NMT+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;evaluation-metric&quot;&gt;Evaluation Metric&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;case-insensitive 4-gram BLEU score&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;As sentences become larger (more than 50 words), RNMT clearly outperforms other baselines.&lt;/li&gt;
+  &lt;li&gt;Qualitative evaluation shows that RNMT+ model captures the word alignment better than the NMT+ models.&lt;/li&gt;
+  &lt;li&gt;Similarly, NMT+ system tends to miss some information from the source sentence (more so for longer sentences). While both CNNs and RNNs are weak at capturing long-term dependency, using the relation layer mitigates this issue to some extent.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Reading Wikipedia to Answer Open-Domain Questions</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions"/>
+   <updated>2017-09-15T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Reading Wikipedia to Answer Open-Domain Questions</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a new machine comprehension dataset for question answering in real life setting (say when interacting with Cortana/Siri).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.00051&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;unique-aspects-of-the-dataset&quot;&gt;Unique Aspects of the dataset&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Existing machine comprehension (MC) datasets are either too small or synthetic (with a distribution different from that or real-questions posted by humans). MARCO questions are sampled from real, anonymized user queries.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most datasets would provide a comparatively small and clean context to answer the question. In MARCO, the context documents (which may or may not contain the answer) are extracted using Bing from real-world documents. As such the questions and the context documents are noisy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, the answer to the questions are restricted to an entity or text span within the document. In case of MARCO, the human judges are encouraged to generate complete sentences as answers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset-description&quot;&gt;Dataset Description&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;First release consists of 100K questions with the aim of releasing 1M questions in the future releases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All questions are tagged with segment information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A subset of questions has multiple answers and another subset has no answers at all.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each record in the dataset contains the following information:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Query&lt;/strong&gt; - The actual question&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Passage&lt;/strong&gt; - Top 10 contextual passages extracted from web search engine (which may or may not contain the answer to the question).&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Document URLs&lt;/strong&gt; - URLs for the top documents (which are the source of the contextual passages).&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Answer&lt;/strong&gt; - Answer synthesised by human evaluators.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Segment&lt;/strong&gt; - Query type, description, neumeric, entity, location, person.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-results&quot;&gt;Experimental Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Accuracy and precision/recall for numeric questions&lt;/li&gt;
+      &lt;li&gt;ROGUE-L/paraphrasing aware evaluation framework for long, textual answers.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Among generative models, Memory Networks performed better than seq-to-seq.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the cloze-style test, &lt;a href=&quot;https://arxiv.org/abs/1609.05284&quot;&gt;ReasoNet&lt;/a&gt; achieved an accuracy of approx. 59% while &lt;a href=&quot;ASR&quot;&gt;Attention Sum Reader&lt;/a&gt; achieved an accuracy of approx 55%.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Current QA systems (including the ones using memory and attention) derive their power from supervised data and are very different from how humans do reasoning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Imagenet dataset pushed the state-of-the-art performance on object classification to beyond human accuracy. Similar was the case with speech recognition dataset from DARPA which led to the advancement of speech recognition. Having a large, diverse and human-like questions dataset is a fundamental requirement to advance the field and the paper aims to provide just the right kind of dataset.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Pointer Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Pointer-Networks"/>
+   <updated>2017-08-27T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Pointer Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces a novel architecture that generates an output sequence such that the elements of the output sequence are discrete tokens corresponding to positions in the input sequence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Such a problem can not be solved using &lt;a href=&quot;https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f&quot;&gt;Seq2Seq&lt;/a&gt; or Neural Turing Machines as the size of the output softmax is variable (as it depends on the size of the input sequence).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1506.03134&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Traditional attention-base sequence-to-sequence models compute an attention vector for each step of the output decoder and use that to blend the individual context vectors of the input into a single, consolidated attention vector. This attention vector is used to compute a fixed size softmax.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In Pointer Nets, the normalized attention vector (over all the tokens in the input sequence) is normalized and treated as the softmax output over the input tokens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;So Pointer Net is a very simple modification of the attention model.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;application&quot;&gt;Application&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any problem where the size of the output depends on the size of the input because of which fixed length softmax is ruled out.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;eg combinatorial problems such as planar convex hull where the size of the output would depend on the size of the input.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers the following 3 problems:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Convex Hull&lt;/li&gt;
+      &lt;li&gt;Delaunay triangulations&lt;/li&gt;
+      &lt;li&gt;Travelling Salesman Problem (TSP)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since some of the problems are NP hard, the paper considers approximate solutions whereever the exact solutions are not feasible to compute.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors used the exact same architecture and model parameters of all the instances of the 3 problems to show the generality of the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proosed Pointer Nets outperforms LSTMs and LSTMs with attention and can generalise quite well for much larger sequences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interestingly, the order in which the inputs are fed to the system affects its performance. The authors discussed this apsect in their subsequent paper titled &lt;a href=&quot;https://arxiv.org/pdf/1511.06391v4.pdf&quot;&gt;Order Matters: Sequence To Sequence for Sets&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Learning to Compute Word Embeddings On the Fly</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly"/>
+   <updated>2017-08-21T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learning to Compute Word Embeddings On the Fly</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Word based language models suffer from the problem of rare or Out of Vocabulary (OOV) words.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Learning representations for OOV words directly on the end task often results in poor representation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The alternative is to replace all the rare words with a single, unique representation (loss of information) or use character level models to obtain word representations (they tend to miss on the semantic relationship).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to learn a network that can predict the representations of words using auxiliary data (referred to as definitions) such as dictionary definitions, Wikipedia infoboxes, the spelling of the word etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The auxiliary data encoders are trained jointly with the end task to ensure that word representations align with the requirements of the end task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a rare word &lt;em&gt;w&lt;/em&gt;, let &lt;em&gt;d(w) = &amp;lt;x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;…&amp;gt;&lt;/em&gt; denote its defination where &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; are words.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;d(w)&lt;/em&gt; is fed to a &lt;em&gt;defination reader&lt;/em&gt; network &lt;em&gt;f&lt;/em&gt; (LSTM) and its last state is used as the &lt;em&gt;defination embedding e&lt;sub&gt;d&lt;/sub&gt;(w)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case &lt;em&gt;w&lt;/em&gt; has multiple definitions, the embeddings are combined using mean pooling.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The approach can be extended to in-vocabulary words as well by using the &lt;em&gt;definition embedding&lt;/em&gt; of such words to update their original embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Auxiliary data sources
+    &lt;ul&gt;
+      &lt;li&gt;Word definitions from WordNet&lt;/li&gt;
+      &lt;li&gt;Spelling of words&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed approach was tested on following tasks:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Extractive Question Answering over SQuAD
+        &lt;ul&gt;
+          &lt;li&gt;Base model from &lt;a href=&quot;https://arxiv.org/abs/1611.01604&quot;&gt;Xiong et al. 2016&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Entailment Prediction over SNLI corpus
+        &lt;ul&gt;
+          &lt;li&gt;Base models from &lt;a href=&quot;https://nlp.stanford.edu/pubs/snli_paper.pdf&quot;&gt;Bowman et al. 2015&lt;/a&gt; and &lt;a href=&quot;https://arxiv.org/abs/1609.06038&quot;&gt;Chen et al. 2016&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;One Billion Words Language Modelling&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For all the tasks, models using both spelling and dictionary (SD) outperformed the model using just one.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;While SD does not outperform the Glove model (with full vocabulary), it does bridge the performance gap significantly.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multi-token words like “San Francisco” are not accounted for now.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model does not handle the rare words which appear in the definition and just replaces them by the &lt;UNK&gt; token. Making the model recursive would be a useful addition.&lt;/UNK&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>R-NET - Machine Reading Comprehension with Self-matching Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"/>
+   <updated>2017-08-07T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/R-NET - Machine Reading Comprehension with Self-matching Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;R-NET is an end-to-end trained neural network model for machine comprehension.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It starts by matching the question and the given passage (using gated attention based RNN) to obtain question-aware passage representation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Next, it uses a self-matching attention mechanism to refine the passage representation by matching the passage against itself.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lastly, it uses pointer networks to determine the position of the answer in the passage.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/publication/mrc/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SQuAD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MS-MARCO&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Question / Passage Encoder&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Concatenate the word level and character level embeddings for each word and feed into a bidirectional GRU to obtain question and passage representation.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gated Attention based RNN&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Given question and passage representation, sentence pair representation is generated via soft-alignment of the words in the question and in the passage.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The newly added gate captures the relation between the question and the current passage word as only some parts of the passage are relevant for answering the given question.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Self Matching Attention&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The passage representation obtained so far would not capture most of the context.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;So the current representation is matched against itself so as to collect evidence from the entire passage and encode the evidence relevant to the current passage word and question.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output Layer&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use pointer network (initialized using attention pooling over answer representation) to predict the position of the answer.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Loss function is the sum of negative log probabilities of start and end positions.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Results&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;R-NET is ranked second on &lt;a href=&quot;https://rajpurkar.github.io/SQuAD-explorer/&quot;&gt;SQuAD Leaderboard&lt;/a&gt; as of 7th August, 2017 and achieves best-published results on MS-MARCO dataset.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Using ideas like sentence ranking, using syntax information performing multihop inference and augmenting question dataset (using seqToseq network) do not help in improving the performance.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>ReasoNet - Learning to Stop Reading in Machine Comprehension</title>
+   <link href="https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"/>
+   <updated>2017-07-24T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/ReasoNet - Learning to Stop Reading in Machine Comprehension</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the domain of machine comprehension, making multiple passes over the given document is an effective technique to extract the relation between the given passage, question and answer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unlike previous approaches, which perform a fixed number of passes over the passage, Reasoning Network (ReasoNet) uses reinforcement learning (RL) to decide how many times a document should be read.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Every time the document is read, ReasoNet determines whether the document should be read again or has the termination state been reached. If termination state is reached, the answer module is triggered to generate the answer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since the termination state is discrete and not connected to the final output, RL approach is used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1609.05284&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CNN, DailyMail Dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SQuAD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graph Reachability Dataset&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;2 synthetic datasets to test if the network can answer questions like “Is node_1 connected to node_12”?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Memory (M)&lt;/strong&gt; - Comprises of the vector representation of the document and the question (encoded using GRU or other RNNs).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Attention&lt;/strong&gt; - Attention vector (&lt;strong&gt;x&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;) is a function of current internal state &lt;strong&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; and external memory &lt;strong&gt;M&lt;/strong&gt;. The state and memory are passed through FCs and fed to a similarity function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Internal State (s&lt;sub&gt;t&lt;/sub&gt;)&lt;/strong&gt; - Vector representation of the question state computed by a RNN using the previous internal state and the attention vector &lt;strong&gt;x&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Termination Gate (T&lt;sub&gt;t&lt;/sub&gt;)&lt;/strong&gt; - Uses a logistic regression model to generate a random binary variable using the current internal state &lt;strong&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Answer&lt;/strong&gt; - Answer module is triggered when &lt;strong&gt;T&lt;sub&gt;t&lt;/sub&gt; = 1&lt;/strong&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;For CNN and DailyMail, a linear projection of GRU outputs is used to predict the answer from candidate entities.&lt;/li&gt;
+      &lt;li&gt;For SQuAD, the position of the first and the last word from the answer span are predicted.&lt;/li&gt;
+      &lt;li&gt;For Graph Reachability, a logistic regression module is used to predict yes/no as the answer.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Reinforcement Learning&lt;/strong&gt; - For the RL setting, reward at time &lt;strong&gt;t&lt;/strong&gt;, &lt;strong&gt;r&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; = 1 if &lt;strong&gt;T&lt;sub&gt;t&lt;/sub&gt;&lt;/strong&gt; = 1 and answer is correct. Otherwise &lt;strong&gt;r&lt;sub&gt;t&lt;/sub&gt; = 0&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Workflow&lt;/strong&gt; - Given a passage p, query q and answer a:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extract memory using p&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extract initial hidden state using q&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;ReasoNet executes all possible episodes that can be enumerated by setting an upper limit on the number of passes.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;These episodes generate actions and answers that are used to train the ReasoNet.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;CNN, DailyMail Corpus&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;ReasoNet outperforms all the baselines which use fixed number of reasoning steps and could benefit by capturing the word alignment signals between query and passage.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;SQuAD&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;At the time of submission, ReasoNet was ranked 2nd on the &lt;a href=&quot;https://rajpurkar.github.io/SQuAD-explorer/&quot;&gt;SQuAD leaderboard&lt;/a&gt; and as of 9th July 2017, it is ranked 4th.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Graph Reachability Dataset&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet - Standard ReasoNet as described above.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet-Last - Use the prediction from the &lt;strong&gt;T&lt;sub&gt;max&lt;/sub&gt;&lt;/strong&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet &amp;gt; ReasoNet-Last &amp;gt; Deep LSTM Reader&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;ReasoNet converges faster than ReasoNet-Last indicating that the terminate gate is useful.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Notes&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;As such there is nothing discouraging the ReasoNet to make unnecessary passes over the passage.&lt;/li&gt;
+      &lt;li&gt;In fact, the modal value of the number of passes = upper bound on the number of passes.&lt;/li&gt;
+      &lt;li&gt;This effect is more prominent for large graph indicating that the ReasoNet may try to play safe by performing extra passes.&lt;/li&gt;
+      &lt;li&gt;It would be interesting to see if the network can be discouraged from making unnecessary passed by awarding a small negative reward for each pass.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Principled Detection of Out-of-Distribution Examples in Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"/>
+   <updated>2017-07-17T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Principled Detection of Out of Distribution Examples in Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes &lt;em&gt;ODIN&lt;/em&gt; which can detect such out-of-distribution examples without changing the pre-trained model itself.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1706.02690&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;odin&quot;&gt;ODIN&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uses 2 major techniques&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Temperature Scaling&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Softmax classifier for the classification network can be written as:&lt;/p&gt;
+
+            &lt;p&gt;&lt;em&gt;p&lt;sub&gt;i&lt;/sub&gt;(x, T) = exp(f&lt;sub&gt;i&lt;/sub&gt;(x)/T) / sum(exp(f&lt;sub&gt;j&lt;/sub&gt;(x)/T))&lt;/em&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;where &lt;em&gt;x&lt;/em&gt; is the input, &lt;em&gt;p&lt;/em&gt; is the softmax probability and &lt;em&gt;T&lt;/em&gt; is the temperature scaling parameter.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Increasing &lt;em&gt;T&lt;/em&gt; (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Input Preprocessing&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Add small perturbations to the input (image) before feeding it into the network.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;&lt;em&gt;x_perturbed = x - ε * sign(-δ&lt;sub&gt;x&lt;/sub&gt;log(p&lt;sub&gt;y&lt;/sub&gt;(x, T)))&lt;/em&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;where ε is the perturbation magnitude&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Given an input (image), first perturb the input.&lt;/li&gt;
+  &lt;li&gt;Feed the perturbed input to the network to get its softmax score.&lt;/li&gt;
+  &lt;li&gt;If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.&lt;/li&gt;
+  &lt;li&gt;Otherwise, mark the input as out-of-distribution.&lt;/li&gt;
+  &lt;li&gt;For detailed mathematical treatment, refer section 6 and appendix in the &lt;a href=&quot;https://arxiv.org/abs/1706.02690&quot;&gt;paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Code available on &lt;a href=&quot;https://github.com/ShiyuLiang/odin-pytorch&quot;&gt;github&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;DenseNet with depth L = 100 and growth rate k = 12&lt;/li&gt;
+      &lt;li&gt;Wide ResNet with depth = 28 and widen factor = 10&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In-Distribution Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;CIFAR-10&lt;/li&gt;
+      &lt;li&gt;CIFAR-100&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Out-of-Distribution Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;TinyImageNet&lt;/li&gt;
+      &lt;li&gt;LSUN&lt;/li&gt;
+      &lt;li&gt;iSUN&lt;/li&gt;
+      &lt;li&gt;Gaussian Noise&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;False Positive Rate at 95% True Positive Rate&lt;/li&gt;
+      &lt;li&gt;Detection Error - minimum misclassification probability over all thresholds&lt;/li&gt;
+      &lt;li&gt;Area Under the Receiver Operating Characteristic Curve&lt;/li&gt;
+      &lt;li&gt;Area Under the Precision-Recall Curve&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ODIN outperforms the baseline across all datasets and all models by a good margin.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Very simple and straightforward approach with theoretical justification under some conditions.&lt;/li&gt;
+  &lt;li&gt;Limited to examples from Vision so can not judge its applicability for NLP tasks.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>One Model To Learn Them All</title>
+   <link href="https://shagunsodhani.in/papers-I-read/One-Model-To-Learn-Them-All"/>
+   <updated>2017-07-01T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/One Model To Learn Them All</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The current trend in deep learning is to design, train and fine tune a separate model for each problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Though multi-task models have been explored, they have been trained for problems from the same domain only and no competitive multi-task, multi-modal models have been proposed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper explores the possibility of such a unified deep learning model that can solve different tasks across multiple domains by training concurrently on them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1706.05137&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;design-philosophy&quot;&gt;Design Philosophy&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Small, modality-specific subnetworks (called modality nets) should be used to map input data to a joint representation space and back.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The joint representation is to be of variable size.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Different tasks from the same domain share the modality net.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MultiModel networks should use computational blocks from different domains even if they are not specifically designed for the task at hand.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Eg the paper reports that attention and mixture-of-experts (MOE) layers slightly improve the performance on ImageNet even though they are not explicitly needed.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MulitModel Network consists of few, small modality nets, an encoder, I/O mixer and an autoregressive decoder.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Encoder and decoder use the following computational blocks:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Convolutional Block&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;ReLU activations on inputs followed by depthwise separable convolutions and layer normalization.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Attention Block&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Multihead, dot product based attention mechanism.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Mixture-of-Experts (MoE) Block&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Consists of simple feed-forward networks (called experts) and a trainable gating network which selects a sparse combination of experts to process the inputs.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For further details, refer the &lt;a href=&quot;https://arxiv.org/abs/1706.05137&quot;&gt;original paper&lt;/a&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Encoder&lt;/strong&gt; consists of 6 conv blocks with a MoE block in the middle.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;I/O mixer&lt;/strong&gt; consists of an attention block and 2 conv blocks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Decoder&lt;/strong&gt; consists of 4 blocks of convolution and attention with a MoE block in the middle.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Modality Nets&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Language Data&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Input is the sequence of tokens ending in a termination token.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;This sequence is mapped to correct dimensionality using a learned embedding.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;For output, the network takes the decoded output and performs a learned linear mapping followed by Softmax.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Image&lt;/strong&gt; and &lt;strong&gt;Categorical Data&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Uses residual convolution blocks.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Similar to the exit flow for &lt;a href=&quot;https://arxiv.org/abs/1610.02357&quot;&gt;Xception Network&lt;/a&gt;&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Audio Data&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;1-d waveform over time or 2-d spectrogram operated upon by stack of 8 residual convolution blocks.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tasks&quot;&gt;Tasks&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;WSJ speech corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ImageNet dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;COCO image captioning dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WSJ parsing dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WMT English-German translation corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;German-English translation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WMT English-French translation corpus&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;German-French translation&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experimental section is not very rigorous with many details skipped (would probably be added later).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While MultiModel does not beat the state of the art models, it does outperform some recent models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Jointly trained model performs similar to single trained models on tasks with a lot of data and sometimes outperformed single trained models on tasks with less data (like parsing).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interestingly, jointly training the model for parsing task and Imagenet tasks improves the performance of parsing task even though the two tasks are seemingly unrelated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another experiment was done to evaluate the effect of components (like MoE) on tasks (like Imagenet) which do not explicitly need them. It was observed that either the performance either went down or remained the same when MoE component was removed. This indicates that mixing different components does help to improve performance over multiple tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;But this observation is not conclusive as a different combination of say the encoder (that does not use MoE) could achieve better performance than one that does. The paper does not explore possibilities like these.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Two/Too Simple Adaptations of Word2Vec for Syntax Problems</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"/>
+   <updated>2017-06-26T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Two-Too Simple Adaptations of Word2Vec for Syntax Problems</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;In the original Skip-Gram setting, the model predicts the &lt;em&gt;2c&lt;/em&gt; words in the context window (&lt;em&gt;c&lt;/em&gt; is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.&lt;/li&gt;
+  &lt;li&gt;Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.&lt;/li&gt;
+  &lt;li&gt;The paper proposes to use a set of &lt;em&gt;2c&lt;/em&gt; matrices each for a different word in the context window for both Skip-Gram and CBOW models.&lt;/li&gt;
+  &lt;li&gt;This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.&lt;/li&gt;
+  &lt;li&gt;The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>A Decomposable Attention Model for Natural Language Inference</title>
+   <link href="https://shagunsodhani.in/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference"/>
+   <updated>2017-06-17T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/A Decomposable Attention Model for Natural Language Inference</id>
+   <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper proposes an attention based mechanism to decompose the problem of Natural Language Inference (NLI) into parallelizable subproblems.&lt;/li&gt;
+  &lt;li&gt;Further, it uses much fewer parameters as compared to any other model while obtaining state of the art results.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1606.01933&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;The motivation behind the paper is that the tasks like NLI do not require deep modelling of the sentence structure and comparison of local text substructures followed by aggregation can also work very well&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;approach&quot;&gt;Approach&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given two sentences &lt;strong&gt;a&lt;/strong&gt; and &lt;strong&gt;b&lt;/strong&gt;, the model has to predict whether they have an “entailment” relationship, “neutral” relationship or “contradiction” relationship.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;All the words are mapped to their corresponding word vector representation. In subsequent steps, “word” refers to the word vector representation of the actual word.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Attend&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;For each word &lt;em&gt;i&lt;/em&gt; in &lt;strong&gt;a&lt;/strong&gt; and &lt;em&gt;j&lt;/em&gt; in &lt;strong&gt;b&lt;/strong&gt;, obtain unnormalized attention weights *e(i, j)=F(i)&lt;sup&gt;T&lt;/sup&gt;F(j) where F is a feed-forward neural network.&lt;/li&gt;
+      &lt;li&gt;For &lt;em&gt;i&lt;/em&gt;, compute a β&lt;sub&gt;i&lt;/sub&gt; by performing softmax-like normalization of &lt;em&gt;j&lt;/em&gt; using &lt;em&gt;e(i, j)&lt;/em&gt; as the weight and normalizing for all words &lt;em&gt;j&lt;/em&gt; in &lt;strong&gt;b&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;β&lt;sub&gt;i&lt;/sub&gt; captures the subphrase in &lt;strong&gt;b&lt;/strong&gt; that is softly aligned to &lt;em&gt;a&lt;/em&gt;.&lt;/li&gt;
+      &lt;li&gt;Similarly compute α&lt;sub&gt;j&lt;/sub&gt; for &lt;em&gt;j&lt;/em&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Compare&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Create two set of comparison vectors, one for &lt;strong&gt;a&lt;/strong&gt; and another for &lt;strong&gt;b&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;For &lt;strong&gt;a&lt;/strong&gt;, &lt;strong&gt;v&lt;sub&gt;1, i&lt;/sub&gt;&lt;/strong&gt; = G(concatenate(i, β&lt;sub&gt;i&lt;/sub&gt;)).&lt;/li&gt;
+      &lt;li&gt;Similarly for &lt;strong&gt;b&lt;/strong&gt;, &lt;strong&gt;v&lt;sub&gt;2, j&lt;/sub&gt;&lt;/strong&gt; = G(concatenate(j, α&lt;sub&gt;j&lt;/sub&gt;))&lt;/li&gt;
+      &lt;li&gt;G is another feed-forward neural network.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Aggregate&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Aggregate over the two set of comparison vectors to obtain &lt;strong&gt;v&lt;sub&gt;1&lt;/sub&gt;&lt;/strong&gt; and &lt;strong&gt;v&lt;sub&gt;2&lt;/sub&gt;&lt;/strong&gt;.&lt;/li&gt;
+      &lt;li&gt;Feed the aggregated results through the final classifier layer.&lt;/li&gt;
+      &lt;li&gt;Multi-class cross-entropy loss function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The paper also explains how this representation can be augmented using intra-sentence attention to the model compositional relationship between words.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;computational-complexity&quot;&gt;Computational Complexity&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Computationally, the proposed model is asymptotically as good as LSTM with attention.&lt;/li&gt;
+  &lt;li&gt;Assuming that dimensionality of word vectors &amp;gt; length of the sentence (reasonable for the given SNLI dataset), the model is asymptotically as good as regular LSTM.&lt;/li&gt;
+  &lt;li&gt;Further, the model has the advantage of being parallelizable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;On Stanford Natural Language Inference (SNLI) dataset, the proposed model achieves the state of the art results even when it uses an order of magnitude lesser parameters than the next best model.&lt;/li&gt;
+  &lt;li&gt;Adding intra-sentence attention further improve the test accuracy by 0.5 percent.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;notes&quot;&gt;Notes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A similar approach could be tried on paraphrase detection problem as even that problem should not require very deep sentence representation. &lt;a href=&quot;https://data.quora.com/First-Quora-Dataset-Release-Question-Pairs&quot;&gt;Quora Duplicate Question Detection Challenege&lt;/a&gt;  would have been an ideal dataset but it has a lot of out-of-vocabulary information related to named entities which need to be accounted for.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>A Fast and Accurate Dependency Parser using Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
+   <updated>2017-06-03T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/A Fast and Accurate Dependency Parser using Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;The paper proposes a neural network classifier to perform transition-based dependency parsing using dense vector representation for the features.&lt;/li&gt;
+  &lt;li&gt;Earlier approaches used a large, manually designed sparse feature vector which took a lot of time and effort to compute and was often incomplete.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cs.stanford.edu/people/danqi/papers/emnlp2014.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;description-of-the-system&quot;&gt;Description of the system&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The system described in the paper uses &lt;a href=&quot;http://www.mitpressjournals.org/doi/pdf/10.1162/coli.07-056-R1-07-027&quot;&gt;&lt;strong&gt;arc-standard&lt;/strong&gt; system&lt;/a&gt; (a greedy, transition-based dependency parsing system).&lt;/li&gt;
+  &lt;li&gt;Words, POS tags and arc labels are represented as d dimensional vectors.&lt;/li&gt;
+  &lt;li&gt;S&lt;sup&gt;w&lt;/sup&gt;, S&lt;sup&gt;t&lt;/sup&gt;, S&lt;sup&gt;l&lt;/sup&gt; denote the set of words, POS and labels respectively.&lt;/li&gt;
+  &lt;li&gt;Neural network takes as input selected words from the 3 sets and uses a single hidden layer followed by Softmax which models the different actions that can be chosen by the arc-standard system.&lt;/li&gt;
+  &lt;li&gt;Uses a cube activation function to allow interaction between features coming from the set of words, POS and labels in the first layer itself. These features come from different embeddings and are not related as such.&lt;/li&gt;
+  &lt;li&gt;Using separate embedding for POS tags and labels allow for capturing aspects like NN (singular noun) should be closer to NNS (plural noun) than DT (determiner).&lt;/li&gt;
+  &lt;li&gt;Input to the network contains words on the stack and buffer and their left and right children (read upon transition-based parsing), their labels and corresponding arc labels.&lt;/li&gt;
+  &lt;li&gt;Output generated by the system is the action to be taken (transition to be performed) when reading each word in the input.&lt;/li&gt;
+  &lt;li&gt;This sequential and deterministic nature of the input-output mapping allows the problem to be modelled as a supervised learning problem and a cross entropy loss can be used.&lt;/li&gt;
+  &lt;li&gt;L2-regularization term is also added to the loss.&lt;/li&gt;
+  &lt;li&gt;During inference, a greedy decoding strategy is used and transition with the highest score is chosen.&lt;/li&gt;
+  &lt;li&gt;The paper mentions a pre-computation trick where matrix computation of most frequent top 10000 words is performed beforehand and cached.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dataset
+    &lt;ul&gt;
+      &lt;li&gt;English Penn Treebank (PTB)&lt;/li&gt;
+      &lt;li&gt;Chinese Penn Treebank (CTB)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Two dependency representations used:
+    &lt;ul&gt;
+      &lt;li&gt;CoNLL Syntactic Dependencies (CD)&lt;/li&gt;
+      &lt;li&gt;Stanford Basic Dependencies (SD)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Metrics:
+    &lt;ul&gt;
+      &lt;li&gt;Unlabeled Attached Scores (UAS)&lt;/li&gt;
+      &lt;li&gt;Labeled Attached Scores (LAS)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Benchmarked against:
+    &lt;ul&gt;
+      &lt;li&gt;Greedy arc-eager parser&lt;/li&gt;
+      &lt;li&gt;Greedy arc-standard parser&lt;/li&gt;
+      &lt;li&gt;Malt-Parser&lt;/li&gt;
+      &lt;li&gt;MSTParser&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Results
+    &lt;ul&gt;
+      &lt;li&gt;The system proposed in the paper outperforms all other parsers in both speed and accuracy.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;analysis&quot;&gt;Analysis&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cube function gives a 0.8-1.2% improvement over tanh.&lt;/li&gt;
+  &lt;li&gt;Pretained embeddings give 0.7-1.7% improvement over training embeddings from scratch.&lt;/li&gt;
+  &lt;li&gt;Using POS and labels gives an improvement of 1.7% and 0.4% respectively.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Neural Module Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Neural-Module-Networks"/>
+   <updated>2017-05-23T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Neural Module Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For the task of &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering&quot;&gt;Visual Question Answering&lt;/a&gt;, decompose a question into its linguistic substructures and train a neural network module for each substructure.&lt;/li&gt;
+  &lt;li&gt;Jointly train the modules and dynamically compose them into deep networks which can learn to answer the question.&lt;/li&gt;
+  &lt;li&gt;Start by analyzing the question and decide what logical units are needed to answer the question and what should be the relationship between them.&lt;/li&gt;
+  &lt;li&gt;The paper also introduces a new dataset for Visual Question Answering which has challenging, highly compositional questions about abstract shapes.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1511.02799&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;inspiration&quot;&gt;Inspiration&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Questions tend to be compositional.&lt;/li&gt;
+  &lt;li&gt;Different architectures are needed for different tasks - CNNs for object detection, RNNs for counting.&lt;/li&gt;
+  &lt;li&gt;Recurrent and Recursive Neural Networks also use the idea of a different network graph for each input.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;neural-module-network-for-vqa&quot;&gt;Neural Module Network for VQA&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Training samples of form &lt;em&gt;(w, x, y)&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;w&lt;/em&gt; - Natural Language Question&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;x&lt;/em&gt; - Images&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;y&lt;/em&gt; - Answer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Model specified by collection of modules &lt;em&gt;{m}&lt;/em&gt; and a network layout predictor &lt;em&gt;P&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Model instantiates a network based on &lt;em&gt;P(w)&lt;/em&gt; and uses that to encode a distribution &lt;em&gt;P(y|w, x, model_params)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;modules&quot;&gt;Modules&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Find: Finds objects of interest.&lt;/li&gt;
+  &lt;li&gt;Transform: Shift regions of attention.&lt;/li&gt;
+  &lt;li&gt;Combine: Merge two attention maps into a single one.&lt;/li&gt;
+  &lt;li&gt;Describe: Map a pair of attention and input image to a distribution over the labels.&lt;/li&gt;
+  &lt;li&gt;Measure: Map attention to a distribution over the labels.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;natural-language-question-to-networks&quot;&gt;Natural Language Question to Networks&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Map question to the layout which specifies the set of modules and connections between them.&lt;/li&gt;
+  &lt;li&gt;Assemble the final network using the layout.&lt;/li&gt;
+  &lt;li&gt;Parse the input question to obtain set of dependencies and obtain a representation similar to combinatory logic.&lt;/li&gt;
+  &lt;li&gt;eg “what is the colour of the truck?” becomes “colour(truck)”&lt;/li&gt;
+  &lt;li&gt;The symbolic representation is mapped to a layout:
+    &lt;ul&gt;
+      &lt;li&gt;All leaves become &lt;em&gt;find&lt;/em&gt; module.&lt;/li&gt;
+      &lt;li&gt;All internal nodes become &lt;em&gt;transform/combine&lt;/em&gt; module.&lt;/li&gt;
+      &lt;li&gt;All root nodes become &lt;em&gt;describe/measure&lt;/em&gt; module.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;answering-natural-language-question&quot;&gt;Answering Natural Language Question&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Final model combines output from a simple LSTM question encoder with the output of the neural module network.&lt;/li&gt;
+  &lt;li&gt;This helps in modelling the syntactic and semantic regularities of the question.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Since some modules are updated more frequently than others, adaptive per weight learning rates are better.&lt;/li&gt;
+  &lt;li&gt;The paper introduces a small SHAPES datasets (64 images and 244 unique questions per image).&lt;/li&gt;
+  &lt;li&gt;Neural Module Network achieves a score of 90% on SHAPES dataset while VIS + LSTM baseline achieves an accuracy of 65.3%.&lt;/li&gt;
+  &lt;li&gt;Even on natural images (VQA dataset), the neural module network outperforms the VIS + LSTM baseline.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
+   <updated>2017-05-14T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
+   <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Standard VQA models benefit from the inherent bias in the structure of the world and the language of the question.&lt;/li&gt;
+  &lt;li&gt;For example, if the question starts with “Do you see a …”, it is more likely to be “yes” than “no”.&lt;/li&gt;
+  &lt;li&gt;To truly assess the capability of any VQA system, we need to have evaluation tasks that require the use of both the visual and the language modality.&lt;/li&gt;
+  &lt;li&gt;The authors present a balanced version of &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering&quot;&gt;VQA dataset&lt;/a&gt; where each question in the dataset is associated with a pair of similar images such that the same question would give different answers on the two images.&lt;/li&gt;
+  &lt;li&gt;The proposed data collection procedure enables the authors to develop a novel interpretable model which, given an image and a question, identifies an image that is similar to the original image but has a different answer to the same question thereby building trust for the system.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1612.00837&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dataset-collection&quot;&gt;Dataset Collection&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an (image, question, answer) triplet (I, Q, A) from the VQA dataset, a human worker (on AMT) is asked to identify an image I’ which is similar to I but for which the answer to question Q is A’ (different from A).&lt;/li&gt;
+  &lt;li&gt;To facilitate the search for I’, the worker is shown 24 nearest-neighbor images of I (based on VGGNet features) and is asked to choose the most similar image to I, for which Q makes sense and answer for Q is different than A. In case none of the 24 images qualifies, the worker may select “not possible”.&lt;/li&gt;
+  &lt;li&gt;In the second round, the workers were asked to answer Q for I’.&lt;/li&gt;
+  &lt;li&gt;This 2-stage protocol results in a significantly more balanced dataset than the previous dataset.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;observation&quot;&gt;Observation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;State-of-the-art models trained on unbalanced VQA dataset perform significantly worse on the new, balanced dataset indicating that those models benefitted from the language bias in the older dataset.&lt;/li&gt;
+  &lt;li&gt;Training on balanced dataset improves performance on the unbalanced dataset.&lt;/li&gt;
+  &lt;li&gt;Further, the VQA model, trained on the balanced dataset, learns to differentiate between otherwise similar images.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;counter-example-explanations&quot;&gt;Counter-example Explanations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an image and a question, the model not only answers the question, it also provides an image (from the k nearest neighbours of I, based on VGGNet features) which is similar to the input image but for which the model would have given different answer for the same image.&lt;/li&gt;
+  &lt;li&gt;Supervising signal is provided by the data collection procedure where humans pick the image I’ from the same set of candidate images.&lt;/li&gt;
+  &lt;li&gt;For each image in the candidate set, compute the inner product of question-image embedding and answer embedding.&lt;/li&gt;
+  &lt;li&gt;The K inner product values are passed through a fully connected layer to generate K scores.&lt;/li&gt;
+  &lt;li&gt;Trained with pairwise hinge ranking loss so that the score of the human picked image is higher than the score of all other images by a margin of M (hyperparameter).&lt;/li&gt;
+  &lt;li&gt;The proposed explanation model achieves a recall@5 of 43.49%&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Conditional Similarity Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Conditional-Similarity-Networks"/>
+   <updated>2017-05-07T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Conditional Similarity Networks</id>
+   <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A common way of measuring image similarity is to embed them into feature spaces where distance acts as a proxy for similarity.&lt;/li&gt;
+  &lt;li&gt;But this feature space can capture one (or a weighted combination) of the many possible notions of similarity.&lt;/li&gt;
+  &lt;li&gt;What if contracting notions of similarity could be captured at the same time - in terms of semantically distinct subspaces.&lt;/li&gt;
+  &lt;li&gt;The paper proposes a new architecture called as Conditional Similarity Networks (CSNs) which learns a disentangled embedding such that the features, for different notions of similarity, are encoded into separate dimensions.&lt;/li&gt;
+  &lt;li&gt;It jointly learns masks (or feature extractors) that select and reweights relevant dimensions to induce a subspace that encodes a specific notion of similarity.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://vision.cornell.edu/se3/conditional-similarity-networks/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conditional-similarity-networks&quot;&gt;Conditional Similarity Networks&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given an image, &lt;em&gt;x&lt;/em&gt;, learn a non-linear feature embedding &lt;em&gt;f(x)&lt;/em&gt; such that for any 2 images &lt;em&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;x&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;, the euclidean distance between &lt;em&gt;f(x&lt;sub&gt;1&lt;/sub&gt;)&lt;/em&gt; and &lt;em&gt;f(x&lt;sub&gt;2&lt;/sub&gt;)&lt;/em&gt; reflects their similarity.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;conditional-similarity-triplets&quot;&gt;Conditional Similarity Triplets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given a triplet of images &lt;em&gt;(x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, x&lt;sub&gt;3&lt;/sub&gt;)&lt;/em&gt; and a condition &lt;em&gt;c&lt;/em&gt; (the notion of similarity), an oracle (say crowd) is used to determmine if &lt;em&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; is more similar to &lt;em&gt;x&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; or &lt;em&gt;x&lt;sub&gt;3&lt;/sub&gt;&lt;/em&gt; as per the given criteria &lt;em&gt;c&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;In general, for images &lt;em&gt;i, j, l&lt;/em&gt;, the triplet &lt;em&gt;t&lt;/em&gt; is ordered {i, j, l | c} if &lt;em&gt;i&lt;/em&gt; is more similar to &lt;em&gt;j&lt;/em&gt; than &lt;em&gt;l&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;learning-from-triplets&quot;&gt;Learning From Triplets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Define a loss function &lt;em&gt;L&lt;sub&gt;T&lt;/sub&gt;()&lt;/em&gt; to model the similarity structure over the triplets.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;L&lt;sub&gt;T&lt;/sub&gt;(i, j, l) = max{0, D(i, j) - D(i, l) + h}&lt;/em&gt; where &lt;em&gt;D&lt;/em&gt; is the euclidean distance function and &lt;em&gt;h&lt;/em&gt; is the similarity scalar margin to prevent trivial solutions.&lt;/li&gt;
+  &lt;li&gt;To model conditional similarities, masks &lt;em&gt;m&lt;/em&gt; are defined as &lt;em&gt;m = σ(β)&lt;/em&gt; where σ is the RELU unit and β is a set of parameters to be learnt.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;m&lt;sub&gt;c&lt;/sub&gt;&lt;/em&gt; denotes the selection of the c-th mask column from feature vector. It thus acts as an element-wise gating function which selects the relevant dimensions of the embedding to attend to a particular similarity concept.&lt;/li&gt;
+  &lt;li&gt;The euclidean function &lt;em&gt;D&lt;/em&gt; now computes the masked distance (&lt;em&gt;f(i, c)m&lt;sub&gt;c&lt;/sub&gt;&lt;/em&gt;) between the two given images.&lt;/li&gt;
+  &lt;li&gt;Two regularising terms are also added - L2 norm for &lt;em&gt;D&lt;/em&gt; and L1 norm for &lt;em&gt;m&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fonts dataset by Bernhardsson
+    &lt;ul&gt;
+      &lt;li&gt;3.1 million 64 by 64-pixel grey scale images.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Zappos50k shoe dataset
+    &lt;ul&gt;
+      &lt;li&gt;Contains 50,000 images of individual richly annotated shoes.&lt;/li&gt;
+      &lt;li&gt;Characteristics of interest:
+        &lt;ul&gt;
+          &lt;li&gt;Type of the shoes (i.e., shoes, boots, sandals or slippers)&lt;/li&gt;
+          &lt;li&gt;Suggested gender of the shoes (i.e., for women, men, girls or boys)&lt;/li&gt;
+          &lt;li&gt;Height of the shoes’ heels (0 to 5 inches)&lt;/li&gt;
+          &lt;li&gt;Closing mechanism of the shoes (buckle, pull on, slip on, hook and loop or laced up)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;models&quot;&gt;Models&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Initial model for the experiments is a ConvNet pre-trained on ImageNet&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Standard Triplet Network&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Learn from all available triplets jointly as if they have the same notion of similarity.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Set of Task Specific Triplet Networks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Train n separate triplet networks such that each is trained on a single notion of similarity.&lt;/li&gt;
+      &lt;li&gt;Needs far more parameters and compute.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Conditional Similarity Networks - fixed disjoint masks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;In this version, only the convolutional filters and the embedding is learnt and masks are predefined to be disjoint.&lt;/li&gt;
+      &lt;li&gt;Aims to learn a fully disjoint embedding.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Conditional Similarity Networks - learned masks&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Learns all the components - conv filters, embedding and the masks.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Refer paper for details on hyperparameters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Visual exploration of the learned subspaces (t-sne visualisation) show that network successfully disentangles different features in the embedded vector space.&lt;/li&gt;
+  &lt;li&gt;The learned masks are very sparse and share dimensions. This shows that CSNs may learn to only use the required number of dimensions thereby doing away with the need of picking the right size of embedding.&lt;/li&gt;
+  &lt;li&gt;Order of performance:
+    &lt;ul&gt;
+      &lt;li&gt;CSNs with learned masks &amp;gt; CSNs with fixed masks &amp;gt; Task-specific networks &amp;gt; standard triplet network.&lt;/li&gt;
+      &lt;li&gt;Though CSNs with learned masks require more training data.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;CSNs also outperform Standard Triplet Network when used as off the shelf features for (brand) classification task and is very close to the performance of ResNet trained on ImageNet.&lt;/li&gt;
+  &lt;li&gt;This shows that while CSN retained most of the information in the original network, the training mechanism of Standard Triplet Network hurts the underlying conv features and their generalising capability&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Simple Baseline for Visual Question Answering</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"/>
+   <updated>2017-04-28T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Simple Baseline for Visual Question Answering</id>
+   <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;VQA Task: Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.&lt;/li&gt;
+  &lt;li&gt;The paper attempts to fine tune the simple baseline method of Bag-of-Words + Image features (iBOWIMG) to make it competitive against more sophisticated LSTM models.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://arxiv.org/pdf/1512.02167.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;model&quot;&gt;Model&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;VQA modelled as a classification task where the system learns to choose among one of the top k most prominent answers.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Text Features&lt;/strong&gt; - Convert input question to a one-hot vector and then transform to word vectors using a word embedding.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Image Features&lt;/strong&gt; - Last layer activations from GoogLeNet.&lt;/li&gt;
+  &lt;li&gt;Text features are concatenated with image features and fed into a softmax.&lt;/li&gt;
+  &lt;li&gt;Different learning rates and weight clipping for word embedding layer and softmax layer with the learning rate for embedding layer much higher than that of softmax layer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;iBOWIMG model reports an accuracy of 55.89% for Open-ended questions and 61.97% for Multiple-Choice questions which is comparable to the performance of other, more sophisticated models.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;interpretation-of-the-model&quot;&gt;Interpretation of the model&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Since the model is very simple, it is possible to interpret the model to know what exactly is the model learning. This is the greatest strength of the paper even though the model is very simple and naive.&lt;/li&gt;
+  &lt;li&gt;The model attempts to memorise the correlation between the answer class and the informative words (in the question) and image features.&lt;/li&gt;
+  &lt;li&gt;Question words generally can influence the answer given the bias in images occurring in COCO dataset.&lt;/li&gt;
+  &lt;li&gt;Given the simple linear transformation being used, it is possible to quantify the importance of each single words (in the question) to the answer.&lt;/li&gt;
+  &lt;li&gt;The paper uses the Class Activation Mapping (CAM) approach (which uses the linear relation between softmax and final image feature map) to highlight the informative image regions relevant to the predicted answer.&lt;/li&gt;
+  &lt;li&gt;While the results reported by the paper are not themselves so significant, the described approach provides a way to interpret the strengths and weakness of different VQA datasets.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>VQA-Visual Question Answering</title>
+   <link href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"/>
+   <updated>2017-04-27T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/VQA Visual Question Answering</id>
+   <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an image and a free-form, open-ended, natural language question (about the image), produce the answer for the image.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1505.00468v6&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;vqa-challenge-and-workshop&quot;&gt;&lt;a href=&quot;http://www.visualqa.org/&quot;&gt;VQA Challenge and Workshop&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The authors organise an annual challenge and workshop to discuss the state-of-the-art methods and best practices in this domain.&lt;/li&gt;
+  &lt;li&gt;Interestingly, the second version is starting on 27th April 2017 (today).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;benefits-over-tasks-like-image-captioning&quot;&gt;Benefits over tasks like image captioning:&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Simple, &lt;em&gt;n-gram&lt;/em&gt; statistics based methods are not sufficient.&lt;/li&gt;
+  &lt;li&gt;Requires the system to blend in different aspects of knowledge - object detection, activity recognition, commonsense reasoning etc.&lt;/li&gt;
+  &lt;li&gt;Since only short answers are expected, evaluation is easier.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;dataset&quot;&gt;Dataset&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Created a new dataset of 50000 realistic, abstract images.&lt;/li&gt;
+  &lt;li&gt;Used AMT to crowdsource the task of collecting questions and answers for MS COCO dataset (&amp;gt;200K images) and abstract images.&lt;/li&gt;
+  &lt;li&gt;Three questions per image and ten answers per question (along with their confidence) were collected.&lt;/li&gt;
+  &lt;li&gt;The entire dataset contains over 760K questions and 10M answers.&lt;/li&gt;
+  &lt;li&gt;The authors also performed an exhaustive analysis of the dataset to establish its diversity and to explore how the content of these question-answers differ from that of standard image captioning datasets.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;highlights-of-data-collection-methodology&quot;&gt;Highlights of data collection methodology&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Emphasis on questions that require an image, and not just common sense, to be answered correctly.&lt;/li&gt;
+  &lt;li&gt;Workers were shown previous questions when writing new questions to increase diversity.&lt;/li&gt;
+  &lt;li&gt;Answers collected from multiple users to account for discrepancies in answers by humans.&lt;/li&gt;
+  &lt;li&gt;Two modalities supported:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Open-ended&lt;/strong&gt; - produce the answer&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;multiple-choice&lt;/strong&gt; - select from a set of options provided (18 options comprising of popular, plausible, random and ofc correct answer)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;highlights-from-data-analysis&quot;&gt;Highlights from data analysis&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Most questions range from four to ten words while answers range from one to three words.&lt;/li&gt;
+  &lt;li&gt;Around 40% questions are “yes/no” questions.&lt;/li&gt;
+  &lt;li&gt;Significant (&amp;gt;80%) inter-human agreement for answers.&lt;/li&gt;
+  &lt;li&gt;The authors performed a study where human evaluators were asked to answer the questions without looking at the images.&lt;/li&gt;
+  &lt;li&gt;Further, they performed a study where evaluators were asked to label if a question could be answered using common sense and what was the youngest age group, they felt, could answer the question.&lt;/li&gt;
+  &lt;li&gt;The idea was to establish that a sufficient number of questions in the dataset required more than just common sense to answer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;baseline-models&quot;&gt;Baseline Models&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;random&lt;/strong&gt; selection&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;prior (“yes”)&lt;/strong&gt; - always answer as yes.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;per Q-type prior&lt;/strong&gt; - pick the most popular answer per question type.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;nearest neighbor&lt;/strong&gt; - find the k nearest neighbors for the given (image, question) pair.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;methods&quot;&gt;Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;2-channel model (using vision and language models) followed by softmax over (K = 1000) most frequent answers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Image Channel&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;I&lt;/strong&gt; - Used last hidden layer of VGGNet to obtain 4096-dim image embedding.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;norm I&lt;/strong&gt; - : l2 normalized version of &lt;strong&gt;I&lt;/strong&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Question Channel&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;BoW Q&lt;/strong&gt; - Bag-of-Words representation for the questions using the top 1000 words plus the top 1- first, second and third words of the questions.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;LSTM Q&lt;/strong&gt; - Each word is encoded into 300-dim vectors using fully connected + tanh non-linearity. These embeddings are fed to an LSTM to obtain 1024d-dim embedding.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Deeper LSTM Q&lt;/strong&gt; - Same as LSTM Q but uses two hidden layers to obtain 2048-dim embedding.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Multi-Layer Perceptron (MLP)&lt;/strong&gt; - Combine image and question embeddings to obtain a single embedding.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;BoW Q + I&lt;/strong&gt; method - concatenate BoW Q and I embeddings.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;LSTM Q + I, deeper LSTM Q + norm I&lt;/strong&gt; methods - image embedding transformed to 1024-dim using a FC layer and tanh non-linearity followed by element-wise multiplication of image and question vectors.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Pass combined embedding to an MLP - FC neural network with 2 hidden layers (1000 neurons and 0.5 dropout) with tanh, followed by softmax.&lt;/li&gt;
+  &lt;li&gt;Cross-entropy loss with VGGNet parameters frozen.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Deeper LSTM Q + norm I is the best model with 58.16% accuracy on open-ended dataset and 63.09% on multiple-choice but far behind the human evaluators (&amp;gt;80% and &amp;gt;90% respectively).&lt;/li&gt;
+  &lt;li&gt;The best model performs well for answers involving common visual objects but performs poorly for answers involving counts.&lt;/li&gt;
+  &lt;li&gt;Vision only model performs even worse than the model which always produces “yes” as the answer.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+
+</feed>

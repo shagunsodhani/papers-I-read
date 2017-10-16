@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      ReasoNet - Learning to Stop Reading in Machine Comprehension &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2017. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">ReasoNet - Learning to Stop Reading in Machine Comprehension</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#KDD+2017" title="Pages tagged KDD 2017" rel="tag">KDD 2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#KDD" title="Pages tagged KDD" rel="tag">KDD</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
+  <span class="post-date">24 Jul 2017</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>In the domain of machine comprehension, making multiple passes over the given document is an effective technique to extract the relation between the given passage, question and answer.</p>
+  </li>
+  <li>
+    <p>Unlike previous approaches, which perform a fixed number of passes over the passage, Reasoning Network (ReasoNet) uses reinforcement learning (RL) to decide how many times a document should be read.</p>
+  </li>
+  <li>
+    <p>Every time the document is read, ReasoNet determines whether the document should be read again or has the termination state been reached. If termination state is reached, the answer module is triggered to generate the answer.</p>
+  </li>
+  <li>
+    <p>Since the termination state is discrete and not connected to the final output, RL approach is used.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1609.05284">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>
+    <p>CNN, DailyMail Dataset</p>
+  </li>
+  <li>
+    <p>SQuAD</p>
+  </li>
+  <li>
+    <p>Graph Reachability Dataset</p>
+    <ul>
+      <li>2 synthetic datasets to test if the network can answer questions like “Is node_1 connected to node_12”?</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p><strong>Memory (M)</strong> - Comprises of the vector representation of the document and the question (encoded using GRU or other RNNs).</p>
+  </li>
+  <li>
+    <p><strong>Attention</strong> - Attention vector (<strong>x<sub>t</sub></strong>) is a function of current internal state <strong>s<sub>t</sub></strong> and external memory <strong>M</strong>. The state and memory are passed through FCs and fed to a similarity function.</p>
+  </li>
+  <li>
+    <p><strong>Internal State (s<sub>t</sub>)</strong> - Vector representation of the question state computed by a RNN using the previous internal state and the attention vector <strong>x<sub>t</sub></strong></p>
+  </li>
+  <li>
+    <p><strong>Termination Gate (T<sub>t</sub>)</strong> - Uses a logistic regression model to generate a random binary variable using the current internal state <strong>s<sub>t</sub></strong>.</p>
+  </li>
+  <li><strong>Answer</strong> - Answer module is triggered when <strong>T<sub>t</sub> = 1</strong>.
+    <ul>
+      <li>For CNN and DailyMail, a linear projection of GRU outputs is used to predict the answer from candidate entities.</li>
+      <li>For SQuAD, the position of the first and the last word from the answer span are predicted.</li>
+      <li>For Graph Reachability, a logistic regression module is used to predict yes/no as the answer.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Reinforcement Learning</strong> - For the RL setting, reward at time <strong>t</strong>, <strong>r<sub>t</sub></strong> = 1 if <strong>T<sub>t</sub></strong> = 1 and answer is correct. Otherwise <strong>r<sub>t</sub> = 0</strong></p>
+  </li>
+  <li>
+    <p><strong>Workflow</strong> - Given a passage p, query q and answer a:</p>
+
+    <ul>
+      <li>
+        <p>Extract memory using p</p>
+      </li>
+      <li>
+        <p>Extract initial hidden state using q</p>
+      </li>
+      <li>
+        <p>ReasoNet executes all possible episodes that can be enumerated by setting an upper limit on the number of passes.</p>
+      </li>
+      <li>
+        <p>These episodes generate actions and answers that are used to train the ReasoNet.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Result</strong></p>
+
+    <ul>
+      <li>
+        <p>CNN, DailyMail Corpus</p>
+
+        <ul>
+          <li>ReasoNet outperforms all the baselines which use fixed number of reasoning steps and could benefit by capturing the word alignment signals between query and passage.</li>
+        </ul>
+      </li>
+      <li>
+        <p>SQuAD</p>
+
+        <ul>
+          <li>At the time of submission, ReasoNet was ranked 2nd on the <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD leaderboard</a> and as of 9th July 2017, it is ranked 4th.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Graph Reachability Dataset</p>
+
+        <ul>
+          <li>
+            <p>ReasoNet - Standard ReasoNet as described above.</p>
+          </li>
+          <li>
+            <p>ReasoNet-Last - Use the prediction from the <strong>T<sub>max</sub></strong></p>
+          </li>
+          <li>
+            <p>ReasoNet &gt; ReasoNet-Last &gt; Deep LSTM Reader</p>
+          </li>
+          <li>
+            <p>ReasoNet converges faster than ReasoNet-Last indicating that the terminate gate is useful.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Notes</strong></p>
+
+    <ul>
+      <li>As such there is nothing discouraging the ReasoNet to make unnecessary passes over the passage.</li>
+      <li>In fact, the modal value of the number of passes = upper bound on the number of passes.</li>
+      <li>This effect is more prominent for large graph indicating that the ReasoNet may try to play safe by performing extra passes.</li>
+      <li>It would be interesting to see if the network can be discouraged from making unnecessary passed by awarding a small negative reward for each pass.</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning">
+            Task-Oriented Query Reformulation with Reinforcement Learning
+            <small>01 Oct 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation">
+            Refining Source Representations with Relation Networks for Neural Machine Translation
+            <small>22 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions">
+            Reading Wikipedia to Answer Open-Domain Questions
+            <small>15 Sep 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
