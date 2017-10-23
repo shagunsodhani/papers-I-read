@@ -4,13 +4,66 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-15T20:04:13-04:00</updated>
+ <updated>2017-10-22T20:05:30-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Swish - a Self-Gated Activation Function</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Swish-A-self-gated-activation-function"/>
+   <updated>2017-10-22T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Swish-A self gated activation function</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a new activation function called Swish with formulation &lt;em&gt;f(x) = x.sigmod(x)&lt;/em&gt; and its parameterised version called Swish-\β where &lt;em&gt;f(x, β) = 2x.sigmoid(β.x)&lt;/em&gt; and β is a training parameter.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that Swish is consistently able to outperform RELU and other activations functions over a variety of datasets (CIFAR, ImageNet, WMT2014) though by small margins only in some cases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1710.05941&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;properties-of-swish&quot;&gt;Properties of Swish&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/shagunsodhani/papers-I-read/master/assets/Swish/plot.png&quot; alt=&quot;Plot Of Swish&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Smooth, non-monotonic function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Swish-\β can be thought of as a smooth function that interpolates between a linear function and RELU.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uses self-gating mechanism (that is, it uses its own value to gate itself). Gating generally uses multiple scalar inputs but since self-gating uses a single scalar input, it can be used to replace activation functions which are generally pointwise.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Being unbounded on the x&amp;gt;0 side, it avoids saturation when training is slow due to near 0 gradients.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Being bounded below induces a kind of regularization effect as large, negative inputs are forgotten.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since the Swish function is smooth, the output landscape and the loss landscape are also smooth. A smooth landscape should be more traversable and less sensitive to initialization and learning rates.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;criticism&quot;&gt;Criticism&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Swish is much more complicated than ReLU (when weighted against the small improvements that are provided) so it might not end up with as strong an adoption as ReLU.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Reading Wikipedia to Answer Open-Domain Questions</title>
