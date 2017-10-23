@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Swish - a Self-Gated Activation Function](https://shagunsodhani.in/papers-I-read/Swish-A-self-gated-activation-function)
 * [Reading Wikipedia to Answer Open-Domain Questions](https://shagunsodhani.in/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions)
 * [Task-Oriented Query Reformulation with Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning)
 * [Refining Source Representations with Relation Networks for Neural Machine Translation](https://shagunsodhani.in/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation)
