@@ -116,7 +116,7 @@
       <div class="container content">
         <div class="post">
   <h1 class="post-title">HARP - Hierarchical Representation Learning for Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Activation+Function" title="Pages tagged Activation Function" rel="tag">Activation Function</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Self+Gated" title="Pages tagged Self Gated" rel="tag">Self Gated</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network+Representation" title="Pages tagged Network Representation" rel="tag">Network Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
   <span class="post-date">28 Oct 2017</span>
   <h2 id="introduction">Introduction</h2>
 
@@ -125,7 +125,7 @@
     <p>HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1706.07845">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/1706.07845">Link to the paper</a>.</p>
   </li>
   <li>
     <p>Given a graph <em>G = (V, E)</em>, compute a series of successively smaller (coarse) graphs <em>G<sub>0</sub>, …, G<sub>L</sub></em>. Learn the node representations in <em>G<sub>L</sub></em> and successively refine the embeddings for larger graphs in the series.</p>
@@ -162,19 +162,11 @@
         <p>Additionally, if hierarchical softmax was used, extend the B-tree such that <em>node12</em> is replaced by 2 child nodes <em>node1</em> and <em>node2</em>.</p>
       </li>
       <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>Time complexity for HARP + DeepWalk is *O(number of walks *</td>
-              <td>V</td>
-              <td>)* while for HARP + LINE is *O(number of iterations *</td>
-              <td>E</td>
-              <td>)*.</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>Time complexity for HARP + DeepWalk is <em>O(number of walks * |V|)</em> while for HARP + LINE is <em>O(number of iterations * |E|)</em>.</p>
       </li>
-      <li>The asymptotic complexity remains the same as the HARP-less version for the two cases.</li>
+      <li>
+        <p>The asymptotic complexity remains the same as the HARP-less version for the two cases.</p>
+      </li>
     </ul>
   </li>
   <li>
