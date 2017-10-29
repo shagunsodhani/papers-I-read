@@ -4,13 +4,84 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-28T22:41:06-04:00</updated>
+ <updated>2017-10-28T22:46:35-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>HARP - Hierarchical Representation Learning for Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks"/>
+   <updated>2017-10-28T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/HARP - Hierarchical Representation Learning for Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1706.07845&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a graph &lt;em&gt;G = (V, E)&lt;/em&gt;, compute a series of successively smaller (coarse) graphs &lt;em&gt;G&lt;sub&gt;0&lt;/sub&gt;, …, G&lt;sub&gt;L&lt;/sub&gt;&lt;/em&gt;. Learn the node representations in &lt;em&gt;G&lt;sub&gt;L&lt;/sub&gt;&lt;/em&gt; and successively refine the embeddings for larger graphs in the series.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The architecture is independent of the algorithms used to embed the nodes or to refine the node representations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Graph coarsening technique that preserves global structure&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Collapse edges and stars to preserve first and second order proximity.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Edge collapsing&lt;/strong&gt; - select the subset of &lt;em&gt;E&lt;/em&gt; such that no two edges are incident on the same vertex and merge their nodes into a single node and merge their edges as well.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Star collapsing&lt;/strong&gt; - given star structure, collapse the pairs of neighboring nodes (of the central node).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In practice, first apply star collapsing, followed by edge collapsing.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Extending node representation from coarse graph to finer graph&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Lets say &lt;em&gt;node1&lt;/em&gt; and &lt;em&gt;node2&lt;/em&gt; were merged into &lt;em&gt;node12&lt;/em&gt; during coarsening. First copy the representation of &lt;em&gt;node12&lt;/em&gt; into &lt;em&gt;node1&lt;/em&gt;, &lt;em&gt;node2&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Additionally, if hierarchical softmax was used, extend the B-tree such that &lt;em&gt;node12&lt;/em&gt; is replaced by 2 child nodes &lt;em&gt;node1&lt;/em&gt; and &lt;em&gt;node2&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Time complexity for HARP + DeepWalk is *O(number of walks *&lt;/td&gt;
+              &lt;td&gt;V&lt;/td&gt;
+              &lt;td&gt;)* while for HARP + LINE is *O(number of iterations *&lt;/td&gt;
+              &lt;td&gt;E&lt;/td&gt;
+              &lt;td&gt;)*.&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+      &lt;li&gt;The asymptotic complexity remains the same as the HARP-less version for the two cases.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multilabel classification task shows that HAR improves all the node embedding technique with gains up to 14%.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Swish - a Self-Gated Activation Function</title>
