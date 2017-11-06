@@ -4,13 +4,83 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-10-28T22:58:24-04:00</updated>
+ <updated>2017-11-05T19:02:41-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Word Representations via Gaussian Embedding</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding"/>
+   <updated>2017-11-05T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Word Representations via Gaussian Embedding</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Existing word embedding models like &lt;a href=&quot;https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6&quot;&gt;Skip-Gram&lt;/a&gt;, &lt;a href=&quot;https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8&quot;&gt;GloVe&lt;/a&gt; etc map words to fixed sized vectors in a low dimensional vector space.&lt;/li&gt;
+  &lt;li&gt;This fixed point setting cannot capture uncertainty about representation.&lt;/li&gt;
+  &lt;li&gt;Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.&lt;/li&gt;
+  &lt;li&gt;The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.&lt;/li&gt;
+  &lt;li&gt;This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1412.6623&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/seomoz/word2gauss&quot;&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;KL divergence is used as the asymmetric distance function for comparing the distributions.&lt;/li&gt;
+  &lt;li&gt;Unlike the Word2Vec model, the proposed model uses ranking-based loss.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;similarity-measures-used&quot;&gt;Similarity Measures used&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Symmetric Similarity&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;For two gaussian distributions, &lt;em&gt;P&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;P&lt;sub&gt;j&lt;/sub&gt;&lt;/em&gt;, compute the inner product &lt;em&gt;E(P&lt;sub&gt;i&lt;/sub&gt;, P&lt;sub&gt;j&lt;/sub&gt;)&lt;/em&gt; as &lt;em&gt;N(0; mean&lt;sub&gt;i&lt;/sub&gt; - mean&lt;sub&gt;j&lt;/sub&gt;, sigma&lt;sub&gt;i&lt;/sub&gt; + sigma&lt;sub&gt;j&lt;/sub&gt;)&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;Compute the gradient of &lt;em&gt;mean&lt;/em&gt; and &lt;em&gt;sigma&lt;/em&gt; with respect to &lt;em&gt;log(E)&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Asymmetric Similarity&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Use KL divergence to encode the context distribution.&lt;/li&gt;
+  &lt;li&gt;The benefit over the symmetric setting is that now entailment type relations can also be modeled.&lt;/li&gt;
+  &lt;li&gt;For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;learning&quot;&gt;Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;One of the two notions of similarity is chosen and max-margin is used as the loss function.&lt;/li&gt;
+  &lt;li&gt;Mean is regularized by adding a simple constraint on the L2-norm.&lt;/li&gt;
+  &lt;li&gt;For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Polysemous words have higher variance in their word embeddings as compared to specific words.&lt;/li&gt;
+  &lt;li&gt;KL divergence (with diagonal covariance) outperforms other models.&lt;/li&gt;
+  &lt;li&gt;Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.&lt;/li&gt;
+  &lt;li&gt;For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use combinations of low rank and diagonal matrices for covariances.&lt;/li&gt;
+  &lt;li&gt;Improved optimisation strategies.&lt;/li&gt;
+  &lt;li&gt;Trying other distributions like Student’s-t distribution.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>HARP - Hierarchical Representation Learning for Networks</title>
