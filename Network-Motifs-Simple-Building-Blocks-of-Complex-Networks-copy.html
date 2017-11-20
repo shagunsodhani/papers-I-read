@@ -11,7 +11,7 @@
 
   <title>
     
-      HARP - Hierarchical Representation Learning for Networks &middot; Papers I Read
+      Network Motifs - Simple Building Blocks of Complex Networks &middot; Papers I Read
     
   </title>
 
@@ -119,62 +119,41 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">HARP - Hierarchical Representation Learning for Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network+Representation" title="Pages tagged Network Representation" rel="tag">Network Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">28 Oct 2017</span>
+  <h1 class="post-title">Network Motifs - Simple Building Blocks of Complex Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2002" title="Pages tagged 2002" rel="tag">2002</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Science+2002" title="Pages tagged Science 2002" rel="tag">Science 2002</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Motif" title="Pages tagged Motif" rel="tag">Motif</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Science" title="Pages tagged Science" rel="tag">Science</a></p>
+  <span class="post-date">12 Nov 2017</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>
-    <p>HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1706.07845">Link to the paper</a>.</p>
-  </li>
-  <li>
-    <p>Given a graph <em>G = (V, E)</em>, compute a series of successively smaller (coarse) graphs <em>G<sub>0</sub>, …, G<sub>L</sub></em>. Learn the node representations in <em>G<sub>L</sub></em> and successively refine the embeddings for larger graphs in the series.</p>
-  </li>
-  <li>
-    <p>The architecture is independent of the algorithms used to embed the nodes or to refine the node representations.</p>
-  </li>
-  <li>
-    <p><strong>Graph coarsening technique that preserves global structure</strong></p>
+  <li>The paper presents the concept of “network motifs” to understand the structural design of a network or a graph.</li>
+  <li><a href="http://science.sciencemag.org/content/298/5594/824">Link to the paper</a></li>
+</ul>
 
-    <ul>
-      <li>
-        <p>Collapse edges and stars to preserve first and second order proximity.</p>
-      </li>
-      <li>
-        <p><strong>Edge collapsing</strong> - select the subset of <em>E</em> such that no two edges are incident on the same vertex and merge their nodes into a single node and merge their edges as well.</p>
-      </li>
-      <li>
-        <p><strong>Star collapsing</strong> - given star structure, collapse the pairs of neighboring nodes (of the central node).</p>
-      </li>
-      <li>
-        <p>In practice, first apply star collapsing, followed by edge collapsing.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Extending node representation from coarse graph to finer graph</strong></p>
+<h2 id="idea">Idea</h2>
 
-    <ul>
-      <li>
-        <p>Lets say <em>node1</em> and <em>node2</em> were merged into <em>node12</em> during coarsening. First copy the representation of <em>node12</em> into <em>node1</em>, <em>node2</em>.</p>
-      </li>
-      <li>
-        <p>Additionally, if hierarchical softmax was used, extend the B-tree such that <em>node12</em> is replaced by 2 child nodes <em>node1</em> and <em>node2</em>.</p>
-      </li>
-      <li>
-        <p>Time complexity for HARP + DeepWalk is <em>O(number of walks * |V|)</em> while for HARP + LINE is <em>O(number of iterations * |E|)</em>.</p>
-      </li>
-      <li>
-        <p>The asymptotic complexity remains the same as the HARP-less version for the two cases.</p>
-      </li>
-    </ul>
+<ul>
+  <li>
+    <p>A network motif is defined as “a pattern of inter-connections occurring in complex networks in numbers that are significantly higher than those in randomized networks”.</p>
   </li>
   <li>
-    <p>Multilabel classification task shows that HAR improves all the node embedding technique with gains up to 14%.</p>
+    <p>In the practical setting, given an input network, we first create randomized networks which have same single node characteristics (like a number of incoming and outgoing edges) as the input network.</p>
+  </li>
+  <li>
+    <p>The patterns that occur at a much higher frequency in the input graph (than the randomized graphs) are reported as motifs.</p>
+  </li>
+  <li>
+    <p>More specifically, the patterns for which the probability of appearing in a randomized network an equal or more number of times than in the real network is lower than a cutoff value (say 0.01).</p>
+  </li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<ul>
+  <li>
+    <p>Real-life networks exhibit properties like “small world” property ( the majority of nodes are within a distance of fewer than 7 hops from each other) and “scale-free” property (fraction of nodes having k edges decays as a power-law).</p>
+  </li>
+  <li>
+    <p>Motifs are one such structural property that is exhibited by networks in biochemistry, neurobiology, ecology, and engineering. Further, motifs shared by graphs of different domains are different which hints at the usefulness of motifs as a fundamental structural property of the graph and relates to the process of evolution of the graph.</p>
   </li>
 </ul>
 
@@ -195,18 +174,18 @@
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks-copy">
-            Network Motifs - Simple Building Blocks of Complex Networks
-            <small>12 Nov 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding">
+            Word Representations via Gaussian Embedding
+            <small>05 Nov 2017</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding">
-            Word Representations via Gaussian Embedding
-            <small>05 Nov 2017</small>
+          <a href="https://shagunsodhani.in/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks">
+            HARP - Hierarchical Representation Learning for Networks
+            <small>28 Oct 2017</small>
           </a>
         </h3>
       </li>
@@ -227,8 +206,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/HARP-Hierarchical-Representation-Learning-for-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks-copy"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks-copy"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

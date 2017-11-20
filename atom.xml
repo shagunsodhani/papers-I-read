@@ -4,13 +4,97 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-11-05T19:02:41-05:00</updated>
+ <updated>2017-11-20T10:41:51-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Network Motifs - Simple Building Blocks of Complex Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"/>
+   <updated>2017-11-12T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper presents the concept of “network motifs” to understand the structural design of a network or a graph.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://science.sciencemag.org/content/298/5594/824&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A network motif is defined as “a pattern of inter-connections occurring in complex networks in numbers that are significantly higher than those in randomized networks”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the practical setting, given an input network, we first create randomized networks which have same single node characteristics (like a number of incoming and outgoing edges) as the input network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The patterns that occur at a much higher frequency in the input graph (than the randomized graphs) are reported as motifs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;More specifically, the patterns for which the probability of appearing in a randomized network an equal or more number of times than in the real network is lower than a cutoff value (say 0.01).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Real-life networks exhibit properties like “small world” property ( the majority of nodes are within a distance of fewer than 7 hops from each other) and “scale-free” property (fraction of nodes having k edges decays as a power-law).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Motifs are one such structural property that is exhibited by networks in biochemistry, neurobiology, ecology, and engineering. Further, motifs shared by graphs of different domains are different which hints at the usefulness of motifs as a fundamental structural property of the graph and relates to the process of evolution of the graph.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Network Motifs - Simple Building Blocks of Complex Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks-copy"/>
+   <updated>2017-11-12T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks copy</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper presents the concept of “network motifs” to understand the structural design of a network or a graph.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://science.sciencemag.org/content/298/5594/824&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A network motif is defined as “a pattern of inter-connections occurring in complex networks in numbers that are significantly higher than those in randomized networks”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the practical setting, given an input network, we first create randomized networks which have same single node characteristics (like a number of incoming and outgoing edges) as the input network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The patterns that occur at a much higher frequency in the input graph (than the randomized graphs) are reported as motifs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;More specifically, the patterns for which the probability of appearing in a randomized network an equal or more number of times than in the real network is lower than a cutoff value (say 0.01).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Real-life networks exhibit properties like “small world” property ( the majority of nodes are within a distance of fewer than 7 hops from each other) and “scale-free” property (fraction of nodes having k edges decays as a power-law).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Motifs are one such structural property that is exhibited by networks in biochemistry, neurobiology, ecology, and engineering. Further, motifs shared by graphs of different domains are different which hints at the usefulness of motifs as a fundamental structural property of the graph and relates to the process of evolution of the graph.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Word Representations via Gaussian Embedding</title>
