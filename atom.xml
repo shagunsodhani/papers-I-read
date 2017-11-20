@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-11-20T10:41:51-05:00</updated>
+ <updated>2017-11-20T12:35:10-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -13,18 +13,73 @@
 
  
  <entry>
-   <title>Network Motifs - Simple Building Blocks of Complex Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"/>
-   <updated>2017-11-12T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks</id>
+   <title>Higher-order organization of complex networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Higher-order-organization-of-complex-networks"/>
+   <updated>2017-11-19T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Higher-order organization of complex networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The paper presents the concept of “network motifs” to understand the structural design of a network or a graph.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://science.sciencemag.org/content/298/5594/824&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a generalized framework for graph clustering (clusters of network motifs) on the basis of higher-order connectivity patterns.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://science.sciencemag.org/content/353/6295/163&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks&quot;&gt;motif M&lt;/a&gt;, the framework aims to find a cluster of the set of nodes S such that nodes of S participate in many instances of M and avoid cutting instances of M (that is only a subset of nodes in instances of M appears in S).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mathematically, the aim is to minimise the motif conductance metric given as &lt;em&gt;cut&lt;sub&gt;M&lt;/sub&gt;(S, S’) / min[vol&lt;sub&gt;M&lt;/sub&gt;(S), vol&lt;sub&gt;M&lt;/sub&gt;(S’)]&lt;/em&gt; where &lt;em&gt;S’&lt;/em&gt; is complement of &lt;em&gt;S&lt;/em&gt;, &lt;em&gt;cut&lt;sub&gt;M&lt;/sub&gt;(S, S’)&lt;/em&gt; = number of instances of M which have atleast one node from both &lt;em&gt;S&lt;/em&gt; and &lt;em&gt;S’&lt;/em&gt; and &lt;em&gt;vol&lt;sub&gt;M&lt;/sub&gt;(S)&lt;/em&gt; = Number of nodes in instances of M that belong only to S.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Solving the above equation is computationally infeasible and an approximate solution is proposed using eigenvalues and matrices.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The approximate solution is easy to implement, efficient and guaranteed to find clusters that are at most a quadratic factor away from the optimal.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;algorithm&quot;&gt;Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the network and motif M, form a motif adjacency matrix W&lt;sub&gt;M&lt;/sub&gt; where W&lt;sub&gt;M&lt;/sub&gt;(i, j) is the number of instances of M that contains i and j.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compute spectral ordering of the nodes from normalized motif laplacian matrix.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compute prefix set of spectral ordering with small motif conductance.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;scalability&quot;&gt;Scalability&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Worst case &lt;em&gt;O(m&lt;sup&gt;1.5&lt;/sup&gt;)&lt;/em&gt;, based on experiments &lt;em&gt;O(m&lt;sup&gt;1.2&lt;/sup&gt;)&lt;/em&gt; where &lt;em&gt;m&lt;/em&gt; is the number of edges.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;advantages&quot;&gt;Advantages&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Applicable to directed, undirected and weighted graphs (allows for negative edge weights as well).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case the motif is not known beforehand, the framework can be used to compute significant motifs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed framework unifies the two fundamental tools of network science (motif analysis and network partitioning) along with some worst-case guarantees for the approximations employed and can be extended to identify higher order modular organization of networks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Can be extended to identify higher order modular organization&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -56,9 +111,9 @@
  
  <entry>
    <title>Network Motifs - Simple Building Blocks of Complex Networks</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks-copy"/>
+   <link href="https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"/>
    <updated>2017-11-12T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks copy</id>
+   <id>https://shagunsodhani.in/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
