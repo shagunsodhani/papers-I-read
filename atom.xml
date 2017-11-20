@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-11-20T12:36:39-05:00</updated>
+ <updated>2017-11-20T13:40:18-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -1135,6 +1135,167 @@
 &lt;ul&gt;
   &lt;li&gt;Very simple and straightforward approach with theoretical justification under some conditions.&lt;/li&gt;
   &lt;li&gt;Limited to examples from Vision so can not judge its applicability for NLP tasks.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing"/>
+   <updated>2017-07-09T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Ask Me Anything- Dynamic Memory Networks for Natural Language Processing</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dynamic Memory Networks (DMN) is a neural network based general framework that can be used for tasks like sequence tagging, classification, sequence to sequence and question answering requiring transitive reasoning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The basic idea is that all these tasks can be modelled as question answering task in general and a common architecture could be used for solving them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1506.07285&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DMN takes as input a document(sentence, story, article etc) and a question which is to be answered given the document.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;input-module&quot;&gt;Input Module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Concatenate all the sentences (or facts) in the document and encode them by feeding the word embeddings of the text to a GRU.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each time a sentence ends, extract the hidden representation of the GRU till that point and use as the encoded representation of the sentence.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;question-module&quot;&gt;Question Module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Similarly, feed the question to a GRU to obtain its representation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;episodic-memory-module&quot;&gt;Episodic Memory Module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Episodic memory consists of an attention mechanism and a recurrent network with which it updates its memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During each iteration, the network generates an episode &lt;em&gt;e&lt;/em&gt; by attending over the representation of the sentences, question and the previous memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The episodic memory is updated using the current episode and the previous memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Depending on the amount of supervision available, the network may perform multiple passes. eg, in the bAbI dataset, some tasks specify how many passes would be needed and which sentence should be attended to in each pass. For others, a fixed number of passes are made.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multiple passes allow the network to perform transitive inference.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;attention-mechanism&quot;&gt;Attention Mechanism&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the input representation &lt;em&gt;c&lt;/em&gt;, memory &lt;em&gt;m&lt;/em&gt; and question &lt;em&gt;q&lt;/em&gt;, produce a scalar score using a 2-layer feedforward network, to use as attention mechanism.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A separate GRU encodes the input representation and weights it by the attention.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Final state of the GRU is fed to the answer module.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;answer-module&quot;&gt;Answer Module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use a GRU (initialized with the final state of the episodic module) and at each timestep, feed it the question vector, last hidden state of the same GRU and the previously predicted output.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;training&quot;&gt;Training&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;There are two possible losses:
+    &lt;ul&gt;
+      &lt;li&gt;Cross-entropy loss of the predicted answer (all datasets)&lt;/li&gt;
+      &lt;li&gt;Cross-entropy loss of the attention supervision (for datasets like bAbI)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;question-answering&quot;&gt;Question Answering&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;bAbI Dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For most tasks, DMN either outperforms or performs as good as Memory Networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For tasks like answering with 2 or 3 supporting facts, DMN lags because of limitation of RNN in modelling long sentences.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;text-classification&quot;&gt;Text Classification&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Stanford Sentiment Treebank Dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DMN outperforms all the baselines for both binary and fine-grained sentiment analysis.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sequence-tagging&quot;&gt;Sequence Tagging&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Wall Street Journal Dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DMN archives state of the art accuracy of 97.56%&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multiple passes help in reasoning tasks but not so much for sentiment/POS tags.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Attention in the case of 2-iteration DMN is more focused than attention in 1-iteration DMN.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For 2-iteration DMN, attention in the second iteration focuses only on relevant words and less attention is paid to words that lose their relevance in the context of the entire document.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It would be interesting to put some mechanism in place to determine the number of episodes that should be generated before an answer is predicted. A naive way would be to predict the answer after each episode and check if the softmax score of the predicted answer is more than a threshold.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Alternatively, the softmax score and other information could be fed to a Reinforcement Learning (RL) agent which decided if the document should be read again. So every time an episode is generated, the state is passed to the RL agent which decides if another iteration should be performed. If it decides to predict the answer and correct answer is generated, the agent gets a large +ve reward else a large -ve reward.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To discourage unnecessary iterations, a small -ve reward could be given everytime the agent decides to perform another iteration.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
