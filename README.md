@@ -5,6 +5,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Higher-order organization of complex networks](https://shagunsodhani.in/papers-I-read/Higher-order-organization-of-complex-networks)
+* [Network Motifs - Simple Building Blocks of Complex Networks](https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks)
 * [Word Representations via Gaussian Embedding](https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding)
 * [HARP - Hierarchical Representation Learning for Networks](https://shagunsodhani.in/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks)
 * [Swish - a Self-Gated Activation Function](https://shagunsodhani.in/papers-I-read/Swish-A-self-gated-activation-function)
