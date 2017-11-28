@@ -10,7 +10,7 @@ tagline:             'Notes and Summaries'
 description:         'I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.'
 # url:                 'https://shagunsodhani.in/test'
 baseurl:             'https://shagunsodhani.in/papers-I-read'
-paginate:            5
+paginate:            10
 gems:                [jekyll-paginate]
 
 # About/contact
