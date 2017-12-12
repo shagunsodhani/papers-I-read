@@ -2,7 +2,7 @@
 layout: post
 title: Two-Stage Synthesis Networks for Transfer Learning in Machine Comprehension
 comments: True
-excerpt: The paper presents the concept of "network motifs" to understand the structural design of a network or a graph.
+excerpt: The paper proposes a two-stage synthesis network that can perform transfer learning for the task of machine comprehension.
 tags: ['2017', 'EMNLP 2017', AI, EMNLP, Machine Comprehension, NLP, QA, Transfer Learning]
 ---
 
