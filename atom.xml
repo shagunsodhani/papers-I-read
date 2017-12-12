@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-12-11T22:33:59-05:00</updated>
+ <updated>2017-12-11T22:36:03-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -55,7 +55,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The general semi-supervised learning loss would be &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt; + λ&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; where &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; is the supervised learning loss while &lt;em&gt;L&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; is the unsupervised learning loss.&lt;/p&gt;
+    &lt;p&gt;The general semi-supervised learning loss would be &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt; + λL&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; where &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; is the supervised learning loss while &lt;em&gt;L&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; is the unsupervised learning loss.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The unsupervised loss is a variant of the Skip-gram loss with negative edge sampling.&lt;/p&gt;
