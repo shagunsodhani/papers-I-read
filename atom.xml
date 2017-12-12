@@ -4,13 +4,107 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-11-28T11:35:16-05:00</updated>
+ <updated>2017-12-11T22:33:59-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Revisiting Semi-Supervised Learning with Graph Embeddings</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Revisiting-Semi-Supervised-Learning-with-Graph-Embeddings"/>
+   <updated>2017-12-11T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Revisiting Semi-Supervised Learning with Graph Embeddings</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a semi-supervised learning framework for graphs where the node embeddings are used to jointly predict both the class labels and neighbourhood context. Usually, graph embeddings are learnt in an unsupervised manner and can not leverage the supervising signal coming from the labelled data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The framework is called &lt;a href=&quot;https://github.com/kimiyoung/planetoid&quot;&gt;Planetoid (Predicting Labels And Neighbors with Embeddings Transductively Or Inductively from Data)&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1603.08861&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;problem-setting&quot;&gt;Problem Setting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a graph G = (V, E) and x&lt;sub&gt;L&lt;/sub&gt; and x&lt;sub&gt;U&lt;/sub&gt; as feature vectors for labelled and unlabelled nodes and y&lt;sub&gt;L&lt;/sub&gt; as labels for the labelled nodes, the problem is to learn a mapping (classifier) f: x -&amp;gt; y&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are two settings possible:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Transductive&lt;/strong&gt; - Predictions are made only for those nodes which are already observed in the graph at training time.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Inductive&lt;/strong&gt; - Predictions are made for nodes whether they have been observed in the graph at training time or not.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The general semi-supervised learning loss would be &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt; + λ&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; where &lt;em&gt;L&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; is the supervised learning loss while &lt;em&gt;L&lt;sub&gt;U&lt;/sub&gt;&lt;/em&gt; is the unsupervised learning loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The unsupervised loss is a variant of the Skip-gram loss with negative edge sampling.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;More specifically, first a random walk sequence S is sampled. Then either a positive edge is sampled from S (within a given context distance) or a negative edge is sampled.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The label information is injected by using the label as a context and minimising the distance between the positive edges (edges where the nodes have the same label) and maximising the distance between the negative edges (edges where the nodes have different labels).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;transductive-formulation&quot;&gt;Transductive Formulation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two separate fully connected networks are applied over the node features and node embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These 2 representations are then concatenated and fed to a softmax classifier to predict the class label.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;inductive-formulation&quot;&gt;Inductive Formulation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the inductive setting, it is difficult to obtain the node embeddings at test time. One naive approach is to retrain the network to obtain the embeddings on the previously unobserved nodes but that is inefficient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The embeddings of node x are parameterized as a function of its input feature vector and is learnt by applying a fully connected neural network on the node feature vector.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This provides a simple way to extend the original approach to the inductive setting.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed approach is evaluated in 3 settings (text classification, distantly supervised entity extraction and entity classification) and it consistently outperforms approaches that use just node features or node embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key takeaway is that the joint training in the semi-supervised setting has several benefits over the unsupervised setting and that using the graph context (in terms of node embeddings) is much more effective than using graph Laplacian-based regularization term.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Two-Stage Synthesis Networks for Transfer Learning in Machine Comprehension</title>
