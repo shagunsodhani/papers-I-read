@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-12-24T19:22:26+05:30</updated>
+ <updated>2017-12-24T19:29:56+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -13,10 +13,10 @@
 
  
  <entry>
-   <title></title>
-   <link href="https://shagunsodhani.in/papers-I-read/2017-12-24-PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks"/>
-   <updated>2017-12-24T19:22:26+05:30</updated>
-   <id>https://shagunsodhani.in/papers-I-read/2017-12-24-PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</id>
+   <title>PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks"/>
+   <updated>2017-12-24T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</id>
    <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 &lt;ul&gt;
