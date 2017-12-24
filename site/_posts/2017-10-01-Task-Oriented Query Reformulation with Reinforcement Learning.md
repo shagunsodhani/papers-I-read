@@ -55,7 +55,7 @@ tags: ['2017', 'Information Retrieval', AI, NLP, RL, SIGIR]
 
 * **Pseudo-Relevance Feedback (PRF-TFIDF)** - The query is expanded using the top-N TF-IDF terms.
 
-* **PRF-Relevance Model (PRF-RM)** - Probability of adding token *t* to the query *q0* is given by *P(t|q0) = (1 − λ)P′(t |q0) + λ sum (P(d)P(t|d)P(q0|d))*
+* **PRF-Relevance Model (PRF-RM)** - Probability of adding token *t* to the query *q0* is given by *P(t\|q0) = (1 − λ)P′(t\|q0) + λ sum (P(d)P(t\|d)P(q0\|d))*
 
 ### Proposed Methods
 
