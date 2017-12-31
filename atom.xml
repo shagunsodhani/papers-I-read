@@ -4,13 +4,113 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-12-24T19:29:56+05:30</updated>
+ <updated>2017-12-31T18:22:09+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Distilling the Knowledge in a Neural Network</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network"/>
+   <updated>2017-12-31T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Distilling the Knowledge in a Neural Network</id>
+   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In machine learning, it is common to train a single large model (with a large number of parameters) or ensemble of multiple smaller models using the same dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While such large models help to improve the performance of the system, they also make it difficult and computationally expensive to deploy the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to transfer the knowledge from such “cumbersome” models into a single, “simpler” model which is more suitable for deployment. This transfer of knowledge is referred to as “distillation”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1503.02531&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;idea&quot;&gt;Idea&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Train the cumbersome model using the given training data in the usual way.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Train the simpler, distilled model using the class probabilities (from the cumbersome model) as the soft target. Thus, the simpler model is trained to generalise the same way as the cumbersome model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the soft targets have high entropy, they provide much more information than the hard targets and the gradient (between training examples) would vary lesser.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One approach is to minimise the L2 difference between logits produced by the cumbersome model and the simpler model. This approach was pursued by &lt;a href=&quot;https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf&quot;&gt;Buciluǎ et al.&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a more general solution which they name “distillation”. The temperature of the final softmax is increased till the cumbersome model produces a set of soft targets (from the final softmax layer). These soft targets are then used to train the simpler model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It also shows that the proposed approach is, in fact, a more general case of the first approach.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;approach&quot;&gt;Approach&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the simplest setting, the cumbersome model is first trained with a high value of temperature and then the same temperature value is used to train the simpler model. The temperature is set to 1 when making predictions using the simpler model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It helps to add an auxiliary objective function which corresponds to the cross-entropy loss with the correct labels. The second objective function should be given a much lower weight though. Further, the magnitude of the soft targets needs to be scaled by multiplying with the square of temperature.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;experiment&quot;&gt;Experiment&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper reports favourable results for distillation task for the following domains:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Image Classification (on MNIST dataset)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;An extra experiment is performed where the simpler model is not shown any images of “3” but the model fails for only 133 cases out of 1010 cases involving “3”.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Automatic Speech Recognition (ASR)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;An extra experiment is performed where the baseline model is trained using both hard targets and soft targets alternatively. Further, only 3% of the total dataset is used.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The model using hard targets overfits and has poor test accuracy while the model using soft targets does not overfit and gets much better test accuracy. This shows the regularizing effect of soft targets.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Training ensemble specialists for very large datasets (JFT dataset - an internal dataset at Google)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;The experiment shows that while training a single large model would take a lot of time, the performance of the model can be improved by learning a small number of specialised networks (which are faster to train).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Though it is yet to be shown that the knowledge of such specialist models can be distilled back into a single model.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</title>
