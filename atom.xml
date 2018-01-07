@@ -4,13 +4,120 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2017-12-31T18:22:09+05:30</updated>
+ <updated>2018-01-07T18:51:07+05:30</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>How transferable are features in deep neural networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/How-transferable-are-features-in-deep-neural-networks"/>
+   <updated>2018-01-06T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.in/papers-I-read/How transferable are features in deep neural networks</id>
+   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When neural networks are trained on images, they tend to learn the same kind of features for the first layer (corresponding to Gabor filters or colour blobs). The first layer features are “general” irrespective of the task/optimizer etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The final layer features tend to be “specific” in the sense that they strongly depend on the task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studies the transition of generalization property across layers in the network. This could be useful in the domain of transfer learning where features are reused across tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://papers.nips.cc/paper/5347-how-transferable-are-features-in-deep-neural-networks.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;setup&quot;&gt;Setup&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Degree of generality of a set of features, learned on task A, is defined as the extent to which these features can be used for another task B.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Randomly split 1000 ImageNet classes into 2 groups (corresponding to tasks A and B). Each group has 500 classes and half the total number of examples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two 8-layer convolutional networks are trained on the two datasets and labelled as baseA and baseB respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now choose a layer numbered n from {1, 2…7}.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each layer n, train the following two networks:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Selffer Network BnB&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Copy (and freeze) first n layers from baseB. The remaining layers are initialized randomly and trained on B.&lt;/li&gt;
+          &lt;li&gt;This serves as the control group.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Transfer Network AnB&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Copy (and freeze) first n layers from baseA. The remaining layers are initialized randomly and trained on B.&lt;/li&gt;
+          &lt;li&gt;This corresponds to transferring features from A to B.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If AnB performs well, n&lt;sup&gt;th&lt;/sup&gt; layer features are “general”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In another setting, the transferred layers are also fine-tuned (BnB&lt;sup&gt;+&lt;/sup&gt; and AnB&lt;sup&gt;+&lt;/sup&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ImageNet dataset contains a hierarchy of classes which allow for creating the datasets A and B with high and low similarity.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;observation&quot;&gt;Observation&lt;/h1&gt;
+
+&lt;h2 id=&quot;dataset-a-and-b-are-similar&quot;&gt;Dataset A and B are similar&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For n = {1, 2}, the performance of the BnB model is same as baseB model. For n = {3, 4, 5, 6}, the performance of BnB model is worse.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This indicates the presence of “fragile co-adaption” features on successive layers where features interact with each other in a complex way and can not be easily separated across layers. This is more prominent across middle layers and less across the first and the last layers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For model AnB, the performance of baseB for n = {1, 2}. Beyond that, the performance begins to drop.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Transfer learning of features followed by fine-tuning gives better results than training the network from scratch.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset-a-and-b-are-dissimilar&quot;&gt;Dataset A and B are dissimilar&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Effectiveness of feature transfer decreases as the two tasks become less similar.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;random-weights&quot;&gt;Random Weights&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead of using transferred weights in BnB and BnA, the first n layers were initialized randomly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The performance falls for layer 1 and 2. It further drops to near-random level for layers 3 and beyond.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another interesting insight is that even for dissimilar tasks, transferring features is better than using random features.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Distilling the Knowledge in a Neural Network</title>
