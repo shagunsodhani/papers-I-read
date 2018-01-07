@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [How transferable are features in deep neural networks](https://shagunsodhani.in/papers-I-read/How-transferable-are-features-in-deep-neural-networks)
 * [Distilling the Knowledge in a Neural Network](https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network)
 * [Revisiting Semi-Supervised Learning with Graph Embeddings](https://shagunsodhani.in/papers-I-read/Revisiting-Semi-Supervised-Learning-with-Graph-Embeddings)
 * [Two-Stage Synthesis Networks for Transfer Learning in Machine Comprehension](https://shagunsodhani.in/papers-I-read/Two-Stage-Synthesis-Networks-for-Transfer-Learning-in-Machine-Comprehension)
