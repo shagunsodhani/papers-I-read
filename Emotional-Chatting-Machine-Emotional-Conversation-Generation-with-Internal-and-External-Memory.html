@@ -11,7 +11,7 @@
 
   <title>
     
-      R-NET - Machine Reading Comprehension with Self-matching Networks &middot; Papers I Read
+      Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory &middot; Papers I Read
     
   </title>
 
@@ -111,96 +111,85 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">R-NET - Machine Reading Comprehension with Self-matching Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">07 Aug 2017</span>
-  <h2 id="introduction">Introduction</h2>
-
-<ul>
+  <h1 class="post-title">Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Conversational+Agent" title="Pages tagged Conversational Agent" rel="tag">Conversational Agent</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">22 Jan 2018</span>
+  <ul>
   <li>
-    <p>R-NET is an end-to-end trained neural network model for machine comprehension.</p>
+    <p>The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.</p>
   </li>
   <li>
-    <p>It starts by matching the question and the given passage (using gated attention based RNN) to obtain question-aware passage representation.</p>
+    <p>More specifically, given an input utterance or dialogue and the desired emotional category of the response, ECM is to generate an appropriate response that conforms to the given emotional category.</p>
   </li>
   <li>
-    <p>Next, it uses a self-matching attention mechanism to refine the passage representation by matching the passage against itself.</p>
+    <p><a href="https://arxiv.org/abs/1704.01074">Link to the paper</a></p>
   </li>
   <li>
-    <p>Lastly, it uses pointer networks to determine the position of the answer in the passage.</p>
+    <p>Much of the recent, deep learning based work on conversational agents has focused on the use of encoder-decoder framework where the input utterance (given sequence of words) is mapped to a response utterance (target sequence of words). This is the so-called seq2seq family of models.</p>
   </li>
   <li>
-    <p><a href="https://www.microsoft.com/en-us/research/publication/mrc/">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="datasets">Datasets</h2>
-
-<ul>
-  <li>
-    <p>SQuAD</p>
-  </li>
-  <li>
-    <p>MS-MARCO</p>
-  </li>
-</ul>
-
-<h2 id="architecture">Architecture</h2>
-
-<ul>
-  <li>
-    <p>Question / Passage Encoder</p>
+    <p>ECM model can sit within this framework and introduces 3 new components:</p>
 
     <ul>
-      <li>Concatenate the word level and character level embeddings for each word and feed into a bidirectional GRU to obtain question and passage representation.</li>
-    </ul>
-  </li>
-  <li>
-    <p>Gated Attention based RNN</p>
-
-    <ul>
-      <li>
-        <p>Given question and passage representation, sentence pair representation is generated via soft-alignment of the words in the question and in the passage.</p>
+      <li><strong>Emotion Category Embedding</strong>
+        <ul>
+          <li>Embed the emotion categories into a real-valued, low-dimensional vector space.</li>
+          <li>These embeddings are used as input to the decoder and are learnt along with rest of the model.</li>
+        </ul>
       </li>
-      <li>
-        <p>The newly added gate captures the relation between the question and the current passage word as only some parts of the passage are relevant for answering the given question.</p>
+      <li><strong>Internal Memory</strong>
+        <ul>
+          <li>Physiological, emotional responses are relatively short-lived and involve changes.</li>
+          <li>ECM accounts for this effect by adding an Internal Memory which captures this dynamics of emotions during decoding.</li>
+          <li>It starts with “full” emotions in the beginning and keeps decaying the emotion value over time.</li>
+          <li>How much of the emotion value is to be decayed is determined by a sigmoid gate.</li>
+          <li>By the time the sentence is decoded, the value becomes zero, signifying that the emotion has been completely expressed.</li>
+        </ul>
+      </li>
+      <li><strong>External Memory</strong>
+        <ul>
+          <li>Emotional responses are expected to carry emotionally strong words along with generic, neutral words.</li>
+          <li>An external memory is used to include the emotionally strong words explicitly by using 2 non-overlapping vocabularies - <em>generic</em> vocabulary and the <em>emotion</em> vocabulary (read from the external memory).</li>
+          <li>Both these vocabularies are assigned different generation probabilities and an output gate controls the weights of <em>generic</em> and <em>emotion</em> words.</li>
+          <li>This way the <em>emotion</em> words are included in an otherwise neutral response.</li>
+        </ul>
       </li>
     </ul>
   </li>
   <li>
-    <p>Self Matching Attention</p>
+    <p><strong>Loss function</strong></p>
 
     <ul>
-      <li>
-        <p>The passage representation obtained so far would not capture most of the context.</p>
-      </li>
-      <li>
-        <p>So the current representation is matched against itself so as to collect evidence from the entire passage and encode the evidence relevant to the current passage word and question.</p>
-      </li>
+      <li>The first component is the cross-entropy loss between predicted and target token distribution.</li>
+      <li>A regularization term on internal memory to make sure the emotional state decays to 0 at the end of the decoding process.</li>
+      <li>Another regularization term on external memory to supervise the probability of selection of a <em>generic</em> vs <em>emotion</em> word.</li>
+    </ul>
+  </li>
+  <li><em>*Dataset</em>
+    <ul>
+      <li>STC Dataset (~220K posts and ~4300K responses) annotated by the emotional classifier. Any error on the part of the classifier degrades the quality of the training dataset.</li>
+      <li>NLPCC Dataset - Emotion classification dataset with 23105 sentences.</li>
     </ul>
   </li>
   <li>
-    <p>Output Layer</p>
+    <p><strong>Metric</strong></p>
 
     <ul>
-      <li>
-        <p>Use pointer network (initialized using attention pooling over answer representation) to predict the position of the answer.</p>
-      </li>
-      <li>
-        <p>Loss function is the sum of negative log probabilities of start and end positions.</p>
-      </li>
+      <li>Perplexity to evaluate the model at the content level.</li>
+      <li>Emotion accuracy to evaluate the model at the emotional level.</li>
     </ul>
   </li>
   <li>
-    <p>Results</p>
+    <p>ECM achieves a perplexity of 65.9 and emotional accuracy of 0.773.</p>
+  </li>
+  <li>
+    <p>Based on human evaluations, ECM statistically outperforms the seq2seq baselines on both naturalness (likeliness of response being generated by a human) and emotion accuracy.</p>
+  </li>
+  <li>
+    <p>Notes</p>
 
     <ul>
-      <li>
-        <p>R-NET is ranked second on <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD Leaderboard</a> as of 7th August, 2017 and achieves best-published results on MS-MARCO dataset.</p>
-      </li>
-      <li>
-        <p>Using ideas like sentence ranking, using syntax information performing multihop inference and augmenting question dataset (using seqToseq network) do not help in improving the performance.</p>
-      </li>
+      <li>It is an interesting idea to let the sigmoid gate decide how the emotion “value” be spent while decoding. It seems similar to the idea of how much do we want to “attend” to the emotion value the key difference being that your total attention is limited. It would be interesting to see the shape of the distribution of how much of the emotion value is spent at each decoding time step. If the curve is highly biased towards say using most of the emotion value towards the end of the decoding process, maybe another regularisation term is needed to ensure a more balanced distribution of how the emotion is spent.</li>
     </ul>
   </li>
 </ul>
@@ -210,15 +199,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory">
-            Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory
-            <small>22 Jan 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -234,6 +214,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network">
             Distilling the Knowledge in a Neural Network
             <small>31 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks">
+            PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks
+            <small>24 Dec 2017</small>
           </a>
         </h3>
       </li>
@@ -254,8 +243,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
