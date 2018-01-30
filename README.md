@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [StarSpace - Embed All The Things!](https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things)
 * [Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory](https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory)
 * [How transferable are features in deep neural networks](https://shagunsodhani.in/papers-I-read/How-transferable-are-features-in-deep-neural-networks)
 * [Distilling the Knowledge in a Neural Network](https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network)
