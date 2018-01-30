@@ -4,13 +4,78 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-01-22T07:57:25-05:00</updated>
+ <updated>2018-01-29T19:44:47-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title></title>
+   <link href="https://shagunsodhani.in/papers-I-read/2018-01-29-StarSpace-Embed-All-The-Things"/>
+   <updated>2018-01-29T19:44:47-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/2018-01-29-StarSpace - Embed All The Things</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes a general purpose neural embedding model where different type of entities (described in terms of discrete features) are embedded in a common vector space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A similarity function is learnt to compare these entities in a meaningful way and score their similarity. The definition of the similarity function could depend on the downstream task where the embeddings are used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1709.03856&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/facebookresearch/StarSpace&quot;&gt;Link to the implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each entity is described as a set of discrete features. For example, for the recommendation use case, the users may be described as a bag-of-words of movies they have liked. For the search use case, the document may be described as a bag-of-words of words they are made up of.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a dataset and a task at hand, generate a set of positive samples &lt;em&gt;E = (a, b)&lt;/em&gt; such that &lt;em&gt;a&lt;/em&gt; is the input to the task (from the dataset) and &lt;em&gt;b&lt;/em&gt; is the expected label(answer/entity) for the given task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similarly, generate another set of negative samples &lt;em&gt;E &lt;sup&gt;-&lt;/sup&gt; = (a, b&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt;)&lt;/em&gt; such that &lt;em&gt;b&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt;&lt;/em&gt; is one of the incorrect label(answer/entity) for the given task. The incorrect entity can be sampled randomly from the set of candidate entities. Multiple incorrect samples could be generated for each positive example. These incorrect samples are indexed using &lt;em&gt;i&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, in case of supervised learning problem like document classification, &lt;em&gt;a&lt;/em&gt; would be one of the documents (probably described in terms of words), &lt;em&gt;b&lt;/em&gt; is the correct label and &lt;em&gt;b&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt;)&lt;/em&gt; is one of the randomly sampled label from set of all the labels (excluding the correct label).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of collaborative filtering, &lt;em&gt;a&lt;/em&gt; would be the user (either described as a discrete entity like a userid or in terms of items purchased so far), &lt;em&gt;b&lt;/em&gt; is the next item the user purchases and &lt;em&gt;b&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt;)&lt;/em&gt; is one of the randomly sampled item from the set of all the items.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A similarity function is chosen to compare the representation of entities of type &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt;. The paper considered cosine similarity and inner product and observed that cosine similarity works better for the case with a large number of entities.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A loss function compares the similarity between positive pairs &lt;em&gt;(a, b)&lt;/em&gt; and &lt;em&gt;(a, b&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt;)&lt;/em&gt;. The paper considered margin ranking loss and negative log loss of softmax and reported that margin ranking loss works better.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The norm of embeddings is capped at 1.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The same model architecture is applied to a variety of tasks including multi-class classification, multi-label classification, collaborative filtering, content-based recommendation, link prediction, information retrieval, word embeddings and sentence embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model provides a strong baseline on all the tasks and performs at par with much more complicated and task-specific networks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</title>
