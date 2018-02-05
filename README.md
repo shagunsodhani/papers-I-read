@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Get To The Point: Summarization with Pointer-Generator Networks](https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks)
 * [StarSpace - Embed All The Things!](https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things)
 * [Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory](https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory)
 * [How transferable are features in deep neural networks](https://shagunsodhani.in/papers-I-read/How-transferable-are-features-in-deep-neural-networks)
