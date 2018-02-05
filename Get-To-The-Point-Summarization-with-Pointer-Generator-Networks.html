@@ -11,7 +11,7 @@
 
   <title>
     
-      R-NET - Machine Reading Comprehension with Self-matching Networks &middot; Papers I Read
+      Get To The Point - Summarization with Pointer-Generator Networks &middot; Papers I Read
     
   </title>
 
@@ -115,97 +115,79 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">R-NET - Machine Reading Comprehension with Self-matching Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">07 Aug 2017</span>
+  <h1 class="post-title">Get To The Point - Summarization with Pointer-Generator Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL2017" title="Pages tagged ACL2017" rel="tag">ACL2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Abstract+Summarization" title="Pages tagged Abstract Summarization" rel="tag">Abstract Summarization</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Pointer+Network" title="Pages tagged Pointer Network" rel="tag">Pointer Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Summarization" title="Pages tagged Summarization" rel="tag">Summarization</a></p>
+  <span class="post-date">05 Feb 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>R-NET is an end-to-end trained neural network model for machine comprehension.</p>
+    <p><a href="https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f">Sequence-to-Sequence models</a> have made abstract summarization viable but they still suffer from issues like <em>out of vocabulary</em> words and repetitive sentences.</p>
   </li>
   <li>
-    <p>It starts by matching the question and the given passage (using gated attention based RNN) to obtain question-aware passage representation.</p>
+    <p>The paper proposes to overcome these limitations by using a hybrid Pointer-Generator network (to copy words from the source text) and a <em>coverage</em> vector that keeps track of content that has already been summarized so as to discourage repetition.</p>
   </li>
   <li>
-    <p>Next, it uses a self-matching attention mechanism to refine the passage representation by matching the passage against itself.</p>
+    <p><a href="https://arxiv.org/abs/1704.04368">Link to the paper</a></p>
   </li>
   <li>
-    <p>Lastly, it uses pointer networks to determine the position of the answer in the passage.</p>
-  </li>
-  <li>
-    <p><a href="https://www.microsoft.com/en-us/research/publication/mrc/">Link to the paper</a></p>
+    <p><a href="https://github.com/abisee/pointer-generator">Code</a></p>
   </li>
 </ul>
 
-<h2 id="datasets">Datasets</h2>
+<h2 id="model">Model</h2>
+
+<h3 id="pointer-generator-network">Pointer Generator Network</h3>
 
 <ul>
   <li>
-    <p>SQuAD</p>
+    <p>It is a hybrid model between the Sequence-to-Sequence network and <a href="https://shagunsodhani.in/papers-I-read/Pointer-Networks">Pointer Network</a> such that when generating a word, the model decides whether the word would be generated using the softmax vocabulary (Sequence-to-Sequence) or using the source vocabulary (Pointer Network).</p>
   </li>
   <li>
-    <p>MS-MARCO</p>
+    <p>Since the model can choose a word from the source vocabulary, the issue of <em>out of vocabulary</em> words is handled.</p>
   </li>
 </ul>
 
-<h2 id="architecture">Architecture</h2>
+<h3 id="coverage-mechanism">Coverage Mechanism</h3>
 
 <ul>
   <li>
-    <p>Question / Passage Encoder</p>
-
-    <ul>
-      <li>Concatenate the word level and character level embeddings for each word and feed into a bidirectional GRU to obtain question and passage representation.</li>
-    </ul>
+    <p>The model maintains a <em>coverage</em> vector which is the sum of attention distributions over all previous decoder timesteps.</p>
   </li>
   <li>
-    <p>Gated Attention based RNN</p>
-
-    <ul>
-      <li>
-        <p>Given question and passage representation, sentence pair representation is generated via soft-alignment of the words in the question and in the passage.</p>
-      </li>
-      <li>
-        <p>The newly added gate captures the relation between the question and the current passage word as only some parts of the passage are relevant for answering the given question.</p>
-      </li>
-    </ul>
+    <p>This <em>coverage</em> vector is fed as an input to the attention mechanism.</p>
   </li>
   <li>
-    <p>Self Matching Attention</p>
-
-    <ul>
-      <li>
-        <p>The passage representation obtained so far would not capture most of the context.</p>
-      </li>
-      <li>
-        <p>So the current representation is matched against itself so as to collect evidence from the entire passage and encode the evidence relevant to the current passage word and question.</p>
-      </li>
-    </ul>
+    <p>A <em>coverage loss</em> is added to prevent the model from repeatedly attending to the same word.</p>
   </li>
   <li>
-    <p>Output Layer</p>
+    <p>The idea is to capture how much coverage different words have already received from the attention mechanism.</p>
+  </li>
+</ul>
 
-    <ul>
-      <li>
-        <p>Use pointer network (initialized using attention pooling over answer representation) to predict the position of the answer.</p>
-      </li>
-      <li>
-        <p>Loss function is the sum of negative log probabilities of start and end positions.</p>
-      </li>
-    </ul>
+<h2 id="observation">Observation</h2>
+
+<ul>
+  <li>
+    <p>Model when evaluated on CNN/Daily Mail summarization task, outperforms the state-of-the-art by at least 2 ROUGE points though it still does not outperform the lead-3 baseline.</p>
   </li>
   <li>
-    <p>Results</p>
-
-    <ul>
-      <li>
-        <p>R-NET is ranked second on <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD Leaderboard</a> as of 7th August, 2017 and achieves best-published results on MS-MARCO dataset.</p>
-      </li>
-      <li>
-        <p>Using ideas like sentence ranking, using syntax information performing multihop inference and augmenting question dataset (using seqToseq network) do not help in improving the performance.</p>
-      </li>
-    </ul>
+    <p>Lead-3 baseline uses first 3 sentences as the summary of the article which should be a strong baseline given that the dataset is actually about news articles.</p>
+  </li>
+  <li>
+    <p>The model is initially trained without coverage and then finetuned with the coverage loss.</p>
+  </li>
+  <li>
+    <p>During training, the model first learns how to copy words and then how to generate words (p<sup>gen</sup> starts from 0.3 and converges to 0.53).</p>
+  </li>
+  <li>
+    <p>During testing, the model strongly prefers copying over generating (p<sup>gen</sup> = 0.17).</p>
+  </li>
+  <li>
+    <p>Further, whenever the model is at beginning of sentences or at the join between switched-together fragments, it prefers to generate a word instead of copying one from the source language.</p>
+  </li>
+  <li>
+    <p>The overall model is very simple, neat and interpretable and also performs well in practice.</p>
   </li>
 </ul>
 
@@ -214,15 +196,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
-            Get To The Point - Summarization with Pointer-Generator Networks
-            <small>05 Feb 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -238,6 +211,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory">
             Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory
             <small>22 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/How-transferable-are-features-in-deep-neural-networks">
+            How transferable are features in deep neural networks
+            <small>06 Jan 2018</small>
           </a>
         </h3>
       </li>
@@ -258,8 +240,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

@@ -11,7 +11,7 @@
 
   <title>
     
-      Two/Too Simple Adaptations of Word2Vec for Syntax Problems &middot; Papers I Read
+      Papers I Read &middot; Notes and Summaries
     
   </title>
 
@@ -114,82 +114,49 @@
       </div>
 
       <div class="container content">
-        <div class="post">
-  <h1 class="post-title">Two/Too Simple Adaptations of Word2Vec for Syntax Problems</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL+2015" title="Pages tagged ACL 2015" rel="tag">ACL 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a></p>
-  <span class="post-date">26 Jun 2017</span>
-  <ul>
-  <li>The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.</li>
-  <li><a href="http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf">Link to the paper</a></li>
-  <li>In the original Skip-Gram setting, the model predicts the <em>2c</em> words in the context window (<em>c</em> is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.</li>
-  <li>Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.</li>
-  <li>The paper proposes to use a set of <em>2c</em> matrices each for a different word in the context window for both Skip-Gram and CBOW models.</li>
-  <li>This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.</li>
-  <li>The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.</li>
-</ul>
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering">
+        VQA-Visual Question Answering
+      </a>
+    </h1>
 
+    <span class="post-date">27 Apr 2017</span>
+
+      <div class="excerpt">
+        <h3 id="problem-statement">Problem Statement</h3> <ul> <li> <p>Given an image and a free-form, open-ended, natural language question (about the image), produce the...
+        <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering"> Continue reading</a>
+        <br>
+<!--         <span class="comments-count">
+          <a class="comments-count-icon"><i class="fa fa-comment"></i></a>
+          <a href="/VQA-Visual-Question-Answering#disqus_thread"> Comments</a>
+        </span> -->
+      </div>
+  </div>
+  <hr></hr>
+  
 </div>
 
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
     
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
-            Get To The Point - Summarization with Pointer-Generator Networks
-            <small>05 Feb 2018</small>
-          </a>
-        </h3>
-      </li>
+      <a class="pagination-item newer" href="https://shagunsodhani.in/papers-I-read/page3">Newer</a>
     
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things">
-            StarSpace - Embed All The Things!
-            <small>29 Jan 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory">
-            Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory
-            <small>22 Jan 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-  </ul>
+  
 </div>
+
+
       </div>
     </div>
 
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     
-<div id="disqus_thread"></div>
-<script>
-
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = 'https://papers-i-read.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
 
     <script>
       (function(document) {

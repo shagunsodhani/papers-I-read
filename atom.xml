@@ -4,13 +4,93 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-01-29T19:48:25-05:00</updated>
+ <updated>2018-02-05T15:54:51-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Get To The Point - Summarization with Pointer-Generator Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"/>
+   <updated>2018-02-05T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Get To The Point-Summarization with Pointer-Generator Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f&quot;&gt;Sequence-to-Sequence models&lt;/a&gt; have made abstract summarization viable but they still suffer from issues like &lt;em&gt;out of vocabulary&lt;/em&gt; words and repetitive sentences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to overcome these limitations by using a hybrid Pointer-Generator network (to copy words from the source text) and a &lt;em&gt;coverage&lt;/em&gt; vector that keeps track of content that has already been summarized so as to discourage repetition.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.04368&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/abisee/pointer-generator&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;h3 id=&quot;pointer-generator-network&quot;&gt;Pointer Generator Network&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is a hybrid model between the Sequence-to-Sequence network and &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/Pointer-Networks&quot;&gt;Pointer Network&lt;/a&gt; such that when generating a word, the model decides whether the word would be generated using the softmax vocabulary (Sequence-to-Sequence) or using the source vocabulary (Pointer Network).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since the model can choose a word from the source vocabulary, the issue of &lt;em&gt;out of vocabulary&lt;/em&gt; words is handled.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;coverage-mechanism&quot;&gt;Coverage Mechanism&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model maintains a &lt;em&gt;coverage&lt;/em&gt; vector which is the sum of attention distributions over all previous decoder timesteps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This &lt;em&gt;coverage&lt;/em&gt; vector is fed as an input to the attention mechanism.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;em&gt;coverage loss&lt;/em&gt; is added to prevent the model from repeatedly attending to the same word.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is to capture how much coverage different words have already received from the attention mechanism.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observation&quot;&gt;Observation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model when evaluated on CNN/Daily Mail summarization task, outperforms the state-of-the-art by at least 2 ROUGE points though it still does not outperform the lead-3 baseline.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lead-3 baseline uses first 3 sentences as the summary of the article which should be a strong baseline given that the dataset is actually about news articles.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is initially trained without coverage and then finetuned with the coverage loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, the model first learns how to copy words and then how to generate words (p&lt;sup&gt;gen&lt;/sup&gt; starts from 0.3 and converges to 0.53).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During testing, the model strongly prefers copying over generating (p&lt;sup&gt;gen&lt;/sup&gt; = 0.17).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further, whenever the model is at beginning of sentences or at the join between switched-together fragments, it prefers to generate a word instead of copying one from the source language.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The overall model is very simple, neat and interpretable and also performs well in practice.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>StarSpace - Embed All The Things!</title>
