@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Revisiting Semi-Supervised Learning with Graph Embeddings &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2018. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Revisiting Semi-Supervised Learning with Graph Embeddings</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICML+2016" title="Pages tagged ICML 2016" rel="tag">ICML 2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network+Representation" title="Pages tagged Network Representation" rel="tag">Network Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a></p>
+  <span class="post-date">11 Dec 2017</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents a semi-supervised learning framework for graphs where the node embeddings are used to jointly predict both the class labels and neighbourhood context. Usually, graph embeddings are learnt in an unsupervised manner and can not leverage the supervising signal coming from the labelled data.</p>
+  </li>
+  <li>
+    <p>The framework is called <a href="https://github.com/kimiyoung/planetoid">Planetoid (Predicting Labels And Neighbors with Embeddings Transductively Or Inductively from Data)</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1603.08861">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="problem-setting">Problem Setting</h2>
+
+<ul>
+  <li>
+    <p>Given a graph G = (V, E) and x<sub>L</sub> and x<sub>U</sub> as feature vectors for labelled and unlabelled nodes and y<sub>L</sub> as labels for the labelled nodes, the problem is to learn a mapping (classifier) f: x -&gt; y</p>
+  </li>
+  <li>
+    <p>There are two settings possible:</p>
+
+    <ul>
+      <li>
+        <p><strong>Transductive</strong> - Predictions are made only for those nodes which are already observed in the graph at training time.</p>
+      </li>
+      <li>
+        <p><strong>Inductive</strong> - Predictions are made for nodes whether they have been observed in the graph at training time or not.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>The general semi-supervised learning loss would be <em>L<sub>S</sub> + λL<sub>U</sub></em> where <em>L<sub>S</sub></em> is the supervised learning loss while <em>L<sub>U</sub></em> is the unsupervised learning loss.</p>
+  </li>
+  <li>
+    <p>The unsupervised loss is a variant of the Skip-gram loss with negative edge sampling.</p>
+  </li>
+  <li>
+    <p>More specifically, first a random walk sequence S is sampled. Then either a positive edge is sampled from S (within a given context distance) or a negative edge is sampled.</p>
+  </li>
+  <li>
+    <p>The label information is injected by using the label as a context and minimising the distance between the positive edges (edges where the nodes have the same label) and maximising the distance between the negative edges (edges where the nodes have different labels).</p>
+  </li>
+</ul>
+
+<h3 id="transductive-formulation">Transductive Formulation</h3>
+
+<ul>
+  <li>
+    <p>Two separate fully connected networks are applied over the node features and node embeddings.</p>
+  </li>
+  <li>
+    <p>These 2 representations are then concatenated and fed to a softmax classifier to predict the class label.</p>
+  </li>
+</ul>
+
+<h3 id="inductive-formulation">Inductive Formulation</h3>
+
+<ul>
+  <li>
+    <p>In the inductive setting, it is difficult to obtain the node embeddings at test time. One naive approach is to retrain the network to obtain the embeddings on the previously unobserved nodes but that is inefficient.</p>
+  </li>
+  <li>
+    <p>The embeddings of node x are parameterized as a function of its input feature vector and is learnt by applying a fully connected neural network on the node feature vector.</p>
+  </li>
+  <li>
+    <p>This provides a simple way to extend the original approach to the inductive setting.</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>The proposed approach is evaluated in 3 settings (text classification, distantly supervised entity extraction and entity classification) and it consistently outperforms approaches that use just node features or node embeddings.</p>
+  </li>
+  <li>
+    <p>The key takeaway is that the joint training in the semi-supervised setting has several benefits over the unsupervised setting and that using the graph context (in terms of node embeddings) is much more effective than using graph Laplacian-based regularization term.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Neural-Relational-Inference-for-Interacting-Systems">
+            Neural Relational Inference for Interacting Systems
+            <small>17 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
+            Get To The Point - Summarization with Pointer-Generator Networks
+            <small>05 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things">
+            StarSpace - Embed All The Things!
+            <small>29 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Revisiting-Semi-Supervised-Learning-with-Graph-Embeddings"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Revisiting-Semi-Supervised-Learning-with-Graph-Embeddings"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

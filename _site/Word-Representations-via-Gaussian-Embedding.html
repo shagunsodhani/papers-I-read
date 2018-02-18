@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Word Representations via Gaussian Embedding &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2018. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Word Representations via Gaussian Embedding</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2015" title="Pages tagged ICLR 2015" rel="tag">ICLR 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">05 Nov 2017</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>Existing word embedding models like <a href="https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6">Skip-Gram</a>, <a href="https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8">GloVe</a> etc map words to fixed sized vectors in a low dimensional vector space.</li>
+  <li>This fixed point setting cannot capture uncertainty about representation.</li>
+  <li>Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.</li>
+  <li>The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.</li>
+  <li>This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.</li>
+  <li><a href="https://arxiv.org/abs/1412.6623">Link to the paper</a></li>
+  <li><a href="https://github.com/seomoz/word2gauss">Implementation</a></li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>KL divergence is used as the asymmetric distance function for comparing the distributions.</li>
+  <li>Unlike the Word2Vec model, the proposed model uses ranking-based loss.</li>
+</ul>
+
+<h3 id="similarity-measures-used">Similarity Measures used</h3>
+
+<ul>
+  <li>
+    <p><strong>Symmetric Similarity</strong></p>
+  </li>
+  <li>For two gaussian distributions, <em>P<sub>i</sub></em> and <em>P<sub>j</sub></em>, compute the inner product <em>E(P<sub>i</sub>, P<sub>j</sub>)</em> as <em>N(0; mean<sub>i</sub> - mean<sub>j</sub>, sigma<sub>i</sub> + sigma<sub>j</sub>)</em>.</li>
+  <li>Compute the gradient of <em>mean</em> and <em>sigma</em> with respect to <em>log(E)</em>.</li>
+  <li>
+    <p>The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.</p>
+  </li>
+  <li>
+    <p><strong>Asymmetric Similarity</strong></p>
+  </li>
+  <li>Use KL divergence to encode the context distribution.</li>
+  <li>The benefit over the symmetric setting is that now entailment type relations can also be modeled.</li>
+  <li>For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.</li>
+</ul>
+
+<h2 id="learning">Learning</h2>
+
+<ul>
+  <li>One of the two notions of similarity is chosen and max-margin is used as the loss function.</li>
+  <li>Mean is regularized by adding a simple constraint on the L2-norm.</li>
+  <li>For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.</li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>Polysemous words have higher variance in their word embeddings as compared to specific words.</li>
+  <li>KL divergence (with diagonal covariance) outperforms other models.</li>
+  <li>Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.</li>
+  <li>For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.</li>
+</ul>
+
+<h2 id="future-work">Future Work</h2>
+
+<ul>
+  <li>Use combinations of low rank and diagonal matrices for covariances.</li>
+  <li>Improved optimisation strategies.</li>
+  <li>Trying other distributions like Student’s-t distribution.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Neural-Relational-Inference-for-Interacting-Systems">
+            Neural Relational Inference for Interacting Systems
+            <small>17 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
+            Get To The Point - Summarization with Pointer-Generator Networks
+            <small>05 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things">
+            StarSpace - Embed All The Things!
+            <small>29 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Word-Representations-via-Gaussian-Embedding"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

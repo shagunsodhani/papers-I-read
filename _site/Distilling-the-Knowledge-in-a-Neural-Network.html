@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Distilling the Knowledge in a Neural Network &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2018. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Distilling the Knowledge in a Neural Network</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2014" title="Pages tagged 2014" rel="tag">2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS+2014" title="Pages tagged NIPS 2014" rel="tag">NIPS 2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS" title="Pages tagged NIPS" rel="tag">NIPS</a></p>
+  <span class="post-date">31 Dec 2017</span>
+  <h1 id="introduction">Introduction</h1>
+
+<ul>
+  <li>
+    <p>In machine learning, it is common to train a single large model (with a large number of parameters) or ensemble of multiple smaller models using the same dataset.</p>
+  </li>
+  <li>
+    <p>While such large models help to improve the performance of the system, they also make it difficult and computationally expensive to deploy the system.</p>
+  </li>
+  <li>
+    <p>The paper proposes to transfer the knowledge from such “cumbersome” models into a single, “simpler” model which is more suitable for deployment. This transfer of knowledge is referred to as “distillation”.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1503.02531">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h1 id="idea">Idea</h1>
+
+<ul>
+  <li>
+    <p>Train the cumbersome model using the given training data in the usual way.</p>
+  </li>
+  <li>
+    <p>Train the simpler, distilled model using the class probabilities (from the cumbersome model) as the soft target. Thus, the simpler model is trained to generalise the same way as the cumbersome model.</p>
+  </li>
+  <li>
+    <p>If the soft targets have high entropy, they provide much more information than the hard targets and the gradient (between training examples) would vary lesser.</p>
+  </li>
+  <li>
+    <p>One approach is to minimise the L2 difference between logits produced by the cumbersome model and the simpler model. This approach was pursued by <a href="https://www.cs.cornell.edu/~caruana/compression.kdd06.pdf">Buciluǎ et al.</a></p>
+  </li>
+  <li>
+    <p>The paper proposes a more general solution which they name “distillation”. The temperature of the final softmax is increased till the cumbersome model produces a set of soft targets (from the final softmax layer). These soft targets are then used to train the simpler model.</p>
+  </li>
+  <li>
+    <p>It also shows that the proposed approach is, in fact, a more general case of the first approach.</p>
+  </li>
+</ul>
+
+<h1 id="approach">Approach</h1>
+
+<ul>
+  <li>
+    <p>In the simplest setting, the cumbersome model is first trained with a high value of temperature and then the same temperature value is used to train the simpler model. The temperature is set to 1 when making predictions using the simpler model.</p>
+  </li>
+  <li>
+    <p>It helps to add an auxiliary objective function which corresponds to the cross-entropy loss with the correct labels. The second objective function should be given a much lower weight though. Further, the magnitude of the soft targets needs to be scaled by multiplying with the square of temperature.</p>
+  </li>
+</ul>
+
+<h1 id="experiment">Experiment</h1>
+
+<ul>
+  <li>
+    <p>The paper reports favourable results for distillation task for the following domains:</p>
+
+    <ul>
+      <li>
+        <p>Image Classification (on MNIST dataset)</p>
+
+        <ul>
+          <li>An extra experiment is performed where the simpler model is not shown any images of “3” but the model fails for only 133 cases out of 1010 cases involving “3”.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Automatic Speech Recognition (ASR)</p>
+
+        <ul>
+          <li>
+            <p>An extra experiment is performed where the baseline model is trained using both hard targets and soft targets alternatively. Further, only 3% of the total dataset is used.</p>
+          </li>
+          <li>
+            <p>The model using hard targets overfits and has poor test accuracy while the model using soft targets does not overfit and gets much better test accuracy. This shows the regularizing effect of soft targets.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Training ensemble specialists for very large datasets (JFT dataset - an internal dataset at Google)</p>
+
+        <ul>
+          <li>
+            <p>The experiment shows that while training a single large model would take a lot of time, the performance of the model can be improved by learning a small number of specialised networks (which are faster to train).</p>
+          </li>
+          <li>
+            <p>Though it is yet to be shown that the knowledge of such specialist models can be distilled back into a single model.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Neural-Relational-Inference-for-Interacting-Systems">
+            Neural Relational Inference for Interacting Systems
+            <small>17 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
+            Get To The Point - Summarization with Pointer-Generator Networks
+            <small>05 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things">
+            StarSpace - Embed All The Things!
+            <small>29 Jan 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Distilling-the-Knowledge-in-a-Neural-Network"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
