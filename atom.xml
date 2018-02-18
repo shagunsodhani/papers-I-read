@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-02-17T23:13:19-05:00</updated>
+ <updated>2018-02-17T23:21:00-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -61,14 +61,7 @@
     &lt;p&gt;A Graph Neural Network (GNN) acts on the fully connected latent graph &lt;em&gt;z&lt;/em&gt;, performs message passing from node to node via edges and predicts the discrete label for each edge.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;The GNN architecture may itself use MLPs or ConvNets and returns a factorised distribution over the edge types *q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
-          &lt;td&gt;x)*.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;The GNN architecture may itself use MLPs or ConvNets and returns a factorised distribution over the edge types &lt;em&gt;q&lt;sub&gt;φ&lt;/sub&gt;(z|x)&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -76,26 +69,15 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;The decoder is another GNN (with separate params for each edge type) that predicts the future dynamics of the system and returns *p&lt;sub&gt;θ&lt;/sub&gt;(x&lt;/td&gt;
-          &lt;td&gt;z)*.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;The decoder is another GNN (with separate params for each edge type) that predicts the future dynamics of the system and returns &lt;em&gt;p&lt;sub&gt;θ&lt;/sub&gt;(x|z)&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;The overall model is a VAE that optimizes the ELBO given as:&lt;/li&gt;
   &lt;li&gt;
     &lt;table&gt;
       &lt;tbody&gt;
         &lt;tr&gt;
-          &lt;td&gt;E&lt;sub&gt;q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/sub&gt;&lt;/td&gt;
-          &lt;td&gt;x)&amp;lt;/sub&amp;gt;[log p&lt;sub&gt;θ&lt;/sub&gt;(x&lt;/td&gt;
-          &lt;td&gt;z)] − KL[q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
-          &lt;td&gt;x)&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
-          &lt;td&gt;p&lt;sub&gt;θ&lt;/sub&gt;(z)]&lt;/td&gt;
+          &lt;td&gt;E&lt;sub&gt;q&lt;sub&gt;φ&lt;/sub&gt;(z|x)&lt;/sub&gt;[log p&lt;sub&gt;θ&lt;/sub&gt;(x|z)] − KL[q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
+          &lt;td&gt;x)||p&lt;sub&gt;θ&lt;/sub&gt;(z)]&lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;
@@ -123,14 +105,7 @@
     &lt;/table&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Sample &lt;em&gt;z&lt;sub&gt;i, j&lt;/sub&gt;&lt;/em&gt; from *q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
-          &lt;td&gt;x)*.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Sample &lt;em&gt;z&lt;sub&gt;i, j&lt;/sub&gt;&lt;/em&gt; from &lt;em&gt;q&lt;sub&gt;φ&lt;/sub&gt;(z|x)&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Run the decoder to predict the future dynamics for the next T timesteps.&lt;/p&gt;

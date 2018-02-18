@@ -162,14 +162,7 @@
     <p>A Graph Neural Network (GNN) acts on the fully connected latent graph <em>z</em>, performs message passing from node to node via edges and predicts the discrete label for each edge.</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>The GNN architecture may itself use MLPs or ConvNets and returns a factorised distribution over the edge types *q<sub>φ</sub>(z</td>
-          <td>x)*.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>The GNN architecture may itself use MLPs or ConvNets and returns a factorised distribution over the edge types <em>q<sub>φ</sub>(z|x)</em>.</p>
   </li>
 </ul>
 
@@ -177,26 +170,15 @@
 
 <ul>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>The decoder is another GNN (with separate params for each edge type) that predicts the future dynamics of the system and returns *p<sub>θ</sub>(x</td>
-          <td>z)*.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>The decoder is another GNN (with separate params for each edge type) that predicts the future dynamics of the system and returns <em>p<sub>θ</sub>(x|z)</em>.</p>
   </li>
   <li>The overall model is a VAE that optimizes the ELBO given as:</li>
   <li>
     <table>
       <tbody>
         <tr>
-          <td>E<sub>q<sub>φ</sub>(z</sub></td>
-          <td>x)&lt;/sub&gt;[log p<sub>θ</sub>(x</td>
-          <td>z)] − KL[q<sub>φ</sub>(z</td>
-          <td>x)</td>
-          <td> </td>
-          <td>p<sub>θ</sub>(z)]</td>
+          <td>E<sub>q<sub>φ</sub>(z|x)</sub>[log p<sub>θ</sub>(x|z)] − KL[q<sub>φ</sub>(z</td>
+          <td>x)||p<sub>θ</sub>(z)]</td>
         </tr>
       </tbody>
     </table>
@@ -224,14 +206,7 @@
     </table>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Sample <em>z<sub>i, j</sub></em> from *q<sub>φ</sub>(z</td>
-          <td>x)*.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Sample <em>z<sub>i, j</sub></em> from <em>q<sub>φ</sub>(z|x)</em>.</p>
   </li>
   <li>
     <p>Run the decoder to predict the future dynamics for the next T timesteps.</p>
