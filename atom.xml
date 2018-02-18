@@ -4,13 +4,155 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-02-05T15:54:51-05:00</updated>
+ <updated>2018-02-17T23:13:19-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Neural Relational Inference for Interacting Systems</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Neural-Relational-Inference-for-Interacting-Systems"/>
+   <updated>2018-02-17T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Neural Relational Inference for Interacting Systems</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents Neural Relational Inference (NRI) model which can infer underlying interactions in a dynamical system in an unsupervised manner, using just the observational data in terms of the trajectories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For instance, consider a simulated system where the particles are connected to each other by springs. The observational data does not explicitly specify which particles are connected to each other and only contains information like position and velocity of each particle at different timesteps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The task is to explicitly infer the interaction structure (in this example, which pair of particles are connected to each other) while learning the dynamical model of the system itself.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1802.04687&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/ethanfetaya/nri&quot;&gt;Link to the implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model consists of an encoder that encodes the given trajectories into an interaction graph and a decoder that decodes the dynamical model given the interaction graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model starts by assuming that a full connected interaction graph exists between the objects in the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For this latent graph &lt;strong&gt;z&lt;/strong&gt;, &lt;em&gt;z&lt;sub&gt;i, j&lt;/sub&gt;&lt;/em&gt; denotes the (discrete) edge type between object &lt;em&gt;v&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;v&lt;sub&gt;j&lt;/sub&gt;&lt;/em&gt; with the assumption that there are &lt;em&gt;K&lt;/em&gt; edge types.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The object &lt;em&gt;v&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; has a feature vector &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;sup&gt;t&lt;/sup&gt;&lt;/em&gt; associated with it at time &lt;em&gt;t&lt;/em&gt;. This feature vector captures information like location and velocity.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;encoder&quot;&gt;Encoder&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A Graph Neural Network (GNN) acts on the fully connected latent graph &lt;em&gt;z&lt;/em&gt;, performs message passing from node to node via edges and predicts the discrete label for each edge.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;The GNN architecture may itself use MLPs or ConvNets and returns a factorised distribution over the edge types *q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
+          &lt;td&gt;x)*.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;decoder&quot;&gt;Decoder&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;The decoder is another GNN (with separate params for each edge type) that predicts the future dynamics of the system and returns *p&lt;sub&gt;θ&lt;/sub&gt;(x&lt;/td&gt;
+          &lt;td&gt;z)*.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The overall model is a VAE that optimizes the ELBO given as:&lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;E&lt;sub&gt;q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/sub&gt;&lt;/td&gt;
+          &lt;td&gt;x)&amp;lt;/sub&amp;gt;[log p&lt;sub&gt;θ&lt;/sub&gt;(x&lt;/td&gt;
+          &lt;td&gt;z)] − KL[q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
+          &lt;td&gt;x)&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;p&lt;sub&gt;θ&lt;/sub&gt;(z)]&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;p&lt;sub&gt;θ&lt;/sub&gt;(x)&lt;/em&gt; is the prior which is assumed to be uniform distribution over the edge types.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead of predicting the dynamics of the system for just the next timestep, the paper chooses to use the prediction multiple steps (10) in the future. This ensures that the interactions can have a significant effect on the dynamics of the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;In some cases, like real humans playing a physical sport, the dynamics of the system need not be Markovian and a recurrent decoder is used to model the time dependence.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pipeline&quot;&gt;Pipeline&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Given the dynamical system, run the encoder to obtain *q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
+          &lt;td&gt;x)*.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Sample &lt;em&gt;z&lt;sub&gt;i, j&lt;/sub&gt;&lt;/em&gt; from *q&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
+          &lt;td&gt;x)*.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Run the decoder to predict the future dynamics for the next T timesteps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Optimise the ELBO loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Note that since the latent variables (edge labels) are discrete in this case, the sampling is done from a continuous approximation of the discrete distribution and reparameterization trick is applied over this discrete approximation to get the (biased) gradients.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experiments are performed using simulated systems like particles connected to springs, phase coupled oscillators and charged particles and using real-world data like CMU Motion Capture database and NBA tracking data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The NRI system effectively predicts the dynamics of the systems and is able to reconstruct the ground truth interaction graph (for simulated systems).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Get To The Point - Summarization with Pointer-Generator Networks</title>
@@ -162,6 +304,93 @@
    <link href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"/>
    <updated>2018-01-22T00:00:00-05:00</updated>
    <id>https://shagunsodhani.in/papers-I-read/Emotional Chatting Machine-Emotional Conversation Generation with Internal and External Memory</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;More specifically, given an input utterance or dialogue and the desired emotional category of the response, ECM is to generate an appropriate response that conforms to the given emotional category.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.01074&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Much of the recent, deep learning based work on conversational agents has focused on the use of encoder-decoder framework where the input utterance (given sequence of words) is mapped to a response utterance (target sequence of words). This is the so-called seq2seq family of models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ECM model can sit within this framework and introduces 3 new components:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Emotion Category Embedding&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Embed the emotion categories into a real-valued, low-dimensional vector space.&lt;/li&gt;
+          &lt;li&gt;These embeddings are used as input to the decoder and are learnt along with rest of the model.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Internal Memory&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Physiological, emotional responses are relatively short-lived and involve changes.&lt;/li&gt;
+          &lt;li&gt;ECM accounts for this effect by adding an Internal Memory which captures this dynamics of emotions during decoding.&lt;/li&gt;
+          &lt;li&gt;It starts with “full” emotions in the beginning and keeps decaying the emotion value over time.&lt;/li&gt;
+          &lt;li&gt;How much of the emotion value is to be decayed is determined by a sigmoid gate.&lt;/li&gt;
+          &lt;li&gt;By the time the sentence is decoded, the value becomes zero, signifying that the emotion has been completely expressed.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;External Memory&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Emotional responses are expected to carry emotionally strong words along with generic, neutral words.&lt;/li&gt;
+          &lt;li&gt;An external memory is used to include the emotionally strong words explicitly by using 2 non-overlapping vocabularies - &lt;em&gt;generic&lt;/em&gt; vocabulary and the &lt;em&gt;emotion&lt;/em&gt; vocabulary (read from the external memory).&lt;/li&gt;
+          &lt;li&gt;Both these vocabularies are assigned different generation probabilities and an output gate controls the weights of &lt;em&gt;generic&lt;/em&gt; and &lt;em&gt;emotion&lt;/em&gt; words.&lt;/li&gt;
+          &lt;li&gt;This way the &lt;em&gt;emotion&lt;/em&gt; words are included in an otherwise neutral response.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Loss function&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;The first component is the cross-entropy loss between predicted and target token distribution.&lt;/li&gt;
+      &lt;li&gt;A regularization term on internal memory to make sure the emotional state decays to 0 at the end of the decoding process.&lt;/li&gt;
+      &lt;li&gt;Another regularization term on external memory to supervise the probability of selection of a &lt;em&gt;generic&lt;/em&gt; vs &lt;em&gt;emotion&lt;/em&gt; word.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;*Dataset&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;STC Dataset (~220K posts and ~4300K responses) annotated by the emotional classifier. Any error on the part of the classifier degrades the quality of the training dataset.&lt;/li&gt;
+      &lt;li&gt;NLPCC Dataset - Emotion classification dataset with 23105 sentences.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Metric&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Perplexity to evaluate the model at the content level.&lt;/li&gt;
+      &lt;li&gt;Emotion accuracy to evaluate the model at the emotional level.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ECM achieves a perplexity of 65.9 and emotional accuracy of 0.773.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Based on human evaluations, ECM statistically outperforms the seq2seq baselines on both naturalness (likeliness of response being generated by a human) and emotion accuracy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Notes&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;It is an interesting idea to let the sigmoid gate decide how the emotion “value” be spent while decoding. It seems similar to the idea of how much do we want to “attend” to the emotion value the key difference being that your total attention is limited. It would be interesting to see the shape of the distribution of how much of the emotion value is spent at each decoding time step. If the curve is highly biased towards say using most of the emotion value towards the end of the decoding process, maybe another regularisation term is needed to ensure a more balanced distribution of how the emotion is spent.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory-copy"/>
+   <updated>2018-01-22T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Emotional Chatting Machine-Emotional Conversation Generation with Internal and External Memory copy</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.&lt;/p&gt;
