@@ -4,13 +4,116 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-02-17T23:23:58-05:00</updated>
+ <updated>2018-02-26T22:05:03-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Learning an SAT Solver from Single-Bit Supervision</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision"/>
+   <updated>2018-02-24T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learning a SAT Solver from Single-Bit Supervision</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents NeuroSAT, a message passing neural network that is trained to predict if a given SAT can be solved. As a side effect of training, the model also learns how to solve the SAT problem itself without any extra supervision.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1802.03685&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an expression in the propositional logic, the task is to predict if there exists a substitution of variables that make the expression true.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The expression itself can be written as a conjunction of disjunctions (“and” over “or”) where each conjunct is called a clause and each variable within a clause is called a literal.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Invariants&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The variables or clauses or literals (within the clauses) can be permuted.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Every occurrence of a variable can be negated.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the SAT problem,  create an undirected graph of literals, their negations and the clauses they belong to.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Put an edge between every literal and the clause to which it belongs and another kind of edge between every literal and its negation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Perform message passing between nodes to obtain vector representations corresponding to each node. Specifically, first, each clause received a message from its neighbours (literals) and updates its embeddings. Then every literal receives a message from its neighbours (both literals and clauses) and updates its embeddings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After T iterations, the nodes vote to decide the prediction of the model as a whole.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is trained end-to-end using the cross-entropy loss between logit and the true label.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Permutation invariance is ensured by operating on the nodes and the edges in the topological order and negation invariance is ensured by treating all literals as the same.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;decoding-satisfying-assignment&quot;&gt;Decoding Satisfying Assignment&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The most interesting aspect of this work is that even though the model was trained to predict if the SAT problem can be satisfied, it is actually possible to extract the correct assignment from the classifier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the early iterations, all the nodes vote “unsolvable” with low confidence. Then a few nodes start voting “solvable” and then a phase transition happens where most of the nodes start voting “solvable” with high confidence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model never becomes highly confident that problem is “unsolvable” and almost never guesses “solvable” on an “unsolvable” problem. So in some sense, the model is looking for the combination of literals that actually solves the problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors found that the 2 dimensional PCA projections of the literal embeddings are initially mixed up but become more and more linearly separable as the phase transition happens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Based on this insight, the authors propose to obtain cluster centres C1 and C2, partition the variables according to the cluster centres and then try assignments from both the partitions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This alone provides a satisfying solution in over 70% of the cases when though there is no explicit supervising signal about how to solve the problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The other strengths of the paper includes&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Generalizing to longer and more difficult SAT problems (than those seen during training).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Generalizing to another kind of search problems like graph colouring, clique detection etc (over small random graphs).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper also reports that by adding supervising signal about which clauses in the given expression are unsatisfiable, it is possible to decode the literals which prove the “unsatisfiability” of an expression at test time. Though not a lot of details have been provided about this part and would probably be covered in the next iteration of the paper.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Neural Relational Inference for Interacting Systems</title>
@@ -267,93 +370,6 @@
    <link href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"/>
    <updated>2018-01-22T00:00:00-05:00</updated>
    <id>https://shagunsodhani.in/papers-I-read/Emotional Chatting Machine-Emotional Conversation Generation with Internal and External Memory</id>
-   <content type="html">&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;More specifically, given an input utterance or dialogue and the desired emotional category of the response, ECM is to generate an appropriate response that conforms to the given emotional category.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.01074&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Much of the recent, deep learning based work on conversational agents has focused on the use of encoder-decoder framework where the input utterance (given sequence of words) is mapped to a response utterance (target sequence of words). This is the so-called seq2seq family of models.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;ECM model can sit within this framework and introduces 3 new components:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Emotion Category Embedding&lt;/strong&gt;
-        &lt;ul&gt;
-          &lt;li&gt;Embed the emotion categories into a real-valued, low-dimensional vector space.&lt;/li&gt;
-          &lt;li&gt;These embeddings are used as input to the decoder and are learnt along with rest of the model.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Internal Memory&lt;/strong&gt;
-        &lt;ul&gt;
-          &lt;li&gt;Physiological, emotional responses are relatively short-lived and involve changes.&lt;/li&gt;
-          &lt;li&gt;ECM accounts for this effect by adding an Internal Memory which captures this dynamics of emotions during decoding.&lt;/li&gt;
-          &lt;li&gt;It starts with “full” emotions in the beginning and keeps decaying the emotion value over time.&lt;/li&gt;
-          &lt;li&gt;How much of the emotion value is to be decayed is determined by a sigmoid gate.&lt;/li&gt;
-          &lt;li&gt;By the time the sentence is decoded, the value becomes zero, signifying that the emotion has been completely expressed.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;External Memory&lt;/strong&gt;
-        &lt;ul&gt;
-          &lt;li&gt;Emotional responses are expected to carry emotionally strong words along with generic, neutral words.&lt;/li&gt;
-          &lt;li&gt;An external memory is used to include the emotionally strong words explicitly by using 2 non-overlapping vocabularies - &lt;em&gt;generic&lt;/em&gt; vocabulary and the &lt;em&gt;emotion&lt;/em&gt; vocabulary (read from the external memory).&lt;/li&gt;
-          &lt;li&gt;Both these vocabularies are assigned different generation probabilities and an output gate controls the weights of &lt;em&gt;generic&lt;/em&gt; and &lt;em&gt;emotion&lt;/em&gt; words.&lt;/li&gt;
-          &lt;li&gt;This way the &lt;em&gt;emotion&lt;/em&gt; words are included in an otherwise neutral response.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Loss function&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;The first component is the cross-entropy loss between predicted and target token distribution.&lt;/li&gt;
-      &lt;li&gt;A regularization term on internal memory to make sure the emotional state decays to 0 at the end of the decoding process.&lt;/li&gt;
-      &lt;li&gt;Another regularization term on external memory to supervise the probability of selection of a &lt;em&gt;generic&lt;/em&gt; vs &lt;em&gt;emotion&lt;/em&gt; word.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;*Dataset&lt;/em&gt;
-    &lt;ul&gt;
-      &lt;li&gt;STC Dataset (~220K posts and ~4300K responses) annotated by the emotional classifier. Any error on the part of the classifier degrades the quality of the training dataset.&lt;/li&gt;
-      &lt;li&gt;NLPCC Dataset - Emotion classification dataset with 23105 sentences.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Metric&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Perplexity to evaluate the model at the content level.&lt;/li&gt;
-      &lt;li&gt;Emotion accuracy to evaluate the model at the emotional level.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;ECM achieves a perplexity of 65.9 and emotional accuracy of 0.773.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Based on human evaluations, ECM statistically outperforms the seq2seq baselines on both naturalness (likeliness of response being generated by a human) and emotion accuracy.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Notes&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;It is an interesting idea to let the sigmoid gate decide how the emotion “value” be spent while decoding. It seems similar to the idea of how much do we want to “attend” to the emotion value the key difference being that your total attention is limited. It would be interesting to see the shape of the distribution of how much of the emotion value is spent at each decoding time step. If the curve is highly biased towards say using most of the emotion value towards the end of the decoding process, maybe another regularisation term is needed to ensure a more balanced distribution of how the emotion is spent.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</title>
-   <link href="https://shagunsodhani.in/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory-copy"/>
-   <updated>2018-01-22T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.in/papers-I-read/Emotional Chatting Machine-Emotional Conversation Generation with Internal and External Memory copy</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.&lt;/p&gt;

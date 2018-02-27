@@ -11,7 +11,7 @@
 
   <title>
     
-      Pointer Networks &middot; Papers I Read
+      Learning an SAT Solver from Single-Bit Supervision &middot; Papers I Read
     
   </title>
 
@@ -115,88 +115,110 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Pointer Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS+2015" title="Pages tagged NIPS 2015" rel="tag">NIPS 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Seq2Seq" title="Pages tagged Seq2Seq" rel="tag">Seq2Seq</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS" title="Pages tagged NIPS" rel="tag">NIPS</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Softmax" title="Pages tagged Softmax" rel="tag">Softmax</a></p>
-  <span class="post-date">27 Aug 2017</span>
+  <h1 class="post-title">Learning an SAT Solver from Single-Bit Supervision</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#GNN" title="Pages tagged GNN" rel="tag">GNN</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#SAT" title="Pages tagged SAT" rel="tag">SAT</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VAE" title="Pages tagged VAE" rel="tag">VAE</a></p>
+  <span class="post-date">24 Feb 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper introduces a novel architecture that generates an output sequence such that the elements of the output sequence are discrete tokens corresponding to positions in the input sequence.</p>
+    <p>The paper presents NeuroSAT, a message passing neural network that is trained to predict if a given SAT can be solved. As a side effect of training, the model also learns how to solve the SAT problem itself without any extra supervision.</p>
   </li>
   <li>
-    <p>Such a problem can not be solved using <a href="https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f">Seq2Seq</a> or Neural Turing Machines as the size of the output softmax is variable (as it depends on the size of the input sequence).</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1506.03134">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/1802.03685">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="architecture">Architecture</h2>
+<h2 id="background">Background</h2>
 
 <ul>
   <li>
-    <p>Traditional attention-base sequence-to-sequence models compute an attention vector for each step of the output decoder and use that to blend the individual context vectors of the input into a single, consolidated attention vector. This attention vector is used to compute a fixed size softmax.</p>
+    <p>Given an expression in the propositional logic, the task is to predict if there exists a substitution of variables that make the expression true.</p>
   </li>
   <li>
-    <p>In Pointer Nets, the normalized attention vector (over all the tokens in the input sequence) is normalized and treated as the softmax output over the input tokens.</p>
+    <p>The expression itself can be written as a conjunction of disjunctions (“and” over “or”) where each conjunct is called a clause and each variable within a clause is called a literal.</p>
   </li>
   <li>
-    <p>So Pointer Net is a very simple modification of the attention model.</p>
-  </li>
-</ul>
-
-<h2 id="application">Application</h2>
-
-<ul>
-  <li>
-    <p>Any problem where the size of the output depends on the size of the input because of which fixed length softmax is ruled out.</p>
-  </li>
-  <li>
-    <p>eg combinatorial problems such as planar convex hull where the size of the output would depend on the size of the input.</p>
-  </li>
-</ul>
-
-<h2 id="evaluation">Evaluation</h2>
-
-<ul>
-  <li>
-    <p>The paper considers the following 3 problems:</p>
+    <p>Invariants</p>
 
     <ul>
-      <li>Convex Hull</li>
-      <li>Delaunay triangulations</li>
-      <li>Travelling Salesman Problem (TSP)</li>
+      <li>
+        <p>The variables or clauses or literals (within the clauses) can be permuted.</p>
+      </li>
+      <li>
+        <p>Every occurrence of a variable can be negated.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="model">Model</h2>
+
+<ul>
+  <li>
+    <p>Given the SAT problem,  create an undirected graph of literals, their negations and the clauses they belong to.</p>
+  </li>
+  <li>
+    <p>Put an edge between every literal and the clause to which it belongs and another kind of edge between every literal and its negation.</p>
+  </li>
+  <li>
+    <p>Perform message passing between nodes to obtain vector representations corresponding to each node. Specifically, first, each clause received a message from its neighbours (literals) and updates its embeddings. Then every literal receives a message from its neighbours (both literals and clauses) and updates its embeddings.</p>
+  </li>
+  <li>
+    <p>After T iterations, the nodes vote to decide the prediction of the model as a whole.</p>
+  </li>
+  <li>
+    <p>The model is trained end-to-end using the cross-entropy loss between logit and the true label.</p>
+  </li>
+  <li>
+    <p>Permutation invariance is ensured by operating on the nodes and the edges in the topological order and negation invariance is ensured by treating all literals as the same.</p>
+  </li>
+</ul>
+
+<h2 id="decoding-satisfying-assignment">Decoding Satisfying Assignment</h2>
+
+<ul>
+  <li>
+    <p>The most interesting aspect of this work is that even though the model was trained to predict if the SAT problem can be satisfied, it is actually possible to extract the correct assignment from the classifier.</p>
+  </li>
+  <li>
+    <p>In the early iterations, all the nodes vote “unsolvable” with low confidence. Then a few nodes start voting “solvable” and then a phase transition happens where most of the nodes start voting “solvable” with high confidence.</p>
+  </li>
+  <li>
+    <p>The model never becomes highly confident that problem is “unsolvable” and almost never guesses “solvable” on an “unsolvable” problem. So in some sense, the model is looking for the combination of literals that actually solves the problem.</p>
+  </li>
+  <li>
+    <p>The authors found that the 2 dimensional PCA projections of the literal embeddings are initially mixed up but become more and more linearly separable as the phase transition happens.</p>
+  </li>
+  <li>
+    <p>Based on this insight, the authors propose to obtain cluster centres C1 and C2, partition the variables according to the cluster centres and then try assignments from both the partitions.</p>
+  </li>
+  <li>
+    <p>This alone provides a satisfying solution in over 70% of the cases when though there is no explicit supervising signal about how to solve the problem.</p>
+  </li>
+  <li>
+    <p>The other strengths of the paper includes</p>
+
+    <ul>
+      <li>
+        <p>Generalizing to longer and more difficult SAT problems (than those seen during training).</p>
+      </li>
+      <li>
+        <p>Generalizing to another kind of search problems like graph colouring, clique detection etc (over small random graphs).</p>
+      </li>
     </ul>
   </li>
   <li>
-    <p>Since some of the problems are NP hard, the paper considers approximate solutions whereever the exact solutions are not feasible to compute.</p>
-  </li>
-  <li>
-    <p>The authors used the exact same architecture and model parameters of all the instances of the 3 problems to show the generality of the model.</p>
-  </li>
-  <li>
-    <p>The proosed Pointer Nets outperforms LSTMs and LSTMs with attention and can generalise quite well for much larger sequences.</p>
-  </li>
-  <li>
-    <p>Interestingly, the order in which the inputs are fed to the system affects its performance. The authors discussed this apsect in their subsequent paper titled <a href="https://arxiv.org/pdf/1511.06391v4.pdf">Order Matters: Sequence To Sequence for Sets</a></p>
+    <p>The paper also reports that by adding supervising signal about which clauses in the given expression are unsatisfiable, it is possible to decode the literals which prove the “unsatisfiability” of an expression at test time. Though not a lot of details have been provided about this part and would probably be covered in the next iteration of the paper.</p>
   </li>
 </ul>
+
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision">
-            Learning an SAT Solver from Single-Bit Supervision
-            <small>24 Feb 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -212,6 +234,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks">
             Get To The Point - Summarization with Pointer-Generator Networks
             <small>05 Feb 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things">
+            StarSpace - Embed All The Things!
+            <small>29 Jan 2018</small>
           </a>
         </h3>
       </li>
@@ -232,8 +263,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Pointer-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Pointer-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Learning-a-SAT-Solver-from-Single-Bit-Supervision"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
