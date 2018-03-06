@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks](https://shagunsodhani.in/papers-I-read/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks)
 * [Learning an SAT Solver from Single-Bit Supervision](https://shagunsodhani.in/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision)
 * [Get To The Point: Summarization with Pointer-Generator Networks](https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks)
 * [StarSpace - Embed All The Things!](https://shagunsodhani.in/papers-I-read/StarSpace-Embed-All-The-Things)
