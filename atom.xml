@@ -4,13 +4,101 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-02-26T22:07:12-05:00</updated>
+ <updated>2018-03-05T23:40:44-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks"/>
+   <updated>2018-03-05T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Catastrophic Forgetting&lt;/em&gt; refers to the phenomenon where when a learning system is trained on two tasks in succession, it may forget how to perform the first task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper investigates this behaviour for different learning activations in presence and absence of dropout.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1312.6211&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/goodfeli/forgetting&quot;&gt;Link to the implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiment-formulation&quot;&gt;Experiment Formulation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each experiment, two tasks are defined - “old” task and “new” task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The network is first trained on the “old” task until the validation set error has not improved for the last 100 epochs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The “best” performing model is then trained for the “new” task until the combined error on the “old” and the “new” validation datasets has not improved in the last 100 epochs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All the tasks used the same model architecture - 2 hidden layers followed by a softmax layer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Following activations were tested:
+    &lt;ul&gt;
+      &lt;li&gt;Sigmoid&lt;/li&gt;
+      &lt;li&gt;ReLU&lt;/li&gt;
+      &lt;li&gt;Hard Local Winner Takes It All&lt;/li&gt;
+      &lt;li&gt;Maxout&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models were trained using SGD with or without dropout.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each combination of the model, activation and the training mechanism, a random hyper param search was performed with set of 25 hyperparams.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The authors took care to keep the hyperparams and other settings consistent and comparable across different experiments. Deviations, wherever applicable, and their reasons were documented.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In terms of the relationship between the “old” and the “new” tasks, three kinds of settings are considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The tasks are very very similar but the input is processed in a different format. For this setting, MNIST dataset was used with a different permutation of pixels for the “old” and the “new” task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The tasks are similar but not exactly the same. For this setting, the task was to predict sentiments of reviews across 2 different product categories.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In the last setting, 2 dissimilar tasks were used. One task was to predict sentiment of reviews and another task was to perform classification over MNIST dataset (reduced to 2 classes).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using Dropout improved the overall validation performance for all the models for all the tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using Dropout also increase the size of the optimal model across all the activations indicating that maybe the increased size of the model could explain the increased resistance to forgetting. It would have been interesting to check if dropout always selected the largest model possible given the set of the hyperparams.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On the dissimilar task, dropout improved the performance while reducing the model size so it might have other properties as well that helps to prevent forgetting.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As compared to the choice of training technique, the activation function has a less consistent effect on resistance to forgetting. The paper recommends performing cross-validation for the choice of the activation function. If that is not feasible, maxout activation function with dropout could be used.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Learning an SAT Solver from Single-Bit Supervision</title>
