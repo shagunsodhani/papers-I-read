@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-03-25T17:29:43-04:00</updated>
+ <updated>2018-03-25T17:37:09-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -162,6 +162,134 @@
 &lt;ul&gt;
   &lt;li&gt;The idea in itself is very simple and straight-forward to add to any existing model which makes it very appealing.&lt;/li&gt;
   &lt;li&gt;The author has experimented with various architectures and datasets (from vision domain) and has reported faster training results.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"/>
+   <updated>2018-03-11T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Information Extraction  - Given a query to be answered and an external search engine, information extraction entails the task of issuing search queries, extracting information from new sources and reconciling the extracted values till we are sufficiently confident about the extracted values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes the use of Reinforcement Learning (RL) to solve this task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1603.07954&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/karthikncode/DeepRL-InformationExtraction&quot;&gt;Implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-aspect&quot;&gt;Key Aspect&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use of Reinforcement Learning to resolve the ambiguity inherent in the textual documents.&lt;/li&gt;
+  &lt;li&gt;Given a query, the RL agent would use template statement to formulate the queries (to be performed on the black box search engine). It would further resolve and combine the result for the query from the set of retrieved documents.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Database of Mass Shootings in the United States.&lt;/li&gt;
+  &lt;li&gt;Food Shield database of illegal food adulteration.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;framework&quot;&gt;Framework&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Information extraction task is modelled as a Markov Decision Process (MDP) &amp;lt;S, A, T, R&amp;gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;S&lt;/strong&gt; - Set of all possible states
+    &lt;ul&gt;
+      &lt;li&gt;The state consists of:
+        &lt;ul&gt;
+          &lt;li&gt;Extractor’s confidence in predicted entity values.&lt;/li&gt;
+          &lt;li&gt;Context from which values are extracted.&lt;/li&gt;
+          &lt;li&gt;Similarity between the new document (extracted just now from the search engine) and the original document accompanying the given query.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;A&lt;/strong&gt; - Set of all possible actions
+    &lt;ul&gt;
+      &lt;li&gt;Reconciliation decision - d
+        &lt;ul&gt;
+          &lt;li&gt;Accept all entities values.&lt;/li&gt;
+          &lt;li&gt;Reject all entities values.&lt;/li&gt;
+          &lt;li&gt;Stop the current episode.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Query choice - q
+        &lt;ul&gt;
+          &lt;li&gt;Choose the next query from a set of automatically generated alternatives.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;R&lt;/strong&gt; - Rewards
+    &lt;ul&gt;
+      &lt;li&gt;Maximise the final extraction accuracy while minimising the number of queries.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Q&lt;/strong&gt; - Queries
+    &lt;ul&gt;
+      &lt;li&gt;Generated using a template.&lt;/li&gt;
+      &lt;li&gt;The query is searched on a search engine and the top k links are retrieved.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Transition&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Start with a single source article x&lt;sub&gt;i&lt;/sub&gt; and extract the initial set of entities.&lt;/li&gt;
+      &lt;li&gt;At each timestep, the agent is given the state (s) on basis of which it chooses the action (d, q). The episode stops whenever the action is a stop action.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Deep Q Network is used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Parameters are learned using SGD and RMSProp.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-setup&quot;&gt;Experimental Setup&lt;/h2&gt;
+
+&lt;h3 id=&quot;extraction-model&quot;&gt;Extraction Model&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Max Entropy Classifier is used as the base extraction system.&lt;/li&gt;
+  &lt;li&gt;First, all the words in the document are tagged as one of the entity types and the mode of these values is used to obtain the set of extracted entities.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;baseline&quot;&gt;Baseline&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Basic Extractors&lt;/li&gt;
+  &lt;li&gt;Aggregation System which either chooses the entity value with the highest confidence or takes a majority vote over all extracted values.&lt;/li&gt;
+  &lt;li&gt;Meta-Classifier which operates over the same input state space and produces the same set of reconciliation decisions as the DQN.&lt;/li&gt;
+  &lt;li&gt;Oracle Extractor which is computed assuming perfect reconciliation and query decisions on the top of the Maxnet base extractor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;rl-models&quot;&gt;RL Models&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RL Basic - Only reconciliation decision.&lt;/li&gt;
+  &lt;li&gt;RL Query - Only query decision with a fixed reconciliation strategy.&lt;/li&gt;
+  &lt;li&gt;RL Extract - the full system with both reconciliation and query decision.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RL Extract obtains substantial gains eg up to 11% over Maxnet.&lt;/li&gt;
+  &lt;li&gt;Simple aggregation schemes do not handle the task well.&lt;/li&gt;
+  &lt;li&gt;In terms of reward structure, providing rewards after each step works better than a single delayed reward.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
