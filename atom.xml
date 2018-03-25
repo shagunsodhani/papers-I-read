@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-03-25T17:54:43-04:00</updated>
+ <updated>2018-03-25T18:06:22-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -586,6 +586,62 @@
   &lt;li&gt;
     &lt;p&gt;The NRI system effectively predicts the dynamics of the systems and is able to reconstruct the ground truth interaction graph (for simulated systems).&lt;/p&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Stylistic-Transfer-in-Natural-Language-Generation-Systems-Using-Recurrent-Neural-Networks"/>
+   <updated>2018-02-11T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aclweb.org/anthology/W/W16/W16-6010.pdf&quot;&gt;This workshop paper&lt;/a&gt; explores the problem of style transfer in natural language generation (NLG).&lt;/li&gt;
+  &lt;li&gt;One possible manifestation would be rewriting technical articles in an easy-to-understate manner.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Identifying relevant stylistic cues and using them to control text generation in NLG systems.&lt;/li&gt;
+  &lt;li&gt;Absence of a large amount of training data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pitch&quot;&gt;Pitch&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Using Recurrent Neural Networks (RNNs) to disentangle the style from semantic content.&lt;/li&gt;
+  &lt;li&gt;Autoencoder model with two components - one for learning style and another for learning content.&lt;/li&gt;
+  &lt;li&gt;This allows for “style” component to be replaced while keeping the “content” component same, resulting in a style transfer.&lt;/li&gt;
+  &lt;li&gt;One way to think about this is - the encoder generates a 100-dimensional vector. In this, the first 50 entries, correspond to the “style” component and remaining to the “content” component.&lt;/li&gt;
+  &lt;li&gt;The proposal is that the loss function should be modified to include a cross-covariance term for ensuring disentanglement.&lt;/li&gt;
+  &lt;li&gt;I think one way of doing this is to have two loss functions:
+    &lt;ul&gt;
+      &lt;li&gt;The &lt;strong&gt;first loss&lt;/strong&gt; function ensures that the input sentence is decoded properly into the target sentence. This loss is computed for each sentence.&lt;/li&gt;
+      &lt;li&gt;The &lt;strong&gt;second loss&lt;/strong&gt; ensures that the first 50 entries across all the encoded represenations are are correlated. This loss operates at the batch level.&lt;/li&gt;
+      &lt;li&gt;The &lt;strong&gt;total loss&lt;/strong&gt; is the weighted sum of these 2 losses.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;possible-datasets&quot;&gt;Possible Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://norvig.com/ngrams/shakespeare.txt&quot;&gt;Complete works of Shakespeare&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.kaggle.com/c/wikichallenge/data&quot;&gt;Wikpedia Kaggle dataset&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ota.ox.ac.uk/&quot;&gt;Oxford Text Archive&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Twitter data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;possible-metrics&quot;&gt;Possible Metrics&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Soundness - is the generated text entailed with the input sentence.&lt;/li&gt;
+  &lt;li&gt;Coherence - free of grammatical errors, proper word usage etc.&lt;/li&gt;
+  &lt;li&gt;Effectiveness - how effective was the style transfer&lt;/li&gt;
+  &lt;li&gt;Since some of the metrics are subjective, human evaluators also need to be employed.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
