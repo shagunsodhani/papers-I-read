@@ -5,6 +5,9 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [The Lottery Ticket Hypothesis - Training Pruned Neural Networks](https://shagunsodhani.in/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks)
+* [Cyclical Learning Rates for Training Neural Networks](https://shagunsodhani.in/papers-I-read/Cyclical-Learning-Rates-for-Training-Neural-Networks)
+* [Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning)
 * [An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks](https://shagunsodhani.in/papers-I-read/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks)
 * [Learning an SAT Solver from Single-Bit Supervision](https://shagunsodhani.in/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision)
 * [Get To The Point: Summarization with Pointer-Generator Networks](https://shagunsodhani.in/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks)

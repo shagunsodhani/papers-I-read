@@ -3,7 +3,7 @@ layout: post
 title: Task-Oriented Query Reformulation with Reinforcement Learning
 comments: True
 excerpt: The paper introduces a query reformulation system that rewrites a query to maximise the number of "relevant" documents that are extracted from a given black box search engine.
-tags: ['2017', 'Information Retrieval', AI, NLP, RL, SIGIR]
+tags: ['2017', 'EMNLP 2017', Information Retrieval', AI, EMNLP, NLP, RL]
 ---
 
 ## Introduction
