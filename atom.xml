@@ -4,13 +4,93 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-03-05T23:40:44-05:00</updated>
+ <updated>2018-03-25T17:10:09-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>The Lottery Ticket Hypothesis - Training Pruned Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks"/>
+   <updated>2018-03-25T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/The Lottery Ticket Hypothesis - Training Pruned Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Empirical evidence indicates that at training time, the neural networks need to be of significantly larger size than necessary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper purposes a hypothesis called the &lt;em&gt;lottery ticket hypothesis&lt;/em&gt; to explain this behaviour.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is the following - Successful training of a neural network depends on a &lt;em&gt;lucky&lt;/em&gt; random initialization of a subcomponent of the network. Such components are referred to as &lt;em&gt;lottery tickets&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Larger networks are more likely to have these &lt;em&gt;lottery tickets&lt;/em&gt; and hence are easier to train.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1803.03635&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;methodology&quot;&gt;Methodology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Various aspects of the hypothesis are explored empirically.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two tasks are considered - MNIST and XOR.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each task, the paper considers networks of different sizes and empirically shows that larger networks are more likely to converge (or have better performance) for a fixed number of epochs as compared to the smaller networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a large, trained network, some weights (or units) of the network are pruned and the resulting network is reset to its initial random weights.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting network is the &lt;em&gt;lottery-ticket&lt;/em&gt; in the sense that when the pruned network is trained, it is more likely to converge than an otherwise randomly initialised network of the same size. Further, it is more likely to match the original, larger network in terms of performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper explores different aspects of this experiment:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Pruning Strategies:
+        &lt;ul&gt;
+          &lt;li&gt;One-shot strategy prunes the network in one-go while the iterative strategy prunes the network iteratively.&lt;/li&gt;
+          &lt;li&gt;Though the latter is computationally more intensive, it is more likely to find a lottery ticket.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Size of the pruned network affects the speed of convergence when training the &lt;em&gt;lottery ticket&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;If only the architecture or only the initial weights of the &lt;em&gt;lottery ticket&lt;/em&gt; are used, the resulting network tends to converge more slowly and achieves a lower level of performance.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;This indicates that the lottery ticket depends on both the network architecture and the weight initialization.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;discussion&quot;&gt;Discussion&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper includes some more interesting experiments. For instance, the distribution of the initialization in the weights that survived the pruning suggests that small weights from before training tend to remain small after training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One interesting experiment would be to show the performance of the pruned network before resetting its weights and retraining again. This performance should be compared with the performance of the initial large network and the performance of the &lt;em&gt;lottery ticket&lt;/em&gt; after training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overall, the experiments are not sufficient to conclude anything about the correctness of the hypothesis. The proposition itself is very interesting and could enhance our understanding of how the neural networks work.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</title>
