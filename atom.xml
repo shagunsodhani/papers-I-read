@@ -4,13 +4,168 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-03-25T18:06:22-04:00</updated>
+ <updated>2018-04-02T19:52:04-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Unsupervised Learning by Predicting Noise</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise"/>
+   <updated>2018-04-02T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise</id>
+   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Convolutional Neural Networks are extremely good feature extractors in the sense that features extracted for one task (say image classification) can be easily transferred to another task (say image segmentation).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Existing unsupervised approaches do not aim to learn discriminative features and supervised approaches for discriminative features do not scale well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents an approach to learn features in an unsupervised setting by using a set of target representations called as Noise As Target (NAT) which acts as a kind of proxy supervising signal.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.05310&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;approach&quot;&gt;Approach&lt;/h1&gt;
+
+&lt;h2 id=&quot;unsupervised-setting&quot;&gt;Unsupervised Setting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Given a collection of image X (x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, …, x&lt;sub&gt;n&lt;/sub&gt;), we want to learn a parameterized mapping &lt;em&gt;f&lt;/em&gt; such that &lt;em&gt;f(x&lt;sub&gt;i&lt;/sub&gt;)&lt;/em&gt; gives the features of image &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;. We would jointly learn the target vectors &lt;em&gt;y&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; (more on it later).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;loss-function&quot;&gt;Loss Function&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Squared L2 norm is used as the distance measure while making sure that final activations are unit normalized.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;fixed-target-representation&quot;&gt;Fixed Target Representation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the setting of the problem where we are learning both the features and the target representation, a trivial solution would be the one where all the input images map to the same target and are assigned the same representation. No discriminative features are learned in this case.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To avoid such situations, a set of k predefined target representations are chosen and each image is mapped to one of these k representations (based on the features).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There is an assumption that k &amp;gt; n so that each image is assigned a different target.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One simple choice of target representation is the standard one-hot vector which implies that all the class (and by extension, the associated images) are orthogonal and equidistant from each other. But this is not a reasonable approximation as not all the image pairs are equally similar or dissimilar.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead, the target vectors are uniformly sampled from a d-dimensional unit sphere, where d is the dimensionality of the feature representation. That is, the idea is to map the features to the manifold of the d-dimensional L2 sphere by using the K predefined representations as for the discrete approximation of the manifold.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since each data point (image) is mapped to a new point on the manifold, the algorithm is suited for online training as well.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the training, the number of target K is reduced to the number of images n and an assignment matrix P is learned which ensures that the mapping between the image to target is 1-to-1.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting optimisation equation can be solved using the Hungarian Algorithm but at a high-cost O(n^3). An optimisation is to take a batch of b images and update the square matrix P&lt;sub&gt;B&lt;/sub&gt; for dimension bXb (made of the images and their corresponding targets). This reduces the overall complexity of O(nb^2).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Other optimisation techniques, that are common to supervised learning, like batch norm used in this setting as well.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation-detail&quot;&gt;Implementation Detail&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Used AlexNet with NATs to train the unsupervised model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An MLP is trained on these features to learn the classifier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standard preprocessing techniques like random cropping/flipping are used.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-details&quot;&gt;Experimental Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dataset&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;ImageNet for training the AlexNet architecture with the proposed approach.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Pascal VOC 2007 for transfer learning experiments.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Unsupervised approaches like autoencoder, GAN, BiGAN&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Self-supervised&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;SOTA models using hand-made features SIFT with Fisher Vector.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;observation&quot;&gt;Observation&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using squared loss instead of softmax does not deteriorate the performance too much.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors compare the effect of using discrete vs continuous target representations for transfer learning. For the discrete representation, elements of the canonical basis of a k-dimensional space (k=1000, 10000, 100000) are used. Experiments demonstrate that d-dimensional continuous vectors perform much better than the discrete vectors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While training the unsupervised network, its features were extracted after every 20 iterations to evaluate the performance on transfer learning task. The test accuracy increases up to around 100 iterations then saturate.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Comparing the visualization of the first convolutional layer filters (for AlexNet with and without supervision) shows that while unsupervised filters are less sharp, they maintain the edge and orientation information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed unsupervised method outperforms all the unsupervised baselines and is competitive with respect to the supervised baseline. But it is still far behind the model using handcrafted features.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For transfer learning, on Pascal VOC, the proposed approach beats the supervised baseline and works at par with the supervised approach.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;notes&quot;&gt;Notes&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposed a simple unsupervised framework for learning discriminative features without having to rely on proxy tasks like image generation and without having to make an assumption about the input domain.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key aspect of the proposed approach is that each image is assigned to a unique point in the d-dimensional manifold which means 2 images could be very close to each other on the manifold while being quite distinct in reality. It is interesting to see that such a simple strategy is able to give such good results.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>The Lottery Ticket Hypothesis - Training Pruned Neural Networks</title>
