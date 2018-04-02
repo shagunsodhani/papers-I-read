@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Unsupervised Learning by Predicting Noise](https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise)
 * [The Lottery Ticket Hypothesis - Training Pruned Neural Networks](https://shagunsodhani.in/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks)
 * [Cyclical Learning Rates for Training Neural Networks](https://shagunsodhani.in/papers-I-read/Cyclical-Learning-Rates-for-Training-Neural-Networks)
 * [Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning)

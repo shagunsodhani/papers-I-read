@@ -3,7 +3,7 @@ layout: post
 title: Reading Wikipedia to Answer Open-Domain Questions
 comments: True
 excerpt: The paper presents a new machine comprehension dataset for question answering in real life setting (say when interacting with Cortana/Siri).
-tags: ['2017', 'ACL 2017', ACL, AI, 'Data Set', 'Machine Comprehension', NLP, QA]
+tags: ['2017', 'ACL 2017', ACL, AI, 'Dataset', 'Machine Comprehension', NLP, QA]
 ---
 
 ## Introduction
