@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-04-02T19:52:04-04:00</updated>
+ <updated>2018-04-02T19:53:41-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -17,7 +17,7 @@
    <link href="https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise"/>
    <updated>2018-04-02T00:00:00-04:00</updated>
    <id>https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise</id>
-   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -34,21 +34,21 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;approach&quot;&gt;Approach&lt;/h1&gt;
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
 
-&lt;h2 id=&quot;unsupervised-setting&quot;&gt;Unsupervised Setting&lt;/h2&gt;
+&lt;h3 id=&quot;unsupervised-setting&quot;&gt;Unsupervised Setting&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Given a collection of image X (x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, …, x&lt;sub&gt;n&lt;/sub&gt;), we want to learn a parameterized mapping &lt;em&gt;f&lt;/em&gt; such that &lt;em&gt;f(x&lt;sub&gt;i&lt;/sub&gt;)&lt;/em&gt; gives the features of image &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;. We would jointly learn the target vectors &lt;em&gt;y&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; (more on it later).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;loss-function&quot;&gt;Loss Function&lt;/h2&gt;
+&lt;h3 id=&quot;loss-function&quot;&gt;Loss Function&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Squared L2 norm is used as the distance measure while making sure that final activations are unit normalized.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;fixed-target-representation&quot;&gt;Fixed Target Representation&lt;/h2&gt;
+&lt;h3 id=&quot;fixed-target-representation&quot;&gt;Fixed Target Representation&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -71,7 +71,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+&lt;h3 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -85,7 +85,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;implementation-detail&quot;&gt;Implementation Detail&lt;/h2&gt;
+&lt;h3 id=&quot;implementation-detail&quot;&gt;Implementation Detail&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -99,7 +99,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;experimental-details&quot;&gt;Experimental Details&lt;/h2&gt;
+&lt;h3 id=&quot;experimental-details&quot;&gt;Experimental Details&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -131,7 +131,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;observation&quot;&gt;Observation&lt;/h1&gt;
+&lt;h2 id=&quot;observation&quot;&gt;Observation&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -154,7 +154,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;notes&quot;&gt;Notes&lt;/h1&gt;
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
