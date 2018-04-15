@@ -3,7 +3,7 @@ layout: post
 title: StarSpace - Embed All The Things!
 comments: True
 excerpt: The paper describes a general purpose neural embedding model where different type of entities (described in terms of discrete features) are embedded in a common vector space.
-tags: ['2017', 'Graph Representation', 'Multi Task', Network Representation', 'Network Embedding', 'Word Vectors', 'Representation Learning', Embedding, Graph, NLP]
+tags: ['2017', 'Graph Representation', 'Multi Task', 'Word Vectors', 'Representation Learning', Embedding, Graph, NLP]
 ---
 
 ## Introduction

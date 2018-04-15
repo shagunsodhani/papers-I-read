@@ -3,7 +3,7 @@ layout: post
 title: HARP - Hierarchical Representation Learning for Networks
 comments: True
 excerpt: HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.
-tags: ['2017', 'Graph Representation', 'Network Representation', AI, Embedding, Graph, Network, SOTA]
+tags: ['2017', 'Graph Representation', AI, Embedding, Graph, SOTA]
 ---
 
 ## Introduction

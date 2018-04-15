@@ -3,7 +3,7 @@ layout: post
 title: Revisiting Semi-Supervised Learning with Graph Embeddings
 comments: True
 excerpt: The paper presents a semi-supervised learning framework for graphs where the node embeddings are used to jointly predict both the class labels and neighbourhood context.
-tags: ['2016', 'ICML 2016', 'Graph Representation',  'Network Representation', AI, Embedding, Graph, ICML, Network]
+tags: ['2016', 'ICML 2016', 'Graph Representation', AI, Embedding, Graph, ICML]
 ---
 
 ## Introduction
