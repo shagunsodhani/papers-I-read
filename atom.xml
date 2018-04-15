@@ -4,13 +4,183 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-04-02T20:00:57-04:00</updated>
+ <updated>2018-04-15T15:50:46-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Neural Message Passing for Quantum Chemistry</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry"/>
+   <updated>2018-04-08T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Neural Message Passing for Quantum Chemistry</id>
+   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a general message passing architecture called as Message Passing Neural Networks (MPNNs) that unify various existing models for performing supervised learning on molecules.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Variants of the MPNN model achieve very good performance on the task of predicting the property of the molecules.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1704.01212&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;mpnn&quot;&gt;MPNN&lt;/h1&gt;
+
+&lt;h2 id=&quot;setting&quot;&gt;Setting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The input to the model is an undirected graph &lt;em&gt;G&lt;/em&gt; where node features are represented as &lt;em&gt;x&lt;sub&gt;v&lt;/sub&gt;&lt;/em&gt; (corresponding to node &lt;em&gt;v&lt;/em&gt;) and edge features are &lt;em&gt;e&lt;sub&gt;v, w&lt;/sub&gt;&lt;/em&gt; (corresponding to edge between nodes &lt;em&gt;v, w&lt;/em&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is to learn a representation (or feature vector) for all the nodes (and possibly edges) in the graph and use that for the downstream supervised learning task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model can be easily extended to the setting of directed graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model works in 2 phases:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;message-passing-phase&quot;&gt;Message Passing Phase&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;All nodes send a &lt;em&gt;message&lt;/em&gt; to their neighbouring nodes. The message is a function of the feature vectors corresponding to the sender node (or vertex), the receiver node and the edge connecting the two nodes. The feature vectors can be combined to form the message using the &lt;em&gt;message function&lt;/em&gt; which can be implemented as a neural network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once a node has received messages from all its neighbours, it updated its feature vector by aggregating all the message. The function used to aggregate and update the feature vector is called as the &lt;em&gt;update function&lt;/em&gt; and can be implemented as a neural network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After updating the feature vectors, the graph could initiate another round of message passing. After a sufficient number of message passing rounds, the Readout phase is invoked.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;readout-phase&quot;&gt;Readout Phase&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The feature vectors corresponding to different nodes in the graph are aggregated into a single feature vector (corresponding to the feature vector of the graph) using the &lt;em&gt;readout function&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The &lt;em&gt;readout function&lt;/em&gt; can also be implemented using a neural network with the condition that it is invariant to the permutation of the nodes within the graph (to ensure that the MPNN is independent of the graph isomorphism).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;existing-variants-in-literature&quot;&gt;Existing Variants in literature&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper provides various examples where the existing architectures could be explained in terms of the message passing framework. This includes examples like &lt;a href=&quot;https://arxiv.org/abs/1509.09292&quot;&gt;Convolutional Networks on Graphs for Learning Molecular Fingerprints&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1511.05493&quot;&gt;
+Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.github.io/graph-convolutional-networks/&quot;&gt;Graph Convolutional Networks&lt;/a&gt; etc.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;experiments&quot;&gt;Experiments&lt;/h1&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Broadly speaking, the task is to predict the properties of given molecules (regression problem).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The QM9 dataset consists of 130K molecules whose properties have been measured using Quantum Mechanical Simulations (DFT).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Properties to be predicted include atomization energy, enthalpy, highest fundamental vibrational frequency etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are two benchmarks for error:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;DFT Error - Estimated average error of DFT approximation&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Chemical Accuracy - As established by the chemistry community&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Following variants of &lt;em&gt;message function&lt;/em&gt; are explored:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Matrix multiplication between &lt;em&gt;A&lt;sub&gt;evw&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;h&lt;sub&gt;v&lt;/sub&gt;&lt;/em&gt; where &lt;em&gt;A&lt;/em&gt; is the adjacency matrix &lt;em&gt;h&lt;sub&gt;v&lt;/sub&gt;&lt;/em&gt; is the feature corresponding to node &lt;em&gt;v&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Edge Network which is same as matrix multiplication case with the difference that &lt;em&gt;A&lt;/em&gt; is a learned matrix for each edge type.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Pair Network where the feature vector corresponding to the source node, target node and edge is fed to a neural network.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;virtual-elements&quot;&gt;Virtual Elements&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since all messages are shared via edges, it could take a long time for the message to move between two ends of the graph. To fasten this process, virtual elements are provided.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the first setting, “virtual edges” are inserted between nodes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the second setting, a “master” node connects to all the other nodes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;message-passing-complexity&quot;&gt;Message Passing Complexity&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In a graph with &lt;em&gt;n&lt;/em&gt; nodes and &lt;em&gt;d&lt;/em&gt; dimensional feature vectors, a single step of message passing would have the worst case time complexity of &lt;em&gt;O(n&lt;sup&gt;2&lt;/sup&gt;d&lt;sup&gt;2&lt;/sup&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This complexity can be reduced by breaking the &lt;em&gt;d&lt;/em&gt; dimensional embedding into &lt;em&gt;k&lt;/em&gt; different groups of &lt;em&gt;d/k&lt;/em&gt; embeddings which can be updated in parallel. The complexity of the modified approach is &lt;em&gt;O(n&lt;sup&gt;2&lt;/sup&gt;d&lt;sup&gt;2&lt;/sup&gt;/k&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;results&quot;&gt;Results&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Best performing MPNN model uses edge network as the &lt;em&gt;message function&lt;/em&gt; and &lt;a href=&quot;https://arxiv.org/abs/1511.06391&quot;&gt;set2set&lt;/a&gt; as the &lt;em&gt;readout function&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using group of embeddings helps to improve generalization. This effect could also be because of ensemble-like nature of the modified architecture.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model performs worse without the virtual elements.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;takeaways&quot;&gt;Takeaways&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Long range interaction between vertices is necessary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scaling to larger molecule sizes is challenging because the model creates a fully connected graph by incorporating virtual elements.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Unsupervised Learning by Predicting Noise</title>
