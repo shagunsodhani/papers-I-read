@@ -4,13 +4,95 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-04-15T15:50:46-04:00</updated>
+ <updated>2018-05-06T11:30:13-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Learning to Count Objects in Natural Images for Visual Question Answering</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learning-to-Count-Objects-in-Natural-Images-for-Visual-Question-Answering"/>
+   <updated>2018-05-06T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learning to Count Objects in Natural Images for Visual Question Answering</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Most of the visual question-answering (VQA) models perform poorly on the task of counting objects in an image. The main reasons are:
+    &lt;ul&gt;
+      &lt;li&gt;Most VQA models use a soft attention mechanism to perform a weighted sum over the spatial features to obtain a single feature vector. These aggregated features helps in most category of questions but seems to hurt for counting based questions.&lt;/li&gt;
+      &lt;li&gt;For the counting questions, we do not have a ground truth segmentation of where the objects to be counted are present on the image. This limits the scope of supervision.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Additionally, we need to ensure that any modification in the architecture, to enhance the performance on the counting questions, should not degrade the performance on other classes of questions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to overcome these challenges by using the attention maps (and not the aggregated feature vectors) as input to a separate &lt;strong&gt;count&lt;/strong&gt; module.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1802.05766&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;p&gt;The basic idea is quite intuitive: when we perform weighted averaging based on different attention maps, we end up averaging the features corresponding to the difference instances of an object. This makes the feature vectors indistinguishable from the scenario where we had just one instance of the object in the image.&lt;/p&gt;
+
+&lt;p&gt;Even multiple glimpses (multiple attention steps) can not resolve this problem as the weights given to one feature vector would not depend on the other feature vectors (that are attended to). Hard attention could be more useful than soft-attention but there is not much empirical evidence in support of this hypothesis.&lt;/p&gt;
+
+&lt;p&gt;The proposed &lt;strong&gt;count&lt;/strong&gt; module is a separate pipeline that can be integrated with most of the existing attention based VQA models without affecting the performance on non-count based questions.&lt;/p&gt;
+
+&lt;p&gt;The inputs to the &lt;strong&gt;count&lt;/strong&gt; module are the attention maps and the object proposals (coming from some pre-trained model like the RCNN model) and the output is an count-feature vector which is used to answer the count based question.&lt;/p&gt;
+
+&lt;p&gt;The top level idea is the following - given the object proposals and the attention maps, create a graph where nodes are objects (object proposals) and edges capture how similar two object proposals are (how much do they overlap). The graph is transformed (by removing and scaling edges) so that the count of the object can be obtained easily.&lt;/p&gt;
+
+&lt;p&gt;To explain their methodology, the paper simplifies the setting by making two assumptions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The first assumption is that the attention weights are either 1 (when the object is present in the proposal) or 0 (when the object is absent from the proposal).&lt;/li&gt;
+  &lt;li&gt;The second assumption is that any two object proposals either overlap completely (in which case, they are corresponding to the exact same object and hence receive the exact same weights) or the two proposals have zero overlap (in which case, they must be corresponding to completely different objects).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These simplifying assumptions are made only for the sake of exposition and do not limit the capabilities of the &lt;strong&gt;count&lt;/strong&gt; module.&lt;/p&gt;
+
+&lt;p&gt;Given the assumptions, the task of the count module is to handle the exact duplicates to prevent double-counting of objects.&lt;/p&gt;
+
+&lt;p&gt;As the first step, the attention weights (&lt;strong&gt;a&lt;/strong&gt;) are used to generate an attention matrix (&lt;strong&gt;A&lt;/strong&gt;) by performing an outer product between &lt;strong&gt;a&lt;/strong&gt; and &lt;strong&gt;a&lt;sup&gt;T&lt;/sup&gt;&lt;/strong&gt;. This corresponds to the step of creating a graph from the input.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A&lt;/strong&gt; corresponds to the adjacency matrix of that graph. The attention weight for the &lt;em&gt;i&lt;sup&gt;th&lt;/sup&gt;&lt;/em&gt; proposal corresponds to the &lt;em&gt;i&lt;sup&gt;th&lt;/sup&gt;&lt;/em&gt; node in the graph and the edge between the nodes &lt;em&gt;i&lt;/em&gt; and &lt;em&gt;j&lt;/em&gt; has the weight &lt;strong&gt;a&lt;sub&gt;i&lt;/sub&gt;*a&lt;sub&gt;j&lt;/sub&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also note that the graph is a weighted directed graph and the subgraph of vertices satisfying the condition &lt;strong&gt;a&lt;sub&gt;i&lt;/sub&gt;&lt;/strong&gt; = 1 is a complete directed graph with self-loops. Given such a graph, the number of vertices, &lt;em&gt;V = sqrt(E)&lt;/em&gt; where &lt;em&gt;E&lt;/em&gt; could be computed by summing over the adjacency matrix.This implies that if the proposals are distinct, then the count can be obtained trivially by performing a sum over the adjacency matrix.&lt;/p&gt;
+
+&lt;p&gt;The objective is now to eliminate the edges such that the underlying objects are the vertices of a complete subgraph. This requires removing two type of duplicate edges - intra-object edges and inter-object edges.&lt;/p&gt;
+
+&lt;p&gt;Intra-object edges can be removed by computing a distance matrix, &lt;strong&gt;D&lt;/strong&gt;, defined as 1 - IoU, where IoU matrix corresponds to the Intersection-over-Union matrix. A modified adjacency matrix &lt;strong&gt;A’&lt;/strong&gt; is obtained by performing the element-wise product between f&lt;sub&gt;1&lt;/sub&gt;(&lt;strong&gt;A&lt;/strong&gt;) and f&lt;sub&gt;2&lt;/sub&gt;(&lt;strong&gt;D&lt;/strong&gt;) where f&lt;sub&gt;1&lt;/sub&gt; and f&lt;sub&gt;2&lt;/sub&gt; are piece-wise linear functions that are learnt via backpropogation.&lt;/p&gt;
+
+&lt;p&gt;The inter-object edges are removed in the following manner:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Count the number of proposals that correspond of each instance of an object and then scale down the edges corresponding to the different instances by that number.&lt;/li&gt;
+  &lt;li&gt;This creates the effect of reducing the weights of multiple proposals equivalent to a single proposal.&lt;/li&gt;
+  &lt;li&gt;The number of proposals corresponding to an object is not available as an annotation in the training pipeline and is estimated based on the similarity between the different proposals (measured via the attention weights &lt;strong&gt;a&lt;/strong&gt;, adjacency matrix &lt;strong&gt;A&lt;/strong&gt; and distance matrix &lt;strong&gt;D&lt;/strong&gt;).&lt;/li&gt;
+  &lt;li&gt;The matrix corresponding to the similarity between proposals  (&lt;strong&gt;sim&lt;sub&gt;i, j&lt;/sub&gt;&lt;/strong&gt;) is transformed into a vector corresponding to the scaling factor of each node (&lt;strong&gt;s&lt;sub&gt;i&lt;/sub&gt;&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;s&lt;/strong&gt; can be converted into a matrix (by doing outer-product with itself) so as to scale both the incoming and the outgoing edges. The self edges (which were removed while computing &lt;strong&gt;A’&lt;/strong&gt; are added back (after scaling with &lt;strong&gt;s&lt;/strong&gt;) to obtain a new transformed matrix &lt;strong&gt;C&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The transformed matrix &lt;strong&gt;C&lt;/strong&gt; is a complete graph with self-loops where the nodes corresponds to all the relevant object instances and not to object proposals. The actual count can be obtained from &lt;strong&gt;C&lt;/strong&gt; by performing a sum over all its values as described earlier. The original count problem was a regression problem but it is transformed into a classification problem to avoid scale issues. The network produces a &lt;strong&gt;k&lt;/strong&gt;-hot &lt;strong&gt;n&lt;/strong&gt;-dimensional vector called &lt;strong&gt;o&lt;/strong&gt; where &lt;strong&gt;n&lt;/strong&gt; is the number of object proposals that were feed into the module (and hence the upper limit on upto how large a number could the module count). In the ideal setting, &lt;strong&gt;k&lt;/strong&gt; should be one, as the network would produce an integer value but in practice, the network produces a real number so &lt;strong&gt;k&lt;/strong&gt; can be upto 2. If &lt;strong&gt;c&lt;/strong&gt; is an exact integer, the output is a 1-hot vector with the value in index corresponding to &lt;strong&gt;c&lt;/strong&gt; set to 1. If &lt;strong&gt;c&lt;/strong&gt; is a real number, the output is a linear interpolation between two one-hot vectors (the one-hot vectors correspond to the two integers between  which &lt;strong&gt;c&lt;/strong&gt; lies).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;count&lt;/strong&gt; module supports computing the confidence of a prediction by defining two variables p&lt;sub&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/sub&gt; and p&lt;sub&gt;&lt;strong&gt;D&lt;/strong&gt;&lt;/sub&gt; which compute the average distance of f&lt;sub&gt;6&lt;/sub&gt;(&lt;strong&gt;a&lt;/strong&gt;) and $f&lt;sub&gt;7&lt;/sub&gt;(&lt;strong&gt;D&lt;/strong&gt;) from 0.5. The final output &lt;strong&gt;o’&lt;/strong&gt; is defined as f&lt;sub&gt;8&lt;/sub&gt;(p&lt;sub&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/sub&gt; + p&lt;sub&gt;&lt;strong&gt;D&lt;/strong&gt;&lt;/sub&gt;) . &lt;strong&gt;o&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All the different f functions are piece wise linear functions and are learnt via backpropagation.&lt;/p&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;p&gt;The authors created a new category of count-based questions by filtering the number-type questions to remove questions like “What is the time right now”. These questions do have a neumerical answer but do not fall under the purview of count based questions and hence are not targeted by the &lt;strong&gt;count&lt;/strong&gt; model.&lt;/p&gt;
+
+&lt;p&gt;The authors augmented a state of the art &lt;a href=&quot;https://arxiv.org/abs/1704.03162&quot;&gt;VQA model&lt;/a&gt; with their &lt;strong&gt;count&lt;/strong&gt; module and show substantial gains over the count-type questions for the &lt;a href=&quot;https://arxiv.org/abs/1612.00837&quot;&gt;VQA-v2 dataset&lt;/a&gt;. This augmentation does not drastically impact the performance on non-count questions.&lt;/p&gt;
+
+&lt;p&gt;The overall idea is quite crisp and intutive and the paper is easy to follow. It would be even better if there were some more abalation studies. For example, why are the piece-wise linear functions assumed to have 16 linear components? Would a smaller or larger number be better?&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Neural Message Passing for Quantum Chemistry</title>
