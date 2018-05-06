@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Learning to Count Objects in Natural Images for Visual Question Answering](https://shagunsodhani.in/papers-I-read/Learning-to-Count-Objects-in-Natural-Images-for-Visual-Question-Answering)
 * [Neural Message Passing for Quantum Chemistry](https://shagunsodhani.in/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry)
 * [Unsupervised Learning by Predicting Noise](https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise)
 * [The Lottery Ticket Hypothesis - Training Pruned Neural Networks](https://shagunsodhani.in/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks)
