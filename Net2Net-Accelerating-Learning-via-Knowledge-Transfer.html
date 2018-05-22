@@ -11,7 +11,7 @@
 
   <title>
     
-      Neural Module Networks &middot; Papers I Read
+      Net2Net-Accelerating Learning via Knowledge Transfer &middot; Papers I Read
     
   </title>
 
@@ -119,98 +119,84 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Neural Module Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CVPR+2016" title="Pages tagged CVPR 2016" rel="tag">CVPR 2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CVPR" title="Pages tagged CVPR" rel="tag">CVPR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Neural+Module+Network" title="Pages tagged Neural Module Network" rel="tag">Neural Module Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
-  <span class="post-date">23 May 2017</span>
-  <h2 id="introduction">Introduction</h2>
+  <h1 class="post-title">Net2Net-Accelerating Learning via Knowledge Transfer</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2016" title="Pages tagged ICLR 2016" rel="tag">ICLR 2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Knowledge+Transfer" title="Pages tagged Knowledge Transfer" rel="tag">Knowledge Transfer</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Life+Long+Learning" title="Pages tagged Life Long Learning" rel="tag">Life Long Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a></p>
+  <span class="post-date">21 May 2018</span>
+  <h2 id="notes">Notes</h2>
 
 <ul>
-  <li>For the task of <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering">Visual Question Answering</a>, decompose a question into its linguistic substructures and train a neural network module for each substructure.</li>
-  <li>Jointly train the modules and dynamically compose them into deep networks which can learn to answer the question.</li>
-  <li>Start by analyzing the question and decide what logical units are needed to answer the question and what should be the relationship between them.</li>
-  <li>The paper also introduces a new dataset for Visual Question Answering which has challenging, highly compositional questions about abstract shapes.</li>
-  <li><a href="https://arxiv.org/abs/1511.02799">Link to the paper</a></li>
-</ul>
+  <li>
+    <p>The paper presents a simple yet effective approach for transferring knowledge from a trained neural network (referred to as the teacher network) to a large, untrained neural network (referred to as the student network).</p>
+  </li>
+  <li>
+    <p>The key idea is to use a function-preserving transformation that guarantees that for any given input, the output from the teacher network and the newly created student network would be the same.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1511.05641">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/paengs/Net2Net">Link to an implementation</a></p>
+  </li>
+  <li>
+    <p>The approach works as follows - Let us say that the teacher network was represented by the transformation <em>y = f(x, θ)</em> where <em>θ</em> refer to the parameters of the network. The task is to choose a new set of parameters <em>θ’</em> for the student network <em>g(x, θ’)</em> such that for all <em>x, f(x, θ) = g(x, θ’)</em></p>
+  </li>
+  <li>
+    <p>To start, we can assume that <em>f</em> and <em>g</em> are composed of standard linear layers. Layer <em>i</em> and <em>i+1</em> are represented by weights <em>W<sub>mxn</sub><sup>i</sup></em> and <em>W<sub>nxp</sub><sup>i+1</sup></em></p>
+  </li>
+  <li>
+    <p>We want to grow layer <em>i</em> to have <em>q</em> output units (where <em>q</em> &gt; <em>n</em>) and layer <em>i+1</em> to have <em>q</em> input units. The new weight matrix would be <em>U<sub>mxq</sub><sup>i</sup></em> and <em>U<sub>qxp</sub><sup>i+1</sup></em></p>
+  </li>
+  <li>
+    <p>The first <em>q</em> columns (rows) of <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>) would be copied as it is into <em>U<sup>i</sup></em>(<em>U<sup>i+1</sup></em>).</p>
+  </li>
+  <li>
+    <p>For filling the remaining <em>n-q</em> slots, columns (rows) would be sampled randomly from <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>).</p>
+  </li>
+  <li>
+    <p>Finally, each layer in <em>U<sup>i</sup></em> is scaled by dividing by the corresponding replication factor to ensure that the output value of function remains unchanged by the operation.</p>
+  </li>
+  <li>
+    <p>Since convolutions can be seen as multiplication by a double block circulant matrix, the approach can be readily extended for convolutional networks.</p>
+  </li>
+  <li>
+    <p>The benefits of using this approach are the following:</p>
 
-<h2 id="inspiration">Inspiration</h2>
-
-<ul>
-  <li>Questions tend to be compositional.</li>
-  <li>Different architectures are needed for different tasks - CNNs for object detection, RNNs for counting.</li>
-  <li>Recurrent and Recursive Neural Networks also use the idea of a different network graph for each input.</li>
-</ul>
-
-<h2 id="neural-module-network-for-vqa">Neural Module Network for VQA</h2>
-
-<ul>
-  <li>Training samples of form <em>(w, x, y)</em>
     <ul>
-      <li><em>w</em> - Natural Language Question</li>
-      <li><em>x</em> - Images</li>
-      <li><em>y</em> - Answer</li>
+      <li>The newly created student network performs at least as good as the teacher network.</li>
+      <li>Any changes to the network are guaranteed to be an improvement.</li>
+      <li>It is safe to optimize all the parameters in the network.</li>
     </ul>
   </li>
-  <li>Model specified by collection of modules <em>{m}</em> and a network layout predictor <em>P</em>.</li>
-  <li>Model instantiates a network based on <em>P(w)</em> and uses that to encode a distribution <em>P(y|w, x, model_params)</em></li>
-</ul>
-
-<h2 id="modules">Modules</h2>
-
-<ul>
-  <li>Find: Finds objects of interest.</li>
-  <li>Transform: Shift regions of attention.</li>
-  <li>Combine: Merge two attention maps into a single one.</li>
-  <li>Describe: Map a pair of attention and input image to a distribution over the labels.</li>
-  <li>Measure: Map attention to a distribution over the labels.</li>
-</ul>
-
-<h2 id="natural-language-question-to-networks">Natural Language Question to Networks</h2>
-
-<ul>
-  <li>Map question to the layout which specifies the set of modules and connections between them.</li>
-  <li>Assemble the final network using the layout.</li>
-  <li>Parse the input question to obtain set of dependencies and obtain a representation similar to combinatory logic.</li>
-  <li>eg “what is the colour of the truck?” becomes “colour(truck)”</li>
-  <li>The symbolic representation is mapped to a layout:
-    <ul>
-      <li>All leaves become <em>find</em> module.</li>
-      <li>All internal nodes become <em>transform/combine</em> module.</li>
-      <li>All root nodes become <em>describe/measure</em> module.</li>
-    </ul>
+  <li>
+    <p>The variant discussed above is called the <strong>Net2WiderNet</strong> variant. There is another variant called<strong>Net2DeeperNet</strong> that enables the network to grow in depth.</p>
+  </li>
+  <li>
+    <p>In that case, a new matrix, <em>U</em>, initialized as the identity matrix, is added to the network. Note that unlike the <strong>Net2WiderNet</strong>, this approach would not work with arbitrary activation function between the layers.</p>
   </li>
 </ul>
 
-<h2 id="answering-natural-language-question">Answering Natural Language Question</h2>
+<h2 id="strengths">Strengths</h2>
 
 <ul>
-  <li>Final model combines output from a simple LSTM question encoder with the output of the neural module network.</li>
-  <li>This helps in modelling the syntactic and semantic regularities of the question.</li>
+  <li>
+    <p>The model can accelerate the training of neural networks, especially during development cycle when the designers try out different models.</p>
+  </li>
+  <li>
+    <p>The approach could potentially be used in life-long learning systems where the model is trained over a stream of data and needs to grow over time.</p>
+  </li>
 </ul>
 
-<h2 id="experiments">Experiments</h2>
+<h2 id="limitations">Limitations</h2>
 
 <ul>
-  <li>Since some modules are updated more frequently than others, adaptive per weight learning rates are better.</li>
-  <li>The paper introduces a small SHAPES datasets (64 images and 244 unique questions per image).</li>
-  <li>Neural Module Network achieves a score of 90% on SHAPES dataset while VIS + LSTM baseline achieves an accuracy of 65.3%.</li>
-  <li>Even on natural images (VQA dataset), the neural module network outperforms the VIS + LSTM baseline.</li>
+  <li>The function preserving transformations need to be worked out manually. Extra care needs to be taken when operations like concatenation or batch norm are present.</li>
 </ul>
-
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer">
-            Net2Net-Accelerating Learning via Knowledge Transfer
-            <small>21 May 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -226,6 +212,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry">
             Neural Message Passing for Quantum Chemistry
             <small>08 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Unsupervised-Learning-By-Predicting-Noise">
+            Unsupervised Learning by Predicting Noise
+            <small>02 Apr 2018</small>
           </a>
         </h3>
       </li>
@@ -246,8 +241,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Neural-Module-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Neural-Module-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

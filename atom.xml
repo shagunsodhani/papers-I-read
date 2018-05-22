@@ -4,13 +4,90 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-05-06T11:36:08-04:00</updated>
+ <updated>2018-05-21T21:03:00-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Net2Net-Accelerating Learning via Knowledge Transfer</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"/>
+   <updated>2018-05-21T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Net2Net - Accelerating Learning via Knowledge Transfer</id>
+   <content type="html">&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a simple yet effective approach for transferring knowledge from a trained neural network (referred to as the teacher network) to a large, untrained neural network (referred to as the student network).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key idea is to use a function-preserving transformation that guarantees that for any given input, the output from the teacher network and the newly created student network would be the same.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1511.05641&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/paengs/Net2Net&quot;&gt;Link to an implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The approach works as follows - Let us say that the teacher network was represented by the transformation &lt;em&gt;y = f(x, θ)&lt;/em&gt; where &lt;em&gt;θ&lt;/em&gt; refer to the parameters of the network. The task is to choose a new set of parameters &lt;em&gt;θ’&lt;/em&gt; for the student network &lt;em&gt;g(x, θ’)&lt;/em&gt; such that for all &lt;em&gt;x, f(x, θ) = g(x, θ’)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To start, we can assume that &lt;em&gt;f&lt;/em&gt; and &lt;em&gt;g&lt;/em&gt; are composed of standard linear layers. Layer &lt;em&gt;i&lt;/em&gt; and &lt;em&gt;i+1&lt;/em&gt; are represented by weights &lt;em&gt;W&lt;sub&gt;mxn&lt;/sub&gt;&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt; and &lt;em&gt;W&lt;sub&gt;nxp&lt;/sub&gt;&lt;sup&gt;i+1&lt;/sup&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;We want to grow layer &lt;em&gt;i&lt;/em&gt; to have &lt;em&gt;q&lt;/em&gt; output units (where &lt;em&gt;q&lt;/em&gt; &amp;gt; &lt;em&gt;n&lt;/em&gt;) and layer &lt;em&gt;i+1&lt;/em&gt; to have &lt;em&gt;q&lt;/em&gt; input units. The new weight matrix would be &lt;em&gt;U&lt;sub&gt;mxq&lt;/sub&gt;&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt; and &lt;em&gt;U&lt;sub&gt;qxp&lt;/sub&gt;&lt;sup&gt;i+1&lt;/sup&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The first &lt;em&gt;q&lt;/em&gt; columns (rows) of &lt;em&gt;W&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt; (&lt;em&gt;W&lt;sup&gt;i+1&lt;/sup&gt;&lt;/em&gt;) would be copied as it is into &lt;em&gt;U&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt;(&lt;em&gt;U&lt;sup&gt;i+1&lt;/sup&gt;&lt;/em&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For filling the remaining &lt;em&gt;n-q&lt;/em&gt; slots, columns (rows) would be sampled randomly from &lt;em&gt;W&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt; (&lt;em&gt;W&lt;sup&gt;i+1&lt;/sup&gt;&lt;/em&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Finally, each layer in &lt;em&gt;U&lt;sup&gt;i&lt;/sup&gt;&lt;/em&gt; is scaled by dividing by the corresponding replication factor to ensure that the output value of function remains unchanged by the operation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since convolutions can be seen as multiplication by a double block circulant matrix, the approach can be readily extended for convolutional networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The benefits of using this approach are the following:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;The newly created student network performs at least as good as the teacher network.&lt;/li&gt;
+      &lt;li&gt;Any changes to the network are guaranteed to be an improvement.&lt;/li&gt;
+      &lt;li&gt;It is safe to optimize all the parameters in the network.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The variant discussed above is called the &lt;strong&gt;Net2WiderNet&lt;/strong&gt; variant. There is another variant called&lt;strong&gt;Net2DeeperNet&lt;/strong&gt; that enables the network to grow in depth.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In that case, a new matrix, &lt;em&gt;U&lt;/em&gt;, initialized as the identity matrix, is added to the network. Note that unlike the &lt;strong&gt;Net2WiderNet&lt;/strong&gt;, this approach would not work with arbitrary activation function between the layers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;strengths&quot;&gt;Strengths&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model can accelerate the training of neural networks, especially during development cycle when the designers try out different models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The approach could potentially be used in life-long learning systems where the model is trained over a stream of data and needs to grow over time.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;limitations&quot;&gt;Limitations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The function preserving transformations need to be worked out manually. Extra care needs to be taken when operations like concatenation or batch norm are present.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Learning to Count Objects in Natural Images for Visual Question Answering</title>
