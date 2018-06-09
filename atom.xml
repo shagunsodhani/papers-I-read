@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-06-09T16:47:54-04:00</updated>
+ <updated>2018-06-09T16:50:39-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -59,7 +59,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;[Hinton et al] suggested that even when the output of the teacher network is incorrect, it contains useful information about the similarity between the output classes. This information is referred to as the “dark knowledge”.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://shagunsodhani.in/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network&quot;&gt;Hinton et al&lt;/a&gt; suggested that even when the output of the teacher network is incorrect, it contains useful information about the similarity between the output classes. This information is referred to as the “dark knowledge”.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The current paper observed that the gradient of the correct output dimension during distillation and normal supervised training resembles the original gradient up to a  weight factor. This sample specific weight is defined by the value of the teacher’s max output.&lt;/p&gt;
