@@ -4,13 +4,144 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-05-21T21:03:00-04:00</updated>
+ <updated>2018-06-09T16:47:54-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Born Again Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Born-Again-Neural-Networks"/>
+   <updated>2018-06-09T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Born Again Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper explores knowledge distillation (KD) from the perspective of transferring knowledge between 2 networks of identical capacity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is in contrast to much of the previous work in KD which has focused on transferring knowledge from a larger network to a smaller network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper reports that these Born Again Networks (BANs) outperform their teachers by significant margins in many cases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.04770&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The standard KD setting is as follows:
+    &lt;ul&gt;
+      &lt;li&gt;Start with an untrained network (or ensemble of networks) and train them for the given task. This network is referred to as the teacher network.&lt;/li&gt;
+      &lt;li&gt;Now start with another untrained network (generally of smaller size than the teacher network) and train it using the output of the teacher network. This network is referred to as the student network.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper augments this setting with an extra cross-entropy loss between the output of the teacher and the student networks. The student tried to predict the correct answer while matching the output distribution of the teacher.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting student network is referred to as BAN - Born Again Network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The same approach can be used multiple times (with diminishing returns) where the kth generation student is initialized by knowledge transfer from (k-1)th generation student.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The output of multiple generation BANs are combined via averaging to produce BANE (Born Again Network Ensemble).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dark-knowledge&quot;&gt;Dark Knowledge&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;[Hinton et al] suggested that even when the output of the teacher network is incorrect, it contains useful information about the similarity between the output classes. This information is referred to as the “dark knowledge”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The current paper observed that the gradient of the correct output dimension during distillation and normal supervised training resembles the original gradient up to a  weight factor. This sample specific weight is defined by the value of the teacher’s max output.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This suggests distillation may be performing some kind of importance weighing. To explore this further, the paper considers 2 cases:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Confidence Weighted By Teacher Max (CWTM) - where each example in the student’s loss function is weighted by the confidence that the teacher has on the prediction for that sample. The student incurs a higher loss if the teacher was more confident about the example.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Dark Knowledge with Permuted Predictions (DKPP) - The non-argmax output of teacher’s predictive distribution are permuted thus destroying the information about which output classes are related.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key effect of these variations is that the covariance between the output classes is lost and classical knowledge distillation would not be sufficient to explain improvements (if any).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;image-data&quot;&gt;Image Data&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Datasets
+    &lt;ul&gt;
+      &lt;li&gt;CIFAR10&lt;/li&gt;
+      &lt;li&gt;CIFAR100&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Baselines
+    &lt;ul&gt;
+      &lt;li&gt;ResNets&lt;/li&gt;
+      &lt;li&gt;DenseNets&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;BAN Variants
+    &lt;ul&gt;
+      &lt;li&gt;BAN-DenseNet and BAN-ResNet  - Train a sequence of 2 or 3 BANs using DenseNets and ResNets. Different variants constrain BANs to be similar to their teacher or penalize l2-distance between student and teacher activations etc.&lt;/li&gt;
+      &lt;li&gt;Two settings with CWTM and DKPP as explained earlier.&lt;/li&gt;
+      &lt;li&gt;BAN-Resnet with DenseNet teacher and BAN-DenseNet with ResNet teacher&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;text-data&quot;&gt;Text Data&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Datasets:
+    &lt;ul&gt;
+      &lt;li&gt;PTB Dataset&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Baselines
+    &lt;ul&gt;
+      &lt;li&gt;CNN-LSTM model&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;BAN Variant
+    &lt;ul&gt;
+      &lt;li&gt;LSTM&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BAN student models improved over their teachers in most of the configurations.&lt;/li&gt;
+  &lt;li&gt;Training BANs across multiple generations leads to saturating improvements.&lt;/li&gt;
+  &lt;li&gt;The student models exhibit improvements even in the control settings (CWTM and DKPP).
+    &lt;ul&gt;
+      &lt;li&gt;One reason could be that the permutation procedure did not remove the higher order moments of output distribution.&lt;/li&gt;
+      &lt;li&gt;Improvements in the CWTM model suggests that the pre-trained models can be used to rebalance the training set by giving lesser weight for samples where the teacher’s output distribution is more spread.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Net2Net-Accelerating Learning via Knowledge Transfer</title>
