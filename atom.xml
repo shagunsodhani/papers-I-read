@@ -4,13 +4,167 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-06-09T16:50:39-04:00</updated>
+ <updated>2018-07-04T20:19:27-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Memory-based Parameter Adaptation</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Memory-Based-Parameter-Adaption"/>
+   <updated>2018-07-04T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Memory-Based Parameter Adaption</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standard Deep Learning networks are not suitable for continual learning setting as the change in the data distribution leads to catastrophic forgetting.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes Memory-based Parameter Adaptation (MbPA), a technique that augments a standard neural network with an episodic memory (containing examples from the previous tasks).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This episodic memory allows for rapid acquisition of new knowledge (corresponding to the current task) while preserving performance on the previous tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1802.10542&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MbPA consists of 3 components:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Embedding Network &lt;em&gt;f&lt;/em&gt;&lt;/li&gt;
+      &lt;li&gt;Memory &lt;em&gt;M&lt;/em&gt;&lt;/li&gt;
+      &lt;li&gt;Output network &lt;em&gt;g&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;f&lt;/em&gt; and &lt;em&gt;g&lt;/em&gt; are parametric components while &lt;em&gt;M&lt;/em&gt; is a non-parametric component.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;M&lt;/em&gt; is a dynamically sized dictionary where the key represents the output of the embedding network and the value represents the desired output for a given input (input to the model).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When a new training tuple (x&lt;sub&gt;j&lt;/sub&gt;, y&lt;sub&gt;j&lt;/sub&gt;) is fed as input to the model, a key-value pair (h&lt;sub&gt;j&lt;/sub&gt;, v&lt;sub&gt;j&lt;/sub&gt;) is added to the memory. h&lt;sub&gt;j&lt;/sub&gt; = f(x&lt;sub&gt;j&lt;/sub&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The memory has a fixed size and acts as a circular buffer. When it gets filled up, earlier examples are dropped.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When accessing the memory using a key &lt;em&gt;h&lt;sub&gt;key&lt;/sub&gt;&lt;/em&gt;, the k-nearest neighbours (in terms of distance from the given key) are retrieved.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training-phase&quot;&gt;Training Phase&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;During the training phase, the memory is only used to store the input examples and does not interfere with the training procedure.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;testing-phase&quot;&gt;Testing Phase&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;During testing, the memory is used to adapt the parameters of the output network &lt;em&gt;g&lt;/em&gt; while the embedding network &lt;em&gt;f&lt;/em&gt; remains the same.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the input x, obtain the embedding corresponding to x and using that as the key, retrieve the k-nearest neighbours from the memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each retrived neighbour is a tuple of the form (h&lt;sub&gt;k&lt;/sub&gt;, v&lt;sub&gt;k&lt;/sub&gt;, w&lt;sub&gt;k&lt;/sub&gt;) where w&lt;sub&gt;k&lt;/sub&gt; is propotional to the closeness between the input query and the key corresponding to the retrived example.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The collection of all the retrieved examples are referred to as the context &lt;em&gt;C&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The parameters of the output network &lt;em&gt;g&lt;/em&gt; are adapted from θ to θ&lt;sub&gt;x&lt;/sub&gt; where θ&lt;sub&gt;x&lt;/sub&gt; = θ + δ&lt;sub&gt;M&lt;/sub&gt;(x, θ)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;δ&lt;sub&gt;M&lt;/sub&gt;(x, θ) is referred to as the contextual update of parameters of the output network.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;interpretation-of-mbpa&quot;&gt;Interpretation of MbPA&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MbPA can be interpreted as decreasing the weighted average of negative log likelihood over the retrieved neighbours in the context C.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The expression corresponding to  δ&lt;sub&gt;M&lt;/sub&gt;(x, θ) can be obtained by performing gradient descent to minimise the max a posterior over the context C.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The a posterior expression can be written as a sum of two terms - one corresponding to a weighted likelihood of data in the context C and the other corresponding to a regularisation term to prevent overfitting the data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This idea can be thought of as a generalisation of attention. Attention can be viewed as fitting a constant function over the neighbourhood of memories while MbPA fits a more general function which is parameterised by the output network of the given model. Refer appendix E in the paper for further details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MbPA aims to solve the fundamental problem of enabling the model to deal with changes in data distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In that sense, it is evaluated on a wide range of settings: continual learning, incremental learning, unbalanced datasets and change in data distribution at test time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Continual Learning:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this setting, the model encounters a sequence of tasks and cannot revisit a previous task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Permuted MNIST dataset was used.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The key takeaway is that once a task is catastrophically forgotten, only a few gradient updates on a carefully selected data, are sufficient to recover the performance.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Incremental Learning:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this setting, the model is trained on a subset of classes and then introduced to novel, unseen classes. The model is tested to see if it can incorporate the new knowledge while retaining the knowledge about the previous classes.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Imagenet dataset with Resnet V1 model is used. It is first pretrained on 500 classes and then fine-tuned to see how quickly could it adapt to new classes.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unbalanced Dataset:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;This setting is similar to the incremental learning setting with the key difference that once the model has been trained on a part of the dataset and is to be finetuned to acquire new knowledge, the dataset used for finetuning is much smaller than the initial dataset thus creating the effect of unbalanced datasets.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Language Modelling:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;MbPA is used to adapt to the shift in the word distribution that is common to language modelling tasks. PTB and WikiText datasets were used.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MbPA exhibits strong performance on all these tasks showing that the memory-based parameter adaption technique is effective across a range of tasks in supervised learning.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Born Again Neural Networks</title>
