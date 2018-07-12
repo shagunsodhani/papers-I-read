@@ -4,13 +4,145 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-07-04T20:19:27-04:00</updated>
+ <updated>2018-07-11T21:46:15-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Learning Independent Causal Mechanisms</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learning-Independent-Causal-Mechanisms"/>
+   <updated>2018-07-11T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learning Independent Causal Mechanisms</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a very interesting approach for learning independent (inverse) data transformation from a set of transformed data points in an unsupervised manner.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1712.00961&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;formulation&quot;&gt;Formulation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;We start with a given data distribution &lt;em&gt;P&lt;/em&gt; (say the MNIST dataset) where each x ε R&lt;sup&gt;d&lt;/sup&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider N transformations M&lt;sub&gt;1&lt;/sub&gt;, …, M&lt;sub&gt;N&lt;/sub&gt; (functions that map input x to transformed input x’). Note that N need not be known before hand.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These transformations can be thought of as independent (from other transformations) causal mechanisms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Applying these transformation would give N new distributions Q&lt;sub&gt;1&lt;/sub&gt;, …, Q&lt;sub&gt;N&lt;/sub&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These individual distributions are combined to form a single transformed distribution Q which contains the union of samples from the individual distributions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At training time, two datasets are created. One dataset corresponds to untransformed objects (sampled from &lt;em&gt;P&lt;/em&gt;), referred to as &lt;em&gt;D&lt;sub&gt;P&lt;/sub&gt;&lt;/em&gt;. The other dataset corresponds to samples from the transformed distribution &lt;em&gt;Q&lt;/em&gt; and is referred to as &lt;em&gt;D&lt;sub&gt;Q&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that all the samples in &lt;em&gt;D&lt;sub&gt;P&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;D&lt;sub&gt;Q&lt;/sub&gt;&lt;/em&gt; are sampled independently and no supervising information is needed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A series of N’ parametric models, called as experts, are initialized and would be trained to learn the different mechanisms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For simplicity, assume that N = N’. If N &amp;gt; N’, some experts would learn more than one transformation or certain transformations would not be learnt. If N &amp;lt; N’, some experts would not learn anything or some experts would learn the same distribution. All of these cases can be diagnosed and corrected by changing the number of experts.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experts are trained with the goal of maximizing an objective parameter &lt;em&gt;c&lt;/em&gt;: R&lt;sup&gt;d&lt;/sup&gt; to R. &lt;em&gt;c&lt;/em&gt; takes high values on the support of  &lt;em&gt;P&lt;/em&gt; and low values outside.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, an example x&lt;sub&gt;Q&lt;/sub&gt; (from D&lt;sub&gt;Q&lt;/sub&gt;) is fed to all the experts at the same time. Each expert produces a value &lt;em&gt;c&lt;sub&gt;j&lt;/sub&gt; = c(E&lt;sub&gt;j&lt;/sub&gt;(x&lt;sub&gt;Q&lt;/sub&gt;))&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The winning expert is the one whose output is the max among all the outputs. Its parameters are updated to maximise its output while the other experts are not updated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This forces the best performing model to become even better and hence specialize.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The objective &lt;em&gt;c&lt;/em&gt; comes from adversarial training where a discriminator network discriminates between the untransformed input and the output of the experts.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each expert can be thought of as a GAN that conditions on the input x&lt;sub&gt;Q&lt;/sub&gt; (and not on a noise vector). The output of the different experts is fed to the discriminator which provides both a selection mechanism and the gradients for training the experts.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experiments are performed on the MNIST dataset using the transformations like translation along 4 directions and along 4 diagonals, contrast shift and inversion.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The discriminator is further trained against the output of all the losing experts thereby furthering strengthing the winning expert.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;approximate-identity-initialization&quot;&gt;Approximate Identity Initialization&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experts are initialized randomly and then pretrained to approximate the identity function by training with identical input-output pairs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This ensures that the experts start from a similar level.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, it seems necessary for the success of the proposed approach.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;observations&quot;&gt;Observations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;During the initial phase, there is a heavy competition between the experts and eventually different winners emerge for different transformations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The approximate quality of reconstructed output was also evaluated using a downstream task.
+    &lt;ul&gt;
+      &lt;li&gt;3 type of inputs were created:
+        &lt;ul&gt;
+          &lt;li&gt;Untransformed images&lt;/li&gt;
+          &lt;li&gt;Transformed images&lt;/li&gt;
+          &lt;li&gt;Transformed images a being processed by experts.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;These inputs are fed to a pretrained MNISTN classifier.&lt;/li&gt;
+      &lt;li&gt;The classifier performs poorly on the transformed images while the performance for images processed by experts quickly catches up with the performance on untransformed images.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The experts E&lt;sub&gt;i&lt;/sub&gt; generalize on the data points from a different dataset as well.
+    &lt;ul&gt;
+      &lt;li&gt;To test the generalisation capabilities of the expert, a sample of data from the omniglot dataset is transformed and fed to experts (which are trained only on MNIST).&lt;/li&gt;
+      &lt;li&gt;Each expert consistently applies the same transformation even though the inputs are outside the training domain.&lt;/li&gt;
+      &lt;li&gt;This suggests that the experts have generalized to different transformations irrespective of the underlying dataset.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comments&quot;&gt;Comments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experiments are quite limited in terms of complexity of dataset and complexity of transformation but it provides evidence for a promising connection between deep learning and causality.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Appendix mentions that in case there are too many experts, for most of the tasks, only one model specialises and the extra experts do not specialize at all. This is interesting as there is no explicit regularisation penalty which prevents the emergence of multiple experts per task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Memory-based Parameter Adaptation</title>
