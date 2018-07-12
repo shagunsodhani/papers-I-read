@@ -5,7 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
-* [Learning Independent Causal Mechanisms](https://shagunsodhani.in/papers-I-read/Learning-Independent-Causal-Mechanism
+* [Learning Independent Causal Mechanisms](https://shagunsodhani.in/papers-I-read/Learning-Independent-Causal-Mechanism)
 * [Memory-based Parameter Adaptation](https://shagunsodhani.in/papers-I-read/Memory-Based-Parameter-Adaption)
 * [Born Again Neural Networks](https://shagunsodhani.in/papers-I-read/Born-Again-Neural-Networks)
 * [Net2Net-Accelerating Learning via Knowledge Transfer](https://shagunsodhani.in/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer)
