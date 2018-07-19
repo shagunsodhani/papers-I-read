@@ -4,13 +4,177 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-07-11T21:46:15-04:00</updated>
+ <updated>2018-07-19T19:15:35-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Kronecker Recurrent Units</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Kronecker-Recurrent-Units"/>
+   <updated>2018-07-19T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Kronecker Recurrent Units</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Recurrent Neural Networks have two key issues:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Over parameterization&lt;/strong&gt; which increases the time for training and inference.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Ill conditioned&lt;/strong&gt; recurrent weight matrix which makes training difficult due to vanishing or exploding gradients.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a flexible RNN model called as KRU (Kronecker Recurrent Units) which overcomes the above problems by using a Kronecker factored recurrent matrix and soft unitary constraints on the factors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1705.10142&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;related-work&quot;&gt;Related Work&lt;/h2&gt;
+
+&lt;h3 id=&quot;existing-solutions-for-overparameterization&quot;&gt;Existing solutions for overparameterization&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Low-rank decomposition.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training a neural network on the soft targets predicted by a big pre-trained network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Low-bit precision training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hashing.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;existing-solutions-for-vanishing-and-exploding-gradients&quot;&gt;Existing solutions for vanishing and exploding gradients&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gating mechanism like in LSTMs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gradient Clipping.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Orthogonal Weight Initialization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parameterizing recurrent weight matrix.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;kru&quot;&gt;KRU&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uses a Kronecker factored recurrent matrix which enables controlling the number of parameters and number of factor matrices.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Vanishing and exploding gradients are taken care of by using a soft unitary constraint.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Why not use strict unitary constraint:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Restricts the search space and makes learning process unstable.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Makes forgetting (irrelevant) information difficult.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Relaxing the strict constraint has shown to improve the convergence speed and generalization performance.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;KRU can be easily plugged into RNNs, LSTMs and other variants.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The recurrent matrix &lt;em&gt;W&lt;/em&gt; is paramterized as a kronecker product of &lt;em&gt;F&lt;/em&gt; matrices &lt;em&gt;W&lt;sub&gt;0&lt;/sub&gt;, …, W&lt;sub&gt;F-1&lt;/sub&gt;&lt;/em&gt; where each &lt;em&gt;W&lt;sub&gt;f&lt;/sub&gt;&lt;/em&gt; is a complex matrix of shape &lt;em&gt;P&lt;sub&gt;f&lt;/sub&gt; x Q&lt;sub&gt;f&lt;/sub&gt;&lt;/em&gt; and the product of all &lt;em&gt;P&lt;sub&gt;f&lt;/sub&gt;&lt;/em&gt; and producto of all &lt;em&gt;Q&lt;sub&gt;f&lt;/sub&gt;&lt;/em&gt; are both equal to &lt;em&gt;N&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Why is &lt;em&gt;W&lt;/em&gt; a complex matrix?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In the real space, the set of all unitary matrices have the determinant as 1 or -1.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Given that determinant is a continuous function, the unitary set in the real space is disconnected.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The unitary set in the complex space is connected as its determinants are points on the unit circle.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;soft-unitary-constraint&quot;&gt;Soft Unitary Constraint&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;A soft unitary constraint is introduced in the form of regularization term&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;W&lt;sub&gt;f&lt;/sub&gt;&lt;sup&gt;H&lt;/sup&gt;W&lt;sub&gt;f&lt;/sub&gt; - I&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;&lt;sup&gt;2&lt;/sup&gt; (per kronecker factored recurrent matrix).&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If each of the Kronecker factors is unitary, the resulting matrix &lt;em&gt;W&lt;/em&gt; would also be unitary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is computationally inefficient to apply this constraint over the recurrent matrix &lt;em&gt;W&lt;/em&gt; itself as the complexity of the regularizer is given as &lt;em&gt;O(N&lt;sup&gt;3&lt;/sup&gt;)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Use of Kronecker factorisation makes it computationally feasible to use this regulariser.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The Kronecker recurrent model is compared against the existing recurrent models for multiple tasks including copy memory, adding memory, pixel-by-pixel MNIST, char level language models, polyphonic music modelling, and framewise phoneme classification.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For most of the task, KRU model produces results comparable to the best performing models despite using fewer parameters.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using soft unitary constraints in KRU provides a principled alternative to gradient clipping (a common heuristic to avoid exploding gradients).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further, recent theoretical results suggest the gradient descent converges to a global optimizer of linear recurrent networks even if the learning problem is non-convex provided that the spectral norm of the recurrent matrix is bound by 1.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key take away from the paper is that state should be high dimensional so that high capacity network can be used for encoding and decoding the input and output. The recurrent dynamics should be implemented via a low capacity model.s per task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Learning Independent Causal Mechanisms</title>
