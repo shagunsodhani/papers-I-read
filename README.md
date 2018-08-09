@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Imagination-Augmented Agents for Deep Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Imagination-Augmented-Agents-for-Deep-Reinforcement-Learning)
 * [Kronecker Recurrent Units](https://shagunsodhani.in/papers-I-read/Kronecker-Recurrent-Units)
 * [Learning Independent Causal Mechanisms](https://shagunsodhani.in/papers-I-read/Learning-Independent-Causal-Mechanisms)
 * [Memory-based Parameter Adaptation](https://shagunsodhani.in/papers-I-read/Memory-Based-Parameter-Adaption)
