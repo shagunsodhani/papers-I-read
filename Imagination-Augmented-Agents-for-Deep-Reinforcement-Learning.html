@@ -192,17 +192,17 @@
       <li><strong>MiniPacman</strong>
         <ul>
           <li>I2A agent is evaluated to see if a single model can be used to solve multiple tasks.</li>
+          <li>A new environment is designed to define multiple tasks in an environment with shared state transitions.</li>
+          <li>Each task is specified by a 5-dimensional reward vector that associates a reward with moving, eating food, eating a pill, eating a ghost and being eaten by a ghost.</li>
+          <li>A single environment model is trained to predict both observations (frames) and events (eg “eating a pill”). This way, the environment model is shared across all tasks.</li>
+          <li>Baseline agents and I2As are trained on each task separately. I2A architecture outperforms the standard agent in all tasks and the copy-model
+baseline in all but one task.</li>
+          <li>The improvement in performance is higher for tasks where rewards are sparse and where the anticipation
+of ghost dynamics is especially important indicating that the I2A agent can use the environment model to explore the environment more effectively.</li>
         </ul>
       </li>
-      <li>A new environment is designed to define multiple tasks in an environment with shared state transitions.</li>
-      <li>Each task is specified by a 5-dimensional reward vector that associates a reward with moving, eating food, eating a pill, eating a ghost and being eaten by a ghost.</li>
-      <li>A single environment model is trained to predict both observations (frames) and events (eg “eating a pill”). This way, the environment model is shared across all tasks.</li>
-      <li>Baseline agents and I2As are trained on each task separately. I2A architecture outperforms the standard agent in all tasks and the copy-model
-baseline in all but one task.</li>
     </ul>
   </li>
-  <li>The improvement in performance is higher for tasks where rewards are sparse and where the anticipation
-of ghost dynamics is especially important indicating that the I2A agent can use the environment model to explore the environment more effectively.</li>
 </ul>
 
 </div>

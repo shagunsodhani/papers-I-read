@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-08-08T22:35:27-04:00</updated>
+ <updated>2018-08-08T22:37:46-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -87,17 +87,17 @@
       &lt;li&gt;&lt;strong&gt;MiniPacman&lt;/strong&gt;
         &lt;ul&gt;
           &lt;li&gt;I2A agent is evaluated to see if a single model can be used to solve multiple tasks.&lt;/li&gt;
+          &lt;li&gt;A new environment is designed to define multiple tasks in an environment with shared state transitions.&lt;/li&gt;
+          &lt;li&gt;Each task is specified by a 5-dimensional reward vector that associates a reward with moving, eating food, eating a pill, eating a ghost and being eaten by a ghost.&lt;/li&gt;
+          &lt;li&gt;A single environment model is trained to predict both observations (frames) and events (eg “eating a pill”). This way, the environment model is shared across all tasks.&lt;/li&gt;
+          &lt;li&gt;Baseline agents and I2As are trained on each task separately. I2A architecture outperforms the standard agent in all tasks and the copy-model
+baseline in all but one task.&lt;/li&gt;
+          &lt;li&gt;The improvement in performance is higher for tasks where rewards are sparse and where the anticipation
+of ghost dynamics is especially important indicating that the I2A agent can use the environment model to explore the environment more effectively.&lt;/li&gt;
         &lt;/ul&gt;
       &lt;/li&gt;
-      &lt;li&gt;A new environment is designed to define multiple tasks in an environment with shared state transitions.&lt;/li&gt;
-      &lt;li&gt;Each task is specified by a 5-dimensional reward vector that associates a reward with moving, eating food, eating a pill, eating a ghost and being eaten by a ghost.&lt;/li&gt;
-      &lt;li&gt;A single environment model is trained to predict both observations (frames) and events (eg “eating a pill”). This way, the environment model is shared across all tasks.&lt;/li&gt;
-      &lt;li&gt;Baseline agents and I2As are trained on each task separately. I2A architecture outperforms the standard agent in all tasks and the copy-model
-baseline in all but one task.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;The improvement in performance is higher for tasks where rewards are sparse and where the anticipation
-of ghost dynamics is especially important indicating that the I2A agent can use the environment model to explore the environment more effectively.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
