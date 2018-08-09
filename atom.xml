@@ -4,13 +4,103 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-07-19T19:15:35-04:00</updated>
+ <updated>2018-08-08T22:35:27-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Imagination-Augmented Agents for Deep Reinforcement Learning</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Imagination-Augmented-Agents-for-Deep-Reinforcement-Learning"/>
+   <updated>2018-08-08T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Imagination-Augmented Agents for Deep Reinforcement Learning</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents I2A (Imagination Augmented Agent) that combines the model-based and model-free approaches leading to data efficiency and robustness even with imperfect models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I2A agent uses the predictions from a learned environment model as an additional context in deep policy networks. This leads to improved data efficiency and robustness to imperfect models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1707.06203&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I2A agent has two main modules - Imagination module and the Policy module.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Imagination Module&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Environment Model&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;This is a recurrent model, trained in an unsupervised manner using the agent trajectories. It can be used to predict the future state given the current state and action.&lt;/li&gt;
+          &lt;li&gt;The environment model can be rolled out multiple times to obtain a simulated trajectory or an “imagined” trajectory.&lt;/li&gt;
+          &lt;li&gt;During each rollout, the actions are chosen using a rollout policy π&lt;sub&gt;r&lt;/sub&gt;.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Rollout Encoder&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;A rollout encoder &lt;em&gt;E&lt;/em&gt; (LSTM) is used to process the entire imagined rollout.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;The imagination module is used to generate &lt;em&gt;n&lt;/em&gt; trajectories. Each trajectory is a sequence of outputs of the environment model.&lt;/li&gt;
+      &lt;li&gt;These &lt;em&gt;n&lt;/em&gt; trajectories are concatenated into a single “imagination” vector.&lt;/li&gt;
+      &lt;li&gt;The training data for the environment model is generated from trajectories of a partially trained model-free agent.&lt;/li&gt;
+      &lt;li&gt;Pretraining the environment model (instead of joint training with policy) leads to faster runtime.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Policy Module&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;This module uses the output of both model-based path and model-free path as its input. It generates the policy vector and value function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Rollout Strategy&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;One rollout is performed for each possible action in the environment ie, the first action in the i&lt;sup&gt;th&lt;/sup&gt; rollout is the i&lt;sup&gt;th&lt;/sup&gt; action in the action set.&lt;/li&gt;
+      &lt;li&gt;Subsequent actions are generated using a shared rollout policy π&lt;sub&gt;’&lt;/sub&gt;&lt;/li&gt;
+      &lt;li&gt;An effective strategy was to create a small model-free network π&lt;sub&gt;’&lt;/sub&gt;(o&lt;sub&gt;t&lt;/sub&gt;) and then add a KL loss component that encourages π&lt;sub&gt;’&lt;/sub&gt;(o&lt;sub&gt;t&lt;/sub&gt;)to be similar to the imagination augmented policy π(o&lt;sub&gt;t&lt;/sub&gt;).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Baselines&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Model-free agent&lt;/li&gt;
+      &lt;li&gt;Copy-model agent - same as I2A but the environment model is replaced by a “copy” model that just returns the input observations.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Environments&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Sokoban
+        &lt;ul&gt;
+          &lt;li&gt;Task is to push a number of boxes onto given target locations.&lt;/li&gt;
+          &lt;li&gt;I2A outperforms the baselines and gains in performance as the number of unrolling steps increases (though at a diminishing rate).&lt;/li&gt;
+          &lt;li&gt;In case of poor environment models, the agent seems to be able to ignore the later part of the rollout when the error starts to accumulate.&lt;/li&gt;
+          &lt;li&gt;Monte Carlo search algorithm (without an explicit rollout encoder) performed poorly as compared to the model using rollout encoder.&lt;/li&gt;
+          &lt;li&gt;Predicting the reward along with value function and action seems to speed up training.&lt;/li&gt;
+          &lt;li&gt;If a near-perfect model is available, I2A agent’s performance can be improved by performing Monte Carlo search with the trained I2A agent for the rollout policy. The agent plays entire episodes in simulation and tries to find a successful action sequence within 10 retries.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;MiniPacman&lt;/strong&gt;
+        &lt;ul&gt;
+          &lt;li&gt;I2A agent is evaluated to see if a single model can be used to solve multiple tasks.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;A new environment is designed to define multiple tasks in an environment with shared state transitions.&lt;/li&gt;
+      &lt;li&gt;Each task is specified by a 5-dimensional reward vector that associates a reward with moving, eating food, eating a pill, eating a ghost and being eaten by a ghost.&lt;/li&gt;
+      &lt;li&gt;A single environment model is trained to predict both observations (frames) and events (eg “eating a pill”). This way, the environment model is shared across all tasks.&lt;/li&gt;
+      &lt;li&gt;Baseline agents and I2As are trained on each task separately. I2A architecture outperforms the standard agent in all tasks and the copy-model
+baseline in all but one task.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The improvement in performance is higher for tasks where rewards are sparse and where the anticipation
+of ghost dynamics is especially important indicating that the I2A agent can use the environment model to explore the environment more effectively.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Kronecker Recurrent Units</title>
