@@ -4,13 +4,154 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-08-08T22:37:46-04:00</updated>
+ <updated>2018-08-16T09:34:55-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Hierarchical Graph Representation Learning with Differentiable Pooling</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling"/>
+   <updated>2018-08-16T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Hierarchical Graph Representation Learning with Differentiable Pooling</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most existing GNN (Graph Neural Network) methods are inherently flat and are unable to process the information in a hierarchical manner.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a differentiable graph pooling operation, DIFFPOOL, that can generate hierarchical graph representations and can be easily plugged into many GNN architectures.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1806.08804&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-idea&quot;&gt;Key Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CNNs have spatial pooling operation that allows for deep CNN architectures to operate on coarse graph representations of input images.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This notion cannot be applied as-is to graphs as they do not have a natural notion of spatial locality like images do.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DIFFPOOL attempts to resolve this problem by learning a differentiable soft-assignment at each layer which is equivalent to pooling the cluster of nodes to obtain a sparse representation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a graph &lt;em&gt;G(A, F)&lt;/em&gt;, where &lt;em&gt;A&lt;/em&gt; is the adjacency matrix and &lt;em&gt;F&lt;/em&gt; is the feature matrix.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a permutation invariant GNN that follows the message passing architecture. The output of this GNN can be expressed as &lt;em&gt;Z = GNN(A, X)&lt;/em&gt; where &lt;em&gt;X&lt;/em&gt; is the current feature matrix.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Goal is to stack &lt;em&gt;L&lt;/em&gt; GNN layers on top of each other such that the &lt;em&gt;l&lt;sup&gt;th&lt;/sup&gt;&lt;/em&gt; layer uses coarsened output from the  &lt;em&gt;(l-1)&lt;sup&gt;th&lt;/sup&gt;&lt;/em&gt; layer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This coarsening operation uses a cluster assignment matrix &lt;em&gt;S&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learned cluster assignment matrix at layer &lt;em&gt;l&lt;/em&gt; is denoted at &lt;em&gt;S&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given &lt;em&gt;S&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt;, the embedding matrix for the &lt;em&gt;(l+1)&lt;sup&gt;th&lt;/sup&gt;&lt;/em&gt; layer is given as &lt;em&gt;transpose(S&lt;sub&gt;l&lt;/sub&gt;)Z&lt;sub&gt;l&lt;/sub&gt;&lt;/em&gt; and adjancecy matrix is given by &lt;em&gt;transpose(S&lt;sub&gt;l&lt;/sub&gt;)A&lt;sub&gt;l&lt;/sub&gt;S&lt;sub&gt;l&lt;/sub&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new GNN, called as GNN&lt;sub&gt;pool&lt;/sub&gt; is used to produce the assignment matrix &lt;em&gt;S&lt;/em&gt; by taking a softmax over &lt;em&gt;GNN&lt;sub&gt;pool&lt;/sub&gt;(A&lt;sup&gt;l&lt;/sup&gt;, X&lt;sup&gt;l&lt;/sup&gt;)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As long as the GNN model is permutation invariant, the resulting DIFFPOOL model is also permutation invariant.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;auxiliary-losses&quot;&gt;Auxiliary Losses&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper uses 2 auxiliary losses to push the model away from spurious local minima early in the training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Link prediction objective - at each layer, link prediction loss ( = A - S(transpose(S))) is minimized with the intuition that the nearby nodes should be pooled together.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ideally, the cluster assignment for each node should be a one-hot vector so the entropy for cluster assignment per node is regularized.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;baselines&quot;&gt;Baselines&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;GNN based models
+    &lt;ul&gt;
+      &lt;li&gt;GraphSage
+        &lt;ul&gt;
+          &lt;li&gt;Mean pooling&lt;/li&gt;
+          &lt;li&gt;Set2Set pooling&lt;/li&gt;
+          &lt;li&gt;Sort pooling&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Structure2vec&lt;/li&gt;
+      &lt;li&gt;Edge conditioned filters in CNN&lt;/li&gt;
+      &lt;li&gt;PatchySan&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Kernel based models
+    &lt;ul&gt;
+      &lt;li&gt;Graphlet, shortest path etc&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model-variants&quot;&gt;Model Variants&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;GraphSage
+    &lt;ul&gt;
+      &lt;li&gt;Mean pool + Diff pool (3 or 2 layers)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Structure2Vec + Diffpool&lt;/li&gt;
+  &lt;li&gt;Diffpool-Det
+    &lt;ul&gt;
+      &lt;li&gt;The assignment matrix &lt;em&gt;S&lt;/em&gt; are generated using graph clustering algorithms.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Diffpool-NoLP
+    &lt;ul&gt;
+      &lt;li&gt;The link prediction objective function is turned off.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;At each DiffPool layer, the number of classes is set to 25% of the number of nodes before the DiffPool layer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;DiffPool obtains the highest average performance across all the pooling approaches and improves upon the base GraphSage architecture by an average of around 7%.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In terms of runtime complexity, the paper reports that DiffPool does not incur any significant additional running time. But given that now there are 2 GNN models per layer, the size of the model should increase.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DiffPool can capture hierarchical community structure even when trained on just the graph classification loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One advantage of DiffPool is that the nodes are pooled in a non-uniform way so densely connected group of nodes would collapse into one cluster while sparsely connected nodes can retain their identity.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Imagination-Augmented Agents for Deep Reinforcement Learning</title>

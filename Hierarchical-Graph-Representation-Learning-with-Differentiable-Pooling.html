@@ -11,7 +11,7 @@
 
   <title>
     
-      The Lottery Ticket Hypothesis - Training Pruned Neural Networks &middot; Papers I Read
+      Hierarchical Graph Representation Learning with Differentiable Pooling &middot; Papers I Read
     
   </title>
 
@@ -119,79 +119,140 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">The Lottery Ticket Hypothesis - Training Pruned Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Pruning+Network" title="Pages tagged Pruning Network" rel="tag">Pruning Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Hypothesis" title="Pages tagged Hypothesis" rel="tag">Hypothesis</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Initialization" title="Pages tagged Initialization" rel="tag">Initialization</a></p>
-  <span class="post-date">25 Mar 2018</span>
+  <h1 class="post-title">Hierarchical Graph Representation Learning with Differentiable Pooling</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#GNN" title="Pages tagged GNN" rel="tag">GNN</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Pooling" title="Pages tagged Pooling" rel="tag">Pooling</a></p>
+  <span class="post-date">16 Aug 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Empirical evidence indicates that at training time, the neural networks need to be of significantly larger size than necessary.</p>
+    <p>Most existing GNN (Graph Neural Network) methods are inherently flat and are unable to process the information in a hierarchical manner.</p>
   </li>
   <li>
-    <p>The paper purposes a hypothesis called the <em>lottery ticket hypothesis</em> to explain this behaviour.</p>
+    <p>The paper proposes a differentiable graph pooling operation, DIFFPOOL, that can generate hierarchical graph representations and can be easily plugged into many GNN architectures.</p>
   </li>
   <li>
-    <p>The idea is the following - Successful training of a neural network depends on a <em>lucky</em> random initialization of a subcomponent of the network. Such components are referred to as <em>lottery tickets</em>.</p>
-  </li>
-  <li>
-    <p>Larger networks are more likely to have these <em>lottery tickets</em> and hence are easier to train.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1803.03635">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/1806.08804">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="methodology">Methodology</h2>
+<h2 id="key-idea">Key Idea</h2>
 
 <ul>
   <li>
-    <p>Various aspects of the hypothesis are explored empirically.</p>
+    <p>CNNs have spatial pooling operation that allows for deep CNN architectures to operate on coarse graph representations of input images.</p>
   </li>
   <li>
-    <p>Two tasks are considered - MNIST and XOR.</p>
+    <p>This notion cannot be applied as-is to graphs as they do not have a natural notion of spatial locality like images do.</p>
   </li>
   <li>
-    <p>For each task, the paper considers networks of different sizes and empirically shows that larger networks are more likely to converge (or have better performance) for a fixed number of epochs as compared to the smaller networks.</p>
+    <p>DIFFPOOL attempts to resolve this problem by learning a differentiable soft-assignment at each layer which is equivalent to pooling the cluster of nodes to obtain a sparse representation.</p>
   </li>
-  <li>
-    <p>Given a large, trained network, some weights (or units) of the network are pruned and the resulting network is reset to its initial random weights.</p>
-  </li>
-  <li>
-    <p>The resulting network is the <em>lottery-ticket</em> in the sense that when the pruned network is trained, it is more likely to converge than an otherwise randomly initialised network of the same size. Further, it is more likely to match the original, larger network in terms of performance.</p>
-  </li>
-  <li>
-    <p>The paper explores different aspects of this experiment:</p>
+</ul>
 
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>Given a graph <em>G(A, F)</em>, where <em>A</em> is the adjacency matrix and <em>F</em> is the feature matrix.</p>
+  </li>
+  <li>
+    <p>Given a permutation invariant GNN that follows the message passing architecture. The output of this GNN can be expressed as <em>Z = GNN(A, X)</em> where <em>X</em> is the current feature matrix.</p>
+  </li>
+  <li>
+    <p>Goal is to stack <em>L</em> GNN layers on top of each other such that the <em>l<sup>th</sup></em> layer uses coarsened output from the  <em>(l-1)<sup>th</sup></em> layer.</p>
+  </li>
+  <li>
+    <p>This coarsening operation uses a cluster assignment matrix <em>S</em>.</p>
+  </li>
+  <li>
+    <p>The learned cluster assignment matrix at layer <em>l</em> is denoted at <em>S<sup>l</sup></em></p>
+  </li>
+  <li>
+    <p>Given <em>S<sup>l</sup></em>, the embedding matrix for the <em>(l+1)<sup>th</sup></em> layer is given as <em>transpose(S<sub>l</sub>)Z<sub>l</sub></em> and adjancecy matrix is given by <em>transpose(S<sub>l</sub>)A<sub>l</sub>S<sub>l</sub></em></p>
+  </li>
+  <li>
+    <p>A new GNN, called as GNN<sub>pool</sub> is used to produce the assignment matrix <em>S</em> by taking a softmax over <em>GNN<sub>pool</sub>(A<sup>l</sup>, X<sup>l</sup>)</em></p>
+  </li>
+  <li>
+    <p>As long as the GNN model is permutation invariant, the resulting DIFFPOOL model is also permutation invariant.</p>
+  </li>
+</ul>
+
+<h2 id="auxiliary-losses">Auxiliary Losses</h2>
+
+<ul>
+  <li>
+    <p>The paper uses 2 auxiliary losses to push the model away from spurious local minima early in the training.</p>
+  </li>
+  <li>
+    <p>Link prediction objective - at each layer, link prediction loss ( = A - S(transpose(S))) is minimized with the intuition that the nearby nodes should be pooled together.</p>
+  </li>
+  <li>
+    <p>Ideally, the cluster assignment for each node should be a one-hot vector so the entropy for cluster assignment per node is regularized.</p>
+  </li>
+</ul>
+
+<h2 id="baselines">Baselines</h2>
+
+<ul>
+  <li>GNN based models
     <ul>
-      <li>Pruning Strategies:
+      <li>GraphSage
         <ul>
-          <li>One-shot strategy prunes the network in one-go while the iterative strategy prunes the network iteratively.</li>
-          <li>Though the latter is computationally more intensive, it is more likely to find a lottery ticket.</li>
+          <li>Mean pooling</li>
+          <li>Set2Set pooling</li>
+          <li>Sort pooling</li>
         </ul>
       </li>
-      <li>
-        <p>Size of the pruned network affects the speed of convergence when training the <em>lottery ticket</em>.</p>
-      </li>
-      <li>
-        <p>If only the architecture or only the initial weights of the <em>lottery ticket</em> are used, the resulting network tends to converge more slowly and achieves a lower level of performance.</p>
-      </li>
-      <li>This indicates that the lottery ticket depends on both the network architecture and the weight initialization.</li>
+      <li>Structure2vec</li>
+      <li>Edge conditioned filters in CNN</li>
+      <li>PatchySan</li>
+    </ul>
+  </li>
+  <li>Kernel based models
+    <ul>
+      <li>Graphlet, shortest path etc</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="discussion">Discussion</h2>
+<h2 id="model-variants">Model Variants</h2>
+
+<ul>
+  <li>GraphSage
+    <ul>
+      <li>Mean pool + Diff pool (3 or 2 layers)</li>
+    </ul>
+  </li>
+  <li>Structure2Vec + Diffpool</li>
+  <li>Diffpool-Det
+    <ul>
+      <li>The assignment matrix <em>S</em> are generated using graph clustering algorithms.</li>
+    </ul>
+  </li>
+  <li>Diffpool-NoLP
+    <ul>
+      <li>The link prediction objective function is turned off.</li>
+    </ul>
+  </li>
+  <li>At each DiffPool layer, the number of classes is set to 25% of the number of nodes before the DiffPool layer.</li>
+</ul>
+
+<h2 id="results">Results</h2>
 
 <ul>
   <li>
-    <p>The paper includes some more interesting experiments. For instance, the distribution of the initialization in the weights that survived the pruning suggests that small weights from before training tend to remain small after training.</p>
+    <p>DiffPool obtains the highest average performance across all the pooling approaches and improves upon the base GraphSage architecture by an average of around 7%.</p>
   </li>
   <li>
-    <p>One interesting experiment would be to show the performance of the pruned network before resetting its weights and retraining again. This performance should be compared with the performance of the initial large network and the performance of the <em>lottery ticket</em> after training.</p>
+    <p>In terms of runtime complexity, the paper reports that DiffPool does not incur any significant additional running time. But given that now there are 2 GNN models per layer, the size of the model should increase.</p>
   </li>
   <li>
-    <p>Overall, the experiments are not sufficient to conclude anything about the correctness of the hypothesis. The proposition itself is very interesting and could enhance our understanding of how the neural networks work.</p>
+    <p>DiffPool can capture hierarchical community structure even when trained on just the graph classification loss.</p>
+  </li>
+  <li>
+    <p>One advantage of DiffPool is that the nodes are pooled in a non-uniform way so densely connected group of nodes would collapse into one cluster while sparsely connected nodes can retain their identity.</p>
   </li>
 </ul>
 
@@ -200,15 +261,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling">
-            Hierarchical Graph Representation Learning with Differentiable Pooling
-            <small>16 Aug 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -224,6 +276,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Kronecker-Recurrent-Units">
             Kronecker Recurrent Units
             <small>19 Jul 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Learning-Independent-Causal-Mechanisms">
+            Learning Independent Causal Mechanisms
+            <small>11 Jul 2018</small>
           </a>
         </h3>
       </li>
@@ -244,8 +305,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
