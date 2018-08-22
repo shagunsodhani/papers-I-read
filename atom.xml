@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-08-21T20:25:57-04:00</updated>
+ <updated>2018-08-21T20:28:47-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -21,7 +21,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The paper proposes an approach for using symbolic knowledge in deep learning systems. These constraints are often expressed as boolean constraints on the output of the deep learning system and directly incorporting these constraints break the differentialbility of the system.&lt;/p&gt;
+    &lt;p&gt;The paper proposes an approach for using symbolic knowledge in deep learning systems. These constraints are often expressed as boolean constraints on the output of the deep learning system and directly incorporating these constraints break the differentiability of the system.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1711.11157&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
@@ -32,13 +32,13 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The model is given some input data to perform predicitions and symbolic knowledge is provided in form of boolean constraints like exactly-one constraint for one-hot output encoding.&lt;/p&gt;
+    &lt;p&gt;The model is given some input data to perform predictions and symbolic knowledge is provided in form of boolean constraints like exactly-one constraint for one-hot output encoding.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Most approaches tend to encode the symbolic knowledge in the vector space embedding to keep the model pipeline differentiable. In this process, the precise meaning of symbolic knowledge is often lost.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;A differentiable “semantic loss” is derieved which captures the meaning of the constrain while being independent of its syntax.&lt;/p&gt;
+    &lt;p&gt;A differentiable “semantic loss” is derived which captures the meaning of the constraint while being independent of its syntax.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -49,7 +49,7 @@
     &lt;p&gt;A state &lt;strong&gt;x&lt;/strong&gt; (state refers to the instantiation of boolean variables) satisfies a sentence &lt;em&gt;a&lt;/em&gt; if &lt;em&gt;a&lt;/em&gt; evaluates to true when using the variables as specified by &lt;strong&gt;x&lt;/strong&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;A sentence &lt;em&gt;a&lt;/em&gt; entails another sentence &lt;em&gt;b&lt;/em&gt; if all states that satisfy &lt;em&gt;a&lt;/em&gt; also satify &lt;em&gt;b&lt;/em&gt;.&lt;/p&gt;
+    &lt;p&gt;A sentence &lt;em&gt;a&lt;/em&gt; entails another sentence &lt;em&gt;b&lt;/em&gt; if all states that satisfy &lt;em&gt;a&lt;/em&gt; also satisfy &lt;em&gt;b&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The row output vector of the neural network is denoted as &lt;em&gt;p&lt;/em&gt; where each value in &lt;em&gt;p&lt;/em&gt; denotes the probability of an output.&lt;/p&gt;
@@ -90,7 +90,7 @@
     &lt;p&gt;&lt;em&gt;a&lt;/em&gt; is defined over variables (x1, …, xn) and &lt;em&gt;p&lt;/em&gt; is interpreted as a vector of probabilities corresponding to these variables &lt;em&gt;xi’s&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The semantic loss is directly propotional to the negative log liklihood of generating a state that satisfies the constraints when sampling values according to the distribution &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
+    &lt;p&gt;The semantic loss is directly proportional to the negative log likelihood of generating a state that satisfies the constraints when sampling values according to the distribution &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -143,34 +143,34 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Semantic Loss is used in semi-supervised setting for Permuted MNIST, Fashion MNIST and CIFAR-10.&lt;/p&gt;
+    &lt;p&gt;Semantic Loss is used in the semi-supervised setting for Permuted MNIST, Fashion MNIST and CIFAR-10.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The key takeaway is that using semantic loss improves the performance of the state-of-the-art models for Fashion MNIST and CIFAR-10.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;One downside is that the effectiveness of the semantic loss in this type of constraint strongly depends on the performance of the underlying model. Further, the semantic loss does not imporve the performance in case of fully supervised scenario.&lt;/p&gt;
+    &lt;p&gt;One downside is that the effectiveness of the semantic loss in this type of constraint strongly depends on the performance of the underlying model. Further, the semantic loss does not improve the performance in case of fully supervised scenario.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Further experiments are performed to evaluate the performance of the semantic loss on complex constraints. Since these tasks aim to highlight the effect of using semantic loss, only simple models (MLPs) are evaluated.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;tractibility-of-semantic-loss&quot;&gt;Tractibility of Semantic Loss&lt;/h2&gt;
+&lt;h2 id=&quot;tractability-of-semantic-loss&quot;&gt;Tractability of Semantic Loss&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;The semantic loss is similar to the automated reasoning task called as weight model counting (wmc).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Circuit complier techniques can be used to compute wmc while allowing backpropogation.&lt;/p&gt;
+    &lt;p&gt;Circuit compiler techniques can be used to compute wmc while allowing backpropagation.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The proposed idea is simple and intutive and the results on semi-supervised classification task are quite good. It would be interesting to extend and scale this method for more complex constraints.&lt;/li&gt;
+  &lt;li&gt;The proposed idea is simple and intuitive and the results on semi-supervised classification task are quite good. It would be interesting to extend and scale this method for more complex constraints.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>
