@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [A Semantic Loss Function for Deep Learning with Symbolic Knowledge](https://shagunsodhani.in/papers-I-read/A-Semantic-Loss-Function-for-Deep-Learning-with-Symbolic-Knowledge)
 * [Hierarchical Graph Representation Learning with Differentiable Pooling](https://shagunsodhani.in/papers-I-read/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling)
 * [Imagination-Augmented Agents for Deep Reinforcement Learning](https://shagunsodhani.in/papers-I-read/Imagination-Augmented-Agents-for-Deep-Reinforcement-Learning)
 * [Kronecker Recurrent Units](https://shagunsodhani.in/papers-I-read/Kronecker-Recurrent-Units)
