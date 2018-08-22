@@ -4,13 +4,176 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-08-16T09:34:55-04:00</updated>
+ <updated>2018-08-21T20:25:57-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>A Semantic Loss Function for Deep Learning with Symbolic Knowledge</title>
+   <link href="https://shagunsodhani.in/papers-I-read/A-Semantic-Loss-Function-for-Deep-Learning-with-Symbolic-Knowledge"/>
+   <updated>2018-08-21T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/A Semantic Loss Function for Deep Learning with Symbolic Knowledge</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes an approach for using symbolic knowledge in deep learning systems. These constraints are often expressed as boolean constraints on the output of the deep learning system and directly incorporting these constraints break the differentialbility of the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1711.11157&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;problem-setting&quot;&gt;Problem Setting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is given some input data to perform predicitions and symbolic knowledge is provided in form of boolean constraints like exactly-one constraint for one-hot output encoding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most approaches tend to encode the symbolic knowledge in the vector space embedding to keep the model pipeline differentiable. In this process, the precise meaning of symbolic knowledge is often lost.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A differentiable “semantic loss” is derieved which captures the meaning of the constrain while being independent of its syntax.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;terminology&quot;&gt;Terminology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A state &lt;strong&gt;x&lt;/strong&gt; (state refers to the instantiation of boolean variables) satisfies a sentence &lt;em&gt;a&lt;/em&gt; if &lt;em&gt;a&lt;/em&gt; evaluates to true when using the variables as specified by &lt;strong&gt;x&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A sentence &lt;em&gt;a&lt;/em&gt; entails another sentence &lt;em&gt;b&lt;/em&gt; if all states that satisfy &lt;em&gt;a&lt;/em&gt; also satify &lt;em&gt;b&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The row output vector of the neural network is denoted as &lt;em&gt;p&lt;/em&gt; where each value in &lt;em&gt;p&lt;/em&gt; denotes the probability of an output.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three different output constraints are studied:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Exactly-one constraint&lt;/em&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Exactly one value in &lt;em&gt;p&lt;/em&gt; should be true.&lt;/li&gt;
+          &lt;li&gt;Can be expressed in boolean logic as follows: Let (x1, x2, …, xn) be variables in &lt;em&gt;p&lt;/em&gt;. Then (not xi or not xj) for all pair of variables and (x1 or x2 or … xn).&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Valid Simple Path Constraint&lt;/em&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Set of edges must form a valid path.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Ordering Constraint&lt;/em&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Defining an ordering over the variables.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;semantic-loss&quot;&gt;Semantic Loss&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The semantic loss &lt;em&gt;L&lt;sup&gt;s&lt;/sup&gt;(a, p)&lt;/em&gt; is a function of a propositional logic sentence &lt;em&gt;a&lt;/em&gt; (the symbolic knowldge constraint) and &lt;em&gt;p&lt;/em&gt; (output of the neural network).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;a&lt;/em&gt; is defined over variables (x1, …, xn) and &lt;em&gt;p&lt;/em&gt; is interpreted as a vector of probabilities corresponding to these variables &lt;em&gt;xi’s&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The semantic loss is directly propotional to the negative log liklihood of generating a state that satisfies the constraints when sampling values according to the distribution &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;main-axioms-and-insights&quot;&gt;Main Axioms and Insights&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Monotonicity&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;If a sentence &lt;em&gt;a&lt;/em&gt; entails another sentence &lt;em&gt;b&lt;/em&gt; then for any given &lt;em&gt;p&lt;/em&gt;, &lt;em&gt;L&lt;sup&gt;s&lt;/sup&gt;(a, p) &amp;gt; L&lt;sup&gt;s&lt;/sup&gt;(b, p)&lt;/em&gt; ie adding more constraints cannot decrease the semantic loss.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Semantic Equivalence&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;If two sentences are logically equivalent, their semantic loss is the same.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Identity&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;For any given sentence &lt;em&gt;a&lt;/em&gt;, its representation as a sentence is equivalent to its representation as a deterministic vector ie writing the “one-hot” constraint as a boolean expression is equivalent to a one-hot vector.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Satisfaction&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;If &lt;em&gt;p&lt;/em&gt; entails the sentence &lt;em&gt;a&lt;/em&gt; then &lt;em&gt;L&lt;sup&gt;s&lt;/sup&gt;(a, p) = 0&lt;/em&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Label-literal correspondence&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;When the constraint is defined in terms of a single variable, it can be interpreted as the supervised label.&lt;/li&gt;
+      &lt;li&gt;Hence the semantic loss in case of a single variable should be equivalent to the cross-entropy loss.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Truth&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;The semantic loss of a true sentence is 0&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Non-negativity&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Semantic loss should always be non-negative.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Probabilities of variables that are not part of the constraint, do not affect the semantic loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;It can be shown that the semantic loss function satisfies all these axioms (and the other axioms specified in the paper) and is the only function to do so, up to a multiplicative constant.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-evaluation&quot;&gt;Experimental Evaluation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Semantic Loss is used in semi-supervised setting for Permuted MNIST, Fashion MNIST and CIFAR-10.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key takeaway is that using semantic loss improves the performance of the state-of-the-art models for Fashion MNIST and CIFAR-10.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One downside is that the effectiveness of the semantic loss in this type of constraint strongly depends on the performance of the underlying model. Further, the semantic loss does not imporve the performance in case of fully supervised scenario.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further experiments are performed to evaluate the performance of the semantic loss on complex constraints. Since these tasks aim to highlight the effect of using semantic loss, only simple models (MLPs) are evaluated.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tractibility-of-semantic-loss&quot;&gt;Tractibility of Semantic Loss&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The semantic loss is similar to the automated reasoning task called as weight model counting (wmc).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Circuit complier techniques can be used to compute wmc while allowing backpropogation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The proposed idea is simple and intutive and the results on semi-supervised classification task are quite good. It would be interesting to extend and scale this method for more complex constraints.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Hierarchical Graph Representation Learning with Differentiable Pooling</title>
