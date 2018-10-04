@@ -4,13 +4,91 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-09-12T08:04:48-04:00</updated>
+ <updated>2018-10-04T09:05:44-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>When Recurrent Models Don’t Need To Be Recurrent</title>
+   <link href="https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent"/>
+   <updated>2018-10-04T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/When Recurrent Models Don’t Need To Be Recurrent</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper explores “if a well behaved RNN can be replaced by a feed-forward network of comparable size without loss in performance.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“Well behaved” is defined in terms of control-theoretic notion of stability. This roughly requires that the gradients do not explode over time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that under the stability assumption, feedforward networks can approximate RNNs for both training and inference. The results are empirically validated as well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.10369&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;problem-setting&quot;&gt;Problem Setting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider a general, non linear dynamical system given by a differential state transition map Φ&lt;sub&gt;w&lt;/sub&gt;. The hidden h&lt;sub&gt;t&lt;/sub&gt; = Φ&lt;sub&gt;w&lt;/sub&gt;(h&lt;sub&gt;t-1&lt;/sub&gt;, x&lt;sub&gt;t&lt;/sub&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Assumptions:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Φ is smooth in w and h.&lt;/li&gt;
+      &lt;li&gt;h&lt;sub&gt;0&lt;/sub&gt; = 0&lt;/li&gt;
+      &lt;li&gt;Φ&lt;sub&gt;w&lt;/sub&gt;(0, 0) = 0 (can be ensured by translation)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Stable models are the ones where Φ is contractive ie Φ&lt;sub&gt;w&lt;/sub&gt;(h, x) - Φ&lt;sub&gt;w&lt;/sub&gt;(h’, x) is less than Λ * (h - h’)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;For example, in RNN, stability would require that&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;w&lt;/td&gt;
+          &lt;td&gt; &lt;/td&gt;
+          &lt;td&gt;is less than (L&lt;sub&gt;p&lt;/sub&gt;)&lt;sup&gt;-1&lt;/sup&gt; where L&lt;sub&gt;p&lt;/sub&gt; is the Lipschitz constant of the point-wise non linearity used.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The feedforward approximation uses a finite context (of length k) and is a truncated model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;A non-parametric function f maps the output of the recurrent model to prediction. If f is desired to be a parametric model, its parameters can be pushed to the recurrent model.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;theoretical-results&quot;&gt;Theoretical Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a Λ-contractive system, it can be proved that for a large k (and additional Lipschitz assumptions) the difference in prediction between the recurrent and truncated mode is negligible.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the recurrent model and truncated feed-forward network are initialized at the same point and trained over the same input for N-step, then for an optimal k, the weights of the two models would be very close in the Euclidean space. It can be shown that this small difference does not lead to large gradient differences during subsequent update steps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This can be roughly interpreted as - if the gradient descent can train a stable recurrent network, it can also train a feedforward model and vice-versa.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The stability condition is important as, without that, truncated models would be bad (even for large values of k). Further, it is difficult to show that gradient descent converges to a stationary point.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Emergence of Grounded Compositional Language in Multi-Agent Populations</title>
