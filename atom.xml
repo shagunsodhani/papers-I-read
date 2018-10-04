@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-10-04T09:05:44-04:00</updated>
+ <updated>2018-10-04T09:07:25-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -57,9 +57,7 @@
       &lt;tbody&gt;
         &lt;tr&gt;
           &lt;td&gt;For example, in RNN, stability would require that&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
           &lt;td&gt;w&lt;/td&gt;
-          &lt;td&gt; &lt;/td&gt;
           &lt;td&gt;is less than (L&lt;sub&gt;p&lt;/sub&gt;)&lt;sup&gt;-1&lt;/sup&gt; where L&lt;sub&gt;p&lt;/sub&gt; is the Lipschitz constant of the point-wise non linearity used.&lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
