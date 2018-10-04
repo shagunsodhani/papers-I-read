@@ -162,20 +162,14 @@
     <p>Stable models are the ones where Φ is contractive ie Φ<sub>w</sub>(h, x) - Φ<sub>w</sub>(h’, x) is less than Λ * (h - h’)</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>For example, in RNN, stability would require that</td>
-          <td>w</td>
-          <td>is less than (L<sub>p</sub>)<sup>-1</sup> where L<sub>p</sub> is the Lipschitz constant of the point-wise non linearity used.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>For example, in RNN, stability would require that norm(w) is less than (L<sub>p</sub>)<sup>-1</sup> where L<sub>p</sub> is the Lipschitz constant of the point-wise non linearity used.</p>
   </li>
   <li>
     <p>The feedforward approximation uses a finite context (of length k) and is a truncated model.</p>
   </li>
-  <li>A non-parametric function f maps the output of the recurrent model to prediction. If f is desired to be a parametric model, its parameters can be pushed to the recurrent model.</li>
+  <li>
+    <p>A non-parametric function f maps the output of the recurrent model to prediction. If f is desired to be a parametric model, its parameters can be pushed to the recurrent model.</p>
+  </li>
 </ul>
 
 <h2 id="theoretical-results">Theoretical Results</h2>

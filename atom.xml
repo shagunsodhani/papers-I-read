@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-10-04T09:07:25-04:00</updated>
+ <updated>2018-10-04T09:08:42-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -53,20 +53,14 @@
     &lt;p&gt;Stable models are the ones where Φ is contractive ie Φ&lt;sub&gt;w&lt;/sub&gt;(h, x) - Φ&lt;sub&gt;w&lt;/sub&gt;(h’, x) is less than Λ * (h - h’)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;For example, in RNN, stability would require that&lt;/td&gt;
-          &lt;td&gt;w&lt;/td&gt;
-          &lt;td&gt;is less than (L&lt;sub&gt;p&lt;/sub&gt;)&lt;sup&gt;-1&lt;/sup&gt; where L&lt;sub&gt;p&lt;/sub&gt; is the Lipschitz constant of the point-wise non linearity used.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;For example, in RNN, stability would require that norm(w) is less than (L&lt;sub&gt;p&lt;/sub&gt;)&lt;sup&gt;-1&lt;/sup&gt; where L&lt;sub&gt;p&lt;/sub&gt; is the Lipschitz constant of the point-wise non linearity used.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The feedforward approximation uses a finite context (of length k) and is a truncated model.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;A non-parametric function f maps the output of the recurrent model to prediction. If f is desired to be a parametric model, its parameters can be pushed to the recurrent model.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A non-parametric function f maps the output of the recurrent model to prediction. If f is desired to be a parametric model, its parameters can be pushed to the recurrent model.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;theoretical-results&quot;&gt;Theoretical Results&lt;/h2&gt;
