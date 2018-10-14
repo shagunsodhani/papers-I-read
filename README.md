@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Poincaré Embeddings for Learning Hierarchical Representations](https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations)
 * [When Recurrent Models Don’t Need To Be Recurrent](https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent)
 * [Emergence of Grounded Compositional Language in Multi-Agent Populations](https://shagunsodhani.in/papers-I-read/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations)
 * [A Semantic Loss Function for Deep Learning with Symbolic Knowledge](https://shagunsodhani.in/papers-I-read/A-Semantic-Loss-Function-for-Deep-Learning-with-Symbolic-Knowledge)
