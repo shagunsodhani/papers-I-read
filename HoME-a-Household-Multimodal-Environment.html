@@ -11,7 +11,7 @@
 
   <title>
     
-      An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks &middot; Papers I Read
+      HoME - a Household Multimodal Environment &middot; Papers I Read
     
   </title>
 
@@ -123,87 +123,110 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2014" title="Pages tagged 2014" rel="tag">2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2014" title="Pages tagged ICLR 2014" rel="tag">ICLR 2014</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Activation" title="Pages tagged Activation" rel="tag">Activation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a></p>
-  <span class="post-date">05 Mar 2018</span>
+  <h1 class="post-title">HoME - a Household Multimodal Environment</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Multi+Modal" title="Pages tagged Multi Modal" rel="tag">Multi Modal</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS+2017" title="Pages tagged NIPS 2017" rel="tag">NIPS 2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS+Workskop" title="Pages tagged NIPS Workskop" rel="tag">NIPS Workskop</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Virtual+Embodiment" title="Pages tagged Virtual Embodiment" rel="tag">Virtual Embodiment</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NIPS" title="Pages tagged NIPS" rel="tag">NIPS</a></p>
+  <span class="post-date">27 Sep 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p><em>Catastrophic Forgetting</em> refers to the phenomenon where when a learning system is trained on two tasks in succession, it may forget how to perform the first task.</p>
+    <p>Environment for learning using modalities like vision, audio, semantics, physics and interaction with objects and other agents.</p>
   </li>
   <li>
-    <p>The paper investigates this behaviour for different learning activations in presence and absence of dropout.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1312.6211">Link to the paper</a></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/goodfeli/forgetting">Link to the implementation</a></p>
+    <p><a href="https://arxiv.org/abs/1711.11017">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="experiment-formulation">Experiment Formulation</h2>
+<h2 id="motivation">Motivation</h2>
 
 <ul>
   <li>
-    <p>For each experiment, two tasks are defined - “old” task and “new” task.</p>
+    <p>Humans learn by interacting with their surroundings (environment).</p>
   </li>
   <li>
-    <p>The network is first trained on the “old” task until the validation set error has not improved for the last 100 epochs.</p>
+    <p>Similarly training an agent in an interactive multi-model environment (virtual embodiment) could be useful for a learning agent.</p>
   </li>
-  <li>
-    <p>The “best” performing model is then trained for the “new” task until the combined error on the “old” and the “new” validation datasets has not improved in the last 100 epochs.</p>
-  </li>
-  <li>
-    <p>All the tasks used the same model architecture - 2 hidden layers followed by a softmax layer.</p>
-  </li>
-  <li>Following activations were tested:
-    <ul>
-      <li>Sigmoid</li>
-      <li>ReLU</li>
-      <li>Hard Local Winner Takes It All</li>
-      <li>Maxout</li>
-    </ul>
-  </li>
-  <li>
-    <p>Models were trained using SGD with or without dropout.</p>
-  </li>
-  <li>
-    <p>For each combination of the model, activation and the training mechanism, a random hyper param search was performed with set of 25 hyperparams.</p>
-  </li>
-  <li>The authors took care to keep the hyperparams and other settings consistent and comparable across different experiments. Deviations, wherever applicable, and their reasons were documented.</li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h2 id="characteristics">Characteristics</h2>
 
 <ul>
   <li>
-    <p>In terms of the relationship between the “old” and the “new” tasks, three kinds of settings are considered:</p>
+    <p>Open-source and Open-AI gym compatible</p>
+  </li>
+  <li>
+    <p>Built on top of 45000 3D house layouts from SUNCG dataset.</p>
+  </li>
+  <li>
+    <p>Provides both 3D visual and audio recording.</p>
+  </li>
+  <li>
+    <p>Semantic image segmentation and langauge description of objects.</p>
+  </li>
+</ul>
+
+<h2 id="components">Components</h2>
+
+<ul>
+  <li>
+    <p>Rendering Engine</p>
 
     <ul>
       <li>
-        <p>The tasks are very very similar but the input is processed in a different format. For this setting, MNIST dataset was used with a different permutation of pixels for the “old” and the “new” task.</p>
+        <p>Implemented using Panda 3D game engine.</p>
       </li>
       <li>
-        <p>The tasks are similar but not exactly the same. For this setting, the task was to predict sentiments of reviews across 2 different product categories.</p>
-      </li>
-      <li>
-        <p>In the last setting, 2 dissimilar tasks were used. One task was to predict sentiment of reviews and another task was to perform classification over MNIST dataset (reduced to 2 classes).</p>
+        <p>Renders RGB+depth scenes based on textures, multi-source lightings and shadows.</p>
       </li>
     </ul>
   </li>
   <li>
-    <p>Using Dropout improved the overall validation performance for all the models for all the tasks.</p>
+    <p>Acoustic Engine</p>
+
+    <ul>
+      <li>
+        <p>Implemented using EVERT</p>
+      </li>
+      <li>
+        <p>Supports multiple microphones, sound sources, sound absorption based on material, atmospheric conditions etc.</p>
+      </li>
+    </ul>
   </li>
   <li>
-    <p>Using Dropout also increase the size of the optimal model across all the activations indicating that maybe the increased size of the model could explain the increased resistance to forgetting. It would have been interesting to check if dropout always selected the largest model possible given the set of the hyperparams.</p>
+    <p>Semantics Engine</p>
+
+    <ul>
+      <li>Provides a short textual description for each object, along with information like color, category, material size, location etc.</li>
+    </ul>
   </li>
   <li>
-    <p>On the dissimilar task, dropout improved the performance while reducing the model size so it might have other properties as well that helps to prevent forgetting.</p>
+    <p>Physics Engine</p>
+
+    <ul>
+      <li>
+        <p>Implemented using Bullet3 Engine</p>
+      </li>
+      <li>
+        <p>Supports physical interaction, external forces like gravity and position and velocity information for multiple agents.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="potential-applications">Potential Applications</h2>
+
+<ul>
+  <li>
+    <p>Visual Question Answering</p>
   </li>
   <li>
-    <p>As compared to the choice of training technique, the activation function has a less consistent effect on resistance to forgetting. The paper recommends performing cross-validation for the choice of the activation function. If that is not feasible, maxout activation function with dropout could be used.</p>
+    <p>Conversational Agents</p>
+  </li>
+  <li>
+    <p>Training an agent to follow instructions</p>
+  </li>
+  <li>
+    <p>Multi-agent communication</p>
   </li>
 </ul>
 
@@ -233,9 +256,9 @@
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/HoME-a-Household-Multimodal-Environment">
-            HoME - a Household Multimodal Environment
-            <small>27 Sep 2018</small>
+          <a href="https://shagunsodhani.in/papers-I-read/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations">
+            Emergence of Grounded Compositional Language in Multi-Agent Populations
+            <small>12 Sep 2018</small>
           </a>
         </h3>
       </li>
@@ -256,8 +279,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/HoME-a-Household-Multimodal-Environment"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/HoME-a-Household-Multimodal-Environment"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
