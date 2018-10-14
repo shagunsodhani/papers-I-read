@@ -4,13 +4,152 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-10-04T09:08:42-04:00</updated>
+ <updated>2018-10-14T09:48:40-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Poincaré Embeddings for Learning Hierarchical Representations</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations"/>
+   <updated>2018-10-11T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Poincare Embeddings for Learning Hierarchical Representations</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Much of the work in representation leaning uses Euclidean vector spaces to embed datapoints (like words, nodes, entities etc).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This approach is not effective when data has a (latent) hierarchical structure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to compute the embeddings in the hyperbolic space so as to preserve both the similarity and structure information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/1705.08039.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hyperbolic-geometry&quot;&gt;Hyperbolic Geometry&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperbolic spaces are spaces with a constant negative curvature while Euclidean spaces have zero curvature.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The hyperbolic disc area and circle length increase exponentially with the radius r while in Euclidean space, it increases quadratically and linearly respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This makes the hyperbolic space more suitable for embedding tree-like structures where the number of nodes increases as we move away from the root.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperbolic spaces can be thought of as the continuous version of trees and trees can be thought of as the discrete version of hyperbolic spaces.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;poincare-embeddings&quot;&gt;Poincare Embeddings&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Poincare model is one of the several possible models of the hyperbolic space and is considered here as it is more amenable to gradient-based optimisation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Distance between 2 pints change smoothly and is symmetric. Thus the hierarchical organisation only depends on the distance from the origin which makes the model applicable in settings where the hierarchical structure needs to be inferred from the data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Eventually the norm of a point represents its hierarchy and distance between the points represents similarity.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;optimization&quot;&gt;Optimization&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RSGD (Riemannian SGD) method is used.&lt;/li&gt;
+  &lt;li&gt;Riemannian gradients can be computed from the Euclidean gradients by rescaling with the inverse of the Poincare ball metric tensor.&lt;/li&gt;
+  &lt;li&gt;The embeddings are constrained to be within the Poincare ball by projection operation which normalizes the magnitude of embeddings to be 1.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training-details&quot;&gt;Training Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Initializing the embeddings close to 0 (by sampling uniformly from (-0.001, 0.001)) helps.&lt;/li&gt;
+  &lt;li&gt;The model is trained for an initial burn-out period of 10 epochs with 0.1 times the learning rate so as to find a better initial angular layout.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;evaluation&quot;&gt;Evaluation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Embedding taxonomy for wordnet task&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Setup&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Reconstruction&lt;/li&gt;
+          &lt;li&gt;Link Prediction&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The input data is a collection of a pair of words (u, v) which are related to each other.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For each word pair, 10 negative samples of the form (u, v’) are sampled and the training procedure uses a soft ranking loss that aims to bring the related objects closer together.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Network Embedding&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Baselines&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Euclidean Embeddings&lt;/li&gt;
+          &lt;li&gt;Translational Embedding where a relation vector corresponding to the edge type is also learnt.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Datasets&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;ASTROPH&lt;/li&gt;
+          &lt;li&gt;CONDMAT&lt;/li&gt;
+          &lt;li&gt;GRQC&lt;/li&gt;
+          &lt;li&gt;HEPPH&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lexical Entailment&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
+
+* The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperbolic embeddings are not suitable for all the datasets. Eg if the dataset is not tree-like or has cycles.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperbolic embeddings are difficult to optimize as each operation needs to be modified to be usable in the hyperbolic space.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>When Recurrent Models Don’t Need To Be Recurrent</title>
