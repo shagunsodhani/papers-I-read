@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop](https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop)
 * [Poincaré Embeddings for Learning Hierarchical Representations](https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations)
 * [When Recurrent Models Don’t Need To Be Recurrent](https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent)
 * [HoME - a Household Multimodal Environment](https://shagunsodhani.in/papers-I-read/HoME-a-Household-Multimodal-Environment)
