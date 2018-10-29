@@ -4,13 +4,175 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-10-14T10:51:13-04:00</updated>
+ <updated>2018-10-28T20:03:34-04:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop</title>
+   <link href="https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop"/>
+   <updated>2018-10-18T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/BabyAI-First Steps Towards Grounded Language Learning With a Human In the Loop</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BabyAI is a research platform to investigate and support the feasibility of including humans in the loop for grounded language learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The setup is a series of levels (of increasing difficulty) to train the agent to acquire a synthetic language (Baby Language) which is a proper subset of English language.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1810.08272&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BabyAI platform provides support for curriculum learning and interactive learning as part of its human-in-the-loop training setup.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Curriculum learning is incorporated by having a curriculum of levels of increasing difficulty.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interactive learning is supported by including a heuristic expert which can provide new demonstrations on the fly to the learning agent.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The heuristic expert can be thought of as the human-in-the-loop which can guide the agent through the learning process.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One downside of human-in-the-loop is the poor sample complexity of the learning agent. The heuristic agent can be used to estimate the sample  efficiency.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;contribution&quot;&gt;Contribution&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BabyAI research platform for grounded language learning with a simulated human-in-the-loop.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baseline results for performance and sample efficiency for the different tasks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;babyai-platform&quot;&gt;BabyAI Platform&lt;/h2&gt;
+
+&lt;h3 id=&quot;environment&quot;&gt;Environment&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MiniGrid - A partially observable 2D grid-world environment.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Entities - Agent, ball, box, door, keys&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Actions - pick, drop or move objects, unlock doors etc.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;baby-language&quot;&gt;Baby Language&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Synthetic Language (a proper subset of English) - Used to give instructions to the agent&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Support for verifying if the task (and the subtasks) are completed or not&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;levels&quot;&gt;Levels&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A level is an instruction-following task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Formally, a level is a distribution of missions - a combination of initial state of the environment and an instruction (in Baby Language)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Motivated by curriculum learning, the authors create a series of tasks (with increasing difficulty).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A subset of skills (competencies) is required for solving each task. The platform takes into account this constraint when creating a level.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;heuristic-expert&quot;&gt;Heuristic Expert&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The platform supports a Heuristic expert that simulates the role of a human teacher and knows how to solve each task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For any level, it can suggest actions or generate demonstrations (given the state of the environment).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;An imitation learning baseline is trained for each level.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data requirement for each level and the benefits of curriculum learning and imitation learning are investigated (in terms of sample efficiency).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model-architecture&quot;&gt;Model Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GRU to encode the sentence, CNN to encode the input observation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;FiLM layer to combine the two representations&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LSTM to encode the per-timestep FiLM encoding (timesteps in the environment)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two model variants are considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Large Model - Bidirectional GRU + attention + large hidden state&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Small Model - Unidirectional GRU + No attention + small hidden state&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heuristic expert used to generate trajectory and the models are trained by imitation learning (to be used as baselines)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key takeaway is that the current deep learning approaches are extremely sample inefficient when learning a compositional language.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data efficiency of RL methods is much worse than that of imitation learning methods showing that the current imitation learning and reinforcement learning methods scale and generalize poorly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Curriculum-based pretraining and interactive learning was found to be useful in only some cases.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Poincaré Embeddings for Learning Hierarchical Representations</title>
