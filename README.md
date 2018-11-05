@@ -5,6 +5,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Learned Optimizers that Scale and Generalize](https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize)
+* [One-shot Learning with Memory-Augmented Neural Networks](https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks)
 * [BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop](https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop)
 * [Poincaré Embeddings for Learning Hierarchical Representations](https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations)
 * [When Recurrent Models Don’t Need To Be Recurrent](https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent)
