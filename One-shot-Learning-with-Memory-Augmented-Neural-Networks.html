@@ -124,7 +124,7 @@
       <div class="container content">
         <div class="post">
   <h1 class="post-title">One-shot Learning with Memory-Augmented Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory+Augmented+Neural+Network%27" title="Pages tagged Memory Augmented Neural Network'" rel="tag">Memory Augmented Neural Network'</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#One+shot+learning" title="Pages tagged One shot learning" rel="tag">One shot learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#MANN" title="Pages tagged MANN" rel="tag">MANN</a></p>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory+Augmented+Neural+Network%27" title="Pages tagged Memory Augmented Neural Network'" rel="tag">Memory Augmented Neural Network'</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Meta-Learning" title="Pages tagged Meta-Learning" rel="tag">Meta-Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#One+shot+learning" title="Pages tagged One shot learning" rel="tag">One shot learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#MANN" title="Pages tagged MANN" rel="tag">MANN</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a></p>
   <span class="post-date">25 Oct 2018</span>
   <h2 id="introduction">Introduction</h2>
 
@@ -133,7 +133,7 @@
     <p>The paper demonstrates that Memory Augmented Neural Networks (MANN) are suitable for one-shot learning by introducing a new method for accessing an external memory.</p>
   </li>
   <li>
-    <p>This method focuses on memory content while earlier methods additionally used memory location based focusing mechasims.</p>
+    <p>This method focuses on memory content while earlier methods additionally used memory location based focusing mechanisms.</p>
   </li>
   <li>
     <p>Here, MANN refers to neural networks that have an external memory. This includes Neural Turning Machines (NTMs) and excludes LSTMs.</p>
@@ -143,11 +143,11 @@
   </li>
 </ul>
 
-<h2 id="meta-learning">Meta Learning</h2>
+<h2 id="meta-learning">Meta-Learning</h2>
 
 <ul>
   <li>
-    <p>In meta learning, a learner is learning at two levels.</p>
+    <p>In meta-learning, a learner is learning at two levels.</p>
   </li>
   <li>
     <p>The learner is shown a sequence of tasks D<sub>1</sub>, D<sub>2</sub>, …, D<sub>T</sub>.</p>
@@ -164,7 +164,7 @@
 
 <ul>
   <li>
-    <p>Following are the desirable chracteristics for a scalable, combined architecture:</p>
+    <p>Following are the desirable characteristics for a scalable, combined architecture:</p>
 
     <ul>
       <li>
@@ -181,7 +181,7 @@
 
 <ul>
   <li>
-    <p>In standard learning, the goal is to reduce error on some dataset D. In meta learning, the goal is to reduce the error across a distribution of datasets p(D).</p>
+    <p>In standard learning, the goal is to reduce error on some dataset D. In meta-learning, the goal is to reduce the error across a distribution of datasets p(D).</p>
   </li>
   <li>
     <p>Each dataset is presented to the model in the form (x<sub>1</sub>, null), (x<sub>1</sub>, y<sub>0</sub>), …, (x<sub>t+1</sub>, y<sub>t</sub>) where y<sub>t</sub> is the correct label (or value) corresponding to the inpuit x<sub>t</sub>.</p>
@@ -190,7 +190,7 @@
     <p>Further, the data labels are shuffled from dataset to dataset.</p>
   </li>
   <li>
-    <p>The model must learn to hold the datasamples in memory till the appropriate candidate lables are presented in the next step.</p>
+    <p>The model must learn to hold the data samples in memory till the appropriate candidate labels are presented in the next step.</p>
   </li>
   <li>
     <p>The idea is that a model that meta learns would learn to map data representation to correct labels regardless of the actual context of data representation or the label.</p>
@@ -199,13 +199,13 @@
     <p>The paper uses NTM as the MANN with one modification.</p>
   </li>
   <li>
-    <p>In the original firmulation, the memories were addressed by both context and location. Location based addressing is notr optimal for cuurrent setup where information encoding is not independent of the sequence.</p>
+    <p>In the original formulation, the memories were addressed by both context and location. Location-based addressing is not optimal for the current setup where information encoding is not independent of the sequence.</p>
   </li>
   <li>
     <p>A new access module - LRUA - Least Recent Used Access - is used to write to memory.</p>
   </li>
   <li>
-    <p>LRUA is purely content based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant informatrion). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.</p>
+    <p>LRUA is purely content-based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant information). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.</p>
   </li>
 </ul>
 
@@ -224,10 +224,10 @@
 
 <ul>
   <li>
-    <p>For the omniglot dataset, the model was trained with various combinations of randomly choosen classes with randomly choosen labels.</p>
+    <p>For the omniglot dataset, the model was trained with various combinations of randomly chosen classes with randomly chosen labels.</p>
   </li>
   <li>
-    <p>As baseline, following models were considered:</p>
+    <p>As baselines, following models were considered:</p>
 
     <ul>
       <li>Regular NTM</li>
@@ -237,10 +237,10 @@
     </ul>
   </li>
   <li>
-    <p>Since each episode (dataset created by combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.</p>
+    <p>Since each episode (dataset created by the combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.</p>
   </li>
   <li>
-    <p>For the regression task, the data was generated from a GP prior with fixed set of hyper-parameters which resulted in different functions.</p>
+    <p>For the regression task, the data was generated from a GP prior with a fixed set of hyper-parameters which resulted in different functions.</p>
   </li>
   <li>
     <p>For both the tasks, the MANN architecture outperforms the LSTM architecture baseline NTMs.</p>
@@ -256,6 +256,15 @@
     
       <li>
         <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize">
+            Learned Optimizers that Scale and Generalize
+            <small>01 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop">
             BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop
             <small>18 Oct 2018</small>
@@ -268,15 +277,6 @@
           <a href="https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations">
             Poincaré Embeddings for Learning Hierarchical Representations
             <small>11 Oct 2018</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent">
-            When Recurrent Models Don’t Need To Be Recurrent
-            <small>04 Oct 2018</small>
           </a>
         </h3>
       </li>

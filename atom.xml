@@ -4,13 +4,91 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-11-04T23:06:26-05:00</updated>
+ <updated>2018-11-04T23:30:56-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Learned Optimizers that Scale and Generalize</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize"/>
+   <updated>2018-11-01T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Learned Optimizers that Scale and Generalize</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces a learned gradient descent optimizer that has low memory and computational overhead and that generalizes well to new tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1703.04813&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-advantage&quot;&gt;Key Advantage&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uses a hierarchial RNN architecture augmented by features like adapted input an output scaling, momentum etc.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A meta-learning set of small diverse optimization tasks, with diverse loss landscapes is developed. The learnt optimizer generalizes to much more complex tasks and setups.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A hierarchical RNN is designed to act as a learned optimizer. This RNN is the meta-learner and its parameters are shared across different tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learned optimizer takes as input the gradient (and related metadata) for each parameter and outputs the update to the parameters.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the lowest level of hierarchical, a small “parameter RNN” ingests the gradient (and related metadata).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One level up, an intermediate “Tensor RNN” incorporates information from a subset of Parameter RNNS (eg one Tensor RNN per layer of feedforward network).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the highest level is the glocal RNN which receives input from all the Tensor RNNs and can keep track of weight updates across the task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the input of each RNN is averaged and fed as input to the subsequent RNN and the output of each RNN is fed as bias to the previous RNN.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, the hidden states are fixed at 10, 30 and 20 respectively.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;features-inspired-from-existing-optimizers&quot;&gt;Features inspired from existing optimizers&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Attention and Nesterov’s momentum&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Attention mechanism is incorporated by attending to new regions of the loss surface (which are an offset from previous parameter location).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;To incorporate momentum on multiple timescales, the exponential moving average of the gradient at several timescales is also provided as input.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The average gradients are rescaled (as in RMSProp and Adam)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Relative log gradient magnitudes are also provided as input so that the optimizer can access how the gradient magnitude changes with time.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>One-shot Learning with Memory-Augmented Neural Networks</title>
@@ -24,7 +102,7 @@
     &lt;p&gt;The paper demonstrates that Memory Augmented Neural Networks (MANN) are suitable for one-shot learning by introducing a new method for accessing an external memory.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;This method focuses on memory content while earlier methods additionally used memory location based focusing mechasims.&lt;/p&gt;
+    &lt;p&gt;This method focuses on memory content while earlier methods additionally used memory location based focusing mechanisms.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Here, MANN refers to neural networks that have an external memory. This includes Neural Turning Machines (NTMs) and excludes LSTMs.&lt;/p&gt;
@@ -34,11 +112,11 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;meta-learning&quot;&gt;Meta Learning&lt;/h2&gt;
+&lt;h2 id=&quot;meta-learning&quot;&gt;Meta-Learning&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;In meta learning, a learner is learning at two levels.&lt;/p&gt;
+    &lt;p&gt;In meta-learning, a learner is learning at two levels.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The learner is shown a sequence of tasks D&lt;sub&gt;1&lt;/sub&gt;, D&lt;sub&gt;2&lt;/sub&gt;, …, D&lt;sub&gt;T&lt;/sub&gt;.&lt;/p&gt;
@@ -55,7 +133,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Following are the desirable chracteristics for a scalable, combined architecture:&lt;/p&gt;
+    &lt;p&gt;Following are the desirable characteristics for a scalable, combined architecture:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
@@ -72,7 +150,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;In standard learning, the goal is to reduce error on some dataset D. In meta learning, the goal is to reduce the error across a distribution of datasets p(D).&lt;/p&gt;
+    &lt;p&gt;In standard learning, the goal is to reduce error on some dataset D. In meta-learning, the goal is to reduce the error across a distribution of datasets p(D).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Each dataset is presented to the model in the form (x&lt;sub&gt;1&lt;/sub&gt;, null), (x&lt;sub&gt;1&lt;/sub&gt;, y&lt;sub&gt;0&lt;/sub&gt;), …, (x&lt;sub&gt;t+1&lt;/sub&gt;, y&lt;sub&gt;t&lt;/sub&gt;) where y&lt;sub&gt;t&lt;/sub&gt; is the correct label (or value) corresponding to the inpuit x&lt;sub&gt;t&lt;/sub&gt;.&lt;/p&gt;
@@ -81,7 +159,7 @@
     &lt;p&gt;Further, the data labels are shuffled from dataset to dataset.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The model must learn to hold the datasamples in memory till the appropriate candidate lables are presented in the next step.&lt;/p&gt;
+    &lt;p&gt;The model must learn to hold the data samples in memory till the appropriate candidate labels are presented in the next step.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The idea is that a model that meta learns would learn to map data representation to correct labels regardless of the actual context of data representation or the label.&lt;/p&gt;
@@ -90,13 +168,13 @@
     &lt;p&gt;The paper uses NTM as the MANN with one modification.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In the original firmulation, the memories were addressed by both context and location. Location based addressing is notr optimal for cuurrent setup where information encoding is not independent of the sequence.&lt;/p&gt;
+    &lt;p&gt;In the original formulation, the memories were addressed by both context and location. Location-based addressing is not optimal for the current setup where information encoding is not independent of the sequence.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A new access module - LRUA - Least Recent Used Access - is used to write to memory.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;LRUA is purely content based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant informatrion). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.&lt;/p&gt;
+    &lt;p&gt;LRUA is purely content-based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant information). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -115,10 +193,10 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;For the omniglot dataset, the model was trained with various combinations of randomly choosen classes with randomly choosen labels.&lt;/p&gt;
+    &lt;p&gt;For the omniglot dataset, the model was trained with various combinations of randomly chosen classes with randomly chosen labels.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;As baseline, following models were considered:&lt;/p&gt;
+    &lt;p&gt;As baselines, following models were considered:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;Regular NTM&lt;/li&gt;
@@ -128,10 +206,10 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Since each episode (dataset created by combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.&lt;/p&gt;
+    &lt;p&gt;Since each episode (dataset created by the combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;For the regression task, the data was generated from a GP prior with fixed set of hyper-parameters which resulted in different functions.&lt;/p&gt;
+    &lt;p&gt;For the regression task, the data was generated from a GP prior with a fixed set of hyper-parameters which resulted in different functions.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;For both the tasks, the MANN architecture outperforms the LSTM architecture baseline NTMs.&lt;/p&gt;
