@@ -11,7 +11,7 @@
 
   <title>
     
-      Word Representations via Gaussian Embedding &middot; Papers I Read
+      One-shot Learning with Memory-Augmented Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -123,86 +123,136 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Word Representations via Gaussian Embedding</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2015" title="Pages tagged ICLR 2015" rel="tag">ICLR 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">05 Nov 2017</span>
+  <h1 class="post-title">One-shot Learning with Memory-Augmented Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory+Augmented+Neural+Network%27" title="Pages tagged Memory Augmented Neural Network'" rel="tag">Memory Augmented Neural Network'</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#One+shot+learning" title="Pages tagged One shot learning" rel="tag">One shot learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#MANN" title="Pages tagged MANN" rel="tag">MANN</a></p>
+  <span class="post-date">25 Oct 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>Existing word embedding models like <a href="https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6">Skip-Gram</a>, <a href="https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8">GloVe</a> etc map words to fixed sized vectors in a low dimensional vector space.</li>
-  <li>This fixed point setting cannot capture uncertainty about representation.</li>
-  <li>Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.</li>
-  <li>The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.</li>
-  <li>This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.</li>
-  <li><a href="https://arxiv.org/abs/1412.6623">Link to the paper</a></li>
-  <li><a href="https://github.com/seomoz/word2gauss">Implementation</a></li>
+  <li>
+    <p>The paper demonstrates that Memory Augmented Neural Networks (MANN) are suitable for one-shot learning by introducing a new method for accessing an external memory.</p>
+  </li>
+  <li>
+    <p>This method focuses on memory content while earlier methods additionally used memory location based focusing mechasims.</p>
+  </li>
+  <li>
+    <p>Here, MANN refers to neural networks that have an external memory. This includes Neural Turning Machines (NTMs) and excludes LSTMs.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1605.06065">Link to the paper</a></p>
+  </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
-
-<ul>
-  <li>KL divergence is used as the asymmetric distance function for comparing the distributions.</li>
-  <li>Unlike the Word2Vec model, the proposed model uses ranking-based loss.</li>
-</ul>
-
-<h3 id="similarity-measures-used">Similarity Measures used</h3>
+<h2 id="meta-learning">Meta Learning</h2>
 
 <ul>
   <li>
-    <p><strong>Symmetric Similarity</strong></p>
-  </li>
-  <li>For two gaussian distributions, <em>P<sub>i</sub></em> and <em>P<sub>j</sub></em>, compute the inner product <em>E(P<sub>i</sub>, P<sub>j</sub>)</em> as <em>N(0; mean<sub>i</sub> - mean<sub>j</sub>, sigma<sub>i</sub> + sigma<sub>j</sub>)</em>.</li>
-  <li>Compute the gradient of <em>mean</em> and <em>sigma</em> with respect to <em>log(E)</em>.</li>
-  <li>
-    <p>The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.</p>
+    <p>In meta learning, a learner is learning at two levels.</p>
   </li>
   <li>
-    <p><strong>Asymmetric Similarity</strong></p>
+    <p>The learner is shown a sequence of tasks D<sub>1</sub>, D<sub>2</sub>, …, D<sub>T</sub>.</p>
   </li>
-  <li>Use KL divergence to encode the context distribution.</li>
-  <li>The benefit over the symmetric setting is that now entailment type relations can also be modeled.</li>
-  <li>For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.</li>
+  <li>
+    <p>When it is training on one of the datasets (say D<sub>T</sub>), it learns to solve the current dataset.</p>
+  </li>
+  <li>
+    <p>At the same time, the learner tries to incorporate knowledge about how task structure changes across different datasets (second level of learning).</p>
+  </li>
 </ul>
 
-<h2 id="learning">Learning</h2>
+<h2 id="mann--meta-learning">MANN + Meta Learning</h2>
 
 <ul>
-  <li>One of the two notions of similarity is chosen and max-margin is used as the loss function.</li>
-  <li>Mean is regularized by adding a simple constraint on the L2-norm.</li>
-  <li>For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.</li>
+  <li>
+    <p>Following are the desirable chracteristics for a scalable, combined architecture:</p>
+
+    <ul>
+      <li>
+        <p>Memory representation should be both stable and element-wise accessible.</p>
+      </li>
+      <li>
+        <p>Number of model parameters should not be tied to the size of the memory.</p>
+      </li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h2 id="task-setup">Task Setup</h2>
 
 <ul>
-  <li>Polysemous words have higher variance in their word embeddings as compared to specific words.</li>
-  <li>KL divergence (with diagonal covariance) outperforms other models.</li>
-  <li>Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.</li>
-  <li>For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.</li>
+  <li>
+    <p>In standard learning, the goal is to reduce error on some dataset D. In meta learning, the goal is to reduce the error across a distribution of datasets p(D).</p>
+  </li>
+  <li>
+    <p>Each dataset is presented to the model in the form (x<sub>1</sub>, null), (x<sub>1</sub>, y<sub>0</sub>), …, (x<sub>t+1</sub>, y<sub>t</sub>) where y<sub>t</sub> is the correct label (or value) corresponding to the inpuit x<sub>t</sub>.</p>
+  </li>
+  <li>
+    <p>Further, the data labels are shuffled from dataset to dataset.</p>
+  </li>
+  <li>
+    <p>The model must learn to hold the datasamples in memory till the appropriate candidate lables are presented in the next step.</p>
+  </li>
+  <li>
+    <p>The idea is that a model that meta learns would learn to map data representation to correct labels regardless of the actual context of data representation or the label.</p>
+  </li>
+  <li>
+    <p>The paper uses NTM as the MANN with one modification.</p>
+  </li>
+  <li>
+    <p>In the original firmulation, the memories were addressed by both context and location. Location based addressing is notr optimal for cuurrent setup where information encoding is not independent of the sequence.</p>
+  </li>
+  <li>
+    <p>A new access module - LRUA - Least Recent Used Access - is used to write to memory.</p>
+  </li>
+  <li>
+    <p>LRUA is purely content based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant informatrion). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.</p>
+  </li>
 </ul>
 
-<h2 id="future-work">Future Work</h2>
+<h2 id="datasets">Datasets</h2>
 
 <ul>
-  <li>Use combinations of low rank and diagonal matrices for covariances.</li>
-  <li>Improved optimisation strategies.</li>
-  <li>Trying other distributions like Student’s-t distribution.</li>
+  <li>
+    <p>Omniglot (classification)</p>
+  </li>
+  <li>
+    <p>Sampled functions from Gaussian Processes</p>
+  </li>
 </ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>For the omniglot dataset, the model was trained with various combinations of randomly choosen classes with randomly choosen labels.</p>
+  </li>
+  <li>
+    <p>As baseline, following models were considered:</p>
+
+    <ul>
+      <li>Regular NTM</li>
+      <li>LSTM</li>
+      <li>Feedforward RNN</li>
+      <li>Nearest Neighbour Classifier</li>
+    </ul>
+  </li>
+  <li>
+    <p>Since each episode (dataset created by combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.</p>
+  </li>
+  <li>
+    <p>For the regression task, the data was generated from a GP prior with fixed set of hyper-parameters which resulted in different functions.</p>
+  </li>
+  <li>
+    <p>For both the tasks, the MANN architecture outperforms the LSTM architecture baseline NTMs.</p>
+  </li>
+</ul>
+
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks">
-            One-shot Learning with Memory-Augmented Neural Networks
-            <small>25 Oct 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -218,6 +268,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations">
             Poincaré Embeddings for Learning Hierarchical Representations
             <small>11 Oct 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent">
+            When Recurrent Models Don’t Need To Be Recurrent
+            <small>04 Oct 2018</small>
           </a>
         </h3>
       </li>
@@ -238,8 +297,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Word-Representations-via-Gaussian-Embedding"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/One-shot-Learning-with-Memory-Augmented-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

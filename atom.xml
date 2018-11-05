@@ -4,13 +4,142 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-10-28T20:03:34-04:00</updated>
+ <updated>2018-11-04T23:06:26-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>One-shot Learning with Memory-Augmented Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks"/>
+   <updated>2018-10-25T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/One-shot Learning with Memory-Augmented Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper demonstrates that Memory Augmented Neural Networks (MANN) are suitable for one-shot learning by introducing a new method for accessing an external memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This method focuses on memory content while earlier methods additionally used memory location based focusing mechasims.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here, MANN refers to neural networks that have an external memory. This includes Neural Turning Machines (NTMs) and excludes LSTMs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1605.06065&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;meta-learning&quot;&gt;Meta Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In meta learning, a learner is learning at two levels.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learner is shown a sequence of tasks D&lt;sub&gt;1&lt;/sub&gt;, D&lt;sub&gt;2&lt;/sub&gt;, …, D&lt;sub&gt;T&lt;/sub&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When it is training on one of the datasets (say D&lt;sub&gt;T&lt;/sub&gt;), it learns to solve the current dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the same time, the learner tries to incorporate knowledge about how task structure changes across different datasets (second level of learning).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mann--meta-learning&quot;&gt;MANN + Meta Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Following are the desirable chracteristics for a scalable, combined architecture:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Memory representation should be both stable and element-wise accessible.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Number of model parameters should not be tied to the size of the memory.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;task-setup&quot;&gt;Task Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In standard learning, the goal is to reduce error on some dataset D. In meta learning, the goal is to reduce the error across a distribution of datasets p(D).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each dataset is presented to the model in the form (x&lt;sub&gt;1&lt;/sub&gt;, null), (x&lt;sub&gt;1&lt;/sub&gt;, y&lt;sub&gt;0&lt;/sub&gt;), …, (x&lt;sub&gt;t+1&lt;/sub&gt;, y&lt;sub&gt;t&lt;/sub&gt;) where y&lt;sub&gt;t&lt;/sub&gt; is the correct label (or value) corresponding to the inpuit x&lt;sub&gt;t&lt;/sub&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further, the data labels are shuffled from dataset to dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model must learn to hold the datasamples in memory till the appropriate candidate lables are presented in the next step.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is that a model that meta learns would learn to map data representation to correct labels regardless of the actual context of data representation or the label.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper uses NTM as the MANN with one modification.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the original firmulation, the memories were addressed by both context and location. Location based addressing is notr optimal for cuurrent setup where information encoding is not independent of the sequence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new access module - LRUA - Least Recent Used Access - is used to write to memory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LRUA is purely content based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant informatrion). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;datasets&quot;&gt;Datasets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Omniglot (classification)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sampled functions from Gaussian Processes&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the omniglot dataset, the model was trained with various combinations of randomly choosen classes with randomly choosen labels.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As baseline, following models were considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Regular NTM&lt;/li&gt;
+      &lt;li&gt;LSTM&lt;/li&gt;
+      &lt;li&gt;Feedforward RNN&lt;/li&gt;
+      &lt;li&gt;Nearest Neighbour Classifier&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since each episode (dataset created by combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the regression task, the data was generated from a GP prior with fixed set of hyper-parameters which resulted in different functions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For both the tasks, the MANN architecture outperforms the LSTM architecture baseline NTMs.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop</title>
