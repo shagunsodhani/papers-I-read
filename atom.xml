@@ -4,13 +4,202 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-11-04T23:30:56-05:00</updated>
+ <updated>2018-12-11T06:54:25-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Representation Tradeoffs for Hyperbolic Embeddings</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings"/>
+   <updated>2018-12-11T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Representation Tradeoffs for Hyperbolic Embeddings</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes a combinatorial approach to embed trees into hyperbolic spaces without performing optimization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting mechanism is analyzed to obtain dimensionality-precision tradeoffs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To embed any metric spaces in the hyperbolic spaces, a hyperbolic generalization of the multidimensional scaling (h-MDS) is proposed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1804.03329&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preliminaries&quot;&gt;Preliminaries&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperbolic Spaces&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Have the “tree” like property ie the shortest path between a pair of points is almost the same as the path through the origin.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Generally, Poincare ball model is used given its advantages like conformity to the Euclidean spaces.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fidelity Measures&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Mean Average Precision - MAP&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;A local metric that ranks between distances of the immediate neighbors.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Distortion&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;A global metric that depends on the underlying distances and not just the local relationship between distances.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;combinatorial-construction-for-embedding-hierarchies-into-hyperbolic-spaces&quot;&gt;Combinatorial Construction for embedding hierarchies into Hyperbolic spaces&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Embed the given graph &lt;em&gt;G = (V, E)&lt;/em&gt; into a tree &lt;em&gt;T&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Embed the tree &lt;em&gt;T&lt;/em&gt; into the poincare ball &lt;em&gt;H&lt;sub&gt;d&lt;/sub&gt;&lt;/em&gt; of dimensionality &lt;em&gt;d&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;sarkars-construction-to-embed-points-in-a-2-d-poincare-ball&quot;&gt;Sarkar’s construction to embed points in a 2-d Poincare ball&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider two points &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt; (from the tree) where &lt;em&gt;b&lt;/em&gt; is the parent of &lt;em&gt;a&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Assume that &lt;em&gt;a&lt;/em&gt; is embedded as &lt;em&gt;f(a)&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt; is embedded as &lt;em&gt;f(b)&lt;/em&gt; and the children of &lt;em&gt;a&lt;/em&gt; needs to be embedded.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reflect &lt;em&gt;f(a)&lt;/em&gt; and &lt;em&gt;f(b)&lt;/em&gt; across a geodesic such that &lt;em&gt;f(a)&lt;/em&gt; is mapped to 0 (origin) while &lt;em&gt;f(b)&lt;/em&gt; is mapped to some new point &lt;em&gt;z&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Children of &lt;em&gt;a&lt;/em&gt; are placed at points &lt;em&gt;y&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; which are equally placed around a circle of radius &lt;em&gt;(e&lt;sup&gt;r&lt;/sup&gt; - 1) / (e&lt;sup&gt;r&lt;/sup&gt; + 1)&lt;/em&gt; and maximally seperated from &lt;em&gt;z&lt;/em&gt;, where &lt;em&gt;r&lt;/em&gt; is the scaling factor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then all the points are reflected back across the geodesic so that all children are at a distance &lt;em&gt;r&lt;/em&gt; from &lt;em&gt;f(a)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To embed the tree itself, place the root node at the origin, place its children around it in a circle, then place their children and so on.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In this construct, precision scales logarithmically with the degree of the tree but linearly with the maximum path length.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;d-dimensional-hyperbolic-spaces&quot;&gt;&lt;em&gt;d&lt;/em&gt;-dimensional hyperbolic spaces&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the &lt;em&gt;d&lt;/em&gt;-dimensional space, the points are embedded into hyperspheres (instead of circles).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The number of children node that can be placed for a particular angle grows with the dimension.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Increasing dimension helps with bushy trees (with high node degree).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hyperbolic-multidimensional-scaling-h-mds&quot;&gt;Hyperbolic multidimensional scaling (h-MDS)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the pairwise distance from a set of points in the hyperbolic space, how to recover the points?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The corresponding problem in the Euclidean space is solved using MDS.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A variant of MDS called as h-MDS is proposed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MDS makes a centering assumption that points have 0 mean. In h-MDS, a new mean (called as the pseudo-Euclidean mean) is introduced to enable recovery via matrix factorization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead of the Poincare model, the hyperboloid model is used (though the points can be mapped back and forth).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;pseudo-euclidean-mean&quot;&gt;pseudo-Euclidean Mean&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A set of points can always be centered without affecting their pairwise distance by simply finding their mean and sending it to 0 via isometry&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;recovery-via-matrix-factorization&quot;&gt;Recovery via matrix factorization&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the pairwise distances, a new matrix &lt;em&gt;Y&lt;/em&gt; is constructed by applying &lt;em&gt;cosh&lt;/em&gt; on the pairwise distances.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Running PCA on &lt;em&gt;-Y&lt;/em&gt; recovers X up to rotation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dimensionality-reduction-with-pga-principal-geodesic-analysis&quot;&gt;Dimensionality Reduction with PGA (Principal Geodesic Analysis)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;PGA is the counterpart of PCA in the hyperbolic spaces.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;First the &lt;em&gt;Karcher&lt;/em&gt; mean of the given points is computed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All points &lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; are reflected so that their mean is 0 in the Poincare disk model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Combining that with Euclidean reflection formula and hyperbolic metrics leads to a non-convex loss function which can be optimized using gradient descent algorithm.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Trees: fully balanced and phylogenic trees expressing genetic heritage.&lt;/li&gt;
+      &lt;li&gt;Tree-like hierarchy: WordNet hypernym and graph of Ph.D. advisor-advisee relationships.&lt;/li&gt;
+      &lt;li&gt;No-tree like disease relationships, proteins interactions etc&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Results&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Combinatorial construction outperforms approaches based on optimization in terms of both MAP and distortion.&lt;/li&gt;
+      &lt;li&gt;eg on WordNet, the combinatorial approach achieves a MAP of 0.989 with just 2 dimensions while the previous best was 0.87 with 200 dimensions.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Learned Optimizers that Scale and Generalize</title>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Representation Tradeoffs for Hyperbolic Embeddings &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2018. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Representation Tradeoffs for Hyperbolic Embeddings</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICML+2018" title="Pages tagged ICML 2018" rel="tag">ICML 2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Hyperbolic+Embedding" title="Pages tagged Hyperbolic Embedding" rel="tag">Hyperbolic Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Hyperboloid+Model" title="Pages tagged Hyperboloid Model" rel="tag">Hyperboloid Model</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Poincare+Ball+Model" title="Pages tagged Poincare Ball Model" rel="tag">Poincare Ball Model</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a></p>
+  <span class="post-date">11 Dec 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes a combinatorial approach to embed trees into hyperbolic spaces without performing optimization.</p>
+  </li>
+  <li>
+    <p>The resulting mechanism is analyzed to obtain dimensionality-precision tradeoffs.</p>
+  </li>
+  <li>
+    <p>To embed any metric spaces in the hyperbolic spaces, a hyperbolic generalization of the multidimensional scaling (h-MDS) is proposed.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1804.03329">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<ul>
+  <li>
+    <p>Hyperbolic Spaces</p>
+
+    <ul>
+      <li>
+        <p>Have the “tree” like property ie the shortest path between a pair of points is almost the same as the path through the origin.</p>
+      </li>
+      <li>
+        <p>Generally, Poincare ball model is used given its advantages like conformity to the Euclidean spaces.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Fidelity Measures</p>
+
+    <ul>
+      <li>
+        <p>Mean Average Precision - MAP</p>
+
+        <ul>
+          <li>A local metric that ranks between distances of the immediate neighbors.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Distortion</p>
+
+        <ul>
+          <li>A global metric that depends on the underlying distances and not just the local relationship between distances.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="combinatorial-construction-for-embedding-hierarchies-into-hyperbolic-spaces">Combinatorial Construction for embedding hierarchies into Hyperbolic spaces</h2>
+
+<ul>
+  <li>
+    <p>Embed the given graph <em>G = (V, E)</em> into a tree <em>T</em>.</p>
+  </li>
+  <li>
+    <p>Embed the tree <em>T</em> into the poincare ball <em>H<sub>d</sub></em> of dimensionality <em>d</em>.</p>
+  </li>
+</ul>
+
+<h3 id="sarkars-construction-to-embed-points-in-a-2-d-poincare-ball">Sarkar’s construction to embed points in a 2-d Poincare ball</h3>
+
+<ul>
+  <li>
+    <p>Consider two points <em>a</em> and <em>b</em> (from the tree) where <em>b</em> is the parent of <em>a</em>.</p>
+  </li>
+  <li>
+    <p>Assume that <em>a</em> is embedded as <em>f(a)</em> and <em>b</em> is embedded as <em>f(b)</em> and the children of <em>a</em> needs to be embedded.</p>
+  </li>
+  <li>
+    <p>Reflect <em>f(a)</em> and <em>f(b)</em> across a geodesic such that <em>f(a)</em> is mapped to 0 (origin) while <em>f(b)</em> is mapped to some new point <em>z</em>.</p>
+  </li>
+  <li>
+    <p>Children of <em>a</em> are placed at points <em>y<sub>i</sub></em> which are equally placed around a circle of radius <em>(e<sup>r</sup> - 1) / (e<sup>r</sup> + 1)</em> and maximally seperated from <em>z</em>, where <em>r</em> is the scaling factor.</p>
+  </li>
+  <li>
+    <p>Then all the points are reflected back across the geodesic so that all children are at a distance <em>r</em> from <em>f(a)</em>.</p>
+  </li>
+  <li>
+    <p>To embed the tree itself, place the root node at the origin, place its children around it in a circle, then place their children and so on.</p>
+  </li>
+  <li>
+    <p>In this construct, precision scales logarithmically with the degree of the tree but linearly with the maximum path length.</p>
+  </li>
+</ul>
+
+<h3 id="d-dimensional-hyperbolic-spaces"><em>d</em>-dimensional hyperbolic spaces</h3>
+
+<ul>
+  <li>
+    <p>In the <em>d</em>-dimensional space, the points are embedded into hyperspheres (instead of circles).</p>
+  </li>
+  <li>
+    <p>The number of children node that can be placed for a particular angle grows with the dimension.</p>
+  </li>
+  <li>
+    <p>Increasing dimension helps with bushy trees (with high node degree).</p>
+  </li>
+</ul>
+
+<h2 id="hyperbolic-multidimensional-scaling-h-mds">Hyperbolic multidimensional scaling (h-MDS)</h2>
+
+<ul>
+  <li>
+    <p>Given the pairwise distance from a set of points in the hyperbolic space, how to recover the points?</p>
+  </li>
+  <li>
+    <p>The corresponding problem in the Euclidean space is solved using MDS.</p>
+  </li>
+  <li>
+    <p>A variant of MDS called as h-MDS is proposed.</p>
+  </li>
+  <li>
+    <p>MDS makes a centering assumption that points have 0 mean. In h-MDS, a new mean (called as the pseudo-Euclidean mean) is introduced to enable recovery via matrix factorization.</p>
+  </li>
+  <li>
+    <p>Instead of the Poincare model, the hyperboloid model is used (though the points can be mapped back and forth).</p>
+  </li>
+</ul>
+
+<h3 id="pseudo-euclidean-mean">pseudo-Euclidean Mean</h3>
+
+<ul>
+  <li>A set of points can always be centered without affecting their pairwise distance by simply finding their mean and sending it to 0 via isometry</li>
+</ul>
+
+<h3 id="recovery-via-matrix-factorization">Recovery via matrix factorization</h3>
+
+<ul>
+  <li>
+    <p>Given the pairwise distances, a new matrix <em>Y</em> is constructed by applying <em>cosh</em> on the pairwise distances.</p>
+  </li>
+  <li>
+    <p>Running PCA on <em>-Y</em> recovers X up to rotation.</p>
+  </li>
+</ul>
+
+<h2 id="dimensionality-reduction-with-pga-principal-geodesic-analysis">Dimensionality Reduction with PGA (Principal Geodesic Analysis)</h2>
+
+<ul>
+  <li>
+    <p>PGA is the counterpart of PCA in the hyperbolic spaces.</p>
+  </li>
+  <li>
+    <p>First the <em>Karcher</em> mean of the given points is computed.</p>
+  </li>
+  <li>
+    <p>All points <em>x<sub>i</sub></em> are reflected so that their mean is 0 in the Poincare disk model.</p>
+  </li>
+  <li>
+    <p>Combining that with Euclidean reflection formula and hyperbolic metrics leads to a non-convex loss function which can be optimized using gradient descent algorithm.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>Trees: fully balanced and phylogenic trees expressing genetic heritage.</li>
+      <li>Tree-like hierarchy: WordNet hypernym and graph of Ph.D. advisor-advisee relationships.</li>
+      <li>No-tree like disease relationships, proteins interactions etc</li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>Combinatorial construction outperforms approaches based on optimization in terms of both MAP and distortion.</li>
+      <li>eg on WordNet, the combinatorial approach achieves a MAP of 0.989 with just 2 dimensions while the previous best was 0.87 with 200 dimensions.</li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize">
+            Learned Optimizers that Scale and Generalize
+            <small>01 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks">
+            One-shot Learning with Memory-Augmented Neural Networks
+            <small>25 Oct 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop">
+            BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop
+            <small>18 Oct 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Representation-Tradeoffs-for-Hyperbolic-Embeddings"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
