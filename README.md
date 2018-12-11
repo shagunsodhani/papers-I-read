@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Representation Tradeoffs for Hyperbolic Embeddings](https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings)
 * [Learned Optimizers that Scale and Generalize](https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize)
 * [One-shot Learning with Memory-Augmented Neural Networks](https://shagunsodhani.in/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks)
 * [BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop](https://shagunsodhani.in/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop)
