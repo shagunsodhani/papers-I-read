@@ -4,13 +4,97 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-12-11T06:54:25-05:00</updated>
+ <updated>2018-12-20T20:25:59-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Hindsight Experience Replay</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Hindsight-Experience-Replay"/>
+   <updated>2018-12-18T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Hindsight Experience Replay</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hindsight Experience Replay(HER) is a sample efficient technique to learn from sparse rewards.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1707.01495&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Assume a footballer misses the goal narrowly. Even though the player does not get any “reward”(in terms of goal), the player realizes that had the goal post been shifted a bit, it would have resulted in a goal(reward).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The same intuition is applied for the RL agent - let us say that the true goal state was &lt;em&gt;g&lt;/em&gt; while the agent ends up in the state &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While the action sequence is not useful for reaching the goal state &lt;em&gt;g&lt;/em&gt;, it is indeed useful for reaching state &lt;em&gt;s&lt;/em&gt;. Hence the trajectory could be replayed with the goal as &lt;em&gt;s&lt;/em&gt;(and not &lt;em&gt;g&lt;/em&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;technical-details&quot;&gt;Technical Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multi-goal policy trained using Universal Value Function Approximation (UVFA).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Every episode starts by sampling a start state and a goal state. Each goal has a different reward function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Policy uses both the current state and the current goal state and leads to a state transition sequence &lt;em&gt;s&lt;sub&gt;1&lt;/sub&gt;, s&lt;sub&gt;2&lt;/sub&gt;,…, s&lt;sub&gt;n&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each of these transitions &lt;em&gt;s&lt;sub&gt;i&lt;/sub&gt; -&amp;gt; s&lt;sub&gt;i+1&lt;/sub&gt;&lt;/em&gt; are stored in a buffer with both the original goal and a subset of the other goals.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the goal selection, following strategies are tried:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Future&lt;/em&gt; - goal state is the state &lt;em&gt;k&lt;/em&gt; steps after observing the state transition.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Final&lt;/em&gt; - goal state is the final state of the current episode.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Episode&lt;/em&gt; - &lt;em&gt;k&lt;/em&gt; random states are selected from the current episode.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Randon&lt;/em&gt; - &lt;em&gt;k&lt;/em&gt; states are selected randomly.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any off-policy algorithm can be used. Specifically, DDPG is used.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Robotic arm simulated using MuJoCo for &lt;em&gt;push&lt;/em&gt;, &lt;em&gt;slide&lt;/em&gt; and &lt;em&gt;pick and place&lt;/em&gt; tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DDPG with and without HER evaluated on the 3 tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DDPG with the HER variant significantly outperforms the baseline in all the cases.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Representation Tradeoffs for Hyperbolic Embeddings</title>
@@ -690,11 +774,10 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
 
 * The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
 
