@@ -146,12 +146,12 @@
 <h2 id="idea">Idea</h2>
 
 <ul>
-  <li>
-    <p>Inspired by the multi-loss SVMs, a surrogate loss (l<sub>k</sub>) is introduced that creates a margin between the ground truth and the kth largest score.</p>
-  </li>
-  <li>
-    <p>TBD</p>
-  </li>
+  <li>Inspired by the multi-loss SVMs, a surrogate loss (l<sub>k</sub>) is introduced that creates a margin between the ground truth and the kth largest score.</li>
+</ul>
+
+<p><img src="https://github.com/shagunsodhani/papers-I-read/raw/master/assets/topk/eq1.png" alt="Equation 1" /></p>
+
+<ul>
   <li>
     <p>Here <strong>s</strong> denotes the output of the classifier model to be learnt, <em>y</em> is the ground truth label, <em>s[p]</em> denotes the kth largest element of <strong>s</strong> and <strong>s\p</strong> denotes the vector <strong>s</strong> without <em>p</em>th element.</p>
   </li>
@@ -170,10 +170,9 @@
   <li>
     <p>The loss can be reformulated by adding and subtracting the k-1 largest scores of <strong>s\y</strong> and <em>s<sub>y</sub></em> and by introducing a temperature parameter τ.</p>
   </li>
-  <li>
-    <p>TBD</p>
-  </li>
 </ul>
+
+<p><img src="https://github.com/shagunsodhani/papers-I-read/raw/master/assets/topk/eq2.png" alt="Equation 2" /></p>
 
 <h2 id="properties-of-lkτ">Properties of L<sub>kτ</sub></h2>
 
