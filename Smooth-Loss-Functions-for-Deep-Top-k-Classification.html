@@ -11,7 +11,7 @@
 
   <title>
     
-      Word Representations via Gaussian Embedding &middot; Papers I Read
+      Smooth Loss Functions for Deep Top-k Classification &middot; Papers I Read
     
   </title>
 
@@ -123,70 +123,126 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Word Representations via Gaussian Embedding</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2015" title="Pages tagged ICLR 2015" rel="tag">ICLR 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">05 Nov 2017</span>
+  <h1 class="post-title">Smooth Loss Functions for Deep Top-k Classification</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2018" title="Pages tagged ICLR 2018" rel="tag">ICLR 2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Loss+Function" title="Pages tagged Loss Function" rel="tag">Loss Function</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Loss" title="Pages tagged Loss" rel="tag">Loss</a></p>
+  <span class="post-date">25 Dec 2018</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>Existing word embedding models like <a href="https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6">Skip-Gram</a>, <a href="https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8">GloVe</a> etc map words to fixed sized vectors in a low dimensional vector space.</li>
-  <li>This fixed point setting cannot capture uncertainty about representation.</li>
-  <li>Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.</li>
-  <li>The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.</li>
-  <li>This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.</li>
-  <li><a href="https://arxiv.org/abs/1412.6623">Link to the paper</a></li>
-  <li><a href="https://github.com/seomoz/word2gauss">Implementation</a></li>
+  <li>
+    <p>For top-k classification tasks, cross entropy is widely used as the learning objective even though it is the optimal metric only in the limit of infinite data.</p>
+  </li>
+  <li>
+    <p>The paper introduces a family of smoothed loss functions that are specially designed for top-k optimization.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1802.07595">Paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/oval-group/smooth-topk">Code</a></p>
+  </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
-
-<ul>
-  <li>KL divergence is used as the asymmetric distance function for comparing the distributions.</li>
-  <li>Unlike the Word2Vec model, the proposed model uses ranking-based loss.</li>
-</ul>
-
-<h3 id="similarity-measures-used">Similarity Measures used</h3>
+<h2 id="idea">Idea</h2>
 
 <ul>
   <li>
-    <p><strong>Symmetric Similarity</strong></p>
-  </li>
-  <li>For two gaussian distributions, <em>P<sub>i</sub></em> and <em>P<sub>j</sub></em>, compute the inner product <em>E(P<sub>i</sub>, P<sub>j</sub>)</em> as <em>N(0; mean<sub>i</sub> - mean<sub>j</sub>, sigma<sub>i</sub> + sigma<sub>j</sub>)</em>.</li>
-  <li>Compute the gradient of <em>mean</em> and <em>sigma</em> with respect to <em>log(E)</em>.</li>
-  <li>
-    <p>The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.</p>
+    <p>Inspired by the multi-loss SVMs, a surrogate loss (l<sub>k</sub>) is introduced that creates a margin between the ground truth and the kth largest score.</p>
   </li>
   <li>
-    <p><strong>Asymmetric Similarity</strong></p>
+    <p>TBD</p>
   </li>
-  <li>Use KL divergence to encode the context distribution.</li>
-  <li>The benefit over the symmetric setting is that now entailment type relations can also be modeled.</li>
-  <li>For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.</li>
+  <li>
+    <p>Here <strong>s</strong> denotes the output of the classifier model to be learnt, <em>y</em> is the ground truth label, <em>s[p]</em> denotes the kth largest element of <strong>s</strong> and <strong>s\p</strong> denotes the vector <strong>s</strong> without <em>p</em>th element.</p>
+  </li>
+  <li>
+    <p>This l<sub>k</sub> loss has two limitations:</p>
+
+    <ul>
+      <li>
+        <p>It is continous but not differentiable in <em>s</em>.</p>
+      </li>
+      <li>
+        <p>Its weak derivatives have at most 2-nonzero elements.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The loss can be reformulated by adding and subtracting the k-1 largest scores of <strong>s\y</strong> and <em>s<sub>y</sub></em> and by introducing a temperature parameter τ.</p>
+  </li>
+  <li>
+    <p>TBD</p>
+  </li>
 </ul>
 
-<h2 id="learning">Learning</h2>
+<h2 id="properties-of-lkτ">Properties of L<sub>kτ</sub></h2>
 
 <ul>
-  <li>One of the two notions of similarity is chosen and max-margin is used as the loss function.</li>
-  <li>Mean is regularized by adding a simple constraint on the L2-norm.</li>
-  <li>For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.</li>
+  <li>
+    <p>For any τ &gt; 0, L<sub>kτ</sub> is infinite-differentiable and has non-sparse gradients.</p>
+  </li>
+  <li>
+    <p>Under mild conditions, L<sub>kτ</sub> apporachs l<sub>k</sub> (in a pointwise sense) as τ approaches to 0+<sup>+</sup>.</p>
+  </li>
+  <li>
+    <p>It is an upper bound on the actual loss (up to a constant factor).</p>
+  </li>
+  <li>
+    <p>It is a generalization of the cross-entropy loss for different values of k, and τ and higher margins.</p>
+  </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h2 id="computational-challenges">Computational Challenges</h2>
 
 <ul>
-  <li>Polysemous words have higher variance in their word embeddings as compared to specific words.</li>
-  <li>KL divergence (with diagonal covariance) outperforms other models.</li>
-  <li>Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.</li>
-  <li>For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.</li>
+  <li>
+    <p><em>nCk</em> number of terms needs to be evaluated for computing the loss for one sample (n is number of classes).</p>
+  </li>
+  <li>
+    <p>Loss L<sub>kτ</sub> can be expressed in terms of elementary symmetric polynomials σ<sub>i</sub>(<strong>e</strong>) (sum of all products of i distinct elements of vector e). Thus the challenge is to compute σ<sub>k</sub> efficiently.</p>
+  </li>
 </ul>
 
-<h2 id="future-work">Future Work</h2>
+<h3 id="forward-computation">Forward Computation</h3>
 
 <ul>
-  <li>Use combinations of low rank and diagonal matrices for covariances.</li>
-  <li>Improved optimisation strategies.</li>
-  <li>Trying other distributions like Student’s-t distribution.</li>
+  <li>
+    <p>Compute σ<sub>k</sub>(<strong>e</strong>) where <strong>e</strong> is a n-dimensional vector and k« n and e[i]!=0 for all i.</p>
+  </li>
+  <li>
+    <p>σ<sub>i</sub>(<em>e</em>) can be computed using the coefficients of the polynomial (X+e<sub>1</sub>)(X+e<sub>2</sub>)…(X+e<sub>n</sub>) by divide and conquer approach with polynomial multiplication.</p>
+  </li>
+  <li>
+    <p>With some more optimizations (eg log(n) levels of recursion and each level being parallelized on a GPU), the resulting algorithms scale well with n on a GPU.</p>
+  </li>
+  <li>
+    <p>Operations are performed in the log-space using the log-sum-exp trick to achieve numerical stability in single floating point precision.</p>
+  </li>
+</ul>
+
+<h3 id="backward-computation">Backward computation</h3>
+
+<ul>
+  <li>
+    <p>The backward pass uses optimizations like computing derivative of σ<sub>j</sub> with respect to e<sub>i</sub> in a recursive manner.</p>
+  </li>
+  <li>
+    <p>Appendix of the paper describes these techniques in detail.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Experiments are performed on CIFAR-100 (with noise) and Imagenet.</p>
+  </li>
+  <li>
+    <p>For CIFAR-100 with noise, the labels are randomized with probability p (within the same top-level class).</p>
+  </li>
+  <li>
+    <p>The proposed loss function is very robust to both noise and reduction in the amount of training dataset as compared to cross-entropy loss function for both top-k and top-1 performance.</p>
+  </li>
 </ul>
 
 </div>
@@ -194,15 +250,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification">
-            Smooth Loss Functions for Deep Top-k Classification
-            <small>25 Dec 2018</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -218,6 +265,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings">
             Representation Tradeoffs for Hyperbolic Embeddings
             <small>11 Dec 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize">
+            Learned Optimizers that Scale and Generalize
+            <small>01 Nov 2018</small>
           </a>
         </h3>
       </li>
@@ -238,8 +294,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Word-Representations-via-Gaussian-Embedding"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Smooth-Loss-Functions-for-Deep-Top-k-Classification"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

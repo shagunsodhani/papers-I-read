@@ -4,13 +4,139 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-12-20T20:25:59-05:00</updated>
+ <updated>2018-12-27T21:53:26-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Smooth Loss Functions for Deep Top-k Classification</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification"/>
+   <updated>2018-12-25T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Smooth Loss Functions for Deep Top-k Classification</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For top-k classification tasks, cross entropy is widely used as the learning objective even though it is the optimal metric only in the limit of infinite data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces a family of smoothed loss functions that are specially designed for top-k optimization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1802.07595&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/oval-group/smooth-topk&quot;&gt;Code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Inspired by the multi-loss SVMs, a surrogate loss (l&lt;sub&gt;k&lt;/sub&gt;) is introduced that creates a margin between the ground truth and the kth largest score.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;TBD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here &lt;strong&gt;s&lt;/strong&gt; denotes the output of the classifier model to be learnt, &lt;em&gt;y&lt;/em&gt; is the ground truth label, &lt;em&gt;s[p]&lt;/em&gt; denotes the kth largest element of &lt;strong&gt;s&lt;/strong&gt; and &lt;strong&gt;s\p&lt;/strong&gt; denotes the vector &lt;strong&gt;s&lt;/strong&gt; without &lt;em&gt;p&lt;/em&gt;th element.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This l&lt;sub&gt;k&lt;/sub&gt; loss has two limitations:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;It is continous but not differentiable in &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Its weak derivatives have at most 2-nonzero elements.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The loss can be reformulated by adding and subtracting the k-1 largest scores of &lt;strong&gt;s\y&lt;/strong&gt; and &lt;em&gt;s&lt;sub&gt;y&lt;/sub&gt;&lt;/em&gt; and by introducing a temperature parameter τ.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;TBD&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;properties-of-lkτ&quot;&gt;Properties of L&lt;sub&gt;kτ&lt;/sub&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For any τ &amp;gt; 0, L&lt;sub&gt;kτ&lt;/sub&gt; is infinite-differentiable and has non-sparse gradients.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Under mild conditions, L&lt;sub&gt;kτ&lt;/sub&gt; apporachs l&lt;sub&gt;k&lt;/sub&gt; (in a pointwise sense) as τ approaches to 0+&lt;sup&gt;+&lt;/sup&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is an upper bound on the actual loss (up to a constant factor).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is a generalization of the cross-entropy loss for different values of k, and τ and higher margins.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;computational-challenges&quot;&gt;Computational Challenges&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;nCk&lt;/em&gt; number of terms needs to be evaluated for computing the loss for one sample (n is number of classes).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Loss L&lt;sub&gt;kτ&lt;/sub&gt; can be expressed in terms of elementary symmetric polynomials σ&lt;sub&gt;i&lt;/sub&gt;(&lt;strong&gt;e&lt;/strong&gt;) (sum of all products of i distinct elements of vector e). Thus the challenge is to compute σ&lt;sub&gt;k&lt;/sub&gt; efficiently.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;forward-computation&quot;&gt;Forward Computation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compute σ&lt;sub&gt;k&lt;/sub&gt;(&lt;strong&gt;e&lt;/strong&gt;) where &lt;strong&gt;e&lt;/strong&gt; is a n-dimensional vector and k« n and e[i]!=0 for all i.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;σ&lt;sub&gt;i&lt;/sub&gt;(&lt;em&gt;e&lt;/em&gt;) can be computed using the coefficients of the polynomial (X+e&lt;sub&gt;1&lt;/sub&gt;)(X+e&lt;sub&gt;2&lt;/sub&gt;)…(X+e&lt;sub&gt;n&lt;/sub&gt;) by divide and conquer approach with polynomial multiplication.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;With some more optimizations (eg log(n) levels of recursion and each level being parallelized on a GPU), the resulting algorithms scale well with n on a GPU.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Operations are performed in the log-space using the log-sum-exp trick to achieve numerical stability in single floating point precision.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;backward-computation&quot;&gt;Backward computation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The backward pass uses optimizations like computing derivative of σ&lt;sub&gt;j&lt;/sub&gt; with respect to e&lt;sub&gt;i&lt;/sub&gt; in a recursive manner.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Appendix of the paper describes these techniques in detail.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experiments are performed on CIFAR-100 (with noise) and Imagenet.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For CIFAR-100 with noise, the labels are randomized with probability p (within the same top-level class).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed loss function is very robust to both noise and reduction in the amount of training dataset as compared to cross-entropy loss function for both top-k and top-1 performance.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Hindsight Experience Replay</title>
@@ -774,10 +900,11 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
 
 * The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
 
