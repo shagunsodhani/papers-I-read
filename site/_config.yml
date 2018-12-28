@@ -11,7 +11,7 @@ description:         'I am trying a new initiative - <i>A Paper A Week</i>. This
 # url:                 'https://shagunsodhani.in/test'
 baseurl:             'https://shagunsodhani.in/papers-I-read'
 paginate:            10
-gems:                [jekyll-paginate]
+plugins:                [jekyll-paginate]
 
 # About/contact
 author:
