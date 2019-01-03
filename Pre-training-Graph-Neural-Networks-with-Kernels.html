@@ -11,7 +11,7 @@
 
   <title>
     
-      Word Representations via Gaussian Embedding &middot; Papers I Read
+      Pre-training Graph Neural Networks with Kernels &middot; Papers I Read
     
   </title>
 
@@ -127,70 +127,81 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Word Representations via Gaussian Embedding</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2015" title="Pages tagged ICLR 2015" rel="tag">ICLR 2015</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">05 Nov 2017</span>
+  <h1 class="post-title">Pre-training Graph Neural Networks with Kernels</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Neural+Network" title="Pages tagged Graph Neural Network" rel="tag">Graph Neural Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#GNN" title="Pages tagged GNN" rel="tag">GNN</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Kernel" title="Pages tagged Kernel" rel="tag">Kernel</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Pretraining" title="Pages tagged Pretraining" rel="tag">Pretraining</a></p>
+  <span class="post-date">02 Jan 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>Existing word embedding models like <a href="https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6">Skip-Gram</a>, <a href="https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8">GloVe</a> etc map words to fixed sized vectors in a low dimensional vector space.</li>
-  <li>This fixed point setting cannot capture uncertainty about representation.</li>
-  <li>Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.</li>
-  <li>The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.</li>
-  <li>This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.</li>
-  <li><a href="https://arxiv.org/abs/1412.6623">Link to the paper</a></li>
-  <li><a href="https://github.com/seomoz/word2gauss">Implementation</a></li>
+  <li>
+    <p>The paper proposes a pretraining technique that can be used with the <a href="https://shagunsodhani.in/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry">GNN</a> architecture for learning graph representation as induced by powerful graph kernels.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1811.06930">Paper</a></p>
+  </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
-
-<ul>
-  <li>KL divergence is used as the asymmetric distance function for comparing the distributions.</li>
-  <li>Unlike the Word2Vec model, the proposed model uses ranking-based loss.</li>
-</ul>
-
-<h3 id="similarity-measures-used">Similarity Measures used</h3>
+<h2 id="idea">Idea</h2>
 
 <ul>
   <li>
-    <p><strong>Symmetric Similarity</strong></p>
-  </li>
-  <li>For two gaussian distributions, <em>P<sub>i</sub></em> and <em>P<sub>j</sub></em>, compute the inner product <em>E(P<sub>i</sub>, P<sub>j</sub>)</em> as <em>N(0; mean<sub>i</sub> - mean<sub>j</sub>, sigma<sub>i</sub> + sigma<sub>j</sub>)</em>.</li>
-  <li>Compute the gradient of <em>mean</em> and <em>sigma</em> with respect to <em>log(E)</em>.</li>
-  <li>
-    <p>The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.</p>
+    <p>Graph Kernel methods can learn powerful representations of the input graphs but the learned representation is implicit as the kernel function actually computes the dot product between the representations.</p>
   </li>
   <li>
-    <p><strong>Asymmetric Similarity</strong></p>
+    <p>GNNs are flexible and powerful in terms of the representations they can learn but they can easily overfit if a large amount of training data is not available as is commonly the case of graphs.</p>
   </li>
-  <li>Use KL divergence to encode the context distribution.</li>
-  <li>The benefit over the symmetric setting is that now entailment type relations can also be modeled.</li>
-  <li>For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.</li>
+  <li>
+    <p>Kernel methods can be used to learn an unsupervised graph representation that can be finetuned using the GNN architectures for the supervised tasks.</p>
+  </li>
 </ul>
 
-<h2 id="learning">Learning</h2>
+<h2 id="architecture">Architecture</h2>
 
 <ul>
-  <li>One of the two notions of similarity is chosen and max-margin is used as the loss function.</li>
-  <li>Mean is regularized by adding a simple constraint on the L2-norm.</li>
-  <li>For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.</li>
+  <li>
+    <p>Given a dataset of graphs <em>g<sub>1</sub>, g<sub>2</sub>, …, g<sub>n</sub></em>, use a relevant kernel function to compute <em>k(g<sub>i</sub>, g<sub>j</sub>)</em> for all pairs of graphs.</p>
+  </li>
+  <li>
+    <p>A siamese network is used to encode the pair of graphs into representations <em>f(g<sub>i</sub>)</em> and <em>f(g<sub>j</sub>)</em> such that <em>dot(f(g<sub>i</sub>), f(g<sub>j</sub>))</em> equals <em>k(g<sub>i</sub>, g<sub>j</sub>)</em>.</p>
+  </li>
+  <li>
+    <p>The function <em>f</em> is trained to learn the compressed representation of kernel’s feature space.</p>
+  </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="datasets">Datasets</h3>
 
 <ul>
-  <li>Polysemous words have higher variance in their word embeddings as compared to specific words.</li>
-  <li>KL divergence (with diagonal covariance) outperforms other models.</li>
-  <li>Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.</li>
-  <li>For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.</li>
+  <li>Biological node-labeled graphs representing chemical compounds - MUTAG, PTC, NCI1</li>
 </ul>
 
-<h2 id="future-work">Future Work</h2>
+<h3 id="baselines">Baselines</h3>
 
 <ul>
-  <li>Use combinations of low rank and diagonal matrices for covariances.</li>
-  <li>Improved optimisation strategies.</li>
-  <li>Trying other distributions like Student’s-t distribution.</li>
+  <li><a href="https://www.cse.wustl.edu/~muhan/papers/AAAI_2018_DGCNN.pdf">DGCNN</a></li>
+  <li>Graphlet Kernel (GK)</li>
+  <li>Random Walk Kernel</li>
+  <li>Propogation Kernel</li>
+  <li>Weisfeiler-Lehman subtree kernel (WL)</li>
+</ul>
+
+<h3 id="results">Results</h3>
+
+<ul>
+  <li>
+    <p>Pretraining uses the WL kernel</p>
+  </li>
+  <li>
+    <p>Pretrained model performs better than the baselines for 2 datasets but lags behind WL method (which was used for pretraining) for the NCI1 dataset.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+  <li>The idea is straightforward and intuitive. In general, this kind of pretraining should help the downstream model. It would be interesting to try it on more datasets/kernels/GNNs so that more conclusive results can be obtained.</li>
 </ul>
 
 </div>
@@ -198,15 +209,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels">
-            Pre-training Graph Neural Networks with Kernels
-            <small>02 Jan 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -222,6 +224,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Hindsight-Experience-Replay">
             Hindsight Experience Replay
             <small>18 Dec 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings">
+            Representation Tradeoffs for Hyperbolic Embeddings
+            <small>11 Dec 2018</small>
           </a>
         </h3>
       </li>
@@ -242,8 +253,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Word-Representations-via-Gaussian-Embedding"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Word-Representations-via-Gaussian-Embedding"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Pre-training-Graph-Neural-Networks-with-Kernels"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

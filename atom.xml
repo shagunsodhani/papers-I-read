@@ -4,13 +4,94 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2018-12-27T21:55:23-05:00</updated>
+ <updated>2019-01-02T21:56:57-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Pre-training Graph Neural Networks with Kernels</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels"/>
+   <updated>2019-01-02T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Pre-training Graph Neural Networks with Kernels</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a pretraining technique that can be used with the &lt;a href=&quot;https://shagunsodhani.in/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry&quot;&gt;GNN&lt;/a&gt; architecture for learning graph representation as induced by powerful graph kernels.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1811.06930&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graph Kernel methods can learn powerful representations of the input graphs but the learned representation is implicit as the kernel function actually computes the dot product between the representations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GNNs are flexible and powerful in terms of the representations they can learn but they can easily overfit if a large amount of training data is not available as is commonly the case of graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Kernel methods can be used to learn an unsupervised graph representation that can be finetuned using the GNN architectures for the supervised tasks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a dataset of graphs &lt;em&gt;g&lt;sub&gt;1&lt;/sub&gt;, g&lt;sub&gt;2&lt;/sub&gt;, …, g&lt;sub&gt;n&lt;/sub&gt;&lt;/em&gt;, use a relevant kernel function to compute &lt;em&gt;k(g&lt;sub&gt;i&lt;/sub&gt;, g&lt;sub&gt;j&lt;/sub&gt;)&lt;/em&gt; for all pairs of graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A siamese network is used to encode the pair of graphs into representations &lt;em&gt;f(g&lt;sub&gt;i&lt;/sub&gt;)&lt;/em&gt; and &lt;em&gt;f(g&lt;sub&gt;j&lt;/sub&gt;)&lt;/em&gt; such that &lt;em&gt;dot(f(g&lt;sub&gt;i&lt;/sub&gt;), f(g&lt;sub&gt;j&lt;/sub&gt;))&lt;/em&gt; equals &lt;em&gt;k(g&lt;sub&gt;i&lt;/sub&gt;, g&lt;sub&gt;j&lt;/sub&gt;)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The function &lt;em&gt;f&lt;/em&gt; is trained to learn the compressed representation of kernel’s feature space.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Biological node-labeled graphs representing chemical compounds - MUTAG, PTC, NCI1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;baselines&quot;&gt;Baselines&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.cse.wustl.edu/~muhan/papers/AAAI_2018_DGCNN.pdf&quot;&gt;DGCNN&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Graphlet Kernel (GK)&lt;/li&gt;
+  &lt;li&gt;Random Walk Kernel&lt;/li&gt;
+  &lt;li&gt;Propogation Kernel&lt;/li&gt;
+  &lt;li&gt;Weisfeiler-Lehman subtree kernel (WL)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Pretraining uses the WL kernel&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Pretrained model performs better than the baselines for 2 datasets but lags behind WL method (which was used for pretraining) for the NCI1 dataset.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The idea is straightforward and intuitive. In general, this kind of pretraining should help the downstream model. It would be interesting to try it on more datasets/kernels/GNNs so that more conclusive results can be obtained.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Smooth Loss Functions for Deep Top-k Classification</title>
