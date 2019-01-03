@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Pre-training Graph Neural Networks with Kernels](https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels)
 * [Smooth Loss Functions for Deep Top-k Classification](https://shagunsodhani.in/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification)
 * [Hindsight Experience Replay](https://shagunsodhani.in/papers-I-read/Hindsight-Experience-Replay)
 * [Representation Tradeoffs for Hyperbolic Embeddings](https://shagunsodhani.in/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings)
