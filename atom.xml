@@ -4,13 +4,185 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2019-01-02T21:56:57-05:00</updated>
+ <updated>2019-01-12T10:24:56-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Efficient Lifelong Learning with A-GEM</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Efficient-Lifelong-Learning-with-A-GEM"/>
+   <updated>2019-01-08T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Efficient Lifelong Learning with A-GEM</id>
+   <content type="html">&lt;h2 id=&quot;contributions&quot;&gt;Contributions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new (and more realistic) evaluation protocol for lifelong learning where each data point is observed just once and a disjoint set of tasks are used for training and validation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new metric that focuses on the efficiency of the models - in terms of sample complexity and computational (and memory) costs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Modification of &lt;a href=&quot;https://arxiv.org/abs/1706.08840&quot;&gt;Gradient Episodic Memory ie GEM&lt;/a&gt; which reduces the computational overhead of GEM without compromising on the results.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Empirical validation that using task descriptors help lifelong learning models and improve their few-shot learning capabilities.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1812.00420&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/facebookresearch/agem/&quot;&gt;Link to the code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;learning-protocol&quot;&gt;Learning Protocol&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two group of datasets - one for training and evaluation (D&lt;sup&gt;EV&lt;/sup&gt;) and other for cross validation (D&lt;sup&gt;CV&lt;/sup&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data can be sampled multiple times for cross-validation dataset but only once from the training dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each group of dataset (say D&lt;sup&gt;EV&lt;/sup&gt; or D&lt;sup&gt;CV&lt;/sup&gt;) is a list of task-specific datasets D&lt;sub&gt;k&lt;/sub&gt; (k is the task index).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each sample in D&lt;sub&gt;k&lt;/sub&gt; is of the form (x, t, y) where x is the data, t is the task descriptor and y is the output.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;D&lt;sub&gt;k&lt;/sub&gt; contains B&lt;sup&gt;k&lt;/sup&gt; minibatches of data.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;metrics&quot;&gt;Metrics&lt;/h2&gt;
+
+&lt;h3 id=&quot;accuracy&quot;&gt;Accuracy&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;a&lt;sub&gt;k,i,j&lt;/sub&gt; = accuracy on test task j after training on ith minibatch of training task k.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A&lt;sub&gt;k&lt;/sub&gt; = mean over all j = 1 to k (a&lt;sub&gt;k, B&lt;sub&gt;k&lt;/sub&gt;, j&lt;/sub&gt;) ie train the model on data for task k and then test it on all the tasks.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;forgetting-measure&quot;&gt;Forgetting Measure&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;f&lt;sub&gt;j&lt;/sub&gt;&lt;sup&gt;k&lt;/sup&gt; = forgetting on task j after training on all minibatches upto task k.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;f&lt;sub&gt;j&lt;/sub&gt;&lt;sup&gt;k&lt;/sup&gt; = max over all l = 1 to k-1 (a&lt;sub&gt;l, B&lt;sub&gt;l&lt;/sub&gt;j&lt;/sub&gt; - a&lt;sub&gt;k, B&lt;sub&gt;k&lt;/sub&gt;j&lt;/sub&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Forgetting = F&lt;sub&gt;k&lt;/sub&gt; = mean over all j = 1 to k-1 (f&lt;sub&gt;j&lt;/sub&gt;&lt;sup&gt;k&lt;/sup&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lca---learning-curve-area&quot;&gt;LCA - Learning Curve Area&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Z&lt;sub&gt;b&lt;/sub&gt; = average b shot performance where b is the minibatch number.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Z&lt;sub&gt;b&lt;/sub&gt; = mean over all k = 0 to T (a&lt;sub&gt;k, b, k&lt;/sub&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LCA&lt;sub&gt;β&lt;/sub&gt; = mean over all b = 0 to β (Z&lt;sub&gt;b&lt;/sub&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One special case is LCA&lt;sub&gt;0&lt;/sub&gt; which is the forward transfer performance or performance on the unseen task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In experiments, β is kept small as we want the model to learn from few examples.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GEM has been shown to be very effective in single epoch setting but introduces a very high computational overhead.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Average GEM (AGEM) reduces this overhead by sampling (and using) only some examples from the episodic memory instead of using all the examples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While GEM provides better guarantees in terms of worst-case forgetting, AGEM provides better guarantees in terms of average accuracy.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;joint-embedding-model-using-compositional-task-descriptors&quot;&gt;Joint Embedding Model Using Compositional Task Descriptors&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compositional Task Descriptors are used to speed training on the subsequent tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A matrix specifying the attribute value of objects (to be recognized in the task) are used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A joint-embedding space between image features and attribute embeddings is learned.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1612.00796&quot;&gt;Permuted MNIST&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1703.04200&quot;&gt;Split CIFAR&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.vision.caltech.edu/visipedia/CUB-200-2011.html&quot;&gt;Split CUB&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://cvml.ist.ac.at/papers/lampert-cvpr2009.pdf&quot;&gt;Split AWA&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Integer task descriptors for MNIST and CIFAR and class attributes as descriptors for CUB and AWA&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines include &lt;a href=&quot;https://arxiv.org/abs/1706.08840&quot;&gt;GEM&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1611.07725&quot;&gt;iCaRL&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/pdf/1612.00796.pdf&quot;&gt;Elastic Weight Consolidation&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1606.04671&quot;&gt;Progressive Neural Networks&lt;/a&gt; etc.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;AGEM outperforms other models on all the datasets expect MNIST where the Progressive Neural Networks lead. One reason could be that MNIST has a large number of training examples per task. But Progressive Neural Networks lead to bad utilization of capacity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While AGEM and GEM have similar performance, GEM has a much higher computational and memory overhead.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use of task descriptors improves the accuracy for all the models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It seems that AGEM offers a good tradeoff between average accuracy performance and efficiency - in terms of sample efficiency, memory requirements and computational costs.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Pre-training Graph Neural Networks with Kernels</title>
