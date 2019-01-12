@@ -3,7 +3,7 @@ layout: post
 title: Net2Net-Accelerating Learning via Knowledge Transfer
 comments: True
 excerpt: The paper presents a simple yet effective approach for transferring knowledge from a trained neural network to a large, untrained network
-tags: ['2016', 'ICLR 2016', 'Knowledge Transfer', 'Life Long Learning', AI, CV]
+tags: ['2016', 'ICLR 2016', 'Knowledge Transfer', 'Lifelong Learning', AI, CV]
 ---
 
 ## Notes
