@@ -11,7 +11,7 @@
 
   <title>
     
-      Network Motifs - Simple Building Blocks of Complex Networks &middot; Papers I Read
+      Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies &middot; Papers I Read
     
   </title>
 
@@ -127,41 +127,114 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Network Motifs - Simple Building Blocks of Complex Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2002" title="Pages tagged 2002" rel="tag">2002</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Science+2002" title="Pages tagged Science 2002" rel="tag">Science 2002</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Motif" title="Pages tagged Motif" rel="tag">Motif</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Science" title="Pages tagged Science" rel="tag">Science</a></p>
-  <span class="post-date">12 Nov 2017</span>
+  <h1 class="post-title">Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Hierarchical+RL" title="Pages tagged Hierarchical RL" rel="tag">Hierarchical RL</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Mujoco" title="Pages tagged Mujoco" rel="tag">Mujoco</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">15 Jan 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>The paper presents the concept of “network motifs” to understand the structural design of a network or a graph.</li>
-  <li><a href="http://science.sciencemag.org/content/298/5594/824">Link to the paper</a></li>
-</ul>
-
-<h2 id="idea">Idea</h2>
-
-<ul>
   <li>
-    <p>A network motif is defined as “a pattern of inter-connections occurring in complex networks in numbers that are significantly higher than those in randomized networks”.</p>
+    <p>The paper proposes a simple and robust approach for hierarchically training an agent in the sparse reward setup.</p>
   </li>
   <li>
-    <p>In the practical setting, given an input network, we first create randomized networks which have same single node characteristics (like a number of incoming and outgoing edges) as the input network.</p>
+    <p>The broad idea is to train low-level primitives that are sufficiently diverse (so that they can be composed for solving higher level tasks) and to train a high level primitive that learns to combine these primitives for any given downstream task.</p>
   </li>
   <li>
-    <p>The patterns that occur at a much higher frequency in the input graph (than the randomized graphs) are reported as motifs.</p>
-  </li>
-  <li>
-    <p>More specifically, the patterns for which the probability of appearing in a randomized network an equal or more number of times than in the real network is lower than a cutoff value (say 0.01).</p>
+    <p><a href="https://openreview.net/forum?id=SJz1x20cFQ">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="motivation">Motivation</h2>
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>The state can be divided into two components: proprioceptive states s<sup>p</sup> (measurement of agent’s own body that can be directly controlled by the agent) and the external states s<sup>e</sup>/</li>
+</ul>
+
+<h3 id="low-level-policy-training">Low-Level Policy Training</h3>
 
 <ul>
   <li>
-    <p>Real-life networks exhibit properties like “small world” property ( the majority of nodes are within a distance of fewer than 7 hops from each other) and “scale-free” property (fraction of nodes having k edges decays as a power-law).</p>
+    <p>Low-level policies should be:</p>
+
+    <ul>
+      <li>Diverse: should cover all the skills that the agent might have to perform.</li>
+      <li>Effective: can make significant changes to the environment.</li>
+      <li>Controllable: easy for high-level policies to use and control</li>
+    </ul>
   </li>
   <li>
-    <p>Motifs are one such structural property that is exhibited by networks in biochemistry, neurobiology, ecology, and engineering. Further, motifs shared by graphs of different domains are different which hints at the usefulness of motifs as a fundamental structural property of the graph and relates to the process of evolution of the graph.</p>
+    <p>For the low-level policy, the per-time step reward is directly proportional to change in the external state. The same reward is used for all the agents and environments(except regulated with environment specific controls and survival rewards).</p>
+  </li>
+</ul>
+
+<h3 id="phase-conditioned-policies">Phase conditioned policies</h3>
+
+<ul>
+  <li>
+    <p>Good movement policies are expected to be at least roughly periodic and phase input (or time index) is used to achieve periodicity.</p>
+  </li>
+  <li>
+    <p>Phase conditioned policy (=f(s<sup>p</sup>, φ)) where φ = {0, 1, …, k-1} is the phase index.</p>
+  </li>
+  <li>
+    <p>At each timestep <em>t</em>, the model receives observation s<sup>p</sup> and phase index φ = t%k. The phase index is represented by a vector b<sub>φ</sub>.</p>
+  </li>
+  <li>
+    <p>For phase conditioned policies, the agent state and actions are encouraged to be cyclic with the help of a cyclic loss.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Environments: Ant and Humanoid from Mujoco.</p>
+  </li>
+  <li>
+    <p>Low-level control:</p>
+
+    <ul>
+      <li>Using phase-conditioning is helpful when training low-level primitives.</li>
+    </ul>
+  </li>
+  <li>
+    <p>High-level control:</p>
+
+    <ul>
+      <li>
+        <p>Cross Maze Environment with fixed goals</p>
+
+        <ul>
+          <li>
+            <p>3 goals along 3 paths</p>
+          </li>
+          <li>
+            <p>Proposed method converges faster and to a smaller final distance to the goal showing that it is both efficient and consistent (with smaller variance across random seeds).</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Random Goal Maze</p>
+
+        <ul>
+          <li>
+            <p>The goal is randomly drawn from a set of goals.</p>
+          </li>
+          <li>
+            <p>“Cross” (shaped) maze and “skull” (shaped) mazes are considered.</p>
+          </li>
+          <li>
+            <p>Even with velocity rewards and pretraining on low-level objectives (which can be thought of as exploration bonuses), the baseline fails to get close to the goal locations while the proposed model reach the goal most of the times.</p>
+          </li>
+          <li>
+            <p>The main results are reported using PPO though repeating the experiments with A2C and DQN show that the idea is fairly robust.</p>
+          </li>
+          <li>
+            <p>The paper reported that in their experiments, finetuning the lower level primitives did not help much though it might not be the case of other environments.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </li>
 </ul>
 
@@ -170,15 +243,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies">
-            Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies
-            <small>15 Jan 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -194,6 +258,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels">
             Pre-training Graph Neural Networks with Kernels
             <small>02 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification">
+            Smooth Loss Functions for Deep Top-k Classification
+            <small>25 Dec 2018</small>
           </a>
         </h3>
       </li>
@@ -214,8 +287,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
