@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2019-02-03T20:35:00-05:00</updated>
+ <updated>2019-02-03T20:56:52-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -81,29 +81,17 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Policy π(a&lt;/td&gt;
-          &lt;td&gt;s, z)&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Policy π(a | s, z)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Task reward replaced by the pseduoreward logq&lt;sub&gt;φ&lt;/sub&gt;(z&lt;/td&gt;
-          &lt;td&gt;s) - log(p(z)).&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Task reward replaced by the pseduoreward logq&lt;sub&gt;φ&lt;/sub&gt;(z | s) - log(p(z)).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;During unsupervised training, z is sampled at the start of the episode and then not changed during the episode.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;

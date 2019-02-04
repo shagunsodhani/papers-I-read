@@ -194,29 +194,17 @@
 
 <ul>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Policy π(a</td>
-          <td>s, z)</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Policy π(a | s, z)</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Task reward replaced by the pseduoreward logq<sub>φ</sub>(z</td>
-          <td>s) - log(p(z)).</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Task reward replaced by the pseduoreward logq<sub>φ</sub>(z | s) - log(p(z)).</p>
   </li>
   <li>
     <p>During unsupervised training, z is sampled at the start of the episode and then not changed during the episode.</p>
   </li>
-  <li>Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.</li>
+  <li>
+    <p>Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.</p>
+  </li>
 </ul>
 
 <h2 id="observations">Observations</h2>
