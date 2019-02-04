@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Modular meta-learning](https://shagunsodhani.in/papers-I-read/Modular-meta-learning)
 * [Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies](https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies)
 * [Efficient Lifelong Learningi with A-GEM](https://shagunsodhani.in/papers-I-read/Efficient-Lifelong-Learning-with-A-GEM)
 * [Pre-training Graph Neural Networks with Kernels](https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels)
