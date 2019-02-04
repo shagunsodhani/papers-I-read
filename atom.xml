@@ -4,13 +4,217 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2019-01-17T00:00:23-05:00</updated>
+ <updated>2019-02-03T19:35:06-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Modular meta-learning</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Modular-meta-learning"/>
+   <updated>2019-01-22T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Modular meta-learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes an approach for learning neural networks (modules) that can be combined in different ways to solve different tasks (combinatorial generalization).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed model is called as BOUNCEGRAD.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1806.10166&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/FerranAlet/modular-metalearning&quot;&gt;Link to the code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Focuses on supervised learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Task distribution &lt;em&gt;p(T)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each task is a joint distribution &lt;em&gt;p&lt;sub&gt;T&lt;/sub&gt;(x, y)&lt;/em&gt; over &lt;em&gt;(x, y)&lt;/em&gt; data pairs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given data from &lt;em&gt;m&lt;/em&gt; meta-training tasks, and a meta-test task, find a hypothesis &lt;em&gt;h&lt;/em&gt; which performs well on the unseen data drawn from the meta-test task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;structured-hypothesis&quot;&gt;Structured Hypothesis&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a compositional scheme &lt;em&gt;C&lt;/em&gt;, a set of modules &lt;em&gt;F&lt;sub&gt;1&lt;/sub&gt;, …, F&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; (represented as a whole by &lt;em&gt;F&lt;/em&gt;) and the set of their respective parameters θ&lt;sub&gt;1&lt;/sub&gt;, …, θ&lt;sub&gt;k&lt;/sub&gt; (represented as a whole by θ), &lt;em&gt;(C, F, θ)&lt;/em&gt; represents the set of possible functional input-output mappings. These mappings form the hypothesis space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A structured hypothesis model is specified by what modules to use and their parametric forms (but not the values).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;examples-of-compositional-schemes&quot;&gt;Examples of compositional schemes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Choosing a single module for the task at hand.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fixed compositional structure but different modules selected every time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Weight ensemble (maybe using attention mechanism)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;General function composition tree&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;phases&quot;&gt;Phases&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Offline Meta Learning Phase:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Take training and validation dataset for the first &lt;em&gt;k&lt;/em&gt; tasks and generate a parameterization for each module &lt;em&gt;θ&lt;sub&gt;1&lt;/sub&gt;, …, θ&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The hypothesis (or composition) to use comes from the online meta-test learning phase.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this stage, find the best θ given a structure.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Online Meta-test Learning Phase&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Given a hypothesis space and θ, the output is a compositional form (or hypothesis) that specifies how to compose the models.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this stage, find the best structure, given a hypothesis space and θ.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;learning-algorithm&quot;&gt;Learning Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;During Meta-test learning phase, simulated annealing is used to find the optimal structure, with temperature &lt;em&gt;T&lt;/em&gt; decreased over time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During meta-learning phrase, the actual objective function is replaced by a surrogate, smooth objective function (during the search step) to avoid local minima.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once a structure has been picked, any gradient descent based approach can be used to optimize the modules.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Basically the state of optimization process comprises of the parameters and the temperature. Together, they are used to induce a distribution over the structures. Given a structure, θ is optimized and &lt;em&gt;T&lt;/em&gt; is annealed over time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learning procedure can be improved upon by performing parameter tuning during the online (meta-test learning) phase as well. the resulting approach is referred to as MOMA - MOdular MAml.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;approaches&quot;&gt;Approaches&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Pooled - Single network using combined data of all the tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MAML - Single network using MAML&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BOUNCEGRAD - Modular Network without MAML adaptation in online learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MOMA - BOUNCEGRAD with MAML adaptation in online learning.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;domains&quot;&gt;Domains&lt;/h3&gt;
+
+&lt;h4 id=&quot;simple-functional-relationships&quot;&gt;Simple Functional Relationships&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sine-function prediction problem&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, MOMA outperforms other models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;With a small amount of online training data, BOUNCEGRAD outperforms other models as it has a better structural prior.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;predicting-next-frame-of-a-kinematic-skeleton-motion-capture-data&quot;&gt;Predicting next frame of a kinematic skeleton (motion capture data)&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;11 different objects (with different shapes) on 4 surfaces with different friction properties.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;2 meta-learning scenarios are considered. In the first case, the object-surface combination in the test case was present in some meta-training tasks and in the other case, it was not present.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For previously seen combinations, MOMA performs the best followed by BOUNCEGRAD and MAML.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For unseen combinations, all the 3 are equally good.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Compositional scheme is the attention mechanism.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An interesting result is that the modules seem to specialize (and activate more often) based on the shape of the object.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;predicting-next-frame-of-a-kinematic-selection-using-motion-capture-data&quot;&gt;Predicting next frame of a kinematic selection (using motion capture data)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Composition Structure - generating kinematics subtrees for each body part (2 legs, 2 arms, 2 torsi).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Again 2 setups are used - one where all activities in the training and the meta-test task are shared while the other setup where the activities are not shared.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For known activities MOMA and BOUNCEGRAD perform the best while for unknown activities, MOMS performs the best.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;While the approach is interesting, maybe a more suitable set of tasks (from the point of composition) would be more convincing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It would be useful to see the computational tradeoff between MAML, BOUNCEGRAD, and MOMA.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies</title>

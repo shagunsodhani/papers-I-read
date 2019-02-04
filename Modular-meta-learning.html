@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Modular meta-learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.in/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.in/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.in/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.in/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.in/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Modular meta-learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Modular+Meta+Learning" title="Pages tagged Modular Meta Learning" rel="tag">Modular Meta Learning</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Modular+ML" title="Pages tagged Modular ML" rel="tag">Modular ML</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Modular+Network" title="Pages tagged Modular Network" rel="tag">Modular Network</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Module" title="Pages tagged Module" rel="tag">Module</a></p>
+  <span class="post-date">22 Jan 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes an approach for learning neural networks (modules) that can be combined in different ways to solve different tasks (combinatorial generalization).</p>
+  </li>
+  <li>
+    <p>The proposed model is called as BOUNCEGRAD.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1806.10166">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/FerranAlet/modular-metalearning">Link to the code</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Focuses on supervised learning.</p>
+  </li>
+  <li>
+    <p>Task distribution <em>p(T)</em>.</p>
+  </li>
+  <li>
+    <p>Each task is a joint distribution <em>p<sub>T</sub>(x, y)</em> over <em>(x, y)</em> data pairs.</p>
+  </li>
+  <li>
+    <p>Given data from <em>m</em> meta-training tasks, and a meta-test task, find a hypothesis <em>h</em> which performs well on the unseen data drawn from the meta-test task.</p>
+  </li>
+</ul>
+
+<h2 id="structured-hypothesis">Structured Hypothesis</h2>
+
+<ul>
+  <li>
+    <p>Given a compositional scheme <em>C</em>, a set of modules <em>F<sub>1</sub>, …, F<sub>k</sub></em> (represented as a whole by <em>F</em>) and the set of their respective parameters θ<sub>1</sub>, …, θ<sub>k</sub> (represented as a whole by θ), <em>(C, F, θ)</em> represents the set of possible functional input-output mappings. These mappings form the hypothesis space.</p>
+  </li>
+  <li>
+    <p>A structured hypothesis model is specified by what modules to use and their parametric forms (but not the values).</p>
+  </li>
+</ul>
+
+<h3 id="examples-of-compositional-schemes">Examples of compositional schemes</h3>
+
+<ul>
+  <li>
+    <p>Choosing a single module for the task at hand.</p>
+  </li>
+  <li>
+    <p>Fixed compositional structure but different modules selected every time.</p>
+  </li>
+  <li>
+    <p>Weight ensemble (maybe using attention mechanism)</p>
+  </li>
+  <li>
+    <p>General function composition tree</p>
+  </li>
+</ul>
+
+<h3 id="phases">Phases</h3>
+
+<ul>
+  <li>
+    <p>Offline Meta Learning Phase:</p>
+
+    <ul>
+      <li>
+        <p>Take training and validation dataset for the first <em>k</em> tasks and generate a parameterization for each module <em>θ<sub>1</sub>, …, θ<sub>k</sub></em>.</p>
+      </li>
+      <li>
+        <p>The hypothesis (or composition) to use comes from the online meta-test learning phase.</p>
+      </li>
+      <li>
+        <p>In this stage, find the best θ given a structure.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Online Meta-test Learning Phase</p>
+
+    <ul>
+      <li>
+        <p>Given a hypothesis space and θ, the output is a compositional form (or hypothesis) that specifies how to compose the models.</p>
+      </li>
+      <li>
+        <p>In this stage, find the best structure, given a hypothesis space and θ.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="learning-algorithm">Learning Algorithm</h2>
+
+<ul>
+  <li>
+    <p>During Meta-test learning phase, simulated annealing is used to find the optimal structure, with temperature <em>T</em> decreased over time.</p>
+  </li>
+  <li>
+    <p>During meta-learning phrase, the actual objective function is replaced by a surrogate, smooth objective function (during the search step) to avoid local minima.</p>
+  </li>
+  <li>
+    <p>Once a structure has been picked, any gradient descent based approach can be used to optimize the modules.</p>
+  </li>
+  <li>
+    <p>Basically the state of optimization process comprises of the parameters and the temperature. Together, they are used to induce a distribution over the structures. Given a structure, θ is optimized and <em>T</em> is annealed over time.</p>
+  </li>
+  <li>
+    <p>The learning procedure can be improved upon by performing parameter tuning during the online (meta-test learning) phase as well. the resulting approach is referred to as MOMA - MOdular MAml.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="approaches">Approaches</h3>
+
+<ul>
+  <li>
+    <p>Pooled - Single network using combined data of all the tasks.</p>
+  </li>
+  <li>
+    <p>MAML - Single network using MAML</p>
+  </li>
+  <li>
+    <p>BOUNCEGRAD - Modular Network without MAML adaptation in online learning.</p>
+  </li>
+  <li>
+    <p>MOMA - BOUNCEGRAD with MAML adaptation in online learning.</p>
+  </li>
+</ul>
+
+<h3 id="domains">Domains</h3>
+
+<h4 id="simple-functional-relationships">Simple Functional Relationships</h4>
+
+<ul>
+  <li>
+    <p>Sine-function prediction problem</p>
+  </li>
+  <li>
+    <p>In general, MOMA outperforms other models.</p>
+  </li>
+  <li>
+    <p>With a small amount of online training data, BOUNCEGRAD outperforms other models as it has a better structural prior.</p>
+  </li>
+</ul>
+
+<h4 id="predicting-next-frame-of-a-kinematic-skeleton-motion-capture-data">Predicting next frame of a kinematic skeleton (motion capture data)</h4>
+
+<ul>
+  <li>
+    <p>11 different objects (with different shapes) on 4 surfaces with different friction properties.</p>
+  </li>
+  <li>
+    <p>2 meta-learning scenarios are considered. In the first case, the object-surface combination in the test case was present in some meta-training tasks and in the other case, it was not present.</p>
+  </li>
+  <li>
+    <p>For previously seen combinations, MOMA performs the best followed by BOUNCEGRAD and MAML.</p>
+  </li>
+  <li>
+    <p>For unseen combinations, all the 3 are equally good.</p>
+  </li>
+  <li>
+    <p>Compositional scheme is the attention mechanism.</p>
+  </li>
+  <li>
+    <p>An interesting result is that the modules seem to specialize (and activate more often) based on the shape of the object.</p>
+  </li>
+</ul>
+
+<h3 id="predicting-next-frame-of-a-kinematic-selection-using-motion-capture-data">Predicting next frame of a kinematic selection (using motion capture data)</h3>
+
+<ul>
+  <li>
+    <p>Composition Structure - generating kinematics subtrees for each body part (2 legs, 2 arms, 2 torsi).</p>
+  </li>
+  <li>
+    <p>Again 2 setups are used - one where all activities in the training and the meta-test task are shared while the other setup where the activities are not shared.</p>
+  </li>
+  <li>
+    <p>For known activities MOMA and BOUNCEGRAD perform the best while for unknown activities, MOMS performs the best.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+  <li>
+    <p>While the approach is interesting, maybe a more suitable set of tasks (from the point of composition) would be more convincing.</p>
+  </li>
+  <li>
+    <p>It would be useful to see the computational tradeoff between MAML, BOUNCEGRAD, and MOMA.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies">
+            Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies
+            <small>15 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Efficient-Lifelong-Learning-with-A-GEM">
+            Efficient Lifelong Learning with A-GEM
+            <small>08 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels">
+            Pre-training Graph Neural Networks with Kernels
+            <small>02 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.in/papers-I-read/Modular-meta-learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Modular-meta-learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
