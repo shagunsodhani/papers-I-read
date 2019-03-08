@@ -11,7 +11,7 @@
 
   <title>
     
-      Cyclical Learning Rates for Training Neural Networks &middot; Papers I Read
+      Linguistic Knowledge as Memory for Recurrent Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -127,74 +127,67 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Cyclical Learning Rates for Training Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Accelerated+Training" title="Pages tagged Accelerated Training" rel="tag">Accelerated Training</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Learning+Rate" title="Pages tagged Learning Rate" rel="tag">Learning Rate</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#WACV+2017" title="Pages tagged WACV 2017" rel="tag">WACV 2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#LR" title="Pages tagged LR" rel="tag">LR</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#WACV" title="Pages tagged WACV" rel="tag">WACV</a></p>
-  <span class="post-date">18 Mar 2018</span>
-  <h2 id="introduction">Introduction</h2>
-
-<ul>
+  <h1 class="post-title">Linguistic Knowledge as Memory for Recurrent Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.in/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.in/papers-I-read/tags.html#RNN" title="Pages tagged RNN" rel="tag">RNN</a></p>
+  <span class="post-date">05 Feb 2019</span>
+  <ul>
   <li>
-    <p>Conventional wisdom says that when training neural networks, learning rate should monotonically decrease. This insight forms the basis of the different type of adaptive learning rates.</p>
+    <p><a href="https://arxiv.org/abs/1703.02620">Link to the paper</a></p>
   </li>
   <li>
-    <p>Counter to this expected behaviour, the paper demonstrates that using a cyclical learning rate (CLR), varying between a minimum and a maximum value, helps to train the neural network faster without requiring fine-tuning of learning rate.</p>
+    <p>Training RNNs to model long term dependencies is difficult but in some cases, the information about dependencies between elements (of the sequence) may be present in the form of symbolic knowledge.</p>
   </li>
   <li>
-    <p>The paper also provides a simple approach to estimate the lower and upper bound for CLR.</p>
+    <p>For example, when encoding sentences, coreference, and hypernymy relations can be extracted between tokens.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1506.01186">Link to the paper</a></p>
+    <p>These elements(tokens) can be connected with each other with different kind of edges resulting in the graph data structure.</p>
   </li>
   <li>
-    <p><a href="https://github.com/bckenstler/CLR">Link to the implementation</a></p>
-  </li>
-</ul>
-
-<h2 id="intution">Intution</h2>
-
-<ul>
-  <li>
-    <p>Difficulty in minimizing the loss arises from saddle points and not from local minima. <a href="http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf">[Ref]</a></p>
+    <p>One approach could be to model this knowledge(encoded in the graph) using a graph neural network (GNN).</p>
   </li>
   <li>
-    <p>Increasing the learning rate allows for rapid traversal of saddle points.</p>
+    <p>The authors prefer to encode the information into 2 DAGs (via topological sorting) as training the GNN could add some extra overhead.</p>
   </li>
   <li>
-    <p>Alternatively, the optimal learning rate is expected to be between bounds of CLR and thus the learning rate would always be close to the optimal learning rate.</p>
-  </li>
-</ul>
-
-<h2 id="parameter-estimation">Parameter Estimation</h2>
-
-<ul>
-  <li>
-    <p>Cycle Length = Number of iterations till learning rate returns to the initial value = 2 * step_size</p>
+    <p>This results into the Memory as Acyclic Graph Encoding RNN (MAGE-RNN) architecture. Its GRU version is referred to as MAGE-GRU.</p>
   </li>
   <li>
-    <p>step_size should be set to 2-10 times the number of iterations in an epoch.</p>
+    <p>Given an input sequence of tokens [x<sub>1</sub>, x<sub>2</sub>, …, x<sub>T</sub>] and information about which tokens relate to other tokens, a graph G is constructed with different (possibly typed) edges.</p>
   </li>
   <li>
-    <p>Estimating the CLR boundary values:</p>
-
-    <ul>
-      <li>
-        <p>Run the model for several epochs while increasing the learning rate between the allowed low and high values.</p>
-      </li>
-      <li>
-        <p>Plot accuracy vs learning rate and note the learning rate values when the accuracy starts to fall.</p>
-      </li>
-      <li>
-        <p>This gives a good candidate value for upper and lower bound. Alternatively, the lower bound could be set to be 1/3 or 3/4 of the upper bound. But it is difficult to judge if the model has run for the sufficient number of epochs in the first place.</p>
-      </li>
-    </ul>
+    <p>Given the graph <em>G</em>, two DFS orderings are computed - forward DFS and backward DFS.</p>
   </li>
-</ul>
-
-<h2 id="notes">Notes</h2>
-
-<ul>
-  <li>The idea in itself is very simple and straight-forward to add to any existing model which makes it very appealing.</li>
-  <li>The author has experimented with various architectures and datasets (from vision domain) and has reported faster training results.</li>
+  <li>
+    <p>MAGE-RNN uses separate networks for accessing the forward and backward DFS orders.</p>
+  </li>
+  <li>
+    <p>A separate hidden state is maintained for each entity type to separate memory content from addressing.</p>
+  </li>
+  <li>
+    <p>For any DFS order (forward or backward), the representation at time <em>t</em> is given as the concatenation of representation of different edge types at that time.</p>
+  </li>
+  <li>
+    <p>The hidden states (for different edge types at time t) are updated in the topological order using the current state of all incoming edges at x<sub>t</sub>.</p>
+  </li>
+  <li>
+    <p>The representation of the DFS order is given as the sequence of all the previous representations.</p>
+  </li>
+  <li>
+    <p>In some cases, elements across multiple sequences could be related to each other. In that case, the graph is decomposed into a collection of DAGs and use MAGE-GRU on the DAGs by taking one random permutation of the sequences and decomposing it into the forward and the backward graphs.</p>
+  </li>
+  <li>
+    <p>The model is evaluated on the task of text comprehension with coreference on bAbi dataset (story based QA), LAMBADA dataset (broad context language modeling) and CNN dataset (cloze-style QA).</p>
+  </li>
+  <li>
+    <p>MAGE-GRU was used as a replacement for GRU units in bi-directional GRUs and GA-Reader architecture.</p>
+  </li>
+  <li>
+    <p>DAG-RNN and shared version of MAGE-GRU (with shared edge types) are the other baselines.</p>
+  </li>
+  <li>
+    <p>For all the cases, the model with MAGE-GRU works the best.</p>
+  </li>
 </ul>
 
 </div>
@@ -202,15 +195,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.in/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks">
-            Linguistic Knowledge as Memory for Recurrent Neural Networks
-            <small>05 Feb 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -226,6 +210,15 @@
           <a href="https://shagunsodhani.in/papers-I-read/Modular-meta-learning">
             Modular meta-learning
             <small>22 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies">
+            Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies
+            <small>15 Jan 2019</small>
           </a>
         </h3>
       </li>
@@ -246,8 +239,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.in/papers-I-read/Cyclical-Learning-Rates-for-Training-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Cyclical-Learning-Rates-for-Training-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.in/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

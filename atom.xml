@@ -4,13 +4,80 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.in/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.in/papers-I-read/"/>
- <updated>2019-02-03T20:56:52-05:00</updated>
+ <updated>2019-03-08T07:03:50-05:00</updated>
  <id>https://shagunsodhani.in/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Linguistic Knowledge as Memory for Recurrent Neural Networks</title>
+   <link href="https://shagunsodhani.in/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks"/>
+   <updated>2019-02-05T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.in/papers-I-read/Linguistic Knowledge as Memory for Recurrent Neural Networks</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1703.02620&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training RNNs to model long term dependencies is difficult but in some cases, the information about dependencies between elements (of the sequence) may be present in the form of symbolic knowledge.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, when encoding sentences, coreference, and hypernymy relations can be extracted between tokens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These elements(tokens) can be connected with each other with different kind of edges resulting in the graph data structure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One approach could be to model this knowledge(encoded in the graph) using a graph neural network (GNN).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors prefer to encode the information into 2 DAGs (via topological sorting) as training the GNN could add some extra overhead.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This results into the Memory as Acyclic Graph Encoding RNN (MAGE-RNN) architecture. Its GRU version is referred to as MAGE-GRU.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an input sequence of tokens [x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, …, x&lt;sub&gt;T&lt;/sub&gt;] and information about which tokens relate to other tokens, a graph G is constructed with different (possibly typed) edges.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the graph &lt;em&gt;G&lt;/em&gt;, two DFS orderings are computed - forward DFS and backward DFS.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MAGE-RNN uses separate networks for accessing the forward and backward DFS orders.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A separate hidden state is maintained for each entity type to separate memory content from addressing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For any DFS order (forward or backward), the representation at time &lt;em&gt;t&lt;/em&gt; is given as the concatenation of representation of different edge types at that time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The hidden states (for different edge types at time t) are updated in the topological order using the current state of all incoming edges at x&lt;sub&gt;t&lt;/sub&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The representation of the DFS order is given as the sequence of all the previous representations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In some cases, elements across multiple sequences could be related to each other. In that case, the graph is decomposed into a collection of DAGs and use MAGE-GRU on the DAGs by taking one random permutation of the sequences and decomposing it into the forward and the backward graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is evaluated on the task of text comprehension with coreference on bAbi dataset (story based QA), LAMBADA dataset (broad context language modeling) and CNN dataset (cloze-style QA).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MAGE-GRU was used as a replacement for GRU units in bi-directional GRUs and GA-Reader architecture.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;DAG-RNN and shared version of MAGE-GRU (with shared edge types) are the other baselines.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For all the cases, the model with MAGE-GRU works the best.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Diversity is All You Need - Learning Skills without a Reward Function</title>
@@ -1583,11 +1650,10 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
 
 * The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
 
