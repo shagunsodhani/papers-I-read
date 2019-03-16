@@ -3,7 +3,7 @@ layout: post
 title: Emergence of Grounded Compositional Language in Multi-Agent Populations
 comments: True
 excerpt: 
-tags: ['2018', 'AAAI 2018', 'Emergent Language', 'Multi-Agent', Natural Language Processing', AAAI, AI, NLP]
+tags: ['2018', 'AAAI 2018', 'Emergent Language', 'Multi-Agent', 'Natural Language Processing', AAAI, AI, NLP]
 ---
 
 ## Introduction

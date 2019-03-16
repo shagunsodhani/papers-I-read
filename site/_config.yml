@@ -9,14 +9,14 @@ title:               'Papers I Read'
 tagline:             'Notes and Summaries'
 description:         'I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.'
 # url:                 'https://shagunsodhani.in/test'
-baseurl:             'https://shagunsodhani.in/papers-I-read'
+baseurl:             'https://shagunsodhani.github.io/papers-I-read'
 paginate:            10
 plugins:                [jekyll-paginate]
 
 # About/contact
 author:
   name:              Shagun Sodhani
-  url:               https://shagunsodhani.in
+  url:               https://shagunsodhani.github.io
   email:             sshagunsodhani@gmail.com
 
 # Custom vars

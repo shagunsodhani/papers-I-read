@@ -3,7 +3,7 @@ layout: post
 title: Poincaré Embeddings for Learning Hierarchical Representations
 comments: True
 excerpt: 
-tags: ['2017', 'Hyperbolic Embedding', 'Graph Representation', Natural Language Processing', 'Poincare Ball Model', AI, Embedding, Graph, NLP, Tree]
+tags: ['2017', 'Hyperbolic Embedding', 'Graph Representation', 'Natural Language Processing', 'Poincare Ball Model', AI, Embedding, Graph, NLP, Tree]
 ---
 
 ## Introduction
