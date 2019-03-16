@@ -4,13 +4,167 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-03-16T10:06:34-04:00</updated>
+ <updated>2019-03-16T12:06:17-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks"/>
+   <updated>2019-03-16T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1903.05987&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper provides useful empirical advice for adapting pretrained language models for a given target task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Pre-trained models considered&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;ELMo&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;BERT&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tasks considered&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Named Entity Recognition (NER) - CoNLL 2003 dataset&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sentiment Analysis (SA) - Stanford Sentiment Treebank (SST-2) dataset&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Natural Language Inference (NLI) - MultiNLI and Sentences Involving Compositional Knowledge (SICK-E) dataset&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Paraphrase Detection (PD) - Microsoft Research Paraphrase Corpus (MRPC)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Semantic Textual Similarity (STS) - Semantic Textual Similarity Benchmark (STS-B) and SICK-R&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The last 3 tasks (NLI, PD, STS) are defined for sentence pairs.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adaptation Strategies&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Feature Extraction&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;The pretrained model is only used for extracting features and its weights are kept fixed.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;For both ELMo and BERT, the contextual representation of the words from all the layers are extracted.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;A weighted combination of these layers is used as an input to the task-specific model.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task-specific models&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;NER - BiLSTM with CRF layer&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;SA - bi-attentive classification network&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;NLI, PD, STS - &lt;a href=&quot;https://arxiv.org/abs/1609.06038&quot;&gt;Enhanced Sequential Inference Model (ESIM)&lt;/a&gt;&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Fine-tuning&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;The pretrained model is finetuned on the target task.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task-specific models for ELMO&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;NER - CRF on top of LSTM states&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;SA - Max-pool over the language model states followed by a softmax layer&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;NLI, PD, STS - cross sentence bi-attention between the language model states followed by pooling and softmax layer.&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task-specific models for BERT&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;NER - Extract representation of the first-word piece of each token followed by the softmax layer&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;SA, NLI, PD, STS - standard BERT training&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Main observations&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Feature extraction and fine-tuning have comparable performance in most cases unless the two tasks are highly similar(fine-tuning is better) or highly dissimilar (feature extraction is better).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For ELMo, feature extraction consistently outperforms fine-tuning for the sentence pair tasks (NLI, PD, STS). The reverse trend is observed for BERT with fine-tuning being better on sentence pair tasks.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Adding extra parameters is helpful for feature extraction but not fine-tuning.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;ELMo fine-tuning requires careful tuning and other tricks like triangular learning rates, gradual unfreezing and discriminative fine-tuning.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For the tasks considered, there is no correlation observed between the distance of the source and target domains and adaptation performance.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Training a diagnostic classifier (on the intermediate representations) suggests that fine-tuning improves the performance of the classifier at all the intermediate layers (which is sort of expected).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In terms of mutual information estimates, fine-tuned representations have a much higher mutual information as compared to the feature extraction based representations.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Knowledge for single sentence tasks seems to be mostly concentrated in the last layers while for pair classification tasks, the knowledge seems gradually build un in the intermediate layers, all the way up to the last layer.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Model Primitive Hierarchical Lifelong Reinforcement Learning</title>
@@ -23,60 +177,6 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The paper presents a framework that uses diverse suboptimal world models&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Training RNNs to model long term dependencies is difficult but in some cases, the information about dependencies between elements (of the sequence) may be present in the form of symbolic knowledge.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For example, when encoding sentences, coreference, and hypernymy relations can be extracted between tokens.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;These elements(tokens) can be connected with each other with different kind of edges resulting in the graph data structure.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;One approach could be to model this knowledge(encoded in the graph) using a graph neural network (GNN).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The authors prefer to encode the information into 2 DAGs (via topological sorting) as training the GNN could add some extra overhead.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;This results into the Memory as Acyclic Graph Encoding RNN (MAGE-RNN) architecture. Its GRU version is referred to as MAGE-GRU.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Given an input sequence of tokens [x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, …, x&lt;sub&gt;T&lt;/sub&gt;] and information about which tokens relate to other tokens, a graph G is constructed with different (possibly typed) edges.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Given the graph &lt;em&gt;G&lt;/em&gt;, two DFS orderings are computed - forward DFS and backward DFS.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;MAGE-RNN uses separate networks for accessing the forward and backward DFS orders.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;A separate hidden state is maintained for each entity type to separate memory content from addressing.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For any DFS order (forward or backward), the representation at time &lt;em&gt;t&lt;/em&gt; is given as the concatenation of representation of different edge types at that time.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The hidden states (for different edge types at time t) are updated in the topological order using the current state of all incoming edges at x&lt;sub&gt;t&lt;/sub&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The representation of the DFS order is given as the sequence of all the previous representations.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In some cases, elements across multiple sequences could be related to each other. In that case, the graph is decomposed into a collection of DAGs and use MAGE-GRU on the DAGs by taking one random permutation of the sequences and decomposing it into the forward and the backward graphs.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The model is evaluated on the task of text comprehension with coreference on bAbi dataset (story based QA), LAMBADA dataset (broad context language modeling) and CNN dataset (cloze-style QA).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;MAGE-GRU was used as a replacement for GRU units in bi-directional GRUs and GA-Reader architecture.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;DAG-RNN and shared version of MAGE-GRU (with shared edge types) are the other baselines.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For all the cases, the model with MAGE-GRU works the best.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>

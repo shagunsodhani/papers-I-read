@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical+Advice" title="Pages tagged Empirical Advice" rel="tag">Empirical Advice</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Multi+Task" title="Pages tagged Multi Task" rel="tag">Multi Task</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Transfer+Learning" title="Pages tagged Transfer Learning" rel="tag">Transfer Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a></p>
+  <span class="post-date">16 Mar 2019</span>
+  <ul>
+  <li>
+    <p><a href="https://arxiv.org/abs/1903.05987">Link to the paper</a></p>
+  </li>
+  <li>
+    <p>The paper provides useful empirical advice for adapting pretrained language models for a given target task.</p>
+  </li>
+  <li>
+    <p>Pre-trained models considered</p>
+
+    <ul>
+      <li>
+        <p>ELMo</p>
+      </li>
+      <li>
+        <p>BERT</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Tasks considered</p>
+
+    <ul>
+      <li>
+        <p>Named Entity Recognition (NER) - CoNLL 2003 dataset</p>
+      </li>
+      <li>
+        <p>Sentiment Analysis (SA) - Stanford Sentiment Treebank (SST-2) dataset</p>
+      </li>
+      <li>
+        <p>Natural Language Inference (NLI) - MultiNLI and Sentences Involving Compositional Knowledge (SICK-E) dataset</p>
+      </li>
+      <li>
+        <p>Paraphrase Detection (PD) - Microsoft Research Paraphrase Corpus (MRPC)</p>
+      </li>
+      <li>
+        <p>Semantic Textual Similarity (STS) - Semantic Textual Similarity Benchmark (STS-B) and SICK-R</p>
+      </li>
+      <li>
+        <p>The last 3 tasks (NLI, PD, STS) are defined for sentence pairs.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Adaptation Strategies</p>
+
+    <ul>
+      <li>
+        <p>Feature Extraction</p>
+
+        <ul>
+          <li>
+            <p>The pretrained model is only used for extracting features and its weights are kept fixed.</p>
+          </li>
+          <li>
+            <p>For both ELMo and BERT, the contextual representation of the words from all the layers are extracted.</p>
+          </li>
+          <li>
+            <p>A weighted combination of these layers is used as an input to the task-specific model.</p>
+          </li>
+          <li>
+            <p>Task-specific models</p>
+
+            <ul>
+              <li>
+                <p>NER - BiLSTM with CRF layer</p>
+              </li>
+              <li>
+                <p>SA - bi-attentive classification network</p>
+              </li>
+              <li>
+                <p>NLI, PD, STS - <a href="https://arxiv.org/abs/1609.06038">Enhanced Sequential Inference Model (ESIM)</a></p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Fine-tuning</p>
+
+        <ul>
+          <li>
+            <p>The pretrained model is finetuned on the target task.</p>
+          </li>
+          <li>
+            <p>Task-specific models for ELMO</p>
+
+            <ul>
+              <li>
+                <p>NER - CRF on top of LSTM states</p>
+              </li>
+              <li>
+                <p>SA - Max-pool over the language model states followed by a softmax layer</p>
+              </li>
+              <li>
+                <p>NLI, PD, STS - cross sentence bi-attention between the language model states followed by pooling and softmax layer.</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>Task-specific models for BERT</p>
+
+            <ul>
+              <li>
+                <p>NER - Extract representation of the first-word piece of each token followed by the softmax layer</p>
+              </li>
+              <li>
+                <p>SA, NLI, PD, STS - standard BERT training</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Main observations</p>
+
+    <ul>
+      <li>
+        <p>Feature extraction and fine-tuning have comparable performance in most cases unless the two tasks are highly similar(fine-tuning is better) or highly dissimilar (feature extraction is better).</p>
+      </li>
+      <li>
+        <p>For ELMo, feature extraction consistently outperforms fine-tuning for the sentence pair tasks (NLI, PD, STS). The reverse trend is observed for BERT with fine-tuning being better on sentence pair tasks.</p>
+      </li>
+      <li>
+        <p>Adding extra parameters is helpful for feature extraction but not fine-tuning.</p>
+      </li>
+      <li>
+        <p>ELMo fine-tuning requires careful tuning and other tricks like triangular learning rates, gradual unfreezing and discriminative fine-tuning.</p>
+      </li>
+      <li>
+        <p>For the tasks considered, there is no correlation observed between the distance of the source and target domains and adaptation performance.</p>
+      </li>
+      <li>
+        <p>Training a diagnostic classifier (on the intermediate representations) suggests that fine-tuning improves the performance of the classifier at all the intermediate layers (which is sort of expected).</p>
+      </li>
+      <li>
+        <p>In terms of mutual information estimates, fine-tuned representations have a much higher mutual information as compared to the feature extraction based representations.</p>
+      </li>
+      <li>
+        <p>Knowledge for single sentence tasks seems to be mostly concentrated in the last layers while for pair classification tasks, the knowledge seems gradually build un in the intermediate layers, all the way up to the last layer.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning">
+            Model Primitive Hierarchical Lifelong Reinforcement Learning
+            <small>12 Feb 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks">
+            Linguistic Knowledge as Memory for Recurrent Neural Networks
+            <small>05 Feb 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function">
+            Diversity is All You Need - Learning Skills without a Reward Function
+            <small>29 Jan 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
