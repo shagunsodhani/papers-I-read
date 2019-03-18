@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-03-17T20:33:19-04:00</updated>
+ <updated>2019-03-17T20:37:44-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -167,151 +167,9 @@
  </entry>
  
  <entry>
-   <title>TuckER - Tensor Factorization for Knowledge Graph Completion</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion"/>
-   <updated>2019-02-19T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor Factorization for Knowledge Graph Completion</id>
-   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;TuckER is a simple, yet powerful linear model that uses Tucker decomposition for the task of link prediction in knowledge graphs.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1901.09590&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://github.com/ibalazevic/TuckER&quot;&gt;Implementation&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;knowledge-graph-as-a-tensor&quot;&gt;Knowledge Graph as a Tensor&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Let E be the set of all the entities and R be the set of all the relations in a given knowledge graph (KG).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The KG can be represented as a list of triples of the form (source entity, relation, object entity) or (e&lt;sub&gt;s&lt;/sub&gt;, r, e&lt;sub&gt;o&lt;/sub&gt;).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The list of triples can be represented as a third-order tensor (of binary values) where each element corresponds to a triple and each element’s value corresponds to ether that element is present in the KG or not.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The link prediction task can be formulated as - given a set of all triples, learn a scoring function that assigns a score to each triple. The score indicates whether the triple is actually present in the KG or not.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;tucker-decomposition&quot;&gt;TuckER Decomposition&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Tucker decomposition factorizes a tensor into a set of factor matrices and a smaller core tensor.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In the specific case of three-mode tensors (alternate representation of a KG), the given original tensor &lt;strong&gt;X&lt;/strong&gt; (of shape &lt;em&gt;IxJxK&lt;/em&gt;) can be factorized into a core tensor &lt;strong&gt;W&lt;/strong&gt; (of shape &lt;em&gt;PxQxR&lt;/em&gt;) and 3 factor matrics - &lt;strong&gt;A&lt;/strong&gt; (of shape &lt;em&gt;IxP&lt;/em&gt;), &lt;strong&gt;B&lt;/strong&gt; (of shape &lt;em&gt;JxQ&lt;/em&gt;) and &lt;strong&gt;C&lt;/strong&gt; (of shape &lt;em&gt;KxR&lt;/em&gt;) such that &lt;strong&gt;X&lt;/strong&gt; is approximately &lt;strong&gt;W&lt;/strong&gt; x&lt;sub&gt;1&lt;/sub&gt; &lt;strong&gt;A&lt;/strong&gt; x&lt;sub&gt;2&lt;/sub&gt; &lt;strong&gt;B&lt;/strong&gt; x&lt;sub&gt;3&lt;/sub&gt; &lt;strong&gt;C&lt;/strong&gt;, where X&lt;sub&gt;n&lt;/sub&gt; denotes the tensor product along the nth mode.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Generally, &lt;em&gt;P, Q, R&lt;/em&gt; are smaller than &lt;em&gt;I, J K&lt;/em&gt; (respectively) and &lt;strong&gt;W&lt;/strong&gt; can be seen as a compressed version of &lt;strong&gt;X&lt;/strong&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;tucker-decomposition-for-link-prediction&quot;&gt;TuckER Decomposition for Link Prediction&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Two embedding matrics are used for embedding the entities and the relations respectively.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Entity embedding matrix &lt;strong&gt;E&lt;/strong&gt; is shared for both subject and the object ie &lt;strong&gt;E&lt;/strong&gt; = &lt;strong&gt;A&lt;/strong&gt; = &lt;strong&gt;B&lt;/strong&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The scoring function is gives as &lt;strong&gt;W&lt;/strong&gt; x&lt;sub&gt;1&lt;/sub&gt; &lt;strong&gt;e&lt;sub&gt;s&lt;/sub&gt;&lt;/strong&gt; x&lt;sub&gt;2&lt;/sub&gt; &lt;strong&gt;w&lt;sub&gt;r&lt;/sub&gt;&lt;/strong&gt; x&lt;sub&gt;3&lt;/sub&gt; &lt;strong&gt;e&lt;sub&gt;0&lt;/sub&gt;&lt;/strong&gt; where &lt;strong&gt;e&lt;sub&gt;s&lt;/sub&gt;&lt;/strong&gt;, &lt;strong&gt;w&lt;sub&gt;r&lt;/sub&gt;&lt;/strong&gt; and &lt;strong&gt;e&lt;sub&gt;o&lt;/sub&gt;&lt;/strong&gt; are the embedding vectors corresonding to e&lt;sub&gt;s&lt;/sub&gt;, e&lt;sub&gt;r&lt;/sub&gt; and e&lt;sub&gt;o&lt;/sub&gt; respectively. Note that both the core tensor and the factor matrices are to be learnt.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Model is trained with the standard negative log-likelihood loss given as (for one triple):  y * log(p) + (1-y) * log(1-p)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;To speed up training and increase accuracy, 1-N scoring is used. A given (e&lt;sub&gt;s&lt;/sub&gt;, r) is simultaneously scored for all the entities using the local-closed world assumption (knowledge graph is only locally complete).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Handling asymmetric relations is straightforward by learning a relation embedding alongside a relation-agnostic core tensor which enables knowledge sharing across relations.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;theoretical-analysis&quot;&gt;Theoretical Analysis&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;One important consideration would be the expressive power of TuckER models, especially in relation to other models like ComplEx and SimplE.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It can be shown the TuckER is fully expressive ie give any ground truth over E and R, there exists a TuckER model which can perfectly represent the data - using 1-hot entity and relation embedding.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For full expressiveness, dimensionality of entity (relation) is n&lt;sub&gt;E&lt;/sub&gt; (n&lt;sub&gt;R&lt;/sub&gt;) where n&lt;sub&gt;E&lt;/sub&gt; (n&lt;sub&gt;R&lt;/sub&gt;) are the number of entities (relations). In comparsion, the required dimensionality for ComplEx is n&lt;sub&gt;E&lt;/sub&gt; * n&lt;sub&gt;R&lt;/sub&gt; (for both entity and relations) and for SimplE, it is min(&lt;sub&gt;E&lt;/sub&gt; * n&lt;sub&gt;R&lt;/sub&gt;, number of facts + 1) (for both entity and relations).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Many existing models like RESCAL, DistMult, ComplEx, SimplE etc can be seen as special cases of TuckER.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
-
-&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;FB15k, FB15k-237, WN18, WN18RR&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The max number of entities is around 41K and max number of relations is around 1.3K&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;BatchNorm, Dropout and Learning rate decay are used.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;metrics&quot;&gt;Metrics&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Mean Reciprocal Rank (MRR) - the average of the inverse of mean rank assigned to the true triple overall n&lt;sub&gt;e&lt;/sub&gt; generated triples.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;hits@k (k = 1, 3, 10) - percentage of times the true triple is ranked in the top k of the n&lt;sub&gt;e&lt;/sub&gt; generated triples.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Higher is better for both the metrics.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;TuckER outperforms all the baseline models on all but one task.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Dropout is an important factor with higher dropout rates (0, 3, 0.4, 0.5) needed for datasets with fewer training examples per relation (hence more prone to overfitting).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;TuckER improves performance more significantly when the number of relations is large.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Even with lower embedding dimensions, TuckER’s performance does not deteriorate as much as other models.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</content>
- </entry>
- 
- <entry>
    <title>Model Primitive Hierarchical Lifelong Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning"/>
-   <updated>2019-02-12T00:00:00-05:00</updated>
+   <updated>2019-03-12T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Model Primitive Hierarchical Lifelong Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -475,6 +333,148 @@
     &lt;ul&gt;
       &lt;li&gt;I think the biggest strength of the work is that accurate dynamics model are not needed (which are hard to train anyways!) through the experimental results are not conclusive given the limited number of domains on which the approach is tested.&lt;/li&gt;
     &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>TuckER - Tensor Factorization for Knowledge Graph Completion</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion"/>
+   <updated>2019-02-19T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor Factorization for Knowledge Graph Completion</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;TuckER is a simple, yet powerful linear model that uses Tucker decomposition for the task of link prediction in knowledge graphs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1901.09590&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/ibalazevic/TuckER&quot;&gt;Implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;knowledge-graph-as-a-tensor&quot;&gt;Knowledge Graph as a Tensor&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let E be the set of all the entities and R be the set of all the relations in a given knowledge graph (KG).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The KG can be represented as a list of triples of the form (source entity, relation, object entity) or (e&lt;sub&gt;s&lt;/sub&gt;, r, e&lt;sub&gt;o&lt;/sub&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The list of triples can be represented as a third-order tensor (of binary values) where each element corresponds to a triple and each element’s value corresponds to ether that element is present in the KG or not.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The link prediction task can be formulated as - given a set of all triples, learn a scoring function that assigns a score to each triple. The score indicates whether the triple is actually present in the KG or not.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tucker-decomposition&quot;&gt;TuckER Decomposition&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tucker decomposition factorizes a tensor into a set of factor matrices and a smaller core tensor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the specific case of three-mode tensors (alternate representation of a KG), the given original tensor &lt;strong&gt;X&lt;/strong&gt; (of shape &lt;em&gt;IxJxK&lt;/em&gt;) can be factorized into a core tensor &lt;strong&gt;W&lt;/strong&gt; (of shape &lt;em&gt;PxQxR&lt;/em&gt;) and 3 factor matrics - &lt;strong&gt;A&lt;/strong&gt; (of shape &lt;em&gt;IxP&lt;/em&gt;), &lt;strong&gt;B&lt;/strong&gt; (of shape &lt;em&gt;JxQ&lt;/em&gt;) and &lt;strong&gt;C&lt;/strong&gt; (of shape &lt;em&gt;KxR&lt;/em&gt;) such that &lt;strong&gt;X&lt;/strong&gt; is approximately &lt;strong&gt;W&lt;/strong&gt; x&lt;sub&gt;1&lt;/sub&gt; &lt;strong&gt;A&lt;/strong&gt; x&lt;sub&gt;2&lt;/sub&gt; &lt;strong&gt;B&lt;/strong&gt; x&lt;sub&gt;3&lt;/sub&gt; &lt;strong&gt;C&lt;/strong&gt;, where X&lt;sub&gt;n&lt;/sub&gt; denotes the tensor product along the nth mode.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, &lt;em&gt;P, Q, R&lt;/em&gt; are smaller than &lt;em&gt;I, J K&lt;/em&gt; (respectively) and &lt;strong&gt;W&lt;/strong&gt; can be seen as a compressed version of &lt;strong&gt;X&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tucker-decomposition-for-link-prediction&quot;&gt;TuckER Decomposition for Link Prediction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two embedding matrics are used for embedding the entities and the relations respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Entity embedding matrix &lt;strong&gt;E&lt;/strong&gt; is shared for both subject and the object ie &lt;strong&gt;E&lt;/strong&gt; = &lt;strong&gt;A&lt;/strong&gt; = &lt;strong&gt;B&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The scoring function is gives as &lt;strong&gt;W&lt;/strong&gt; x&lt;sub&gt;1&lt;/sub&gt; &lt;strong&gt;e&lt;sub&gt;s&lt;/sub&gt;&lt;/strong&gt; x&lt;sub&gt;2&lt;/sub&gt; &lt;strong&gt;w&lt;sub&gt;r&lt;/sub&gt;&lt;/strong&gt; x&lt;sub&gt;3&lt;/sub&gt; &lt;strong&gt;e&lt;sub&gt;0&lt;/sub&gt;&lt;/strong&gt; where &lt;strong&gt;e&lt;sub&gt;s&lt;/sub&gt;&lt;/strong&gt;, &lt;strong&gt;w&lt;sub&gt;r&lt;/sub&gt;&lt;/strong&gt; and &lt;strong&gt;e&lt;sub&gt;o&lt;/sub&gt;&lt;/strong&gt; are the embedding vectors corresonding to e&lt;sub&gt;s&lt;/sub&gt;, e&lt;sub&gt;r&lt;/sub&gt; and e&lt;sub&gt;o&lt;/sub&gt; respectively. Note that both the core tensor and the factor matrices are to be learnt.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model is trained with the standard negative log-likelihood loss given as (for one triple):  y * log(p) + (1-y) * log(1-p)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To speed up training and increase accuracy, 1-N scoring is used. A given (e&lt;sub&gt;s&lt;/sub&gt;, r) is simultaneously scored for all the entities using the local-closed world assumption (knowledge graph is only locally complete).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Handling asymmetric relations is straightforward by learning a relation embedding alongside a relation-agnostic core tensor which enables knowledge sharing across relations.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;theoretical-analysis&quot;&gt;Theoretical Analysis&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;One important consideration would be the expressive power of TuckER models, especially in relation to other models like ComplEx and SimplE.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It can be shown the TuckER is fully expressive ie give any ground truth over E and R, there exists a TuckER model which can perfectly represent the data - using 1-hot entity and relation embedding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For full expressiveness, dimensionality of entity (relation) is n&lt;sub&gt;E&lt;/sub&gt; (n&lt;sub&gt;R&lt;/sub&gt;) where n&lt;sub&gt;E&lt;/sub&gt; (n&lt;sub&gt;R&lt;/sub&gt;) are the number of entities (relations). In comparsion, the required dimensionality for ComplEx is n&lt;sub&gt;E&lt;/sub&gt; * n&lt;sub&gt;R&lt;/sub&gt; (for both entity and relations) and for SimplE, it is min(&lt;sub&gt;E&lt;/sub&gt; * n&lt;sub&gt;R&lt;/sub&gt;, number of facts + 1) (for both entity and relations).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Many existing models like RESCAL, DistMult, ComplEx, SimplE etc can be seen as special cases of TuckER.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;datasets&quot;&gt;Datasets&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;FB15k, FB15k-237, WN18, WN18RR&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The max number of entities is around 41K and max number of relations is around 1.3K&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;BatchNorm, Dropout and Learning rate decay are used.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;metrics&quot;&gt;Metrics&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mean Reciprocal Rank (MRR) - the average of the inverse of mean rank assigned to the true triple overall n&lt;sub&gt;e&lt;/sub&gt; generated triples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;hits@k (k = 1, 3, 10) - percentage of times the true triple is ranked in the top k of the n&lt;sub&gt;e&lt;/sub&gt; generated triples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Higher is better for both the metrics.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;TuckER outperforms all the baseline models on all but one task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dropout is an important factor with higher dropout rates (0, 3, 0.4, 0.5) needed for datasets with fewer training examples per relation (hence more prone to overfitting).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;TuckER improves performance more significantly when the number of relations is large.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Even with lower embedding dimensions, TuckER’s performance does not deteriorate as much as other models.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
