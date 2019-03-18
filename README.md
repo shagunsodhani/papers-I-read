@@ -5,6 +5,10 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [https://shagunsodhani.com/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion](https://shagunsodhani.com/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks)
+* [Model Primitive Hierarchical Lifelong Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning)
+* [TuckER - Tensor Factorization for Knowledge Graph Completion](https://shagunsodhani.com/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion)
+* [Linguistic Knowledge as Memory for Recurrent Neural Networks](https://shagunsodhani.com/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks)
 * [Diversity is All You Need - Learning Skills without a Reward Function](https://shagunsodhani.in/papers-I-read/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function)
 * [Modular meta-learning](https://shagunsodhani.in/papers-I-read/Modular-meta-learning)
 * [Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies](https://shagunsodhani.in/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies)
