@@ -4,13 +4,221 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-03-17T20:37:44-04:00</updated>
+ <updated>2019-03-29T11:29:56-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks"/>
+   <updated>2019-03-26T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Graph Neural Network (GNN) is a family of powerful machine learning (ML) models for graphs that can combine node information with the structural information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One downside of GNNs is that their predictions are hard to interpret.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes GNN Explainer model for solving the problem of interpretability.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1903.03894&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;desiderata-for-gnn-explanations&quot;&gt;Desiderata for GNN explanations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Local edge fidelity&lt;/strong&gt; - identify the subgraph structure (ideally the smallest) that significantly affected the predictions of the GNN. ie identify the important edges in the graph (for a given prediction).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Local node fidelity&lt;/strong&gt; - identify the import node features and correlations in the features of the neighboring nodes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Single instance and multi-instance explanations&lt;/strong&gt; - Support both single instance prediction tasks and multi-instance prediction tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Model Agnostic&lt;/strong&gt; - Support a large family of models (ideally all)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Task Agnostic&lt;/strong&gt; - Support a large family of tasks (ideally all)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;I first describe the single instance prediction case and use that as the base to describe the multiple instance prediction cases. All the discussion in this section assumes a single instance prediction task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: Trained GNN, a single instance whose prediction is to be explained.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Task&lt;/strong&gt;: Identify the small subgraph and the small subset of features that explain the prediction.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Idea&lt;/strong&gt;: Maximize the mutual information (MI) between the GNN and the explanation by learning a &lt;em&gt;graph mask&lt;/em&gt; which can be used for selecting the relevant subgraph (from the GNN’s computational graph) and features (from all layers of the GNN).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Computational graph of GNN (corresponding to a node) refers to the approx L-hop neighborhood of the node in the graph ie the subgraph formed by nodes and edges whose representation affected the representation of the given node.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;single-instance-explanations&quot;&gt;Single-Instance Explanations&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a node &lt;em&gt;v&lt;/em&gt;, the information used to predict its label &lt;em&gt;y&lt;/em&gt; is completely described by its computation graph &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt; and the associated feature set &lt;em&gt;X&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt;. The feature set includes the features of all the nodes in the computation graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When constructing the explaination, only &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt; and &lt;em&gt;X&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt; are used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The task can be reformulated as identifying a subgraph &lt;em&gt;G&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; (subset of &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt;) with associated features &lt;em&gt;X&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; which are important when predicting the label &lt;em&gt;y&lt;/em&gt; for node &lt;em&gt;v&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“Importance” is measured in terms of MI&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;MI(Y, (G&lt;sub&gt;S&lt;/sub&gt;, X&lt;sub&gt;S&lt;/sub&gt;)) = H(Y) - H(Y | G = G&lt;sub&gt;S&lt;/sub&gt;, X = X&lt;sub&gt;S&lt;/sub&gt;)&lt;/em&gt; where &lt;em&gt;H&lt;/em&gt; is the entropy and &lt;em&gt;Y&lt;/em&gt; is a random variable representing the prediction.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A further constraint, &lt;em&gt;| G&lt;sub&gt;S&lt;/sub&gt;| &amp;lt; k&lt;/em&gt; is imposed to obtain consise explaintations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since &lt;em&gt;H(Y)&lt;/em&gt; is fixed (recall that the network has already been trained and is now being used in the inference mode), maximizing MI is equivalent to minimizing the conditional entropy &lt;em&gt;H(Y | G = G&lt;sub&gt;S&lt;/sub&gt;, X = X&lt;sub&gt;S&lt;/sub&gt;)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is equivalent to selecting the subgraph that minimizes the uncertainty in the prediction of &lt;em&gt;y&lt;/em&gt; when the computational graph is &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;optimiation-process&quot;&gt;Optimiation Process&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the exponentially large number of possible subgraphs, we can not directly optimize the given equation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A “relaxed”-adjacency matrix (whose values are real numbers in the range 0 to 1) is introduced where each element of this fractional adjacency matrix is smaller than the corresponding element of the original adjacency matrix. Gradient descent can be performed on this adjacency matrix.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The “relaxed” &lt;em&gt;G&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; can be interpreted as a variational approximation of the subgraph distributions of &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt; and the objective can be written as &lt;em&gt;min E&lt;sub&gt;G&lt;sub&gt;S&lt;/sub&gt;&lt;/sub&gt;H(Y | G = G&lt;sub&gt;S&lt;/sub&gt;, X = X&lt;sub&gt;S&lt;/sub&gt;)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now the paper makes a big approximation that the GNN is convex so as to leverage the Jensen inequality and push the expectation inside the entropy term to get an upper bound and then minimize that ie &lt;em&gt;min H(Y | G = E&lt;sub&gt;s&lt;/sub&gt;[G&lt;sub&gt;S&lt;/sub&gt;], X = X&lt;sub&gt;S&lt;/sub&gt;)&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper reports that the convexity approximation (along with discreteness constraint) works in practice.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Next, mean field approximation is used to decompose &lt;em&gt;P(G&lt;sub&gt;S&lt;/sub&gt;)&lt;/em&gt; as a multivariate Bernoulli distrbitution ie product of &lt;em&gt;A&lt;sub&gt;S&lt;/sub&gt;(i, j)&lt;/em&gt; for all &lt;em&gt;(i, j)&lt;/em&gt; belonging to &lt;em&gt;G&lt;sub&gt;c&lt;/sub&gt;(v)&lt;/em&gt;. &lt;em&gt;A&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; can be optimized directly and its values represent the expectation of the Bernoulli distrbitution on wether the edge &lt;em&gt;e&lt;sub&gt;i, j&lt;/sub&gt;&lt;/em&gt; exists.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the constraints on &lt;em&gt;A&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt;, it is easier to learn a mask matrix &lt;em&gt;M&lt;/em&gt; and optimize that such that &lt;em&gt;A&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt; = M * A&lt;sub&gt;c&lt;/sub&gt;* Additionally, the sigmod operator can be applied on &lt;em&gt;M&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once &lt;em&gt;M&lt;/em&gt; is learned, only the top &lt;em&gt;k&lt;/em&gt; values are retained.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;including-node-features-in-the-explanation&quot;&gt;Including Node Features in the Explanation&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similar to the previous approach, another feature mask is learned (either one for entire GNN or one per node of the GNN) and is used as a feature selector.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The mask could either be learned such that same set of node features (in terms of dimensions) are selected or a different set of features are selected per node. The paper uses the former as it is more straightforward.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Just like before, a “relaxed” mask &lt;em&gt;M&lt;sub&gt;T&lt;/sub&gt;&lt;/em&gt; is trained to select features as &lt;em&gt;M&lt;sub&gt;T&lt;/sub&gt; * X&lt;sub&gt;S&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One tricky case is where one feature is important but its value is set to 0. In the case, the value will be masked even though it should not be&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The workaround is to use Monte Carlo (MC) estimates of marginals of the missing features. This gives a way to assign importance scores to each feature dimension and a form of reparameterization trick is used to perform end-to-end learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Masks are encouraged to be discrete by regularizing their element-wise entropy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Resulting computation graph is valid as in it allows message passing towards the central node &lt;em&gt;v&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;multi-instance-explanations&quot;&gt;Multi-Instance Explanations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a set of nodes (having the label say &lt;em&gt;y&lt;/em&gt;),  the task is to obtain a global explanation of the predictions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the given class, a prototypical reference node is chosen by computing the mean of embeddings of all the nodes in the class and then selecting the node which is closest to the mean.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, compute the important computational graph corresponding to this node and align the computational subgraphs of all the other nodes (in the given class) to reference.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let &lt;em&gt;A*&lt;/em&gt; be the adjacency matrix and &lt;em&gt;X*&lt;/em&gt; be the feature matrix for the explanation corresponding to the reference node. Let &lt;em&gt;A&lt;sub&gt;v&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;X&lt;sub&gt;v&lt;/sub&gt;&lt;/em&gt; be the adjacency matrix and feature matrix of the to-ber-aligned computational graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A relaed alignment matrix &lt;em&gt;P&lt;/em&gt; is optimized to align the nodes and features in the two graphs ie we minimize &lt;em&gt;|P&lt;sup&gt;T&lt;/sup&gt;A&lt;sub&gt;v&lt;/sub&gt;P - A*| + *|P&lt;sup&gt;T&lt;/sup&gt;X&lt;sub&gt;v&lt;/sub&gt;P - X*|&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Choosing concise explanations helps in efficient graph matching.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For GNNs that compute attention over the entire graph, edges with low attention weight can be pruned to increase efficiency.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Node classification: BA-Shapes, BA-Community, Tree-Cycles, Tree-Grid&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Graph classification: MUTAG, Reddit-Binary&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;GRAD - Compute the gradient of the model loss with respect to the adjacency matrix and the node features to be classified and fix the edges with the highest absolute gradient.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;GAT - Graph Attention Network&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed model seems to outperform the baselines both qualitatively and quantitatively. But the results should be taken with a grain of salt as only 2 baselines are considered.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</title>

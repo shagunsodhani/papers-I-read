@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#GNN" title="Pages tagged GNN" rel="tag">GNN</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a></p>
+  <span class="post-date">26 Mar 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Graph Neural Network (GNN) is a family of powerful machine learning (ML) models for graphs that can combine node information with the structural information.</p>
+  </li>
+  <li>
+    <p>One downside of GNNs is that their predictions are hard to interpret.</p>
+  </li>
+  <li>
+    <p>The paper proposes GNN Explainer model for solving the problem of interpretability.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1903.03894">Paper</a></p>
+  </li>
+</ul>
+
+<h2 id="desiderata-for-gnn-explanations">Desiderata for GNN explanations</h2>
+
+<ul>
+  <li>
+    <p><strong>Local edge fidelity</strong> - identify the subgraph structure (ideally the smallest) that significantly affected the predictions of the GNN. ie identify the important edges in the graph (for a given prediction).</p>
+  </li>
+  <li>
+    <p><strong>Local node fidelity</strong> - identify the import node features and correlations in the features of the neighboring nodes.</p>
+  </li>
+  <li>
+    <p><strong>Single instance and multi-instance explanations</strong> - Support both single instance prediction tasks and multi-instance prediction tasks.</p>
+  </li>
+  <li>
+    <p><strong>Model Agnostic</strong> - Support a large family of models (ideally all)</p>
+  </li>
+  <li>
+    <p><strong>Task Agnostic</strong> - Support a large family of tasks (ideally all)</p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>I first describe the single instance prediction case and use that as the base to describe the multiple instance prediction cases. All the discussion in this section assumes a single instance prediction task.</p>
+  </li>
+  <li>
+    <p><strong>Input</strong>: Trained GNN, a single instance whose prediction is to be explained.</p>
+  </li>
+  <li>
+    <p><strong>Task</strong>: Identify the small subgraph and the small subset of features that explain the prediction.</p>
+  </li>
+  <li>
+    <p><strong>Idea</strong>: Maximize the mutual information (MI) between the GNN and the explanation by learning a <em>graph mask</em> which can be used for selecting the relevant subgraph (from the GNN’s computational graph) and features (from all layers of the GNN).</p>
+  </li>
+  <li>
+    <p>Computational graph of GNN (corresponding to a node) refers to the approx L-hop neighborhood of the node in the graph ie the subgraph formed by nodes and edges whose representation affected the representation of the given node.</p>
+  </li>
+</ul>
+
+<h3 id="single-instance-explanations">Single-Instance Explanations</h3>
+
+<ul>
+  <li>
+    <p>For a node <em>v</em>, the information used to predict its label <em>y</em> is completely described by its computation graph <em>G<sub>c</sub>(v)</em> and the associated feature set <em>X<sub>c</sub>(v)</em>. The feature set includes the features of all the nodes in the computation graph.</p>
+  </li>
+  <li>
+    <p>When constructing the explaination, only <em>G<sub>c</sub>(v)</em> and <em>X<sub>c</sub>(v)</em> are used.</p>
+  </li>
+  <li>
+    <p>The task can be reformulated as identifying a subgraph <em>G<sub>S</sub></em> (subset of <em>G<sub>c</sub>(v)</em>) with associated features <em>X<sub>S</sub></em> which are important when predicting the label <em>y</em> for node <em>v</em>.</p>
+  </li>
+  <li>
+    <p>“Importance” is measured in terms of MI</p>
+  </li>
+</ul>
+
+<p><em>MI(Y, (G<sub>S</sub>, X<sub>S</sub>)) = H(Y) - H(Y | G = G<sub>S</sub>, X = X<sub>S</sub>)</em> where <em>H</em> is the entropy and <em>Y</em> is a random variable representing the prediction.</p>
+
+<ul>
+  <li>
+    <p>A further constraint, <em>| G<sub>S</sub>| &lt; k</em> is imposed to obtain consise explaintations.</p>
+  </li>
+  <li>
+    <p>Since <em>H(Y)</em> is fixed (recall that the network has already been trained and is now being used in the inference mode), maximizing MI is equivalent to minimizing the conditional entropy <em>H(Y | G = G<sub>S</sub>, X = X<sub>S</sub>)</em></p>
+  </li>
+  <li>
+    <p>This is equivalent to selecting the subgraph that minimizes the uncertainty in the prediction of <em>y</em> when the computational graph is <em>G<sub>c</sub>(v)</em></p>
+  </li>
+</ul>
+
+<h4 id="optimiation-process">Optimiation Process</h4>
+
+<ul>
+  <li>
+    <p>Given the exponentially large number of possible subgraphs, we can not directly optimize the given equation.</p>
+  </li>
+  <li>
+    <p>A “relaxed”-adjacency matrix (whose values are real numbers in the range 0 to 1) is introduced where each element of this fractional adjacency matrix is smaller than the corresponding element of the original adjacency matrix. Gradient descent can be performed on this adjacency matrix.</p>
+  </li>
+  <li>
+    <p>The “relaxed” <em>G<sub>S</sub></em> can be interpreted as a variational approximation of the subgraph distributions of <em>G<sub>c</sub>(v)</em> and the objective can be written as <em>min E<sub>G<sub>S</sub></sub>H(Y | G = G<sub>S</sub>, X = X<sub>S</sub>)</em></p>
+  </li>
+  <li>
+    <p>Now the paper makes a big approximation that the GNN is convex so as to leverage the Jensen inequality and push the expectation inside the entropy term to get an upper bound and then minimize that ie <em>min H(Y | G = E<sub>s</sub>[G<sub>S</sub>], X = X<sub>S</sub>)</em></p>
+  </li>
+  <li>
+    <p>The paper reports that the convexity approximation (along with discreteness constraint) works in practice.</p>
+  </li>
+  <li>
+    <p>Next, mean field approximation is used to decompose <em>P(G<sub>S</sub>)</em> as a multivariate Bernoulli distrbitution ie product of <em>A<sub>S</sub>(i, j)</em> for all <em>(i, j)</em> belonging to <em>G<sub>c</sub>(v)</em>. <em>A<sub>S</sub></em> can be optimized directly and its values represent the expectation of the Bernoulli distrbitution on wether the edge <em>e<sub>i, j</sub></em> exists.</p>
+  </li>
+  <li>
+    <p>Given the constraints on <em>A<sub>S</sub></em>, it is easier to learn a mask matrix <em>M</em> and optimize that such that <em>A<sub>S</sub></em> = M * A<sub>c</sub>* Additionally, the sigmod operator can be applied on <em>M</em>.</p>
+  </li>
+  <li>
+    <p>Once <em>M</em> is learned, only the top <em>k</em> values are retained.</p>
+  </li>
+</ul>
+
+<h4 id="including-node-features-in-the-explanation">Including Node Features in the Explanation</h4>
+
+<ul>
+  <li>
+    <p>Similar to the previous approach, another feature mask is learned (either one for entire GNN or one per node of the GNN) and is used as a feature selector.</p>
+  </li>
+  <li>
+    <p>The mask could either be learned such that same set of node features (in terms of dimensions) are selected or a different set of features are selected per node. The paper uses the former as it is more straightforward.</p>
+  </li>
+  <li>
+    <p>Just like before, a “relaxed” mask <em>M<sub>T</sub></em> is trained to select features as <em>M<sub>T</sub> * X<sub>S</sub></em>.</p>
+  </li>
+  <li>
+    <p>One tricky case is where one feature is important but its value is set to 0. In the case, the value will be masked even though it should not be</p>
+  </li>
+  <li>
+    <p>The workaround is to use Monte Carlo (MC) estimates of marginals of the missing features. This gives a way to assign importance scores to each feature dimension and a form of reparameterization trick is used to perform end-to-end learning.</p>
+  </li>
+  <li>
+    <p>Masks are encouraged to be discrete by regularizing their element-wise entropy.</p>
+  </li>
+  <li>
+    <p>Resulting computation graph is valid as in it allows message passing towards the central node <em>v</em>.</p>
+  </li>
+</ul>
+
+<h2 id="multi-instance-explanations">Multi-Instance Explanations</h2>
+
+<ul>
+  <li>
+    <p>Given a set of nodes (having the label say <em>y</em>),  the task is to obtain a global explanation of the predictions.</p>
+  </li>
+  <li>
+    <p>For the given class, a prototypical reference node is chosen by computing the mean of embeddings of all the nodes in the class and then selecting the node which is closest to the mean.</p>
+  </li>
+  <li>
+    <p>Now, compute the important computational graph corresponding to this node and align the computational subgraphs of all the other nodes (in the given class) to reference.</p>
+  </li>
+  <li>
+    <p>Let <em>A*</em> be the adjacency matrix and <em>X*</em> be the feature matrix for the explanation corresponding to the reference node. Let <em>A<sub>v</sub></em> and <em>X<sub>v</sub></em> be the adjacency matrix and feature matrix of the to-ber-aligned computational graph.</p>
+  </li>
+  <li>
+    <p>A relaed alignment matrix <em>P</em> is optimized to align the nodes and features in the two graphs ie we minimize <em>|P<sup>T</sup>A<sub>v</sub>P - A*| + *|P<sup>T</sup>X<sub>v</sub>P - X*|</em></p>
+  </li>
+  <li>
+    <p>Choosing concise explanations helps in efficient graph matching.</p>
+  </li>
+  <li>
+    <p>For GNNs that compute attention over the entire graph, edges with low attention weight can be pruned to increase efficiency.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>
+        <p>Node classification: BA-Shapes, BA-Community, Tree-Cycles, Tree-Grid</p>
+      </li>
+      <li>
+        <p>Graph classification: MUTAG, Reddit-Binary</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Baselines</p>
+
+    <ul>
+      <li>
+        <p>GRAD - Compute the gradient of the model loss with respect to the adjacency matrix and the node features to be classified and fix the edges with the highest absolute gradient.</p>
+      </li>
+      <li>
+        <p>GAT - Graph Attention Network</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The proposed model seems to outperform the baselines both qualitatively and quantitatively. But the results should be taken with a grain of salt as only 2 baselines are considered.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks">
+            To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks
+            <small>16 Mar 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning">
+            Model Primitive Hierarchical Lifelong Reinforcement Learning
+            <small>12 Mar 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion">
+            TuckER - Tensor Factorization for Knowledge Graph Completion
+            <small>19 Feb 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
