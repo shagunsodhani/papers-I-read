@@ -3,7 +3,7 @@ layout: post
 title: TuckER - Tensor Factorization for Knowledge Graph Completion
 comments: True
 excerpt: 
-tags: ['2019', 'Graph Representation', 'Linear Algebra', 'Linear Model', 'Matrix Factorization', Tucker Decomposition', AI, Embedding, Factorization, Graph, Matrix]
+tags: ['2019', 'Graph Representation', 'Linear Algebra', 'Linear Model', 'Matrix Factorization', 'Tucker Decomposition', AI, Embedding, Factorization, Graph, Matrix]
 ---
 
 ## Introduction
