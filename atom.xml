@@ -4,13 +4,202 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-03-29T11:29:56-04:00</updated>
+ <updated>2019-04-27T14:17:39-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Towards a natural benchmark for continual learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Towards-a-natural-benchmark-for-continual-learning"/>
+   <updated>2019-04-09T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Towards a natural benchmark for continual learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Continual Learning paradigm focuses on learning from a non-stationary stream of data with additional desiderata - transferring knowledge from previously seen task to unseen tasks and being resilient to catastrophic forgetting - all with a fixed memory and computational budget.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is in contrast to the IID (independent and identically distributed) assumption in statistical learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One common example of the non-iid data is setups involving sequential decision making - eg Reinforcement learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://marcpickett.com/cl2018/CL-2018_paper_48.pdf&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;benchmark&quot;&gt;Benchmark&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Many existing benchmarks use MNIST as the underlying dataset (eg Permuted MNIST, Split MNIST, etc). These benchmarks lack complexity and make it hard to observe positive and negative backward transfer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Most works focus only on the catastrophic forgetting challenge and ignore the other issues (like computation and memory footprint, the capacity of the network, etc).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a new benchmark based on Starcraft II video game to understand the different approaches for lifelong learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The sequence of tasks is designed to be a curriculum - the learning agent stats with learning simple skills and later move to more complex tasks. These complex tasks require remembering and composing skills learned in the earlier levels.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To evaluate for catastrophic forgetting, the tasks are designed such that not all the skills are needed for solving each task. Hence the learning agent needs to remember skills even though they are not needed at the current level.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each level comes with a fixed computational budget of episodes and each episode has a fixed time limit. Once the budget is consumed the agent has to proceed to the next level. Hence agents with better sample efficiency would benefit.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The benchmark supports both RL and supervised learning version. In the supervised version, expert agents (pretrained on each level) are also provided.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines are provided for distillation (using experts): sequential training (fine tuning), Dropout and SER. None of the baseline methods achieve positive or negative backward transfer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When modeled as a pure RL task, the benchmark is extremely difficult to solve.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper suggests using a metric to record the amount of learning/data required to recover performance on the previous task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Meta-Learning Update Rules for Unsupervised Representation Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning"/>
+   <updated>2019-04-02T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Meta-Learning Update Rules for Unsupervised Representation Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standard unsupervised learning aims to learn transferable features. The paper proposes to learn a transferable learning rule (in an unsupervised manner) that can generalize across tasks and architectures.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1804.00222&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider training the model with supervised learning - &lt;em&gt;φ&lt;sub&gt;t+1&lt;/sub&gt; = SupervisedUpdate(φ&lt;sub&gt;t&lt;/sub&gt;, x&lt;sub&gt;t&lt;/sub&gt;, y&lt;sub&gt;t&lt;/sub&gt;, θ)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here &lt;em&gt;t&lt;/em&gt; denotes the step, &lt;em&gt;(x, y)&lt;/em&gt; denotes the data points, &lt;em&gt;θ&lt;/em&gt; denotes the hyperparameters of the optimizer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Extending this formulation for meta-learning, one could say that &lt;em&gt;t&lt;/em&gt; is the step of the inner loop, &lt;em&gt;θ&lt;/em&gt; are the parameters of the meta learning model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further, the paper proposes to use &lt;em&gt;φ&lt;sub&gt;t+1&lt;/sub&gt; = UnsupervisedUpdate(φ&lt;sub&gt;t&lt;/sub&gt;, x&lt;sub&gt;t&lt;/sub&gt;, θ)&lt;/em&gt; ie &lt;em&gt;y&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; is not used (or even assumed to be available as this is unsupervised learning).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The meta update rule is used to learn the weights of a meta-model by performing SGD on the sum of &lt;em&gt;MetaObjective&lt;/em&gt; over the distribution of tasks (over the course of inner loop training).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Base model: MLP with parameters &lt;em&gt;φ&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To ensure that it generalizes across architectures, the update rule is designed to be neural-local ie updates are a function of pre and postsynaptic neurons though, in practice, this constraint is relaxed to decorrelate neurons by using cross neural information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each neuron &lt;em&gt;i&lt;/em&gt; in every layer &lt;em&gt;l&lt;/em&gt; (in the base model) has an update network (MLP) which takes as input the feedforward activations, feedback weights and error signals. ie &lt;em&gt;h&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;l&lt;/sup&gt;(i) = MLP(x&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;l&lt;/sup&gt;(i), z&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;l&lt;/sup&gt;(i), v&lt;sup&gt;l+1&lt;/sup&gt;,
+δ&lt;sup&gt;l&lt;/sup&gt;(i), θ)&lt;/em&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;b&lt;/em&gt; - index of the minibatch&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;x&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt; - pre non-linearity activations&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;z&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt; - post non-linearity activations&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;v&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt; - feedback weights&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;δ&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt; - error signal&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All the update networks share the meta parameters &lt;em&gt;θ&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is run in a standard feed-forward manner and the update network (corresponding to each unit) is used to generate the error signal &lt;em&gt;δ&lt;sup&gt;l&lt;/sup&gt;&lt;sub&gt;b&lt;/sub&gt;(i) = lin(h&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;l&lt;/sup&gt;(i))&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This loss is backpropogated using the set of learned backward weights &lt;em&gt;v&lt;sup&gt;l&lt;/sup&gt;&lt;/em&gt; instead of the forward weights &lt;em&gt;w&lt;sub&gt;l&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The weight update &lt;em&gt;Δw&lt;sub&gt;l&lt;/sub&gt;&lt;/em&gt; is also generated using a per-neuron update network.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;meta-objective&quot;&gt;Meta Objective&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The &lt;em&gt;MetaObjective&lt;/em&gt; is based on fitting a linear regression model to labeled examples with a small number of data points.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the emphasis on learning generalizable features, the weights (of linear regression) are estimated on one batch and evaluated on another batch.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The &lt;em&gt;MetaObjective&lt;/em&gt; is to reduce the cosine distance between &lt;em&gt;y&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;v&lt;sup&gt;T&lt;/sup&gt;x&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;L&lt;/sup&gt;&lt;/em&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;y&lt;sub&gt;b&lt;/sub&gt;&lt;/em&gt; - Actual lables on the evaluation batch&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;x&lt;sub&gt;b&lt;/sub&gt;&lt;sup&gt;L&lt;/sup&gt;&lt;/em&gt; - Features of the evaluation batch (using the base model)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;v&lt;/em&gt; - parameters of the linear regression model (learned on train batch)&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;practical-considerations&quot;&gt;Practical Considerations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Meta gradients are approximated using truncated backdrop through time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Increasing variation in the training dataset helps the meta optimization process. Data is augmented with shifts, rotations, and noise. Predicting these coefficients is an auxiliary (regression) task for training the meta-objective.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training the system requires a lot of resources - 8 days with 512 workers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;With standard unsupervised learning, the performance (on transfer task) starts declining after some time even though the performance (on the unsupervised task) is improving. This suggests that the objective function for the two tasks starts to mismatch.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;UnsupervisedUpdate&lt;/em&gt; leads to a better generalization as compared to both VAE and supervised learning (followed by transfer).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;UnsupervisedUpdate&lt;/em&gt; also leads to a positive transfer across domains (vision to language) when trained for a shorter duration of time (to ensure that the meta-objective does not overfit).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;UnsupervisedUpdate&lt;/em&gt; also generalizes to larger model architectures and different activation functions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</title>
