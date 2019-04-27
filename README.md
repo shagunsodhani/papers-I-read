@@ -5,7 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
-
+* [Towards a natural benchmark for continual learning](https://shagunsodhani.com/papers-I-read/Towards-a-natural-benchmark-for-continual-learning)
 * [Meta-Learning Update Rules for Unsupervised Representation Learning](https://shagunsodhani.com/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning)
 * [GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks](https://shagunsodhani.com/papers-I-read/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks)
 * [To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks](https://shagunsodhani.com/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks)
