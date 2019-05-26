@@ -11,7 +11,7 @@
 
   <title>
     
-      Diversity is All You Need - Learning Skills without a Reward Function &middot; Papers I Read
+      Good-Enough Compositional Data Augmentation &middot; Papers I Read
     
   </title>
 
@@ -131,111 +131,54 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Diversity is All You Need - Learning Skills without a Reward Function</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Information+Theory" title="Pages tagged Information Theory" rel="tag">Information Theory</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Entropy" title="Pages tagged Entropy" rel="tag">Entropy</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Unsupervised" title="Pages tagged Unsupervised" rel="tag">Unsupervised</a></p>
-  <span class="post-date">29 Jan 2019</span>
+  <h1 class="post-title">Good-Enough Compositional Data Augmentation</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data+Augmentation" title="Pages tagged Data Augmentation" rel="tag">Data Augmentation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Sequential+models" title="Pages tagged Sequential models" rel="tag">Sequential models</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Compositionality" title="Pages tagged Compositionality" rel="tag">Compositionality</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">21 May 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper proposes an approach to learn useful skills without a reward function by maximizing an information theoretic objective by using a maximum entropy policy.</p>
+    <p>The paper introduces a simple data augmentation protocol that provides a good compositional inductive bias for sequential models.</p>
   </li>
   <li>
-    <p>Skills are defined as latent-conditioned policies that alter the state of the environment in a consistent way.</p>
+    <p>Synthetic examples are created by taking real sequences and replacing the fragments in sequences which appear in similar environments. This operation is referred to as GECA (Good Enough Compositional Augmentation).</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1802.06070">Link to the paper</a></p>
+    <p>The underlying idea is that if two fragments of training examples occur in some environment, then any environment where the first fragment appears is also a valid environment for the second fragment.</p>
   </li>
   <li>
-    <p><a href="https://github.com/ben-eysenbach/sac">Link to the code</a></p>
-  </li>
-</ul>
-
-<h2 id="setup">Setup</h2>
-
-<ul>
-  <li>Unsupervised “exploration” stage followed by supervised stage.</li>
-</ul>
-
-<h2 id="desirable-qualities-of-skills">Desirable Qualities of Skills</h2>
-
-<ul>
-  <li>
-    <p>Skills should dictate the states that the agent visits. Different skills should visit different states to be distinguishable.</p>
-  </li>
-  <li>
-    <p>States (not actions) should be used to distinguish between skills as not all actions change the state (for the outside observer).</p>
-  </li>
-  <li>
-    <p>Skills are encouraged to be diverse and “exploratory” by learning skills that act randomly (have high entropy).</p>
+    <p><a href="https://arxiv.org/abs/1904.09545">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="loss-formulation">Loss Formulation</h2>
+<h2 id="approach">Approach</h2>
 
 <ul>
   <li>
-    <p>(S, A) - state and action</p>
+    <p>Discover substitutable fragments (ie pairs of fragments that co-occur with a common fragment) and use them to generate new sequences by swapping fragments.</p>
   </li>
   <li>
-    <p>z ~ p(z) - latent variable to condition the policy.</p>
+    <p>The current work uses very simple criteria to decide if fragments are substitutable - fragments should occur in at least one lexical environment that is exactly the same. A lexical environment is the k-word window around each span of the fragment.</p>
   </li>
   <li>
-    <p>Skill - policy conditioned on a fixed z.</p>
+    <p>Though the idea can be motivated by work in generative syntax and distributional semantics, it would not hold like a physical law when applied to the real data.</p>
   </li>
   <li>
-    <p>Objective is to maximize the mutual information between skill and state (MI(A; Z)) ie skill should control which state is visited or the skill should be inferrable from the state visited.</p>
-  </li>
-  <li>
-    <p>Simultaneously minimize the mutual information between skills and actions given the state to ensure that the state (and not the action) is used to distinguish the skills.</p>
-  </li>
-  <li>
-    <p>Maximize the entropy of the mixture of policies (p(z) and all the skills).</p>
+    <p>The authors view this tradeoff as a balance between the shortage of training data vs relative frequency of mistake in the proposed data augmentation approach.</p>
   </li>
 </ul>
 
-<h2 id="implementation">Implementation</h2>
+<h2 id="results">Results</h2>
 
 <ul>
   <li>
-    <p>Policy π(a | s, z)</p>
+    <p>The approach is evaluated on the SCAN dataset when the model is trained on the short sequence of English commands. Though the dataset augmentation helps the baseline models, it is not surprising given the nature of the SCAN dataset.</p>
   </li>
   <li>
-    <p>Task reward replaced by the pseduoreward logq<sub>φ</sub>(z | s) - log(p(z)).</p>
+    <p>More challenging tasks (for evaluating the proposed approach) are semantic parsing (where the query is represented in the form of λ calculus or SQL and low resource language modeling. While the improvement (in terms of metrics) is sometimes limited, the gains are consistent across different datasets.</p>
   </li>
   <li>
-    <p>During unsupervised training, z is sampled at the start of the episode and then not changed during the episode.</p>
-  </li>
-  <li>
-    <p>Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.</p>
-  </li>
-</ul>
-
-<h2 id="observations">Observations</h2>
-
-<h3 id="analysis-of-learned-skills">Analysis of Learned Skills</h3>
-
-<ul>
-  <li>
-    <p>The agent learns a diverse set of primitive behaviors for all tasks ranging from 2 DoF to 111 DoF.</p>
-  </li>
-  <li>
-    <p>for inverted pendulum and mountain car, the skills become increasingly diverse throughout training.</p>
-  </li>
-  <li>
-    <p>Use of uniform prior, in place of a learned prior, for p(z) allows for discovery of more diverse skills.</p>
-  </li>
-  <li>
-    <p>The proposed approach can be used as a pretraining technique where the best-performing primitives (from unsupervised training) can be finetuned with the task-specific rewards.</p>
-  </li>
-  <li>
-    <p>The discovered skills can be used for hierarchical RL by learning a meta-policy(which chooses the skill to execute for k steps).</p>
-  </li>
-  <li>
-    <p>Modifying the discriminator in the proposed formulation can be used to bias DIAYN towards discovering a particular type of policies. This provides a mechanism for incorporating “supervision” in the learning setup.</p>
-  </li>
-  <li>
-    <p>The “discovered” primitives can also be used for imitation learning.</p>
+    <p>Given that the proposed approach is relatively simple and straightforward, it appears to be quite promising.</p>
   </li>
 </ul>
 
@@ -244,15 +187,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation">
-            Good-Enough Compositional Data Augmentation
-            <small>21 May 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -268,6 +202,15 @@
           <a href="https://shagunsodhani.github.io/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning">
             Meta-Learning Update Rules for Unsupervised Representation Learning
             <small>02 Apr 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks">
+            GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks
+            <small>26 Mar 2019</small>
           </a>
         </h3>
       </li>
@@ -288,8 +231,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Good-Enough-Compositional-Data-Augmentation"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
