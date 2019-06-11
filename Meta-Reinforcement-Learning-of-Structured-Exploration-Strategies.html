@@ -149,14 +149,7 @@
 
 <ul>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Consider a stochastic, parameterized policy π<sub>θ</sub>(a</td>
-          <td>s) where θ represents the <em>policy-parameters</em>.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Consider a stochastic, parameterized policy π<sub>θ</sub>(a|s) where θ represents the <em>policy-parameters</em>.</p>
   </li>
   <li>
     <p>To encourage exploration, noise can be added to the policy at each time step t. But the noise added in such a manner does not have any notion of temporal coherence.</p>
@@ -171,16 +164,11 @@
     <p>Consider a distibution over the tasks p(T). At the start of any episode of the i<sup>th</sup> task, a latent variable z<sub>i</sub> is sampled from the distribution <em>N(μ<sub>i</sub>, σ<sub>i</sub>)</em> where μ<sub>i</sub> and σ<sub>i</sub> are the learned parameters of the distribution and are referred to as the <em>variation parameters</em>.</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Once sampled, the same <em>z<sub>i</sub></em> is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π<sub>θ</sub>(a</td>
-          <td>s, z<sub>i</sub>).</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Once sampled, the same <em>z<sub>i</sub></em> is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π<sub>θ</sub>(a|s, z<sub>i</sub>).</p>
   </li>
-  <li>The intuition is that the latent variable z<sub>i</sub> would encode the notion of a task or goal that does not change arbitrarily during the episode.</li>
+  <li>
+    <p>The intuition is that the latent variable z<sub>i</sub> would encode the notion of a task or goal that does not change arbitrarily during the episode.</p>
+  </li>
 </ul>
 
 <h2 id="model-agnostic-exploration-with-structured-noise">Model Agnostic Exploration with Structured Noise</h2>

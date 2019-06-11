@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-10T21:30:21-04:00</updated>
+ <updated>2019-06-10T21:33:53-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -32,14 +32,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Consider a stochastic, parameterized policy π&lt;sub&gt;θ&lt;/sub&gt;(a&lt;/td&gt;
-          &lt;td&gt;s) where θ represents the &lt;em&gt;policy-parameters&lt;/em&gt;.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Consider a stochastic, parameterized policy π&lt;sub&gt;θ&lt;/sub&gt;(a|s) where θ represents the &lt;em&gt;policy-parameters&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;To encourage exploration, noise can be added to the policy at each time step t. But the noise added in such a manner does not have any notion of temporal coherence.&lt;/p&gt;
@@ -54,16 +47,11 @@
     &lt;p&gt;Consider a distibution over the tasks p(T). At the start of any episode of the i&lt;sup&gt;th&lt;/sup&gt; task, a latent variable z&lt;sub&gt;i&lt;/sub&gt; is sampled from the distribution &lt;em&gt;N(μ&lt;sub&gt;i&lt;/sub&gt;, σ&lt;sub&gt;i&lt;/sub&gt;)&lt;/em&gt; where μ&lt;sub&gt;i&lt;/sub&gt; and σ&lt;sub&gt;i&lt;/sub&gt; are the learned parameters of the distribution and are referred to as the &lt;em&gt;variation parameters&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Once sampled, the same &lt;em&gt;z&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π&lt;sub&gt;θ&lt;/sub&gt;(a&lt;/td&gt;
-          &lt;td&gt;s, z&lt;sub&gt;i&lt;/sub&gt;).&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Once sampled, the same &lt;em&gt;z&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π&lt;sub&gt;θ&lt;/sub&gt;(a|s, z&lt;sub&gt;i&lt;/sub&gt;).&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;The intuition is that the latent variable z&lt;sub&gt;i&lt;/sub&gt; would encode the notion of a task or goal that does not change arbitrarily during the episode.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The intuition is that the latent variable z&lt;sub&gt;i&lt;/sub&gt; would encode the notion of a task or goal that does not change arbitrarily during the episode.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;model-agnostic-exploration-with-structured-noise&quot;&gt;Model Agnostic Exploration with Structured Noise&lt;/h2&gt;
