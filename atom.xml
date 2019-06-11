@@ -4,13 +4,125 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-05-26T09:00:25-04:00</updated>
+ <updated>2019-06-10T21:30:21-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Meta-Reinforcement Learning of Structured Exploration Strategies</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies"/>
+   <updated>2019-06-08T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement Learning of Structured Exploration Strategies</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper looks at the problem of learning structured exploration policies for training RL agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Link to the &lt;a href=&quot;https://arxiv.org/abs/1802.07245&quot;&gt;paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;structured-exploration&quot;&gt;Structured Exploration&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Consider a stochastic, parameterized policy π&lt;sub&gt;θ&lt;/sub&gt;(a&lt;/td&gt;
+          &lt;td&gt;s) where θ represents the &lt;em&gt;policy-parameters&lt;/em&gt;.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To encourage exploration, noise can be added to the policy at each time step t. But the noise added in such a manner does not have any notion of temporal coherence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another issue is that if the policy is represented by a simple distribution (say parameterized unimodal Gaussian), it can not model complex time-correlated stochastic processes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes to condition the policy on per-episode random variables (z) which are sampled from a learned latent distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider a distibution over the tasks p(T). At the start of any episode of the i&lt;sup&gt;th&lt;/sup&gt; task, a latent variable z&lt;sub&gt;i&lt;/sub&gt; is sampled from the distribution &lt;em&gt;N(μ&lt;sub&gt;i&lt;/sub&gt;, σ&lt;sub&gt;i&lt;/sub&gt;)&lt;/em&gt; where μ&lt;sub&gt;i&lt;/sub&gt; and σ&lt;sub&gt;i&lt;/sub&gt; are the learned parameters of the distribution and are referred to as the &lt;em&gt;variation parameters&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Once sampled, the same &lt;em&gt;z&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt; is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π&lt;sub&gt;θ&lt;/sub&gt;(a&lt;/td&gt;
+          &lt;td&gt;s, z&lt;sub&gt;i&lt;/sub&gt;).&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The intuition is that the latent variable z&lt;sub&gt;i&lt;/sub&gt; would encode the notion of a task or goal that does not change arbitrarily during the episode.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model-agnostic-exploration-with-structured-noise&quot;&gt;Model Agnostic Exploration with Structured Noise&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper focuses on the setting where the structured exploration policies are to be learned while leveraging the learning from prior tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A meta-learning approach, called as model agnostic exploration with structured noise (MAESN) is proposed to learn a good initialization of the &lt;em&gt;policy-parameters&lt;/em&gt; and to learn a latent space (for sampling the z from) that can inject structured stochasticity in the policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;General meta-RL approaches have two limitations when it comes to “learning to explore”:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Casting meta-RL problems as RL problems lead to policies that do not exhibit sufficient variability to explore effectively.&lt;/li&gt;
+      &lt;li&gt;Many current approaches try to meta-learn the entire learning algorithm which limits the asymptotic performance of the model.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Idea behind MAESN is to meta-train &lt;em&gt;policy-parameters&lt;/em&gt; so that they learn to use the task-specific &lt;em&gt;latent variables&lt;/em&gt; for exploration and can quickly adapt to a new task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An important detail is that the parameters are optimized to maximize the expected rewards after one step of gradient update to ensure that the policy uses the latent variables for exploration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For every iteration of meta-training, an “inner” gradient update is performed on the variational parameters and the &lt;em&gt;post-inner-update&lt;/em&gt; parameters are used to perform the meta-update.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors report that performing the “inner” gradient update on the &lt;em&gt;policy-parameters&lt;/em&gt; does not help the overall learning objective and that the step size for each parameter had to be meta-learned.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The variation parameters have the usual KL divergence loss which encourages them to be close to the prior distribution (unit Gaussian in this case).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After training, the &lt;em&gt;variational parameters&lt;/em&gt; for each task are quite close to the prior probably because the training objective optimizes for the expected reward after one step of gradient descent on the &lt;em&gt;variational parameters&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another implementation detail is that reward shaping is used to ensure that the policy gets useful signal during meta-training. To be fair to the baselines, reward shaping is used while training baselines as well. Moreover, the policies trained with reward shaping generalizes to sparse reward setup as well (during meta-test time).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three tasks distributions: Robotic Manipulation, Wheeled Locomotion, and Legged Locomotion. Each task distribution has 100 meta-training tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the Manipulation task distribution, the learner has to push different blocks from different positions to different goal positions. In the Locomotion task distributions, the different tasks correspond to the different goal positions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The experiments show that the proposed approach can adapt to new tasks quickly and the learn coherent exploration strategy.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;• In some cases, learning from scratch also provides a strong asymptotic performance although learning from scratch takes much longer.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Good-Enough Compositional Data Augmentation</title>

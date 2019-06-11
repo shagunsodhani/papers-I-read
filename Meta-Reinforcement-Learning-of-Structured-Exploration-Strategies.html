@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Meta-Reinforcement Learning of Structured Exploration Strategies &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Meta-Reinforcement Learning of Structured Exploration Strategies</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Reinforcement+Learning" title="Pages tagged Meta Reinforcement Learning" rel="tag">Meta Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS+2018" title="Pages tagged NeurIPS 2018" rel="tag">NeurIPS 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Structured+Exploration" title="Pages tagged Structured Exploration" rel="tag">Structured Exploration</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Exploration" title="Pages tagged Exploration" rel="tag">Exploration</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS" title="Pages tagged NeurIPS" rel="tag">NeurIPS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">08 Jun 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper looks at the problem of learning structured exploration policies for training RL agents.</p>
+  </li>
+  <li>
+    <p>Link to the <a href="https://arxiv.org/abs/1802.07245">paper</a></p>
+  </li>
+</ul>
+
+<h2 id="structured-exploration">Structured Exploration</h2>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Consider a stochastic, parameterized policy π<sub>θ</sub>(a</td>
+          <td>s) where θ represents the <em>policy-parameters</em>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>To encourage exploration, noise can be added to the policy at each time step t. But the noise added in such a manner does not have any notion of temporal coherence.</p>
+  </li>
+  <li>
+    <p>Another issue is that if the policy is represented by a simple distribution (say parameterized unimodal Gaussian), it can not model complex time-correlated stochastic processes.</p>
+  </li>
+  <li>
+    <p>The paper proposes to condition the policy on per-episode random variables (z) which are sampled from a learned latent distribution.</p>
+  </li>
+  <li>
+    <p>Consider a distibution over the tasks p(T). At the start of any episode of the i<sup>th</sup> task, a latent variable z<sub>i</sub> is sampled from the distribution <em>N(μ<sub>i</sub>, σ<sub>i</sub>)</em> where μ<sub>i</sub> and σ<sub>i</sub> are the learned parameters of the distribution and are referred to as the <em>variation parameters</em>.</p>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Once sampled, the same <em>z<sub>i</sub></em> is used to condition the policy for as long as the current episode lasts and the action is sampled from then distribution π<sub>θ</sub>(a</td>
+          <td>s, z<sub>i</sub>).</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>The intuition is that the latent variable z<sub>i</sub> would encode the notion of a task or goal that does not change arbitrarily during the episode.</li>
+</ul>
+
+<h2 id="model-agnostic-exploration-with-structured-noise">Model Agnostic Exploration with Structured Noise</h2>
+
+<ul>
+  <li>
+    <p>The paper focuses on the setting where the structured exploration policies are to be learned while leveraging the learning from prior tasks.</p>
+  </li>
+  <li>
+    <p>A meta-learning approach, called as model agnostic exploration with structured noise (MAESN) is proposed to learn a good initialization of the <em>policy-parameters</em> and to learn a latent space (for sampling the z from) that can inject structured stochasticity in the policy.</p>
+  </li>
+  <li>
+    <p>General meta-RL approaches have two limitations when it comes to “learning to explore”:</p>
+
+    <ul>
+      <li>Casting meta-RL problems as RL problems lead to policies that do not exhibit sufficient variability to explore effectively.</li>
+      <li>Many current approaches try to meta-learn the entire learning algorithm which limits the asymptotic performance of the model.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Idea behind MAESN is to meta-train <em>policy-parameters</em> so that they learn to use the task-specific <em>latent variables</em> for exploration and can quickly adapt to a new task.</p>
+  </li>
+  <li>
+    <p>An important detail is that the parameters are optimized to maximize the expected rewards after one step of gradient update to ensure that the policy uses the latent variables for exploration.</p>
+  </li>
+  <li>
+    <p>For every iteration of meta-training, an “inner” gradient update is performed on the variational parameters and the <em>post-inner-update</em> parameters are used to perform the meta-update.</p>
+  </li>
+  <li>
+    <p>The authors report that performing the “inner” gradient update on the <em>policy-parameters</em> does not help the overall learning objective and that the step size for each parameter had to be meta-learned.</p>
+  </li>
+  <li>
+    <p>The variation parameters have the usual KL divergence loss which encourages them to be close to the prior distribution (unit Gaussian in this case).</p>
+  </li>
+  <li>
+    <p>After training, the <em>variational parameters</em> for each task are quite close to the prior probably because the training objective optimizes for the expected reward after one step of gradient descent on the <em>variational parameters</em>.</p>
+  </li>
+  <li>
+    <p>Another implementation detail is that reward shaping is used to ensure that the policy gets useful signal during meta-training. To be fair to the baselines, reward shaping is used while training baselines as well. Moreover, the policies trained with reward shaping generalizes to sparse reward setup as well (during meta-test time).</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Three tasks distributions: Robotic Manipulation, Wheeled Locomotion, and Legged Locomotion. Each task distribution has 100 meta-training tasks.</p>
+  </li>
+  <li>
+    <p>In the Manipulation task distribution, the learner has to push different blocks from different positions to different goal positions. In the Locomotion task distributions, the different tasks correspond to the different goal positions.</p>
+  </li>
+  <li>
+    <p>The experiments show that the proposed approach can adapt to new tasks quickly and the learn coherent exploration strategy.</p>
+  </li>
+</ul>
+
+<p>• In some cases, learning from scratch also provides a strong asymptotic performance although learning from scratch takes much longer.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation">
+            Good-Enough Compositional Data Augmentation
+            <small>21 May 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Towards-a-natural-benchmark-for-continual-learning">
+            Towards a natural benchmark for continual learning
+            <small>09 Apr 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning">
+            Meta-Learning Update Rules for Unsupervised Representation Learning
+            <small>02 Apr 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
