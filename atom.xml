@@ -4,13 +4,93 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-10T21:33:53-04:00</updated>
+ <updated>2019-06-13T23:50:12-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations"/>
+   <updated>2019-06-13T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a new inverse RL (IRL) algorithm, called as Trajectory-ranked Reward EXtrapolation (T-REX) that learns a reward function from a collection of ranked trajectories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standard IRL approaches aim to learn a reward function that “justifies” the demonstration policy and hence those approaches cannot outperform the demonstration policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In contrast, T-REX aims to learn a reward function that “explains” the ranking over demonstrations and can learn a policy that outperforms the demonstration policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1904.06387&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The input is a sequence of trajectories &lt;em&gt;T&lt;sub&gt;1&lt;/sub&gt;, … T&lt;sub&gt;m&lt;/sub&gt;&lt;/em&gt; which are ranked in the order of preference. That is, given any pair of trajectories, we know which of the two trajectories is better.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The setup is to learn from observations where the learning agent does not have access to the true reward function or the action taken by the demonstration policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reward Inference&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;A parameterized reward function &lt;em&gt;r&lt;sub&gt;θ&lt;/sub&gt;&lt;/em&gt; is trained with the ranking information using a binary classification loss function which aims to predict which of the two given trajectory would be ranked higher.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Given a trajectory, the reward function predicts the reward for each state. The sum of rewards (corresponding to the two trajectories) is used used to predict the preferred trajectory.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;T-REX uses partial trajectories instead of full trajectories as a data augmentation strategy.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Policy Optimization&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Once a reward function has been learned, standard RL approaches can be used to train a new policy.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Environments: Mujoco (Half Cheetah, Ant, Hooper), Atari&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Demonstrations generated using PPO (checkpointed at different stages of training).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ensemble of networks used to learn the reward functions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The proposed approach outperforms the baselines &lt;a href=&quot;https://arxiv.org/abs/1805.01954&quot;&gt;Behaviour Cloning from Observations&lt;/a&gt; and &lt;a href=&quot;https://arxiv.org/abs/1606.03476&quot;&gt;Generative Adversarial Imitation Learning&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In terms of reward extrapolation, T-REX can predict the reward for trajectories which are better than the demonstration trajectories.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some ablation studies considered the effect of adding noise (random swapping the preference between trajectories) and found that the model is somewhat robust to noise up to an extent.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Meta-Reinforcement Learning of Structured Exploration Strategies</title>
