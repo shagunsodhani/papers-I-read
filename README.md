@@ -5,6 +5,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations](https://shagunsodhani.com/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations)
+* [Meta-Reinforcement Learning of Structured Exploration Strategies](https://shagunsodhani.com/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies)
 * [Good-Enough Compositional Data Augmentation](https://shagunsodhani.com/papers-I-read/Good-Enough-Compositional-Data-Augmentation)
 * [Towards a natural benchmark for continual learning](https://shagunsodhani.com/papers-I-read/Towards-a-natural-benchmark-for-continual-learning)
 * [Meta-Learning Update Rules for Unsupervised Representation Learning](https://shagunsodhani.com/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning)
