@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Deep reinforcement learning with relational inductive biases &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Deep reinforcement learning with relational inductive biases</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning%27" title="Pages tagged Reinforcement Learning'" rel="tag">Reinforcement Learning'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Relational+Learning" title="Pages tagged Relational Learning" rel="tag">Relational Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RRL" title="Pages tagged RRL" rel="tag">RRL</a></p>
+  <span class="post-date">01 Jun 2019</span>
+  <p>Tags: ,</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Relational Reinforcement Learning (RRL) paradigm uses relational state (and action) space and policy representation to leverage the generalization capability of relational learning for reinforcement learning.</p>
+  </li>
+  <li>
+    <p>The paper shows that effectiveness of RRL - in terms of generalization, sample efficiency and interplay - using box-world and StarCraft II minigames.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1806.01830">Link to the paper</a>.</p>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p>The main idea is to use neural network models that operate on structured representations and perform relational reasoning via iterated, message-passing style methods.</p>
+  </li>
+  <li>
+    <p>Use of non-local computations using a shared function (in terms of pairwise interactions between entities) provides a better inductive bias.</p>
+  </li>
+  <li>
+    <p>Multi-head dot product attention mechanism is used to model the pairwise interactions (with one or more attention blocks).</p>
+  </li>
+  <li>
+    <p>Iterative computations can be used to capture higher-order interactions between entities.</p>
+  </li>
+  <li>
+    <p>Entity extraction is based on the assumption that entities are things located at a particular point in space.</p>
+  </li>
+  <li>
+    <p>A CNN is used to parse the pixel space observation into <em>k</em> feature maps of size <em>nxn</em>. The <em>(x, y)</em> coordinates are concatenated to each <em>k-</em>dimensional pixel feature-vector to indicate the pixel’s position in the map.</p>
+  </li>
+  <li>
+    <p>The resulting <em>n<sup>2</sup> x k</em> matrix acts as the entity matrix.</p>
+  </li>
+  <li>
+    <p>Actor-critic architecture (using distributed agent IMPALA) is used.</p>
+  </li>
+</ul>
+
+<h2 id="environment">Environment</h2>
+
+<h3 id="box-world">Box-World</h3>
+
+<ul>
+  <li>
+    <p>12 x 12-pixel room with keys and boxes placed randomly.</p>
+  </li>
+  <li>
+    <p>Agent can move in 4 directions.</p>
+  </li>
+  <li>
+    <p>The task is to collect gems by unlocking boxes (which may contain keys to unlock other boxes).</p>
+  </li>
+  <li>
+    <p>Each level has a unique sequence in which boxes need to be opened as opening the wrong box could make the level unsolvable.</p>
+  </li>
+  <li>
+    <p>Difficulty of a level can be controlled using: (i) Number of boxes in the path to the goal. (ii) The number of distractor branches, (iii)  Length of distractor branches.</p>
+  </li>
+</ul>
+
+<h3 id="starcraft-ii-minigames">StarCraft II minigames</h3>
+
+<ul>
+  <li>9 mini games designed as specific scenarios in the Starcraft game are used.</li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<h3 id="box-world-1">Box-World</h3>
+
+<ul>
+  <li>
+    <p>RRL agents solve over 98% of the levels while the RL agent solves less than 95% of the levels.</p>
+  </li>
+  <li>
+    <p>Visualising the attention scores indicate that:</p>
+
+    <ul>
+      <li>
+        <p>keys attend to locks they can unlock.</p>
+      </li>
+      <li>
+        <p>all objects attend to agent’s location.</p>
+      </li>
+      <li>
+        <p>agent and gem attend to each other (and themselves).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Generalization capacity is tested in two ways:</p>
+
+    <ul>
+      <li>
+        <p>Performance on levels that require opening a larger sequence of boxes than it is trained on.</p>
+      </li>
+      <li>
+        <p>Performance on levels that require key-lock combinations not seen during training.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>In both the scenarios, the RRL agent significantly outperforms the RL agent.</p>
+  </li>
+</ul>
+
+<h2 id="starcraft">StarCraft</h2>
+
+<ul>
+  <li>
+    <p>RLL agent achieves better or equal results that the RL agent in all but one game.</p>
+  </li>
+  <li>
+    <p>For testing generalization, the agent, that was trained for controlling two marines, was transferred on the task which requires it to control 5 marines. These results are not conclusive given the high variability.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks">
+            Hamiltonian Neural Networks
+            <small>20 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations">
+            Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations
+            <small>13 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies">
+            Meta-Reinforcement Learning of Structured Exploration Strategies
+            <small>08 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Deep-reinforcement-learning-with-relational-inductive-biases"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Deep-reinforcement-learning-with-relational-inductive-biases"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
