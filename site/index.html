@@ -15,8 +15,8 @@ title: Home
     <span class="post-date">{{ post.date | date_to_string }}</span>
 
       <div class="excerpt">
-        {{ post.content | truncatewords: 20 }}
-        <a href="{{site.baseurl}}{{ post.url }}">{{ site.str_continue_reading }}</a>
+        {{ post.content | truncatewords: 15 }}
+        <!-- <a href="{{site.baseurl}}{{ post.url }}">{{ site.str_continue_reading }}</a> -->
         <br>
 <!--         <span class="comments-count">
           <a class="comments-count-icon"><i class="fa fa-comment"></i></a>
