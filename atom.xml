@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-24T22:58:22-04:00</updated>
+ <updated>2019-06-24T23:08:58-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -280,10 +280,10 @@
  </entry>
  
  <entry>
-   <title>Deep reinforcement learning with relational inductive biases</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/Deep-reinforcement-learning-with-relational-inductive-biases"/>
+   <title>Relational Reinforcement Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Relational-Reinforcement-Learning"/>
    <updated>2019-06-01T00:00:00-04:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/Deep reinforcement learning with relational inductive biases</id>
+   <id>https://shagunsodhani.github.io/papers-I-read/Relational Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
