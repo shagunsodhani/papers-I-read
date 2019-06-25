@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-24T22:54:05-04:00</updated>
+ <updated>2019-06-24T22:58:22-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -281,141 +281,10 @@
  
  <entry>
    <title>Deep reinforcement learning with relational inductive biases</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/Relational-Deep-Reinforcement-Learning"/>
-   <updated>2019-06-01T00:00:00-04:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/Relational Deep Reinforcement Learning</id>
-   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Relational Reinforcement Learning (RRL) paradigm uses relational state (and action) space and policy representation to leverage the generalization capability of relational learning for reinforcement learning.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper shows that effectiveness of RRL - in terms of generalization, sample efficiency and interplay - using box-world and StarCraft II minigames.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1806.01830&quot;&gt;Link to the paper&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;The main idea is to use neural network models that operate on structured representations and perform relational reasoning via iterated, message-passing style methods.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Use of non-local computations using a shared function (in terms of pairwise interactions between entities) provides a better inductive bias.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Multi-head dot product attention mechanism is used to model the pairwise interactions (with one or more attention blocks).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Iterative computations can be used to capture higher-order interactions between entities.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Entity extraction is based on the assumption that entities are things located at a particular point in space.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;A CNN is used to parse the pixel space observation into &lt;em&gt;k&lt;/em&gt; feature maps of size &lt;em&gt;nxn&lt;/em&gt;. The &lt;em&gt;(x, y)&lt;/em&gt; coordinates are concatenated to each &lt;em&gt;k-&lt;/em&gt;dimensional pixel feature-vector to indicate the pixel’s position in the map.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The resulting &lt;em&gt;n&lt;sup&gt;2&lt;/sup&gt; x k&lt;/em&gt; matrix acts as the entity matrix.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Actor-critic architecture (using distributed agent IMPALA) is used.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;environment&quot;&gt;Environment&lt;/h2&gt;
-
-&lt;h3 id=&quot;box-world&quot;&gt;Box-World&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;12 x 12-pixel room with keys and boxes placed randomly.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Agent can move in 4 directions.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The task is to collect gems by unlocking boxes (which may contain keys to unlock other boxes).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Each level has a unique sequence in which boxes need to be opened as opening the wrong box could make the level unsolvable.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Difficulty of a level can be controlled using: (i) Number of boxes in the path to the goal. (ii) The number of distractor branches, (iii)  Length of distractor branches.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;starcraft-ii-minigames&quot;&gt;StarCraft II minigames&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;9 mini games designed as specific scenarios in the Starcraft game are used.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
-
-&lt;h3 id=&quot;box-world-1&quot;&gt;Box-World&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;RRL agents solve over 98% of the levels while the RL agent solves less than 95% of the levels.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Visualising the attention scores indicate that:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;keys attend to locks they can unlock.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;all objects attend to agent’s location.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;agent and gem attend to each other (and themselves).&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Generalization capacity is tested in two ways:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Performance on levels that require opening a larger sequence of boxes than it is trained on.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Performance on levels that require key-lock combinations not seen during training.&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In both the scenarios, the RRL agent significantly outperforms the RL agent.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;starcraft&quot;&gt;StarCraft&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;RLL agent achieves better or equal results that the RL agent in all but one game.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For testing generalization, the agent, that was trained for controlling two marines, was transferred on the task which requires it to control 5 marines. These results are not conclusive given the high variability.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Deep reinforcement learning with relational inductive biases</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Deep-reinforcement-learning-with-relational-inductive-biases"/>
    <updated>2019-06-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Deep reinforcement learning with relational inductive biases</id>
-   <content type="html">&lt;p&gt;Tags: ,&lt;/p&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
