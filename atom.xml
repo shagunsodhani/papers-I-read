@@ -4,13 +4,100 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-13T23:50:12-04:00</updated>
+ <updated>2019-06-24T22:34:16-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Hamiltonian Neural Networks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks"/>
+   <updated>2019-06-20T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Hamiltonian Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a very cool idea at the intersection of deep learning and physics.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is to train a neural network architecture that builds on the concept of Hamiltonian Mechanics (from Physics) to learn physical conservation laws in an unsupervised manner.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.01563&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/greydanus/hamiltonian-nn&quot;&gt;Link to the code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://greydanus.github.io/2019/05/15/hamiltonian-nns/&quot;&gt;Link to author’s blog&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hamiltonian-mechanics&quot;&gt;Hamiltonian Mechanics&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is a branch of physics that can describe systems which follow some conservation laws and invariants.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider a set of &lt;em&gt;N&lt;/em&gt; pair of coordinates [(q&lt;sub&gt;1&lt;/sub&gt;, p&lt;sub&gt;1&lt;/sub&gt;), …, (q&lt;sub&gt;N&lt;/sub&gt;, p&lt;sub&gt;N&lt;/sub&gt;)] where &lt;strong&gt;q&lt;/strong&gt; = [q&lt;sub&gt;1&lt;/sub&gt;, …, q&lt;sub&gt;N&lt;/sub&gt;] dnotes the position of the set of objects while &lt;strong&gt;p&lt;/strong&gt; = [p&lt;sub&gt;1&lt;/sub&gt;, …, p&lt;sub&gt;N&lt;/sub&gt;] denotes the momentum of the set of variables.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Together these &lt;em&gt;N&lt;/em&gt; pairs completely describe the system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A scalar function &lt;em&gt;H(&lt;strong&gt;q&lt;/strong&gt;, &lt;strong&gt;p&lt;/strong&gt;)&lt;/em&gt;, called as the Hamiltonian is defined such that the partial derivative of &lt;em&gt;H&lt;/em&gt; with respect to &lt;strong&gt;p&lt;/strong&gt; is equal to derivative of &lt;strong&gt;q&lt;/strong&gt; with respect to time &lt;em&gt;t&lt;/em&gt; and the negative of partial derivative of &lt;em&gt;H&lt;/em&gt; with respect to &lt;strong&gt;q&lt;/strong&gt; is equal to derivative of &lt;strong&gt;p&lt;/strong&gt; with respect to time &lt;em&gt;t&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This can be expressed in the form of the equation as follows:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/shagunsodhani/papers-I-read/master/assets/HNN/equation1.png&quot; alt=&quot;equation1&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The Hamiltonian can be tied to the total energy of the system and can be used in any system where the total energy is conserved.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hamiltonian-neural-network-hnn&quot;&gt;Hamiltonian Neural Network (HNN)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The Hamiltonian &lt;em&gt;H&lt;/em&gt; can be parameterized using a neural network and can learn conserved quantities from the data in an unsupervised manner.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The loss function looks as follows:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/shagunsodhani/papers-I-read/master/assets/HNN/equation2.png&quot; alt=&quot;equation2&quot; width=&quot;400&quot; height=&quot;50&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The partial derivatives can be obtained by computing the &lt;em&gt;in-graph&lt;/em&gt; gradient of the output variables with respect to the input variables.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For setups where the energy must be conserved exactly, (eg ideal mass-spring and ideal pendulum), the HNN learn to preserve an energy-like scalar.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For setups where the energy need not be conserved exactly, the HNNs still learn to preserve the energy thus highlighting a limitation of HNNs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of two body problems, the HNN model is shown to be much more robust when making predictions over longer time horizons as compared to the baselines.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the final experiment, the model is trained on pixel observations and not state observations. In this case, two auxiliary losses are added: auto-encoder reconstruction loss and a loss on the latent space representations. Similar to the previous experiments, the HNN model makes robust predictions over much longer time horizons.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations</title>

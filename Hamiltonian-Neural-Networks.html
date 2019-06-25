@@ -11,7 +11,7 @@
 
   <title>
     
-      Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning &middot; Papers I Read
+      Hamiltonian Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -131,128 +131,87 @@
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP+2016" title="Pages tagged EMNLP 2016" rel="tag">EMNLP 2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Information+Retrieval" title="Pages tagged Information Retrieval" rel="tag">Information Retrieval</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP" title="Pages tagged EMNLP" rel="tag">EMNLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
-  <span class="post-date">11 Mar 2018</span>
+  <h1 class="post-title">Hamiltonian Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Physics" title="Pages tagged Physics" rel="tag">Physics</a></p>
+  <span class="post-date">20 Jun 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Information Extraction  - Given a query to be answered and an external search engine, information extraction entails the task of issuing search queries, extracting information from new sources and reconciling the extracted values till we are sufficiently confident about the extracted values.</p>
+    <p>The paper proposes a very cool idea at the intersection of deep learning and physics.</p>
   </li>
   <li>
-    <p>The paper proposes the use of Reinforcement Learning (RL) to solve this task.</p>
+    <p>The idea is to train a neural network architecture that builds on the concept of Hamiltonian Mechanics (from Physics) to learn physical conservation laws in an unsupervised manner.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1603.07954">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/1906.01563">Link to the paper</a></p>
   </li>
   <li>
-    <p><a href="https://github.com/karthikncode/DeepRL-InformationExtraction">Implementation</a></p>
+    <p><a href="https://github.com/greydanus/hamiltonian-nn">Link to the code</a></p>
+  </li>
+  <li>
+    <p><a href="https://greydanus.github.io/2019/05/15/hamiltonian-nns/">Link to author’s blog</a></p>
   </li>
 </ul>
 
-<h2 id="key-aspect">Key Aspect</h2>
-
-<ul>
-  <li>Use of Reinforcement Learning to resolve the ambiguity inherent in the textual documents.</li>
-  <li>Given a query, the RL agent would use template statement to formulate the queries (to be performed on the black box search engine). It would further resolve and combine the result for the query from the set of retrieved documents.</li>
-</ul>
-
-<h2 id="datasets">Datasets</h2>
-
-<ul>
-  <li>Database of Mass Shootings in the United States.</li>
-  <li>Food Shield database of illegal food adulteration.</li>
-</ul>
-
-<h2 id="framework">Framework</h2>
+<h2 id="hamiltonian-mechanics">Hamiltonian Mechanics</h2>
 
 <ul>
   <li>
-    <p>Information extraction task is modelled as a Markov Decision Process (MDP) &lt;S, A, T, R&gt;</p>
-  </li>
-  <li><strong>S</strong> - Set of all possible states
-    <ul>
-      <li>The state consists of:
-        <ul>
-          <li>Extractor’s confidence in predicted entity values.</li>
-          <li>Context from which values are extracted.</li>
-          <li>Similarity between the new document (extracted just now from the search engine) and the original document accompanying the given query.</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>A</strong> - Set of all possible actions
-    <ul>
-      <li>Reconciliation decision - d
-        <ul>
-          <li>Accept all entities values.</li>
-          <li>Reject all entities values.</li>
-          <li>Stop the current episode.</li>
-        </ul>
-      </li>
-      <li>Query choice - q
-        <ul>
-          <li>Choose the next query from a set of automatically generated alternatives.</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>R</strong> - Rewards
-    <ul>
-      <li>Maximise the final extraction accuracy while minimising the number of queries.</li>
-    </ul>
-  </li>
-  <li><strong>Q</strong> - Queries
-    <ul>
-      <li>Generated using a template.</li>
-      <li>The query is searched on a search engine and the top k links are retrieved.</li>
-    </ul>
-  </li>
-  <li><strong>Transition</strong>
-    <ul>
-      <li>Start with a single source article x<sub>i</sub> and extract the initial set of entities.</li>
-      <li>At each timestep, the agent is given the state (s) on basis of which it chooses the action (d, q). The episode stops whenever the action is a stop action.</li>
-    </ul>
+    <p>It is a branch of physics that can describe systems which follow some conservation laws and invariants.</p>
   </li>
   <li>
-    <p>Deep Q Network is used.</p>
+    <p>Consider a set of <em>N</em> pair of coordinates [(q<sub>1</sub>, p<sub>1</sub>), …, (q<sub>N</sub>, p<sub>N</sub>)] where <strong>q</strong> = [q<sub>1</sub>, …, q<sub>N</sub>] dnotes the position of the set of objects while <strong>p</strong> = [p<sub>1</sub>, …, p<sub>N</sub>] denotes the momentum of the set of variables.</p>
   </li>
-  <li>Parameters are learned using SGD and RMSProp.</li>
+  <li>
+    <p>Together these <em>N</em> pairs completely describe the system.</p>
+  </li>
+  <li>
+    <p>A scalar function <em>H(<strong>q</strong>, <strong>p</strong>)</em>, called as the Hamiltonian is defined such that the partial derivative of <em>H</em> with respect to <strong>p</strong> is equal to derivative of <strong>q</strong> with respect to time <em>t</em> and the negative of partial derivative of <em>H</em> with respect to <strong>q</strong> is equal to derivative of <strong>p</strong> with respect to time <em>t</em>.</p>
+  </li>
+  <li>
+    <p>This can be expressed in the form of the equation as follows:</p>
+  </li>
 </ul>
 
-<h2 id="experimental-setup">Experimental Setup</h2>
-
-<h3 id="extraction-model">Extraction Model</h3>
+<p><img src="https://raw.githubusercontent.com/shagunsodhani/papers-I-read/master/assets/HNN/equation1.png" alt="equation1" width="100" height="100" /></p>
 
 <ul>
-  <li>Max Entropy Classifier is used as the base extraction system.</li>
-  <li>First, all the words in the document are tagged as one of the entity types and the mode of these values is used to obtain the set of extracted entities.</li>
+  <li>The Hamiltonian can be tied to the total energy of the system and can be used in any system where the total energy is conserved.</li>
 </ul>
 
-<h3 id="baseline">Baseline</h3>
+<h2 id="hamiltonian-neural-network-hnn">Hamiltonian Neural Network (HNN)</h2>
 
 <ul>
-  <li>Basic Extractors</li>
-  <li>Aggregation System which either chooses the entity value with the highest confidence or takes a majority vote over all extracted values.</li>
-  <li>Meta-Classifier which operates over the same input state space and produces the same set of reconciliation decisions as the DQN.</li>
-  <li>Oracle Extractor which is computed assuming perfect reconciliation and query decisions on the top of the Maxnet base extractor.</li>
+  <li>
+    <p>The Hamiltonian <em>H</em> can be parameterized using a neural network and can learn conserved quantities from the data in an unsupervised manner.</p>
+  </li>
+  <li>
+    <p>The loss function looks as follows:</p>
+  </li>
 </ul>
 
-<h3 id="rl-models">RL Models</h3>
+<p><img src="https://raw.githubusercontent.com/shagunsodhani/papers-I-read/master/assets/HNN/equation2.png" alt="equation2" width="400" height="50" /></p>
 
 <ul>
-  <li>RL Basic - Only reconciliation decision.</li>
-  <li>RL Query - Only query decision with a fixed reconciliation strategy.</li>
-  <li>RL Extract - the full system with both reconciliation and query decision.</li>
+  <li>The partial derivatives can be obtained by computing the <em>in-graph</em> gradient of the output variables with respect to the input variables.</li>
 </ul>
 
-<h2 id="result">Result</h2>
+<h2 id="observations">Observations</h2>
 
 <ul>
-  <li>RL Extract obtains substantial gains eg up to 11% over Maxnet.</li>
-  <li>Simple aggregation schemes do not handle the task well.</li>
-  <li>In terms of reward structure, providing rewards after each step works better than a single delayed reward.</li>
+  <li>
+    <p>For setups where the energy must be conserved exactly, (eg ideal mass-spring and ideal pendulum), the HNN learn to preserve an energy-like scalar.</p>
+  </li>
+  <li>
+    <p>For setups where the energy need not be conserved exactly, the HNNs still learn to preserve the energy thus highlighting a limitation of HNNs.</p>
+  </li>
+  <li>
+    <p>In case of two body problems, the HNN model is shown to be much more robust when making predictions over longer time horizons as compared to the baselines.</p>
+  </li>
+  <li>
+    <p>In the final experiment, the model is trained on pixel observations and not state observations. In this case, two auxiliary losses are added: auto-encoder reconstruction loss and a loss on the latent space representations. Similar to the previous experiments, the HNN model makes robust predictions over much longer time horizons.</p>
+  </li>
 </ul>
 
 </div>
@@ -260,15 +219,6 @@
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks">
-            Hamiltonian Neural Networks
-            <small>20 Jun 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -284,6 +234,15 @@
           <a href="https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies">
             Meta-Reinforcement Learning of Structured Exploration Strategies
             <small>08 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation">
+            Good-Enough Compositional Data Augmentation
+            <small>21 May 2019</small>
           </a>
         </h3>
       </li>
@@ -304,8 +263,8 @@
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Hamiltonian-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
