@@ -4,13 +4,186 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-24T23:13:00-04:00</updated>
+ <updated>2019-06-30T07:39:27-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Measuring abstract reasoning in neural networks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Measuring-Abstract-Reasoning-in-Neural-Networks"/>
+   <updated>2019-06-27T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Measuring Abstract Reasoning in Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a dataset to diagnose the abstract reasoning capabilities of learning systems.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that a variant of the relational networks, explicitly designed for abstract reasoning, outperforms models like ResNets.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://proceedings.mlr.press/v80/santoro18a/santoro18a.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Visual reasoning tasks, that are inspired by the human IQ test, are used to evaluate the models in terms of generalization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Let’s say that we want to test if the model understands the abstract notion of “increasing”. We could train the model on data that captures the notion of “increasing”, in terms of say increasing size (or quantities) of objects and then test it on a dataset where the notion is expressed in terms of increasing intensity of color.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The dataset is then used to evaluate if the models can find any solution to such abstract reasoning tasks and how well they generalize when the abstract content is specifically controlled.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
+
+&lt;h3 id=&quot;ravens-progressive-matrics-rpms&quot;&gt;Raven’s Progressive Matrics (RPMs):&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consists of an incomplete 3x3 matrix of images where the missing image needs to be filled in, typically by choosing from a set of candidate images.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As such, it is possible to justify multiple answers to be correct though, in practice, the right answer is the one with the simplest explanation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;procedurally-generated-matrices-pgms&quot;&gt;Procedurally Generated Matrices (PGMs)&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generating RPM like matrices procedurally by building an abstract structure for matrices.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;The abstract structure &lt;em&gt;S&lt;/em&gt; consists of 3 components: (i) Relation types (&lt;em&gt;R&lt;/em&gt;), (ii) Object types (&lt;em&gt;O&lt;/em&gt;) and (iii) Attribute types (&lt;em&gt;A&lt;/em&gt;). ie *S = {(r, o, a)&lt;/td&gt;
+          &lt;td&gt;r in R, o in O and a in A}*.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This can be read as: “Structure &lt;em&gt;S&lt;/em&gt; is instantiated on attribute &lt;em&gt;a&lt;/em&gt; of object &lt;em&gt;o&lt;/em&gt; and exhibits the relation &lt;em&gt;r&lt;/em&gt;”. For example, &lt;em&gt;S&lt;/em&gt; is instantiated on “color” of object “shape” and exhibits the relation “increasing”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, the structure could be made of more than one such tuple and more are the tuples, harder is the task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the structure, sample values &lt;em&gt;v&lt;/em&gt; for each attribute &lt;em&gt;a&lt;/em&gt; while conforming with the relation &lt;em&gt;r&lt;/em&gt;. For example, if the attribute is “color” and the relation is “increasing”, the intensity of color must increase.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;The resulting structure is rendered as pixels.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;test-for-generalization&quot;&gt;Test for Generalization&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper tests for the following generalization scenarios:&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Neutral: The structure of the training and test data can contain any tuple.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interpolation: The training data contains even-indexed members of the attribute values while the test data contains odd-indexed members of the attribute values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Extrapolation: The training data contains first-half of the attribute values while the test data contains the second-half of the attribute values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heldout attribute: Training data contains no tuples with (o = shape, a = color) or (o = line, a = type).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heldout triples: Out of 29 possible triples, 7 are held out from training and only used during testing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heldout pair-of-triples: Out of 400 possible sets of pair of triples, 40 were held out and used only during testing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heldout pair-of-triples: Out of 400 possible sets of pair of triples, 40 were held out and used only during testing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Heldout attribute pair: Out of 20 (unordered) variable attribute pairs, 4 were held out and used only during testing.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;models&quot;&gt;Models&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: 8 context panels (from the 3x3) matrix where the last panel needs to be filled.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CNN-MLP - 4 layer CNN with batchnorm and ReLU.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ResNet - ResNet-50 (as it perfomed better than ResNet-101 and ResNet-152).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LSTM&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Wild Relation Network (WReN) - A CNN model encodes the 8 panels and the candidate answers and feeds them as input to a relational network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Context-blind ResNet - ResNet network without the context (or the 8 input panels).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;WReN model outperforms the other models on the Neutral setup.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models have a harder time differentiating between size than quantity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;WRen is the best performing models in all the setups and rest of the discussion only applies to that model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generalisation is easy in the context of interpolation while worst in case of extrapolation, hinting at the limited generalization capability of the models.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;auxiliary-training&quot;&gt;Auxiliary Training&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is also trained to predict the relevant relation, object and attribute types using the meta-targets that encode this information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The auxiliary training helps in all the cases. Further, the model’s accuracy on the main task is where in the cases where it solves the auxiliary tasks well.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-takeaway&quot;&gt;Key Takeaway&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For abstract visual reasoning tasks, the choice of models can make a large difference, the case in consideration of ResNets vs Relational Networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using auxiliary loss that encourages the model to “explain” its reasoning (in this case by predicting the attributes, relations, etc) helps to improve the performance on the main task as well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given that the challenge is motivated by tasks used to measure human IQ, it would have been interesting to get an estimate of human performance on at least a subset of this dataset.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Hamiltonian Neural Networks</title>
