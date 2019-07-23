@@ -3,7 +3,7 @@ layout: post
 title: Relational Reinforcement Learning
 comments: True
 excerpt: 
-tags: ['2018', 'Deep Reinforcement Learning', 'ICLR 2019', Reinforcement Learning', 'Relational Learning', AI, ICLR, RL, RRL]
+tags: ['2018', 'Deep Reinforcement Learning', 'ICLR 2019', 'Reinforcement Learning', 'Relational Learning', AI, ICLR, RL, RRL]
 
 ---
 

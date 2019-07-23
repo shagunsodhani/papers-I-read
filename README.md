@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks](https://shagunsodhani.com/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks)
 * [Measuring abstract reasoning in neural networks](https://shagunsodhani.com/papers-I-read/Measuring-Abstract-Reasoning-in-Neural-Networks)
 * [Hamiltonian Neural Networks](https://shagunsodhani.com/papers-I-read/Hamiltonian-Neural-Networks)
 * [Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations](https://shagunsodhani.com/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations)
