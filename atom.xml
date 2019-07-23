@@ -4,13 +4,124 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-06-30T07:46:51-04:00</updated>
+ <updated>2019-07-22T20:25:51-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks"/>
+   <updated>2019-07-18T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Set Transformer A Framework for Attention-based Permutation-Invariant Neural Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider problems where the input to the model is a set. In such problems (referred to as the set-input problems), the model should be invariant to the permutation of the data points.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In “set pooling” methods (&lt;a href=&quot;https://arxiv.org/abs/1606.02185&quot;&gt;1&lt;/a&gt;, &lt;a href=&quot;https://arxiv.org/abs/1703.06114&quot;&gt;2&lt;/a&gt;), each data point (in the input set) is encoded using a feed-forward network and the resulting set of encoded representations are pooled using the “sum” operator.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This approach can be shown to be bot permutation-invariant and a universal function approximator.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes an attention-based network module, called as the Set Transformer, which can model the interactions between the elements of an input set while being permutation invariant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1810.00825&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;transformer&quot;&gt;Transformer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;An attention function &lt;em&gt;Attn(Q, K, V) = (QK&lt;sup&gt;T&lt;/sup&gt;)V&lt;/em&gt; is used to map queries &lt;em&gt;Q&lt;/em&gt; to output using key-value pairs &lt;em&gt;K, V&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of multi-head attention, the key, query, and value are projected into &lt;em&gt;h&lt;/em&gt; different vectors and attention is applied on all these vectors. The output is a linear transformation of the concatenation of all the vectors.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;set-transformer&quot;&gt;Set Transformer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;3 modules are introduced: MAB, SAB and ISAB.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multihead Attention Block (MAB) is a module very similar to to the encoder in the Transformer, without the positional encoding and dropout.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Set Attention Block (SAB) is a module that takes as input a set and performs self-attention between the elements of the set to produce another set of the same size ie &lt;em&gt;SAB(X) = MAB(X, X)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The time complexity of the SAB operation is &lt;em&gt;O(n&lt;sup&gt;2&lt;/sup&gt;)&lt;/em&gt; where &lt;em&gt;n&lt;/em&gt; is the number of elements in the set. It can be reduced to &lt;em&gt;O(m*n)&lt;/em&gt; by using Induced Set Attention Blocks (ISAB) with &lt;em&gt;m&lt;/em&gt; induced point vectors (denoted as I).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;ISAB&lt;sub&gt;m&lt;/sub&gt; = MAB(X, MAB(I, X))&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ISAB can be seen as performing a low-rank projection of inputs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These modules can be used to model the interactions between data points in any given set.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pooling-by-multihead-attention-pma&quot;&gt;Pooling by Multihead Attention (PMA)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Aggregation is performed by applying multi-head attention on a set of &lt;em&gt;k&lt;/em&gt; seed vectors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The interaction between the &lt;em&gt;k&lt;/em&gt; outputs (from PMA) can be modeled by applying another SAB.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Thus the entire network is a stack of SABs and ISABs. Both the modules are permutation invariant and so is any network obtained by stacking them.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets include:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Predicting the maximum value from a set.&lt;/li&gt;
+      &lt;li&gt;Counting unique (Omniglot) characters from an image.&lt;/li&gt;
+      &lt;li&gt;Clustering with a mixture of Gaussians (synthetic points and CIFAR 100).&lt;/li&gt;
+      &lt;li&gt;Set Anomaly detection (celebA).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, increasing &lt;em&gt;m&lt;/em&gt; (the number of inducing datapoints) improve performance, to some extent. This is somewhat expected.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers various ablations of the proposed approach (like disabling attention in the encoder or pooling layer) and shows that attention mechanism is needed during both the stages.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The work has two main benefits over prior work:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Reducing the &lt;em&gt;O(n&lt;sup&gt;2&lt;/sup&gt;)&lt;/em&gt; complexity to &lt;em&gt;O(m*n)&lt;/em&gt; complexity.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Using self-attention mechanism for both encodings the inputs and for aggregating the encoded representations.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Measuring abstract reasoning in neural networks</title>

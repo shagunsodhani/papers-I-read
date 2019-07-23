@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Word Representations via Gaussian Embedding &middot; Papers I Read
+      Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks &middot; Papers I Read
     
   </title>
 
@@ -141,70 +141,111 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Word Representations via Gaussian Embedding</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2015" title="Pages tagged ICLR 2015" rel="tag">ICLR 2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Word+Vectors" title="Pages tagged Word Vectors" rel="tag">Word Vectors</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">05 Nov 2017</span>
+  <h1 class="post-title">Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2019" title="Pages tagged ICML 2019" rel="tag">ICML 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Relation+Learning" title="Pages tagged Relation Learning" rel="tag">Relation Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Relational+Learning" title="Pages tagged Relational Learning" rel="tag">Relational Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Set" title="Pages tagged Set" rel="tag">Set</a></p>
+  <span class="post-date">18 Jul 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>Existing word embedding models like <a href="https://gist.github.com/shagunsodhani/176a283e2c158a75a0a6">Skip-Gram</a>, <a href="https://gist.github.com/shagunsodhani/efea5a42d17e0fcf18374df8e3e4b3e8">GloVe</a> etc map words to fixed sized vectors in a low dimensional vector space.</li>
-  <li>This fixed point setting cannot capture uncertainty about representation.</li>
-  <li>Further, these fixed point vectors are compared with measures like dot product and cosine similarity which are not suitable for capturing asymmetric properties like textual entailment and inclusion.</li>
-  <li>The paper proposes to learn Gaussian function embeddings (with diagonal covariance) for the word vectors.</li>
-  <li>This way, the words are mapped to soft regions in the embedding space which enables modeling uncertainty and asymmetric properties like inclusion and uncertainty.</li>
-  <li><a href="https://arxiv.org/abs/1412.6623">Link to the paper</a></li>
-  <li><a href="https://github.com/seomoz/word2gauss">Implementation</a></li>
+  <li>
+    <p>Consider problems where the input to the model is a set. In such problems (referred to as the set-input problems), the model should be invariant to the permutation of the data points.</p>
+  </li>
+  <li>
+    <p>In “set pooling” methods (<a href="https://arxiv.org/abs/1606.02185">1</a>, <a href="https://arxiv.org/abs/1703.06114">2</a>), each data point (in the input set) is encoded using a feed-forward network and the resulting set of encoded representations are pooled using the “sum” operator.</p>
+  </li>
+  <li>
+    <p>This approach can be shown to be bot permutation-invariant and a universal function approximator.</p>
+  </li>
+  <li>
+    <p>The paper proposes an attention-based network module, called as the Set Transformer, which can model the interactions between the elements of an input set while being permutation invariant.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1810.00825">Link to the paper</a></p>
+  </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
-
-<ul>
-  <li>KL divergence is used as the asymmetric distance function for comparing the distributions.</li>
-  <li>Unlike the Word2Vec model, the proposed model uses ranking-based loss.</li>
-</ul>
-
-<h3 id="similarity-measures-used">Similarity Measures used</h3>
+<h2 id="transformer">Transformer</h2>
 
 <ul>
   <li>
-    <p><strong>Symmetric Similarity</strong></p>
-  </li>
-  <li>For two gaussian distributions, <em>P<sub>i</sub></em> and <em>P<sub>j</sub></em>, compute the inner product <em>E(P<sub>i</sub>, P<sub>j</sub>)</em> as <em>N(0; mean<sub>i</sub> - mean<sub>j</sub>, sigma<sub>i</sub> + sigma<sub>j</sub>)</em>.</li>
-  <li>Compute the gradient of <em>mean</em> and <em>sigma</em> with respect to <em>log(E)</em>.</li>
-  <li>
-    <p>The resulting loss function can be interpreted as pushing the means closer which encouraging the two gaussians to be more concentrated.</p>
+    <p>An attention function <em>Attn(Q, K, V) = (QK<sup>T</sup>)V</em> is used to map queries <em>Q</em> to output using key-value pairs <em>K, V</em>.</p>
   </li>
   <li>
-    <p><strong>Asymmetric Similarity</strong></p>
+    <p>In case of multi-head attention, the key, query, and value are projected into <em>h</em> different vectors and attention is applied on all these vectors. The output is a linear transformation of the concatenation of all the vectors.</p>
   </li>
-  <li>Use KL divergence to encode the context distribution.</li>
-  <li>The benefit over the symmetric setting is that now entailment type relations can also be modeled.</li>
-  <li>For example, a low KL divergence from x to y indicates that y can be encoded as x or that y “entails” x.</li>
 </ul>
 
-<h2 id="learning">Learning</h2>
+<h2 id="set-transformer">Set Transformer</h2>
 
 <ul>
-  <li>One of the two notions of similarity is chosen and max-margin is used as the loss function.</li>
-  <li>Mean is regularized by adding a simple constraint on the L2-norm.</li>
-  <li>For covariance matrix, the eigenvalues are constrained to lie within a hypercube. This ensures that the positive-definite property of the covariance matrix is maintained while having a constraint on the size.</li>
+  <li>
+    <p>3 modules are introduced: MAB, SAB and ISAB.</p>
+  </li>
+  <li>
+    <p>Multihead Attention Block (MAB) is a module very similar to to the encoder in the Transformer, without the positional encoding and dropout.</p>
+  </li>
+  <li>
+    <p>Set Attention Block (SAB) is a module that takes as input a set and performs self-attention between the elements of the set to produce another set of the same size ie <em>SAB(X) = MAB(X, X)</em>.</p>
+  </li>
+  <li>
+    <p>The time complexity of the SAB operation is <em>O(n<sup>2</sup>)</em> where <em>n</em> is the number of elements in the set. It can be reduced to <em>O(m*n)</em> by using Induced Set Attention Blocks (ISAB) with <em>m</em> induced point vectors (denoted as I).</p>
+  </li>
+  <li>
+    <p><em>ISAB<sub>m</sub> = MAB(X, MAB(I, X))</em>.</p>
+  </li>
+  <li>
+    <p>ISAB can be seen as performing a low-rank projection of inputs.</p>
+  </li>
+  <li>
+    <p>These modules can be used to model the interactions between data points in any given set.</p>
+  </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h2 id="pooling-by-multihead-attention-pma">Pooling by Multihead Attention (PMA)</h2>
 
 <ul>
-  <li>Polysemous words have higher variance in their word embeddings as compared to specific words.</li>
-  <li>KL divergence (with diagonal covariance) outperforms other models.</li>
-  <li>Simple tree hierarchies can also be modeled by embedding into the Gaussian space. A Gaussian is created for each node with randomly initialized mean and the same set of embeddings is used for nodes and context.</li>
-  <li>For word similarity benchmarks, embeddings with spherical covariance have a slight edge over embeddings with diagonal covariance and outperform the Skip-Gram model in all the cases.</li>
+  <li>
+    <p>Aggregation is performed by applying multi-head attention on a set of <em>k</em> seed vectors.</p>
+  </li>
+  <li>
+    <p>The interaction between the <em>k</em> outputs (from PMA) can be modeled by applying another SAB.</p>
+  </li>
+  <li>
+    <p>Thus the entire network is a stack of SABs and ISABs. Both the modules are permutation invariant and so is any network obtained by stacking them.</p>
+  </li>
 </ul>
 
-<h2 id="future-work">Future Work</h2>
+<h2 id="experiments">Experiments</h2>
 
 <ul>
-  <li>Use combinations of low rank and diagonal matrices for covariances.</li>
-  <li>Improved optimisation strategies.</li>
-  <li>Trying other distributions like Student’s-t distribution.</li>
+  <li>
+    <p>Datasets include:</p>
+
+    <ul>
+      <li>Predicting the maximum value from a set.</li>
+      <li>Counting unique (Omniglot) characters from an image.</li>
+      <li>Clustering with a mixture of Gaussians (synthetic points and CIFAR 100).</li>
+      <li>Set Anomaly detection (celebA).</li>
+    </ul>
+  </li>
+  <li>
+    <p>Generally, increasing <em>m</em> (the number of inducing datapoints) improve performance, to some extent. This is somewhat expected.</p>
+  </li>
+  <li>
+    <p>The paper considers various ablations of the proposed approach (like disabling attention in the encoder or pooling layer) and shows that attention mechanism is needed during both the stages.</p>
+  </li>
+  <li>
+    <p>The work has two main benefits over prior work:</p>
+
+    <ul>
+      <li>
+        <p>Reducing the <em>O(n<sup>2</sup>)</em> complexity to <em>O(m*n)</em> complexity.</p>
+      </li>
+      <li>
+        <p>Using self-attention mechanism for both encodings the inputs and for aggregating the encoded representations.</p>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 </div>
@@ -212,15 +253,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks">
-            Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks
-            <small>18 Jul 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -236,6 +268,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks">
             Hamiltonian Neural Networks
             <small>20 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations">
+            Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations
+            <small>13 Jun 2019</small>
           </a>
         </h3>
       </li>
@@ -256,8 +297,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Word-Representations-via-Gaussian-Embedding"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Word-Representations-via-Gaussian-Embedding"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
