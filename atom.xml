@@ -4,13 +4,162 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-07-22T20:25:51-04:00</updated>
+ <updated>2019-08-04T19:17:39-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Assessing Generalization in Deep Reinforcement Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning"/>
+   <updated>2019-08-01T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Assessing Generalization in Deep Reinforcement Learning</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a benchmark and experimental protocol (environments, metrics, baselines, training/testing setup) to evaluate RL algorithms for generalization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Several RL algorithms are evaluated and the key takeaway is that the “vanilla” RL algorithms can generalize better than the RL algorithms that are specifically designed to generalize, given enough diversity in the distribution of the training environments.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1810.12282&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The focus is on evaluating generalization to environmental changes that affect the system dynamics (and not the goal or rewards).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two generalization regimes are considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Interpolation - parameters of the test environment are similar to the parameters of the training environment.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extrapolation - parameters of the test environment are different from the parameters of the training environment.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Following algorithms are considered as part of the benchmark:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;“Vanilla” RL algorithms - A2C, PPO&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;RL algorithms that are designed to generalize:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;EPOpt - Learn a (robust) policy that maximizes the expected reward over the most difficult distribution of environments (ones with the worst expected reward).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;RL&lt;sup&gt;2&lt;/sup&gt; - Learn an (adaptive) policy that can adapt to the current environment/task by considering the trajectory and not just the state transition sequence.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;These specially designed RL algorithms can be optimized using either A2C or PPO leading to combinations like EPOpt-A2C or EPOpt-PPO etc.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The models are either composed of feedforward networks completely or feedforward + recurrent networks.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Environments&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;CartPole, MountainCar, Acrobot, and Pendulum from OpenAI Gym.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;HalfCheetah and Hopper from OpenAI Roboschool.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Three versions of each environment are considered:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Deterministic: Environment parameters are fixed. This case corresponds to the standard environment setup in classical RL.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Random: Environment parameters are sampled randomly. This case corresponds to sampling from a distribution of environments.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Extreme: Environment parameters are sampled from their extreme values. This case corresponds to the edge-case environments which would not be encountered during training generally.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Performance Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Average total reward per episode.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Success percentage: Percentage of episodes where a certain goal (or reward) is obtained.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation Metrics/Setups&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Default: success percentage when training and evaluating the deterministic version of the environment.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Interpolation: success percentage when training and evaluating on the random version of the environment.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extrapolation: the geometric mean of the success percentage of following three versions:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Train on deterministic and evaluate on the random version.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Train on deterministic and evaluate on extreme version.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Train on random and evaluate on the extreme version.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Observations&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Extrapolation is harder than interpolation.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Increasing the diversity in the training environments improves the interpolation generalization of vanilla RL methods.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;EPOpt improves generalization only for continuous control environments and only with PPO.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;RL&lt;sup&gt;2&lt;/sup&gt; is difficult to train on the environments considered and did not provide a clear advantage in terms of generalization.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;EPOpt-PPO outperforms PPO on only 3 environments and EPOpt-A2C does not&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks</title>

@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Poincaré Embeddings for Learning Hierarchical Representations &middot; Papers I Read
+      Assessing Generalization in Deep Reinforcement Learning &middot; Papers I Read
     
   </title>
 
@@ -145,154 +145,156 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Poincaré Embeddings for Learning Hierarchical Representations</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Hyperbolic+Embedding" title="Pages tagged Hyperbolic Embedding" rel="tag">Hyperbolic Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Poincare+Ball+Model" title="Pages tagged Poincare Ball Model" rel="tag">Poincare Ball Model</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Tree" title="Pages tagged Tree" rel="tag">Tree</a></p>
-  <span class="post-date">11 Oct 2018</span>
-  <h2 id="introduction">Introduction</h2>
-
-<ul>
+  <h1 class="post-title">Assessing Generalization in Deep Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization" title="Pages tagged Evaluating Generalization" rel="tag">Evaluating Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning%27" title="Pages tagged Reinforcement Learning'" rel="tag">Reinforcement Learning'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">01 Aug 2019</span>
+  <ul>
   <li>
-    <p>Much of the work in representation leaning uses Euclidean vector spaces to embed datapoints (like words, nodes, entities etc).</p>
+    <p>The paper presents a benchmark and experimental protocol (environments, metrics, baselines, training/testing setup) to evaluate RL algorithms for generalization.</p>
   </li>
   <li>
-    <p>This approach is not effective when data has a (latent) hierarchical structure.</p>
+    <p>Several RL algorithms are evaluated and the key takeaway is that the “vanilla” RL algorithms can generalize better than the RL algorithms that are specifically designed to generalize, given enough diversity in the distribution of the training environments.</p>
   </li>
   <li>
-    <p>The paper proposes to compute the embeddings in the hyperbolic space so as to preserve both the similarity and structure information.</p>
+    <p><a href="https://arxiv.org/abs/1810.12282">Link to the paper</a></p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/pdf/1705.08039.pdf">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="hyperbolic-geometry">Hyperbolic Geometry</h2>
-
-<ul>
-  <li>
-    <p>Hyperbolic spaces are spaces with a constant negative curvature while Euclidean spaces have zero curvature.</p>
+    <p>The focus is on evaluating generalization to environmental changes that affect the system dynamics (and not the goal or rewards).</p>
   </li>
   <li>
-    <p>The hyperbolic disc area and circle length increase exponentially with the radius r while in Euclidean space, it increases quadratically and linearly respectively.</p>
-  </li>
-  <li>
-    <p>This makes the hyperbolic space more suitable for embedding tree-like structures where the number of nodes increases as we move away from the root.</p>
-  </li>
-  <li>
-    <p>Hyperbolic spaces can be thought of as the continuous version of trees and trees can be thought of as the discrete version of hyperbolic spaces.</p>
-  </li>
-</ul>
-
-<h2 id="poincare-embeddings">Poincare Embeddings</h2>
-
-<ul>
-  <li>
-    <p>Poincare model is one of the several possible models of the hyperbolic space and is considered here as it is more amenable to gradient-based optimisation.</p>
-  </li>
-  <li>
-    <p>Distance between 2 pints change smoothly and is symmetric. Thus the hierarchical organisation only depends on the distance from the origin which makes the model applicable in settings where the hierarchical structure needs to be inferred from the data.</p>
-  </li>
-  <li>
-    <p>Eventually the norm of a point represents its hierarchy and distance between the points represents similarity.</p>
-  </li>
-</ul>
-
-<h2 id="optimization">Optimization</h2>
-
-<ul>
-  <li>RSGD (Riemannian SGD) method is used.</li>
-  <li>Riemannian gradients can be computed from the Euclidean gradients by rescaling with the inverse of the Poincare ball metric tensor.</li>
-  <li>The embeddings are constrained to be within the Poincare ball by projection operation which normalizes the magnitude of embeddings to be 1.</li>
-</ul>
-
-<h2 id="training-details">Training Details</h2>
-
-<ul>
-  <li>Initializing the embeddings close to 0 (by sampling uniformly from (-0.001, 0.001)) helps.</li>
-  <li>The model is trained for an initial burn-out period of 10 epochs with 0.1 times the learning rate so as to find a better initial angular layout.</li>
-</ul>
-
-<h2 id="evaluation">Evaluation</h2>
-
-<ul>
-  <li>
-    <p>Embedding taxonomy for wordnet task</p>
+    <p>Two generalization regimes are considered:</p>
 
     <ul>
       <li>
-        <p>Setup</p>
-
-        <ul>
-          <li>Reconstruction</li>
-          <li>Link Prediction</li>
-        </ul>
+        <p>Interpolation - parameters of the test environment are similar to the parameters of the training environment.</p>
       </li>
       <li>
-        <p>The input data is a collection of a pair of words (u, v) which are related to each other.</p>
-      </li>
-      <li>
-        <p>For each word pair, 10 negative samples of the form (u, v’) are sampled and the training procedure uses a soft ranking loss that aims to bring the related objects closer together.</p>
+        <p>Extrapolation - parameters of the test environment are different from the parameters of the training environment.</p>
       </li>
     </ul>
   </li>
   <li>
-    <p>Network Embedding</p>
+    <p>Following algorithms are considered as part of the benchmark:</p>
 
     <ul>
       <li>
-        <p>Baselines</p>
+        <p>“Vanilla” RL algorithms - A2C, PPO</p>
+      </li>
+      <li>
+        <p>RL algorithms that are designed to generalize:</p>
 
         <ul>
-          <li>Euclidean Embeddings</li>
-          <li>Translational Embedding where a relation vector corresponding to the edge type is also learnt.</li>
+          <li>
+            <p>EPOpt - Learn a (robust) policy that maximizes the expected reward over the most difficult distribution of environments (ones with the worst expected reward).</p>
+          </li>
+          <li>
+            <p>RL<sup>2</sup> - Learn an (adaptive) policy that can adapt to the current environment/task by considering the trajectory and not just the state transition sequence.</p>
+          </li>
         </ul>
       </li>
       <li>
-        <p>Datasets</p>
+        <p>These specially designed RL algorithms can be optimized using either A2C or PPO leading to combinations like EPOpt-A2C or EPOpt-PPO etc.</p>
+      </li>
+      <li>
+        <p>The models are either composed of feedforward networks completely or feedforward + recurrent networks.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Environments</p>
+
+    <ul>
+      <li>
+        <p>CartPole, MountainCar, Acrobot, and Pendulum from OpenAI Gym.</p>
+      </li>
+      <li>
+        <p>HalfCheetah and Hopper from OpenAI Roboschool.</p>
+      </li>
+      <li>
+        <p>Three versions of each environment are considered:</p>
 
         <ul>
-          <li>ASTROPH</li>
-          <li>CONDMAT</li>
-          <li>GRQC</li>
-          <li>HEPPH</li>
+          <li>
+            <p>Deterministic: Environment parameters are fixed. This case corresponds to the standard environment setup in classical RL.</p>
+          </li>
+          <li>
+            <p>Random: Environment parameters are sampled randomly. This case corresponds to sampling from a distribution of environments.</p>
+          </li>
+          <li>
+            <p>Extreme: Environment parameters are sampled from their extreme values. This case corresponds to the edge-case environments which would not be encountered during training generally.</p>
+          </li>
         </ul>
       </li>
     </ul>
   </li>
   <li>
-    <p>Lexical Entailment</p>
+    <p>Performance Metrics</p>
+
+    <ul>
+      <li>
+        <p>Average total reward per episode.</p>
+      </li>
+      <li>
+        <p>Success percentage: Percentage of episodes where a certain goal (or reward) is obtained.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Evaluation Metrics/Setups</p>
+
+    <ul>
+      <li>
+        <p>Default: success percentage when training and evaluating the deterministic version of the environment.</p>
+      </li>
+      <li>
+        <p>Interpolation: success percentage when training and evaluating on the random version of the environment.</p>
+      </li>
+      <li>
+        <p>Extrapolation: the geometric mean of the success percentage of following three versions:</p>
+
+        <ul>
+          <li>
+            <p>Train on deterministic and evaluate on the random version.</p>
+          </li>
+          <li>
+            <p>Train on deterministic and evaluate on extreme version.</p>
+          </li>
+          <li>
+            <p>Train on random and evaluate on the extreme version.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Observations</p>
+
+    <ul>
+      <li>
+        <p>Extrapolation is harder than interpolation.</p>
+      </li>
+      <li>
+        <p>Increasing the diversity in the training environments improves the interpolation generalization of vanilla RL methods.</p>
+      </li>
+      <li>
+        <p>EPOpt improves generalization only for continuous control environments and only with PPO.</p>
+      </li>
+      <li>
+        <p>RL<sup>2</sup> is difficult to train on the environments considered and did not provide a clear advantage in terms of generalization.</p>
+      </li>
+      <li>
+        <p>EPOpt-PPO outperforms PPO on only 3 environments and EPOpt-A2C does not</p>
+      </li>
+    </ul>
   </li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
-
-* The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
-</code></pre></div></div>
-
-<h2 id="challenges">Challenges</h2>
-
-<ul>
-  <li>
-    <p>Hyperbolic embeddings are not suitable for all the datasets. Eg if the dataset is not tree-like or has cycles.</p>
-  </li>
-  <li>
-    <p>Hyperbolic embeddings are difficult to optimize as each operation needs to be modified to be usable in the hyperbolic space.</p>
-  </li>
-</ul>
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning">
-            Assessing Generalization in Deep Reinforcement Learning
-            <small>01 Aug 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -308,6 +310,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Measuring-Abstract-Reasoning-in-Neural-Networks">
             Measuring abstract reasoning in neural networks
             <small>27 Jun 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks">
+            Hamiltonian Neural Networks
+            <small>20 Jun 2019</small>
           </a>
         </h3>
       </li>
@@ -328,8 +339,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Poincare-Embeddings-for-Learning-Hierarchical-Representations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Assessing-Generalization-in-Deep-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
