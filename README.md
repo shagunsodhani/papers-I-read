@@ -6,6 +6,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 ## List of papers
 
 * [Assessing Generalization in Deep Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning)
+* [Quantifying Generalization in Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning)
 * [Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks](https://shagunsodhani.com/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks)
 * [Measuring abstract reasoning in neural networks](https://shagunsodhani.com/papers-I-read/Measuring-Abstract-Reasoning-in-Neural-Networks)
 * [Hamiltonian Neural Networks](https://shagunsodhani.com/papers-I-read/Hamiltonian-Neural-Networks)
