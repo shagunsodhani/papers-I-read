@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Assessing Generalization in Deep Reinforcement Learning &middot; Papers I Read
+      Quantifying Generalization in Reinforcement Learning &middot; Papers I Read
     
   </title>
 
@@ -145,150 +145,137 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Assessing Generalization in Deep Reinforcement Learning</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization" title="Pages tagged Evaluating Generalization" rel="tag">Evaluating Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning%27" title="Pages tagged Reinforcement Learning'" rel="tag">Reinforcement Learning'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
-  <span class="post-date">01 Aug 2019</span>
-  <ul>
+  <h1 class="post-title">Quantifying Generalization in Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2019" title="Pages tagged ICML 2019" rel="tag">ICML 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization%27" title="Pages tagged Evaluating Generalization'" rel="tag">Evaluating Generalization'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning%27" title="Pages tagged Reinforcement Learning'" rel="tag">Reinforcement Learning'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Environment" title="Pages tagged Environment" rel="tag">Environment</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">25 Jul 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
   <li>
-    <p>The paper presents a benchmark and experimental protocol (environments, metrics, baselines, training/testing setup) to evaluate RL algorithms for generalization.</p>
+    <p>The paper introduces a new, procedurally generated environment called as CoinRun that is designed to benchmark the generalization capabilities of RL algorithms.</p>
   </li>
   <li>
-    <p>Several RL algorithms are evaluated and the key takeaway is that the “vanilla” RL algorithms can generalize better than the RL algorithms that are specifically designed to generalize, given enough diversity in the distribution of the training environments.</p>
+    <p>The paper reports that deep convolutional architectures and techniques like L2 regularization, batch norm, etc (which were proposed in the context of generalization in supervised learning) are also useful for RL.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1810.12282">Link to the paper</a></p>
-  </li>
-  <li>
-    <p>The focus is on evaluating generalization to environmental changes that affect the system dynamics (and not the goal or rewards).</p>
-  </li>
-  <li>
-    <p>Two generalization regimes are considered:</p>
-
-    <ul>
-      <li>
-        <p>Interpolation - parameters of the test environment are similar to the parameters of the training environment.</p>
-      </li>
-      <li>
-        <p>Extrapolation - parameters of the test environment are different from the parameters of the training environment.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Following algorithms are considered as part of the benchmark:</p>
-
-    <ul>
-      <li>
-        <p>“Vanilla” RL algorithms - A2C, PPO</p>
-      </li>
-      <li>
-        <p>RL algorithms that are designed to generalize:</p>
-
-        <ul>
-          <li>
-            <p>EPOpt - Learn a (robust) policy that maximizes the expected reward over the most difficult distribution of environments (ones with the worst expected reward).</p>
-          </li>
-          <li>
-            <p>RL<sup>2</sup> - Learn an (adaptive) policy that can adapt to the current environment/task by considering the trajectory and not just the state transition sequence.</p>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <p>These specially designed RL algorithms can be optimized using either A2C or PPO leading to combinations like EPOpt-A2C or EPOpt-PPO etc.</p>
-      </li>
-      <li>
-        <p>The models are either composed of feedforward networks completely or feedforward + recurrent networks.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Environments</p>
-
-    <ul>
-      <li>
-        <p>CartPole, MountainCar, Acrobot, and Pendulum from OpenAI Gym.</p>
-      </li>
-      <li>
-        <p>HalfCheetah and Hopper from OpenAI Roboschool.</p>
-      </li>
-      <li>
-        <p>Three versions of each environment are considered:</p>
-
-        <ul>
-          <li>
-            <p>Deterministic: Environment parameters are fixed. This case corresponds to the standard environment setup in classical RL.</p>
-          </li>
-          <li>
-            <p>Random: Environment parameters are sampled randomly. This case corresponds to sampling from a distribution of environments.</p>
-          </li>
-          <li>
-            <p>Extreme: Environment parameters are sampled from their extreme values. This case corresponds to the edge-case environments which would not be encountered during training generally.</p>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Performance Metrics</p>
-
-    <ul>
-      <li>
-        <p>Average total reward per episode.</p>
-      </li>
-      <li>
-        <p>Success percentage: Percentage of episodes where a certain goal (or reward) is obtained.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Evaluation Metrics/Setups</p>
-
-    <ul>
-      <li>
-        <p>Default: success percentage when training and evaluating the deterministic version of the environment.</p>
-      </li>
-      <li>
-        <p>Interpolation: success percentage when training and evaluating on the random version of the environment.</p>
-      </li>
-      <li>
-        <p>Extrapolation: the geometric mean of the success percentage of following three versions:</p>
-
-        <ul>
-          <li>
-            <p>Train on deterministic and evaluate on the random version.</p>
-          </li>
-          <li>
-            <p>Train on deterministic and evaluate on extreme version.</p>
-          </li>
-          <li>
-            <p>Train on random and evaluate on the extreme version.</p>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>Observations</p>
-
-    <ul>
-      <li>
-        <p>Extrapolation is harder than interpolation.</p>
-      </li>
-      <li>
-        <p>Increasing the diversity in the training environments improves the interpolation generalization of vanilla RL methods.</p>
-      </li>
-      <li>
-        <p>EPOpt improves generalization only for continuous control environments and only with PPO.</p>
-      </li>
-      <li>
-        <p>RL<sup>2</sup> is difficult to train on the environments considered and did not provide a clear advantage in terms of generalization.</p>
-      </li>
-      <li>
-        <p>EPOpt-PPO outperforms PPO on only 3 environments and EPOpt-A2C does not</p>
-      </li>
-    </ul>
+    <p><a href="https://arxiv.org/abs/1812.02341">Link to the paper</a></p>
   </li>
 </ul>
 
+<h2 id="coinrun-environment">CoinRun Environment</h2>
+
+<ul>
+  <li>
+    <p>CoinRun is made of multiple levels.</p>
+  </li>
+  <li>
+    <p>In each level, the agent spawns on the far left side and needs to collect a single coin that lies on the far right side.</p>
+  </li>
+  <li>
+    <p>There are many obstacles in between and colliding with an obstacle leads to agent’s death.</p>
+  </li>
+  <li>
+    <p>Each episode extends for a maximum for 1000 steps.</p>
+  </li>
+  <li>
+    <p>CoinRun is designed such that given sufficient training time and levels, a near-optimal policy can be learned for all the levels.</p>
+  </li>
+</ul>
+
+<h2 id="generalization">Generalization</h2>
+
+<ul>
+  <li>
+    <p>Generalization can be measure by training an agent on a given set of training tasks and evaluating on an unseen set of test tasks.</p>
+  </li>
+  <li>
+    <p>9 agents are trained to play CoinRun, on different training sets (each with a different number of levels).</p>
+  </li>
+  <li>
+    <p>The first 8 agents are trained on sets of size 100 to 16000 levels while the last agent is trained on an unbounded set of levels.</p>
+  </li>
+  <li>
+    <p>Training a model on an unbounded set of levels provides a good proxy for the train-to-test generalization performance.</p>
+  </li>
+</ul>
+
+<h2 id="evaluating-architectures">Evaluating Architectures</h2>
+
+<ul>
+  <li>
+    <p>Two convolutional architectures (of different sizes) are compared:</p>
+
+    <ul>
+      <li>
+        <p>Nature-CNN: The CNN architecture used in the <a href="https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf">Deep Q Network</a>. This is the smaller network among the two models.</p>
+      </li>
+      <li>
+        <p>IMPALA-CNN: The CNN architecture used in the <a href="https://arxiv.org/abs/1802.01561">Imapla architecture</a>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>IMPALA-CNN agent always outperforms the Nature-CNN agent indicating that larger architecture has more capacity for generalization. But increasing the network size beyond a limit gives diminishing returns.</p>
+  </li>
+</ul>
+
+<h2 id="evaluating-regularization">Evaluating Regularization</h2>
+
+<ul>
+  <li>
+    <p>While both L2 regularization and Dropout helps to improve generalization, L2 regularization is more impactful.</p>
+  </li>
+  <li>
+    <p>A domain randomization/data augmentation approach is tested where rectangular regions of different sizes are masked and assigned a random color. This approach seems to improve performance.</p>
+  </li>
+  <li>
+    <p>Batch Normalization helps to improve performance as well.</p>
+  </li>
+  <li>
+    <p>Environment stochasticity is introduced by using sticky actions while policy stochasticity is introduced by controlling the entropy bonus. Both these forms of stochasticity boost performance.</p>
+  </li>
+  <li>
+    <p>While combining different regularization methods help, the gains are only marginally better than using just 1 regularization approach. This suggests that these different approaches induce similar generalization properties.</p>
+  </li>
+</ul>
+
+<h2 id="additional-environments">Additional Environments</h2>
+
+<ul>
+  <li>
+    <p>Two additional environments are also considered to verify the high degree of overfitting observed in the CoinRun environment:</p>
+
+    <ul>
+      <li>
+        <p>CoinRun-Platforms:</p>
+
+        <ul>
+          <li>
+            <p>Unlike CoinRun, each episode can have multiple coins and the time limit is 0increased to 1000 steps.</p>
+          </li>
+          <li>
+            <p>Levels are larger as well so the agent might need to backtrack their steps.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>RandomMazes:</p>
+
+        <ul>
+          <li>
+            <p>Partially observed environment with square mazes of dimensions 3x3 to 25x25.</p>
+          </li>
+          <li>
+            <p>Timelimit of 500 steps</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Overfitting is observed for both these environments as well.</p>
+  </li>
+</ul>
 
 </div>
 
@@ -298,9 +285,9 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning">
-            Quantifying Generalization in Reinforcement Learning
-            <small>25 Jul 2019</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning">
+            Assessing Generalization in Deep Reinforcement Learning
+            <small>01 Aug 2019</small>
           </a>
         </h3>
       </li>
@@ -339,8 +326,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Assessing-Generalization-in-Deep-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Quantifying-Generalization-in-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
