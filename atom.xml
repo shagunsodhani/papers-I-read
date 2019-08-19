@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-08-19T13:17:33+05:30</updated>
+ <updated>2019-08-19T13:26:39+05:30</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -79,7 +79,7 @@
         &lt;p&gt;TS1 - At each timestep, each particle samples a bootstrap. In this case, particle separation can not be attributed to ti the compounding effects of the bootstraps.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;TS&lt;script type=&quot;math/tex&quot;&gt;\inf&lt;/script&gt; - The bootstrapped model (per particle) is sampled just once and is not changed after that. This setup separates aleatoric and epistemic uncertainty. Aleatoric state variance is the average variance of the particles of the same bootstrap while epistemic state variance is the variance of the average of particles of same bootstrap indexes.&lt;/p&gt;
+        &lt;p&gt;TS$\infty$ - The bootstrapped model (per particle) is sampled just once and is not changed after that. This setup separates aleatoric and epistemic uncertainty. Aleatoric state variance is the average variance of the particles of the same bootstrap while epistemic state variance is the variance of the average of particles of same bootstrap indexes.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
