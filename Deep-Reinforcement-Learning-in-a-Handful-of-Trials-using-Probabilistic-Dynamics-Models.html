@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Good-Enough Compositional Data Augmentation &middot; Papers I Read
+      Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models &middot; Papers I Read
     
   </title>
 
@@ -145,54 +145,88 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Good-Enough Compositional Data Augmentation</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data+Augmentation" title="Pages tagged Data Augmentation" rel="tag">Data Augmentation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Sequential+models" title="Pages tagged Sequential models" rel="tag">Sequential models</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Compositionality" title="Pages tagged Compositionality" rel="tag">Compositionality</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">21 May 2019</span>
+  <h1 class="post-title">Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model-based" title="Pages tagged Model-based" rel="tag">Model-based</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips+2018" title="Pages tagged Neurips 2018" rel="tag">Neurips 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MBRL" title="Pages tagged MBRL" rel="tag">MBRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips" title="Pages tagged Neurips" rel="tag">Neurips</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">08 Aug 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper introduces a simple data augmentation protocol that provides a good compositional inductive bias for sequential models.</p>
+    <p>The paper proposes a new algorithm called as Probabilistic Ensemble with Trajectory sampling (PETS) that combines uncertainty aware deep learning models (ensemble of deep learning models that encode uncertainty) with sampling-based uncertainty propagation.</p>
   </li>
   <li>
-    <p>Synthetic examples are created by taking real sequences and replacing the fragments in sequences which appear in similar environments. This operation is referred to as GECA (Good Enough Compositional Augmentation).</p>
+    <p>PETS improves over other probabilistic MBRL approaches by isolating epistemic uncertainty (due to limited training data) and aleatoric uncertainty (inherent in the system).</p>
   </li>
   <li>
-    <p>The underlying idea is that if two fragments of training examples occur in some environment, then any environment where the first fragment appears is also a valid environment for the second fragment.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1904.09545">Link to the paper</a></p>
+    <p><a href="">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
+<h2 id="uncertainty-aware-neural-network-dynamics-model">Uncertainty-Aware Neural Network Dynamics Model</h2>
 
 <ul>
   <li>
-    <p>Discover substitutable fragments (ie pairs of fragments that co-occur with a common fragment) and use them to generate new sequences by swapping fragments.</p>
+    <p>Aleatoric uncertainty can be accounted for by learning a parameterized distribution (probabilistic neural network) trained with negative log-likelihood.</p>
   </li>
   <li>
-    <p>The current work uses very simple criteria to decide if fragments are substitutable - fragments should occur in at least one lexical environment that is exactly the same. A lexical environment is the k-word window around each span of the fragment.</p>
+    <p>Epistemic uncertainty can be accounted for by either having an infinite amount of data or by using ensembles.</p>
   </li>
   <li>
-    <p>Though the idea can be motivated by work in generative syntax and distributional semantics, it would not hold like a physical law when applied to the real data.</p>
+    <p>The paper uses a neural network to predict the mean and standard deviation of a gaussian distribution which defines the predictive model. This setup is referred to as the “probabilistic” model and denoted by <strong>P</strong>.</p>
   </li>
   <li>
-    <p>The authors view this tradeoff as a balance between the shortage of training data vs relative frequency of mistake in the proposed data augmentation approach.</p>
+    <p>The alternate setup of the deterministic model is where a neural network is used to make a point prediction (and is denoted by <strong>D</strong>).</p>
+  </li>
+  <li>
+    <p>Ensemble of probabilistic models is denoted as <strong>PE</strong> while that of deterministic models is denoted as <strong>DE</strong>.</p>
   </li>
 </ul>
 
-<h2 id="results">Results</h2>
+<h2 id="planning-and-control-with-learned-dynamics">Planning and Control with learned Dynamics</h2>
 
 <ul>
   <li>
-    <p>The approach is evaluated on the SCAN dataset when the model is trained on the short sequence of English commands. Though the dataset augmentation helps the baseline models, it is not surprising given the nature of the SCAN dataset.</p>
+    <p>Model Predictive Control (MPC) is used for planning.</p>
   </li>
   <li>
-    <p>More challenging tasks (for evaluating the proposed approach) are semantic parsing (where the query is represented in the form of λ calculus or SQL and low resource language modeling. While the improvement (in terms of metrics) is sometimes limited, the gains are consistent across different datasets.</p>
+    <p>Given a start state and an action sequence, the probabilistic dynamics model induces a distribution over the trajectories.</p>
   </li>
   <li>
-    <p>Given that the proposed approach is relatively simple and straightforward, it appears to be quite promising.</p>
+    <p>The first action, among the sequence of optimized actions, is executed.</p>
+  </li>
+  <li>
+    <p>Instead of random shooting, <a href="https://www.sciencedirect.com/science/article/pii/B9780444538598000035">Cross Entropy Method (CEM)</a> is used.</p>
+  </li>
+</ul>
+
+<h2 id="trajectory-sampling">Trajectory Sampling</h2>
+
+<ul>
+  <li>
+    <p>Let us say there are B bootstrap models in the ensemble. Given the current state, P particles are created and each particle is propagated using one of the bootstrap models. Two variants are considered:</p>
+
+    <ul>
+      <li>
+        <p>TS1 - At each timestep, each particle samples a bootstrap. In this case, particle separation can not be attributed to ti the compounding effects of the bootstraps.</p>
+      </li>
+      <li>
+        <p>TS<script type="math/tex">\inf</script> - The bootstrapped model (per particle) is sampled just once and is not changed after that. This setup separates aleatoric and epistemic uncertainty. Aleatoric state variance is the average variance of the particles of the same bootstrap while epistemic state variance is the variance of the average of particles of same bootstrap indexes.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<ul>
+  <li>
+    <p>The proposed approach reaches the asymptotic performance of state-of-the-art model-free algorithms in much fewer samples.</p>
+  </li>
+  <li>
+    <p>The general performance trend is probabilistic emsemble &gt; probabilisitc model &gt; deterministc ensemble &gt; determinisitc model./.</p>
+  </li>
+  <li>
+    <p>Initial experiments for learning policy by propagating gradients through the ensemble of models did not work and has been left as future work.</p>
   </li>
 </ul>
 
@@ -201,15 +235,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models">
-            Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models
-            <small>08 Aug 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -225,6 +250,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning">
             Quantifying Generalization in Reinforcement Learning
             <small>25 Jul 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks">
+            Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks
+            <small>18 Jul 2019</small>
           </a>
         </h3>
       </li>
@@ -245,8 +279,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Good-Enough-Compositional-Data-Augmentation"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
