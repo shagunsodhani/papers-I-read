@@ -3,7 +3,7 @@ layout: post
 title: Assessing Generalization in Deep Reinforcement Learning
 comments: True
 excerpt: 
-tags: ['2018', 'Deep Reinforcement Learning', 'Evaluating Generalization', Reinforcement Learning',  AI, DRL, Evaluation, Generalization, RL]
+tags: ['2018', 'Deep Reinforcement Learning', 'Evaluating Generalization', 'Reinforcement Learning',  AI, DRL, Evaluation, Generalization, RL]
 
 ---
 
