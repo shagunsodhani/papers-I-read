@@ -4,13 +4,101 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-08-19T13:26:39+05:30</updated>
+ <updated>2019-08-27T00:11:26+05:30</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Abductive Commonsense Reasoning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Abductive-Commonsense-Reasoning"/>
+   <updated>2019-08-15T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Abductive Commonsense Reasoning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents the task of abductive NLP (pronounced as &lt;em&gt;alpha NLP&lt;/em&gt;) where the model needs to perform abductive reasoning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Abductive reasoning is the inference to the most plausible explanation. Even though it is considered to be an important component for understanding narratives, the work in this domain is sparse.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new dataset called as Abstractive Reasoning in narrative Text (ART) consisting of 20K narrative contexts and 200k explanations is also provided. The dataset models the task as multiple-choice questions to make the evaluation process easy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1908.05739&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;task-setup&quot;&gt;Task Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a pair of observations &lt;em&gt;O&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;O&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; and two hypothesis &lt;em&gt;h&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;h&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;, the task is to select the most plausible hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, &lt;em&gt;P(h | O&lt;sub&gt;1&lt;/sub&gt;, O&lt;sub&gt;2&lt;/sub&gt;)&lt;/em&gt; is propotional to &lt;em&gt;P(h |O&lt;sub&gt;1&lt;/sub&gt;)P(O&lt;sub&gt;2&lt;/sub&gt;|h, O&lt;sub&gt;1&lt;/sub&gt;)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Different independence assumptions can be imposed on the structure of the problem eg one assumption could be that the hypothesis is independent of the observations or the “fully connected” assumption would jointly model both the observations and the hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dataset&quot;&gt;Dataset&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Along with crowdsourcing several plausible hypotheses for each observation instance pair, an adversarial filtering algorithm (AF) is used to remove weak pairs of hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Observation pairs are created using the &lt;a href=&quot;https://aclweb.org/anthology/N16-1098&quot;&gt;ROCStories dataset&lt;/a&gt; which is a collection of short, manually crafted stories of 5 sentences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The average word length for both the content and the hypothesis is between 8 to 9.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To collect plausible hypothesis, the crowd workers were asked to fill in a plausible “in-between” sentence in natural language.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the plausible hypothesis, the crowd workers were asked to create an implausible hypothesis by editing fewer than 6 words.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adversarial filtering approach from &lt;a href=&quot;https://aclweb.org/anthology/D18-1009&quot;&gt;Zellers et al.&lt;/a&gt; is used with BERT as the adversary. A temperature parameter is introduced to control the maximum number of instances that can be changed in each adversarial filtering iteration.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-observations&quot;&gt;Key Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Human performance: 91.4%&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines like SVM classifier, the bag-of-words classifier (using Glove) and max-pooling overt BiLSTM representation: approx 50%&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Entailment NLI baseline: 59%. This highlights the additional complexity of abductive NLI as compared to entailment NLI.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BERT: 68.9%&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GPT: 63.1%&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Numerical and spatial knowledge-based data points are particularly hard.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is more likely to fail when the narrative created by the incorrect hypothesis is plausible&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models</title>

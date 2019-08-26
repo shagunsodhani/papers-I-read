@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Cyclical Learning Rates for Training Neural Networks &middot; Papers I Read
+      Abductive Commonsense Reasoning &middot; Papers I Read
     
   </title>
 
@@ -145,90 +145,95 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Cyclical Learning Rates for Training Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Accelerated+Training" title="Pages tagged Accelerated Training" rel="tag">Accelerated Training</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Learning+Rate" title="Pages tagged Learning Rate" rel="tag">Learning Rate</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#WACV+2017" title="Pages tagged WACV 2017" rel="tag">WACV 2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LR" title="Pages tagged LR" rel="tag">LR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#WACV" title="Pages tagged WACV" rel="tag">WACV</a></p>
-  <span class="post-date">18 Mar 2018</span>
+  <h1 class="post-title">Abductive Commonsense Reasoning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Abductive+Reasoning" title="Pages tagged Abductive Reasoning" rel="tag">Abductive Reasoning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Inference" title="Pages tagged Natural Language Inference" rel="tag">Natural Language Inference</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLI" title="Pages tagged NLI" rel="tag">NLI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reasoning" title="Pages tagged Reasoning" rel="tag">Reasoning</a></p>
+  <span class="post-date">15 Aug 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Conventional wisdom says that when training neural networks, learning rate should monotonically decrease. This insight forms the basis of the different type of adaptive learning rates.</p>
+    <p>The paper presents the task of abductive NLP (pronounced as <em>alpha NLP</em>) where the model needs to perform abductive reasoning.</p>
   </li>
   <li>
-    <p>Counter to this expected behaviour, the paper demonstrates that using a cyclical learning rate (CLR), varying between a minimum and a maximum value, helps to train the neural network faster without requiring fine-tuning of learning rate.</p>
+    <p>Abductive reasoning is the inference to the most plausible explanation. Even though it is considered to be an important component for understanding narratives, the work in this domain is sparse.</p>
   </li>
   <li>
-    <p>The paper also provides a simple approach to estimate the lower and upper bound for CLR.</p>
+    <p>A new dataset called as Abstractive Reasoning in narrative Text (ART) consisting of 20K narrative contexts and 200k explanations is also provided. The dataset models the task as multiple-choice questions to make the evaluation process easy.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1506.01186">Link to the paper</a></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/bckenstler/CLR">Link to the implementation</a></p>
+    <p><a href="https://arxiv.org/abs/1908.05739">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="intution">Intution</h2>
+<h2 id="task-setup">Task Setup</h2>
 
 <ul>
   <li>
-    <p>Difficulty in minimizing the loss arises from saddle points and not from local minima. <a href="http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf">[Ref]</a></p>
+    <p>Given a pair of observations <em>O<sub>1</sub></em> and <em>O<sub>2</sub></em> and two hypothesis <em>h<sub>1</sub></em> and <em>h<sub>2</sub></em>, the task is to select the most plausible hypothesis.</p>
   </li>
   <li>
-    <p>Increasing the learning rate allows for rapid traversal of saddle points.</p>
+    <p>In general, <em>P(h | O<sub>1</sub>, O<sub>2</sub>)</em> is propotional to <em>P(h |O<sub>1</sub>)P(O<sub>2</sub>|h, O<sub>1</sub>)</em>.</p>
   </li>
   <li>
-    <p>Alternatively, the optimal learning rate is expected to be between bounds of CLR and thus the learning rate would always be close to the optimal learning rate.</p>
+    <p>Different independence assumptions can be imposed on the structure of the problem eg one assumption could be that the hypothesis is independent of the observations or the “fully connected” assumption would jointly model both the observations and the hypothesis.</p>
   </li>
 </ul>
 
-<h2 id="parameter-estimation">Parameter Estimation</h2>
+<h2 id="dataset">Dataset</h2>
 
 <ul>
   <li>
-    <p>Cycle Length = Number of iterations till learning rate returns to the initial value = 2 * step_size</p>
+    <p>Along with crowdsourcing several plausible hypotheses for each observation instance pair, an adversarial filtering algorithm (AF) is used to remove weak pairs of hypothesis.</p>
   </li>
   <li>
-    <p>step_size should be set to 2-10 times the number of iterations in an epoch.</p>
+    <p>Observation pairs are created using the <a href="https://aclweb.org/anthology/N16-1098">ROCStories dataset</a> which is a collection of short, manually crafted stories of 5 sentences.</p>
   </li>
   <li>
-    <p>Estimating the CLR boundary values:</p>
-
-    <ul>
-      <li>
-        <p>Run the model for several epochs while increasing the learning rate between the allowed low and high values.</p>
-      </li>
-      <li>
-        <p>Plot accuracy vs learning rate and note the learning rate values when the accuracy starts to fall.</p>
-      </li>
-      <li>
-        <p>This gives a good candidate value for upper and lower bound. Alternatively, the lower bound could be set to be 1/3 or 3/4 of the upper bound. But it is difficult to judge if the model has run for the sufficient number of epochs in the first place.</p>
-      </li>
-    </ul>
+    <p>The average word length for both the content and the hypothesis is between 8 to 9.</p>
+  </li>
+  <li>
+    <p>To collect plausible hypothesis, the crowd workers were asked to fill in a plausible “in-between” sentence in natural language.</p>
+  </li>
+  <li>
+    <p>Given the plausible hypothesis, the crowd workers were asked to create an implausible hypothesis by editing fewer than 6 words.</p>
+  </li>
+  <li>
+    <p>Adversarial filtering approach from <a href="https://aclweb.org/anthology/D18-1009">Zellers et al.</a> is used with BERT as the adversary. A temperature parameter is introduced to control the maximum number of instances that can be changed in each adversarial filtering iteration.</p>
   </li>
 </ul>
 
-<h2 id="notes">Notes</h2>
+<h2 id="key-observations">Key Observations</h2>
 
 <ul>
-  <li>The idea in itself is very simple and straight-forward to add to any existing model which makes it very appealing.</li>
-  <li>The author has experimented with various architectures and datasets (from vision domain) and has reported faster training results.</li>
+  <li>
+    <p>Human performance: 91.4%</p>
+  </li>
+  <li>
+    <p>Baselines like SVM classifier, the bag-of-words classifier (using Glove) and max-pooling overt BiLSTM representation: approx 50%</p>
+  </li>
+  <li>
+    <p>Entailment NLI baseline: 59%. This highlights the additional complexity of abductive NLI as compared to entailment NLI.</p>
+  </li>
+  <li>
+    <p>BERT: 68.9%</p>
+  </li>
+  <li>
+    <p>GPT: 63.1%</p>
+  </li>
+  <li>
+    <p>Numerical and spatial knowledge-based data points are particularly hard.</p>
+  </li>
+  <li>
+    <p>The model is more likely to fail when the narrative created by the incorrect hypothesis is plausible</p>
+  </li>
 </ul>
+
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Abductive-Commonsense-Reasoning">
-            Abductive Commonsense Reasoning
-            <small>15 Aug 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -244,6 +249,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning">
             Assessing Generalization in Deep Reinforcement Learning
             <small>01 Aug 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning">
+            Quantifying Generalization in Reinforcement Learning
+            <small>25 Jul 2019</small>
           </a>
         </h3>
       </li>
@@ -264,8 +278,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Cyclical-Learning-Rates-for-Training-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Cyclical-Learning-Rates-for-Training-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Abductive-Commonsense-Reasoning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Abductive-Commonsense-Reasoning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
