@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Abductive Commonsense Reasoning](https://shagunsodhani.com/papers-I-read/Abductive-Commonsense-Reasoning)
 * [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://shagunsodhani.com/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models)
 * [Assessing Generalization in Deep Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning)
 * [Quantifying Generalization in Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning)
