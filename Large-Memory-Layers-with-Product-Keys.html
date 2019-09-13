@@ -187,7 +187,7 @@ MathJax.Hub.Config({
           <li>The query is split into two subqueries (say <em>q<sub>1</sub></em> and <em>q<sub>2</sub></em>).</li>
           <li>Each of these two queries are compared with every query in their corresponding set of <em>subkeys</em>.</li>
           <li>For example, <em>q<sub>1</sub></em> is compared with every query is <em>Q<sub>1</sub></em>.</li>
-          <li>Top <em>k</em> ranked keys are selected from each set to create two new sets <em>C<sub>1</sub>sub&gt;</em> and <em>C2<sub>2</sub></em>.</li>
+          <li>Top <em>k</em> ranked keys are selected from each set to create two new sets <em>C<sub>1</sub></em> and <em>C2<sub>2</sub></em>.</li>
           <li>The keys from these two sets are combined uder the concatenation operator to obtain <em>k<sub>2</sub></em> vectors.</li>
           <li>the final top <em>k</em> (concatenated) keys are searched from these *k<sup>2* keys.</sup></li>
           <li>The overall complexity is $O((\sqrt K + k^2) \times d_q)$ where <em>K</em> is the total number of keys (whiuc)</li>

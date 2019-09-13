@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-09-13T15:03:53+05:30</updated>
+ <updated>2019-09-13T15:09:45+05:30</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -56,7 +56,7 @@
           &lt;li&gt;The query is split into two subqueries (say &lt;em&gt;q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;q&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;).&lt;/li&gt;
           &lt;li&gt;Each of these two queries are compared with every query in their corresponding set of &lt;em&gt;subkeys&lt;/em&gt;.&lt;/li&gt;
           &lt;li&gt;For example, &lt;em&gt;q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; is compared with every query is &lt;em&gt;Q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt;.&lt;/li&gt;
-          &lt;li&gt;Top &lt;em&gt;k&lt;/em&gt; ranked keys are selected from each set to create two new sets &lt;em&gt;C&lt;sub&gt;1&lt;/sub&gt;sub&amp;gt;&lt;/em&gt; and &lt;em&gt;C2&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;.&lt;/li&gt;
+          &lt;li&gt;Top &lt;em&gt;k&lt;/em&gt; ranked keys are selected from each set to create two new sets &lt;em&gt;C&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;C2&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;.&lt;/li&gt;
           &lt;li&gt;The keys from these two sets are combined uder the concatenation operator to obtain &lt;em&gt;k&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; vectors.&lt;/li&gt;
           &lt;li&gt;the final top &lt;em&gt;k&lt;/em&gt; (concatenated) keys are searched from these *k&lt;sup&gt;2* keys.&lt;/sup&gt;&lt;/li&gt;
           &lt;li&gt;The overall complexity is $O((\sqrt K + k^2) \times d_q)$ where &lt;em&gt;K&lt;/em&gt; is the total number of keys (whiuc)&lt;/li&gt;
