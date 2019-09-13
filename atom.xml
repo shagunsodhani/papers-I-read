@@ -4,13 +4,126 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-08-27T00:11:26+05:30</updated>
+ <updated>2019-09-13T15:03:53+05:30</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Large Memory Layers with Product Keys</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Large-Memory-Layers-with-Product-Keys"/>
+   <updated>2019-08-22T00:00:00+05:30</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Large Memory Layers with Product Keys</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper proposes a structured key-value memory layer that:
+    &lt;ul&gt;
+      &lt;li&gt;Can scale to a very large size (and capacity).&lt;/li&gt;
+      &lt;li&gt;Has very low computational overhead.&lt;/li&gt;
+      &lt;li&gt;Supports exact search in the keyspace.&lt;/li&gt;
+      &lt;li&gt;Can be easily integrated with neural networks.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1907.05242&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The memory layer is composed of 3 components:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Query Network&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Maps input to a latent space.&lt;/li&gt;
+          &lt;li&gt;Can be implemented as a feed-forward network.&lt;/li&gt;
+          &lt;li&gt;Adding batch-norm on top of the query network helps to spread out keys.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Key selection module&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Lets say there are a total of &lt;em&gt;K&lt;/em&gt; keys of dimensionality &lt;em&gt;d&lt;sub&gt;q&lt;/sub&gt;&lt;/em&gt; of which we want to select top &lt;em&gt;k&lt;/em&gt; keys.&lt;/li&gt;
+          &lt;li&gt;Partition the set of keys into two sets of &lt;em&gt;subkeys&lt;/em&gt; (say &lt;em&gt;Q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;Q&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;) where each subset has &lt;em&gt;K&lt;/em&gt; keys of dimensionality &lt;em&gt;d_q/2&lt;/em&gt;.&lt;/li&gt;
+          &lt;li&gt;The query is split into two subqueries (say &lt;em&gt;q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; and &lt;em&gt;q&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;).&lt;/li&gt;
+          &lt;li&gt;Each of these two queries are compared with every query in their corresponding set of &lt;em&gt;subkeys&lt;/em&gt;.&lt;/li&gt;
+          &lt;li&gt;For example, &lt;em&gt;q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; is compared with every query is &lt;em&gt;Q&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt;.&lt;/li&gt;
+          &lt;li&gt;Top &lt;em&gt;k&lt;/em&gt; ranked keys are selected from each set to create two new sets &lt;em&gt;C&lt;sub&gt;1&lt;/sub&gt;sub&amp;gt;&lt;/em&gt; and &lt;em&gt;C2&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt;.&lt;/li&gt;
+          &lt;li&gt;The keys from these two sets are combined uder the concatenation operator to obtain &lt;em&gt;k&lt;sub&gt;2&lt;/sub&gt;&lt;/em&gt; vectors.&lt;/li&gt;
+          &lt;li&gt;the final top &lt;em&gt;k&lt;/em&gt; (concatenated) keys are searched from these *k&lt;sup&gt;2* keys.&lt;/sup&gt;&lt;/li&gt;
+          &lt;li&gt;The overall complexity is $O((\sqrt K + k^2) \times d_q)$ where &lt;em&gt;K&lt;/em&gt; is the total number of keys (whiuc)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Value lookup table&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;The values (corresponding to selected subkeys) are aggregated (using weighted sum operation) to obtain the output.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All the parameters are trainable, though, in practice, only the selected &lt;em&gt;k&lt;/em&gt; memory slots are updated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using Multihead attention mechanism helps to improve the performance further.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;1 or more feedforward layers in transformers are placed by the memory layers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is evaluated on large scale language modeling tasks with 140 Gb of data from common crawl corpora (28n billion words).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Perplexity on the test set.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Fraction of accessed values.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;KL divergence between the (normalized) weights of key access and uniform distribution.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The last two metrics are used together to determine how well the keys are utilized.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the large size of the training dataset, adding more layers to the transformer model helps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Effect of using memory layer is more powerful than the effect of adding new layers to the transformer. For example, a 12 layer transformer + memory layer outperforms a 24 layer transformer while being almost twice as fast.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The best position to place the memory is at an intermediate layer and placing the memory layer right after the input or just before the softmax layer does not work well in practice.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Abductive Commonsense Reasoning</title>

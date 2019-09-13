@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Diversity is All You Need - Learning Skills without a Reward Function &middot; Papers I Read
+      Large Memory Layers with Product Keys &middot; Papers I Read
     
   </title>
 
@@ -145,128 +145,120 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Diversity is All You Need - Learning Skills without a Reward Function</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Information+Theory" title="Pages tagged Information Theory" rel="tag">Information Theory</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Entropy" title="Pages tagged Entropy" rel="tag">Entropy</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Unsupervised" title="Pages tagged Unsupervised" rel="tag">Unsupervised</a></p>
-  <span class="post-date">29 Jan 2019</span>
+  <h1 class="post-title">Large Memory Layers with Product Keys</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Key+Value" title="Pages tagged Key Value" rel="tag">Key Value</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Attention" title="Pages tagged Attention" rel="tag">Attention</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">22 Aug 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>
-    <p>The paper proposes an approach to learn useful skills without a reward function by maximizing an information theoretic objective by using a maximum entropy policy.</p>
+  <li>The paper proposes a structured key-value memory layer that:
+    <ul>
+      <li>Can scale to a very large size (and capacity).</li>
+      <li>Has very low computational overhead.</li>
+      <li>Supports exact search in the keyspace.</li>
+      <li>Can be easily integrated with neural networks.</li>
+    </ul>
   </li>
-  <li>
-    <p>Skills are defined as latent-conditioned policies that alter the state of the environment in a consistent way.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1802.06070">Link to the paper</a></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/ben-eysenbach/sac">Link to the code</a></p>
-  </li>
+  <li><a href="https://arxiv.org/abs/1907.05242">Link to the paper</a></li>
 </ul>
 
-<h2 id="setup">Setup</h2>
-
-<ul>
-  <li>Unsupervised “exploration” stage followed by supervised stage.</li>
-</ul>
-
-<h2 id="desirable-qualities-of-skills">Desirable Qualities of Skills</h2>
+<h2 id="architecture">Architecture</h2>
 
 <ul>
   <li>
-    <p>Skills should dictate the states that the agent visits. Different skills should visit different states to be distinguishable.</p>
+    <p>The memory layer is composed of 3 components:</p>
+
+    <ul>
+      <li>
+        <p><strong>Query Network</strong></p>
+
+        <ul>
+          <li>Maps input to a latent space.</li>
+          <li>Can be implemented as a feed-forward network.</li>
+          <li>Adding batch-norm on top of the query network helps to spread out keys.</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Key selection module</strong></p>
+
+        <ul>
+          <li>Lets say there are a total of <em>K</em> keys of dimensionality <em>d<sub>q</sub></em> of which we want to select top <em>k</em> keys.</li>
+          <li>Partition the set of keys into two sets of <em>subkeys</em> (say <em>Q<sub>1</sub></em> and <em>Q<sub>2</sub></em>) where each subset has <em>K</em> keys of dimensionality <em>d_q/2</em>.</li>
+          <li>The query is split into two subqueries (say <em>q<sub>1</sub></em> and <em>q<sub>2</sub></em>).</li>
+          <li>Each of these two queries are compared with every query in their corresponding set of <em>subkeys</em>.</li>
+          <li>For example, <em>q<sub>1</sub></em> is compared with every query is <em>Q<sub>1</sub></em>.</li>
+          <li>Top <em>k</em> ranked keys are selected from each set to create two new sets <em>C<sub>1</sub>sub&gt;</em> and <em>C2<sub>2</sub></em>.</li>
+          <li>The keys from these two sets are combined uder the concatenation operator to obtain <em>k<sub>2</sub></em> vectors.</li>
+          <li>the final top <em>k</em> (concatenated) keys are searched from these *k<sup>2* keys.</sup></li>
+          <li>The overall complexity is $O((\sqrt K + k^2) \times d_q)$ where <em>K</em> is the total number of keys (whiuc)</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>Value lookup table</strong></p>
+
+        <ul>
+          <li>The values (corresponding to selected subkeys) are aggregated (using weighted sum operation) to obtain the output.</li>
+        </ul>
+      </li>
+    </ul>
   </li>
   <li>
-    <p>States (not actions) should be used to distinguish between skills as not all actions change the state (for the outside observer).</p>
+    <p>All the parameters are trainable, though, in practice, only the selected <em>k</em> memory slots are updated.</p>
   </li>
   <li>
-    <p>Skills are encouraged to be diverse and “exploratory” by learning skills that act randomly (have high entropy).</p>
+    <p>Using Multihead attention mechanism helps to improve the performance further.</p>
   </li>
 </ul>
 
-<h2 id="loss-formulation">Loss Formulation</h2>
+<h2 id="experiments">Experiments</h2>
 
 <ul>
   <li>
-    <p>(S, A) - state and action</p>
+    <p>1 or more feedforward layers in transformers are placed by the memory layers.</p>
   </li>
   <li>
-    <p>z ~ p(z) - latent variable to condition the policy.</p>
+    <p>The model is evaluated on large scale language modeling tasks with 140 Gb of data from common crawl corpora (28n billion words).</p>
   </li>
   <li>
-    <p>Skill - policy conditioned on a fixed z.</p>
-  </li>
-  <li>
-    <p>Objective is to maximize the mutual information between skill and state (MI(A; Z)) ie skill should control which state is visited or the skill should be inferrable from the state visited.</p>
-  </li>
-  <li>
-    <p>Simultaneously minimize the mutual information between skills and actions given the state to ensure that the state (and not the action) is used to distinguish the skills.</p>
-  </li>
-  <li>
-    <p>Maximize the entropy of the mixture of policies (p(z) and all the skills).</p>
+    <p>Evaluation metrics</p>
+
+    <ul>
+      <li>
+        <p>Perplexity on the test set.</p>
+      </li>
+      <li>
+        <p>Fraction of accessed values.</p>
+      </li>
+      <li>
+        <p>KL divergence between the (normalized) weights of key access and uniform distribution.</p>
+      </li>
+      <li>
+        <p>The last two metrics are used together to determine how well the keys are utilized.</p>
+      </li>
+    </ul>
   </li>
 </ul>
 
-<h2 id="implementation">Implementation</h2>
+<h2 id="results">Results</h2>
 
 <ul>
   <li>
-    <p>Policy π(a | s, z)</p>
+    <p>Given the large size of the training dataset, adding more layers to the transformer model helps.</p>
   </li>
   <li>
-    <p>Task reward replaced by the pseduoreward logq<sub>φ</sub>(z | s) - log(p(z)).</p>
+    <p>Effect of using memory layer is more powerful than the effect of adding new layers to the transformer. For example, a 12 layer transformer + memory layer outperforms a 24 layer transformer while being almost twice as fast.</p>
   </li>
   <li>
-    <p>During unsupervised training, z is sampled at the start of the episode and then not changed during the episode.</p>
-  </li>
-  <li>
-    <p>Learning agent gets rewards for visiting the states that are easy to discriminate while the discriminator updated to correctly predict z from the states visited.</p>
+    <p>The best position to place the memory is at an intermediate layer and placing the memory layer right after the input or just before the softmax layer does not work well in practice.</p>
   </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
-
-<h3 id="analysis-of-learned-skills">Analysis of Learned Skills</h3>
-
-<ul>
-  <li>
-    <p>The agent learns a diverse set of primitive behaviors for all tasks ranging from 2 DoF to 111 DoF.</p>
-  </li>
-  <li>
-    <p>for inverted pendulum and mountain car, the skills become increasingly diverse throughout training.</p>
-  </li>
-  <li>
-    <p>Use of uniform prior, in place of a learned prior, for p(z) allows for discovery of more diverse skills.</p>
-  </li>
-  <li>
-    <p>The proposed approach can be used as a pretraining technique where the best-performing primitives (from unsupervised training) can be finetuned with the task-specific rewards.</p>
-  </li>
-  <li>
-    <p>The discovered skills can be used for hierarchical RL by learning a meta-policy(which chooses the skill to execute for k steps).</p>
-  </li>
-  <li>
-    <p>Modifying the discriminator in the proposed formulation can be used to bias DIAYN towards discovering a particular type of policies. This provides a mechanism for incorporating “supervision” in the learning setup.</p>
-  </li>
-  <li>
-    <p>The “discovered” primitives can also be used for imitation learning.</p>
-  </li>
-</ul>
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Large-Memory-Layers-with-Product-Keys">
-            Large Memory Layers with Product Keys
-            <small>22 Aug 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -282,6 +274,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models">
             Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models
             <small>08 Aug 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning">
+            Assessing Generalization in Deep Reinforcement Learning
+            <small>01 Aug 2019</small>
           </a>
         </h3>
       </li>
@@ -302,8 +303,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Large-Memory-Layers-with-Product-Keys"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Large-Memory-Layers-with-Product-Keys"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
