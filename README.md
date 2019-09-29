@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [PHYRE - A New Benchmark for Physical Reasoning](https://shagunsodhani.com/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning)
 * [Large Memory Layers with Product Keys](https://shagunsodhani.com/papers-I-read/Large-Memory-Layers-with-Product-Keys)
 * [Abductive Commonsense Reasoning](https://shagunsodhani.com/papers-I-read/Abductive-Commonsense-Reasoning)
 * [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://shagunsodhani.com/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models)
