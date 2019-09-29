@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [How to train your MAML](https://shagunsodhani.com/papers-I-read/How-to-train-your-MAML)
 * [PHYRE - A New Benchmark for Physical Reasoning](https://shagunsodhani.com/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning)
 * [Large Memory Layers with Product Keys](https://shagunsodhani.com/papers-I-read/Large-Memory-Layers-with-Product-Keys)
 * [Abductive Commonsense Reasoning](https://shagunsodhani.com/papers-I-read/Abductive-Commonsense-Reasoning)
