@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Abductive Commonsense Reasoning &middot; Papers I Read
+      Gossip based Actor-Learner Architectures for Deep RL &middot; Papers I Read
     
   </title>
 
@@ -145,104 +145,77 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Abductive Commonsense Reasoning</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Abductive+Reasoning" title="Pages tagged Abductive Reasoning" rel="tag">Abductive Reasoning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Inference" title="Pages tagged Natural Language Inference" rel="tag">Natural Language Inference</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLI" title="Pages tagged NLI" rel="tag">NLI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reasoning" title="Pages tagged Reasoning" rel="tag">Reasoning</a></p>
-  <span class="post-date">15 Aug 2019</span>
-  <h2 id="introduction">Introduction</h2>
-
-<ul>
+  <h1 class="post-title">Gossip based Actor-Learner Architectures for Deep RL</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Reinforcement+Learning" title="Pages tagged Distributed Reinforcement Learning" rel="tag">Distributed Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips+2019" title="Pages tagged Neurips 2019" rel="tag">Neurips 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips" title="Pages tagged Neurips" rel="tag">Neurips</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">12 Sep 2019</span>
+  <ul>
   <li>
-    <p>The paper presents the task of abductive NLP (pronounced as <em>alpha NLP</em>) where the model needs to perform abductive reasoning.</p>
+    <p><a href="https://arxiv.org/abs/1906.04585">Link to the paper</a></p>
   </li>
   <li>
-    <p>Abductive reasoning is the inference to the most plausible explanation. Even though it is considered to be an important component for understanding narratives, the work in this domain is sparse.</p>
+    <p>The paper considers the task of training an RL system by sampling data from multiple simulators (over parallel devices).</p>
   </li>
   <li>
-    <p>A new dataset called as Abstractive Reasoning in narrative Text (ART) consisting of 20K narrative contexts and 200k explanations is also provided. The dataset models the task as multiple-choice questions to make the evaluation process easy.</p>
+    <p>The setup is that of distributed RL setting with <em>n</em> agents or actor-learners (composed of a single learner and several actors). These agents are trying to maximize a common value function.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1908.05739">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="task-setup">Task Setup</h2>
-
-<ul>
-  <li>
-    <p>Given a pair of observations <em>O<sub>1</sub></em> and <em>O<sub>2</sub></em> and two hypothesis <em>h<sub>1</sub></em> and <em>h<sub>2</sub></em>, the task is to select the most plausible hypothesis.</p>
+    <p>One (existing) approach is to perform on-policy updates with a shared policy. The policy could be updated in synchronous (does not scale well) or asynchronous manner (can be unstable due to stale gradients).</p>
   </li>
   <li>
-    <p>In general, <em>P(h | O<sub>1</sub>, O<sub>2</sub>)</em> is propotional to <em>P(h |O<sub>1</sub>)P(O<sub>2</sub>|h, O<sub>1</sub>)</em>.</p>
+    <p>Off policy approaches allow for better computational efficiency but can be unstable during training.</p>
   </li>
   <li>
-    <p>Different independence assumptions can be imposed on the structure of the problem eg one assumption could be that the hypothesis is independent of the observations or the “fully connected” assumption would jointly model both the observations and the hypothesis.</p>
-  </li>
-</ul>
-
-<h2 id="dataset">Dataset</h2>
-
-<ul>
-  <li>
-    <p>Along with crowdsourcing several plausible hypotheses for each observation instance pair, an adversarial filtering algorithm (AF) is used to remove weak pairs of hypothesis.</p>
+    <p>The paper proposed Gossip based Actor-Learner Architecture (GALA) which uses asynchronous communication (gossip) between the <em>n</em> agents to improve the training of Deep RL models.</p>
   </li>
   <li>
-    <p>Observation pairs are created using the <a href="https://aclweb.org/anthology/N16-1098">ROCStories dataset</a> which is a collection of short, manually crafted stories of 5 sentences.</p>
+    <p>These agents are expected to converge to the same policy.</p>
   </li>
   <li>
-    <p>The average word length for both the content and the hypothesis is between 8 to 9.</p>
+    <p>During training, the different agents are not required to share the same policy and it is sufficient that the agent’s policies remain $\epsilon$-close to each other. This relaxation allows the policies to be trained asynchronously.</p>
   </li>
   <li>
-    <p>To collect plausible hypothesis, the crowd workers were asked to fill in a plausible “in-between” sentence in natural language.</p>
+    <p>GALA approach is combined with A2C agents resulting in GALA-A2C agents. They have better computational efficiency and scalability (as compared to A2C) and similar in performance to A3C and Impala.</p>
   </li>
   <li>
-    <p>Given the plausible hypothesis, the crowd workers were asked to create an implausible hypothesis by editing fewer than 6 words.</p>
+    <p>Training alternates between one local policy-gradient (and TD update) and asynchronous gossip between agents.</p>
   </li>
   <li>
-    <p>Adversarial filtering approach from <a href="https://aclweb.org/anthology/D18-1009">Zellers et al.</a> is used with BERT as the adversary. A temperature parameter is introduced to control the maximum number of instances that can be changed in each adversarial filtering iteration.</p>
-  </li>
-</ul>
-
-<h2 id="key-observations">Key Observations</h2>
-
-<ul>
-  <li>
-    <p>Human performance: 91.4%</p>
+    <p>During the gossip step, the agents send their parameters to some of the other agents (referred to as the peers) and update their parameters based on the parameters received from the other agents (for which the given agent is a peer).</p>
   </li>
   <li>
-    <p>Baselines like SVM classifier, the bag-of-words classifier (using Glove) and max-pooling overt BiLSTM representation: approx 50%</p>
+    <p>GALA agents are implemented using non-blocking communication so that they can operate asynchronously.</p>
   </li>
   <li>
-    <p>Entailment NLI baseline: 59%. This highlights the additional complexity of abductive NLI as compared to entailment NLI.</p>
+    <p>The paper includes the proof that the policies learned by the different agents are within $\epsilon$ distance of each other (ie all the policies lie within an $\epsilon$-distance ball) thus ensuring that the policies do not diverge much from each other.</p>
   </li>
   <li>
-    <p>BERT: 68.9%</p>
+    <p>Six games from the Ataru 2600 games suite are used for the experiments.</p>
   </li>
   <li>
-    <p>GPT: 63.1%</p>
+    <p>Baselines: A2C, A3C, Impala</p>
   </li>
   <li>
-    <p>Numerical and spatial knowledge-based data points are particularly hard.</p>
+    <p>GALA agents are configured in a directed ring graph topology.</p>
   </li>
   <li>
-    <p>The model is more likely to fail when the narrative created by the incorrect hypothesis is plausible</p>
+    <p>With A2C, as the number of simulators increases, the number of convergent runs (runs with a threshold reward) decreases.</p>
+  </li>
+  <li>
+    <p>Using gossip algorithms increases or maintains the number of convergent runs. It also improves the performance, sample efficiency and compute efficiency of A2C across all the six games.</p>
+  </li>
+  <li>
+    <p>When compared to Impala and A3C, GALA-A2C generally outperforms (or performs as well as) those baselines.</p>
+  </li>
+  <li>
+    <p>Given that the learned policies remain within an $\epsilon$ ball, the agent’s gradients are less correlated as compared to the A2C agents.</p>
   </li>
 </ul>
-
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL">
-            Gossip based Actor-Learner Architectures for Deep RL
-            <small>12 Sep 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -258,6 +231,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning">
             PHYRE - A New Benchmark for Physical Reasoning
             <small>29 Aug 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Large-Memory-Layers-with-Product-Keys">
+            Large Memory Layers with Product Keys
+            <small>22 Aug 2019</small>
           </a>
         </h3>
       </li>
@@ -278,8 +260,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Abductive-Commonsense-Reasoning"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Abductive-Commonsense-Reasoning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Gossip-based-Actor-Learner-Architectures-for-Deep-RL"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

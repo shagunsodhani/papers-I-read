@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-09-29T21:42:51+05:30</updated>
+ <updated>2019-11-09T12:42:54-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -13,9 +13,79 @@
 
  
  <entry>
+   <title>Gossip based Actor-Learner Architectures for Deep RL</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL"/>
+   <updated>2019-09-12T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Gossip based Actor-Learner Architectures for Deep RL</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.04585&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers the task of training an RL system by sampling data from multiple simulators (over parallel devices).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The setup is that of distributed RL setting with &lt;em&gt;n&lt;/em&gt; agents or actor-learners (composed of a single learner and several actors). These agents are trying to maximize a common value function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One (existing) approach is to perform on-policy updates with a shared policy. The policy could be updated in synchronous (does not scale well) or asynchronous manner (can be unstable due to stale gradients).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Off policy approaches allow for better computational efficiency but can be unstable during training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposed Gossip based Actor-Learner Architecture (GALA) which uses asynchronous communication (gossip) between the &lt;em&gt;n&lt;/em&gt; agents to improve the training of Deep RL models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These agents are expected to converge to the same policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, the different agents are not required to share the same policy and it is sufficient that the agent’s policies remain $\epsilon$-close to each other. This relaxation allows the policies to be trained asynchronously.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA approach is combined with A2C agents resulting in GALA-A2C agents. They have better computational efficiency and scalability (as compared to A2C) and similar in performance to A3C and Impala.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training alternates between one local policy-gradient (and TD update) and asynchronous gossip between agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During the gossip step, the agents send their parameters to some of the other agents (referred to as the peers) and update their parameters based on the parameters received from the other agents (for which the given agent is a peer).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA agents are implemented using non-blocking communication so that they can operate asynchronously.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper includes the proof that the policies learned by the different agents are within $\epsilon$ distance of each other (ie all the policies lie within an $\epsilon$-distance ball) thus ensuring that the policies do not diverge much from each other.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Six games from the Ataru 2600 games suite are used for the experiments.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines: A2C, A3C, Impala&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA agents are configured in a directed ring graph topology.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;With A2C, as the number of simulators increases, the number of convergent runs (runs with a threshold reward) decreases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using gossip algorithms increases or maintains the number of convergent runs. It also improves the performance, sample efficiency and compute efficiency of A2C across all the six games.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When compared to Impala and A3C, GALA-A2C generally outperforms (or performs as well as) those baselines.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given that the learned policies remain within an $\epsilon$ ball, the agent’s gradients are less correlated as compared to the A2C agents.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>How to train your MAML</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/How-to-train-your-MAML"/>
-   <updated>2019-09-05T00:00:00+05:30</updated>
+   <updated>2019-09-05T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/How to train your MAML</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -114,7 +184,7 @@
  <entry>
    <title>PHYRE - A New Benchmark for Physical Reasoning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning"/>
-   <updated>2019-08-29T00:00:00+05:30</updated>
+   <updated>2019-08-29T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/PHYRE - A New Benchmark for Physical Reasoning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -286,7 +356,7 @@
  <entry>
    <title>Large Memory Layers with Product Keys</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Large-Memory-Layers-with-Product-Keys"/>
-   <updated>2019-08-22T00:00:00+05:30</updated>
+   <updated>2019-08-22T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Large Memory Layers with Product Keys</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -399,7 +469,7 @@
  <entry>
    <title>Abductive Commonsense Reasoning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Abductive-Commonsense-Reasoning"/>
-   <updated>2019-08-15T00:00:00+05:30</updated>
+   <updated>2019-08-15T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Abductive Commonsense Reasoning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -487,7 +557,7 @@
  <entry>
    <title>Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-in-a-Handful-of-Trials-using-Probabilistic-Dynamics-Models"/>
-   <updated>2019-08-08T00:00:00+05:30</updated>
+   <updated>2019-08-08T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -576,7 +646,7 @@
  <entry>
    <title>Assessing Generalization in Deep Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning"/>
-   <updated>2019-08-01T00:00:00+05:30</updated>
+   <updated>2019-08-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Assessing Generalization in Deep Reinforcement Learning</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -725,7 +795,7 @@
  <entry>
    <title>Quantifying Generalization in Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning"/>
-   <updated>2019-07-25T00:00:00+05:30</updated>
+   <updated>2019-07-25T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Quantifying Generalization in Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -861,7 +931,7 @@
  <entry>
    <title>Set Transformer - A Framework for Attention-based Permutation-Invariant Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Set-Transformer-A-Framework-for-Attention-based-Permutation-Invariant-Neural-Networks"/>
-   <updated>2019-07-18T00:00:00+05:30</updated>
+   <updated>2019-07-18T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Set Transformer A Framework for Attention-based Permutation-Invariant Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -972,7 +1042,7 @@
  <entry>
    <title>Measuring abstract reasoning in neural networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Measuring-Abstract-Reasoning-in-Neural-Networks"/>
-   <updated>2019-06-27T00:00:00+05:30</updated>
+   <updated>2019-06-27T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Measuring Abstract Reasoning in Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1145,7 +1215,7 @@
  <entry>
    <title>Hamiltonian Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Hamiltonian-Neural-Networks"/>
-   <updated>2019-06-20T00:00:00+05:30</updated>
+   <updated>2019-06-20T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Hamiltonian Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1232,7 +1302,7 @@
  <entry>
    <title>Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Extrapolating-Beyond-Suboptimal-Demonstrations-via-Inverse-Reinforcement-Learning-from-Observations"/>
-   <updated>2019-06-13T00:00:00+05:30</updated>
+   <updated>2019-06-13T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Extrapolating Beyond Suboptimal Demonstrations via Inverse Reinforcement Learning from Observations</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1312,7 +1382,7 @@
  <entry>
    <title>Meta-Reinforcement Learning of Structured Exploration Strategies</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement-Learning-of-Structured-Exploration-Strategies"/>
-   <updated>2019-06-08T00:00:00+05:30</updated>
+   <updated>2019-06-08T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Meta-Reinforcement Learning of Structured Exploration Strategies</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1412,7 +1482,7 @@
  <entry>
    <title>Relational Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Relational-Reinforcement-Learning"/>
-   <updated>2019-06-01T00:00:00+05:30</updated>
+   <updated>2019-06-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Relational Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1541,7 +1611,7 @@
  <entry>
    <title>Good-Enough Compositional Data Augmentation</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Good-Enough-Compositional-Data-Augmentation"/>
-   <updated>2019-05-21T00:00:00+05:30</updated>
+   <updated>2019-05-21T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Good-Enough Compositional Data Augmentation</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1596,7 +1666,7 @@
  <entry>
    <title>Multiple Model-Based Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Multiple-Model-Based-Reinforcement-Learning"/>
-   <updated>2019-05-14T00:00:00+05:30</updated>
+   <updated>2019-05-14T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Multiple Model-Based Reinforcement Learning</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -1660,7 +1730,7 @@
  <entry>
    <title>Towards a natural benchmark for continual learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Towards-a-natural-benchmark-for-continual-learning"/>
-   <updated>2019-04-09T00:00:00+05:30</updated>
+   <updated>2019-04-09T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Towards a natural benchmark for continual learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1719,7 +1789,7 @@
  <entry>
    <title>Meta-Learning Update Rules for Unsupervised Representation Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Meta-Learning-Update-Rules-for-Unsupervised-Representation-Learning"/>
-   <updated>2019-04-02T00:00:00+05:30</updated>
+   <updated>2019-04-02T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Meta-Learning Update Rules for Unsupervised Representation Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -1849,7 +1919,7 @@
  <entry>
    <title>GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/GNN-Explainer-A-Tool-for-Post-hoc-Explanation-of-Graph-Neural-Networks"/>
-   <updated>2019-03-26T00:00:00+05:30</updated>
+   <updated>2019-03-26T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -2057,7 +2127,7 @@
  <entry>
    <title>To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/To-Tune-or-Not-to-Tune-Adapting-Pretrained-Representations-to-Diverse-Tasks"/>
-   <updated>2019-03-16T00:00:00+05:30</updated>
+   <updated>2019-03-16T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/To Tune or Not to Tune? Adapting Pretrained Representations to Diverse Tasks</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -2211,7 +2281,7 @@
  <entry>
    <title>Model Primitive Hierarchical Lifelong Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning"/>
-   <updated>2019-03-12T00:00:00+05:30</updated>
+   <updated>2019-03-12T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Model Primitive Hierarchical Lifelong Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -2383,7 +2453,7 @@
  <entry>
    <title>TuckER - Tensor Factorization for Knowledge Graph Completion</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor-Factorization-for-Knowledge-Graph-Completion"/>
-   <updated>2019-02-19T00:00:00+05:30</updated>
+   <updated>2019-02-19T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/TuckER-Tensor Factorization for Knowledge Graph Completion</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -2525,7 +2595,7 @@
  <entry>
    <title>Linguistic Knowledge as Memory for Recurrent Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Linguistic-Knowledge-as-Memory-for-Recurrent-Neural-Networks"/>
-   <updated>2019-02-05T00:00:00+05:30</updated>
+   <updated>2019-02-05T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Linguistic Knowledge as Memory for Recurrent Neural Networks</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -2592,7 +2662,7 @@
  <entry>
    <title>Diversity is All You Need - Learning Skills without a Reward Function</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Diversity-is-All-You-Need-Learning-Skills-without-a-Reward-Function"/>
-   <updated>2019-01-29T00:00:00+05:30</updated>
+   <updated>2019-01-29T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Diversity is All You Need - Learning Skills without a Reward Function</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -2704,7 +2774,7 @@
  <entry>
    <title>Modular meta-learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Modular-meta-learning"/>
-   <updated>2019-01-22T00:00:00+05:30</updated>
+   <updated>2019-01-22T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Modular meta-learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -2908,7 +2978,7 @@
  <entry>
    <title>Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Hierarchical-RL-Using-an-Ensemble-of-Proprioceptive-Periodic-Policies"/>
-   <updated>2019-01-15T00:00:00+05:30</updated>
+   <updated>2019-01-15T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Hierarchical RL Using an Ensemble of Proprioceptive Periodic Policies</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3023,7 +3093,7 @@
  <entry>
    <title>Efficient Lifelong Learning with A-GEM</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Efficient-Lifelong-Learning-with-A-GEM"/>
-   <updated>2019-01-08T00:00:00+05:30</updated>
+   <updated>2019-01-08T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Efficient Lifelong Learning with A-GEM</id>
    <content type="html">&lt;h2 id=&quot;contributions&quot;&gt;Contributions&lt;/h2&gt;
 
@@ -3195,7 +3265,7 @@
  <entry>
    <title>Pre-training Graph Neural Networks with Kernels</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Pre-training-Graph-Neural-Networks-with-Kernels"/>
-   <updated>2019-01-02T00:00:00+05:30</updated>
+   <updated>2019-01-02T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Pre-training Graph Neural Networks with Kernels</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3276,7 +3346,7 @@
  <entry>
    <title>Smooth Loss Functions for Deep Top-k Classification</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification"/>
-   <updated>2018-12-25T00:00:00+05:30</updated>
+   <updated>2018-12-25T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Smooth Loss Functions for Deep Top-k Classification</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3401,7 +3471,7 @@
  <entry>
    <title>Hindsight Experience Replay</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Hindsight-Experience-Replay"/>
-   <updated>2018-12-18T00:00:00+05:30</updated>
+   <updated>2018-12-18T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Hindsight Experience Replay</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3485,7 +3555,7 @@
  <entry>
    <title>Representation Tradeoffs for Hyperbolic Embeddings</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Representation-Tradeoffs-for-Hyperbolic-Embeddings"/>
-   <updated>2018-12-11T00:00:00+05:30</updated>
+   <updated>2018-12-11T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Representation Tradeoffs for Hyperbolic Embeddings</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3674,7 +3744,7 @@
  <entry>
    <title>Learned Optimizers that Scale and Generalize</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Learned-Optimizers-that-Scale-and-Generalize"/>
-   <updated>2018-11-01T00:00:00+05:30</updated>
+   <updated>2018-11-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Learned Optimizers that Scale and Generalize</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3752,7 +3822,7 @@
  <entry>
    <title>One-shot Learning with Memory-Augmented Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks"/>
-   <updated>2018-10-25T00:00:00+05:30</updated>
+   <updated>2018-10-25T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/One-shot Learning with Memory-Augmented Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -3881,7 +3951,7 @@
  <entry>
    <title>BabyAI - First Steps Towards Grounded Language Learning With a Human In the Loop</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/BabyAI-First-Steps-Towards-Grounded-Language-Learning-With-a-Human-In-the-Loop"/>
-   <updated>2018-10-18T00:00:00+05:30</updated>
+   <updated>2018-10-18T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/BabyAI-First Steps Towards Grounded Language Learning With a Human In the Loop</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4043,7 +4113,7 @@
  <entry>
    <title>Poincaré Embeddings for Learning Hierarchical Representations</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Poincare-Embeddings-for-Learning-Hierarchical-Representations"/>
-   <updated>2018-10-11T00:00:00+05:30</updated>
+   <updated>2018-10-11T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Poincare Embeddings for Learning Hierarchical Representations</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4181,7 +4251,7 @@
  <entry>
    <title>When Recurrent Models Don’t Need To Be Recurrent</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/When-Recurrent-Models-Don-t-Need-To-Be-Recurrent"/>
-   <updated>2018-10-04T00:00:00+05:30</updated>
+   <updated>2018-10-04T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/When Recurrent Models Don’t Need To Be Recurrent</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4251,7 +4321,7 @@
  <entry>
    <title>HoME - a Household Multimodal Environment</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/HoME-a-Household-Multimodal-Environment"/>
-   <updated>2018-09-27T00:00:00+05:30</updated>
+   <updated>2018-09-27T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/HoME - a Household Multimodal Environment</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4362,7 +4432,7 @@
  <entry>
    <title>Emergence of Grounded Compositional Language in Multi-Agent Populations</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations"/>
-   <updated>2018-09-12T00:00:00+05:30</updated>
+   <updated>2018-09-12T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Emergence of Grounded Compositional Language in Multi-Agent Populations</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4491,7 +4561,7 @@
  <entry>
    <title>A Semantic Loss Function for Deep Learning with Symbolic Knowledge</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/A-Semantic-Loss-Function-for-Deep-Learning-with-Symbolic-Knowledge"/>
-   <updated>2018-08-21T00:00:00+05:30</updated>
+   <updated>2018-08-21T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/A Semantic Loss Function for Deep Learning with Symbolic Knowledge</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4654,7 +4724,7 @@
  <entry>
    <title>Hierarchical Graph Representation Learning with Differentiable Pooling</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Hierarchical-Graph-Representation-Learning-with-Differentiable-Pooling"/>
-   <updated>2018-08-16T00:00:00+05:30</updated>
+   <updated>2018-08-16T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Hierarchical Graph Representation Learning with Differentiable Pooling</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -4795,7 +4865,7 @@
  <entry>
    <title>Imagination-Augmented Agents for Deep Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Imagination-Augmented-Agents-for-Deep-Reinforcement-Learning"/>
-   <updated>2018-08-08T00:00:00+05:30</updated>
+   <updated>2018-08-08T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Imagination-Augmented Agents for Deep Reinforcement Learning</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -4885,7 +4955,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Kronecker Recurrent Units</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Kronecker-Recurrent-Units"/>
-   <updated>2018-07-19T00:00:00+05:30</updated>
+   <updated>2018-07-19T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Kronecker Recurrent Units</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5049,7 +5119,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Learning Independent Causal Mechanisms</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Learning-Independent-Causal-Mechanisms"/>
-   <updated>2018-07-11T00:00:00+05:30</updated>
+   <updated>2018-07-11T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Learning Independent Causal Mechanisms</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5181,7 +5251,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Memory-based Parameter Adaptation</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Memory-Based-Parameter-Adaption"/>
-   <updated>2018-07-04T00:00:00+05:30</updated>
+   <updated>2018-07-04T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Memory-Based Parameter Adaption</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5335,7 +5405,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Born Again Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Born-Again-Neural-Networks"/>
-   <updated>2018-06-09T00:00:00+05:30</updated>
+   <updated>2018-06-09T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Born Again Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5466,7 +5536,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Net2Net-Accelerating Learning via Knowledge Transfer</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"/>
-   <updated>2018-05-21T00:00:00+05:30</updated>
+   <updated>2018-05-21T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Net2Net - Accelerating Learning via Knowledge Transfer</id>
    <content type="html">&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
 
@@ -5543,7 +5613,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Learning to Count Objects in Natural Images for Visual Question Answering</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Learning-to-Count-Objects-in-Natural-Images-for-Visual-Question-Answering"/>
-   <updated>2018-05-06T00:00:00+05:30</updated>
+   <updated>2018-05-06T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Learning to Count Objects in Natural Images for Visual Question Answering</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5625,7 +5695,7 @@ of ghost dynamics is especially important indicating that the I2A agent can use 
  <entry>
    <title>Neural Message Passing for Quantum Chemistry</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Neural-Message-Passing-for-Quantum-Chemistry"/>
-   <updated>2018-04-08T00:00:00+05:30</updated>
+   <updated>2018-04-08T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Neural Message Passing for Quantum Chemistry</id>
    <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
@@ -5795,7 +5865,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Unsupervised Learning by Predicting Noise</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Unsupervised-Learning-By-Predicting-Noise"/>
-   <updated>2018-04-02T00:00:00+05:30</updated>
+   <updated>2018-04-02T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Unsupervised Learning By Predicting Noise</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -5950,7 +6020,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>The Lottery Ticket Hypothesis - Training Pruned Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/The-Lottery-Ticket-Hypothesis-Training-Pruned-Neural-Networks"/>
-   <updated>2018-03-25T00:00:00+05:30</updated>
+   <updated>2018-03-25T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/The Lottery Ticket Hypothesis - Training Pruned Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6030,7 +6100,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Cyclical Learning Rates for Training Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Cyclical-Learning-Rates-for-Training-Neural-Networks"/>
-   <updated>2018-03-18T00:00:00+05:30</updated>
+   <updated>2018-03-18T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Cyclical Learning Rates for Training Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6104,7 +6174,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"/>
-   <updated>2018-03-11T00:00:00+05:30</updated>
+   <updated>2018-03-11T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6232,7 +6302,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/An-Empirical-Investigation-of-Catastrophic-Forgetting-in-Gradient-Based-Neural-Networks"/>
-   <updated>2018-03-05T00:00:00+05:30</updated>
+   <updated>2018-03-05T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/An Empirical Investigation of Catastrophic Forgetting in Gradient-Based Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6320,7 +6390,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Learning an SAT Solver from Single-Bit Supervision</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision"/>
-   <updated>2018-02-24T00:00:00+05:30</updated>
+   <updated>2018-02-24T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Learning a SAT Solver from Single-Bit Supervision</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6423,7 +6493,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Neural Relational Inference for Interacting Systems</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Neural-Relational-Inference-for-Interacting-Systems"/>
-   <updated>2018-02-17T00:00:00+05:30</updated>
+   <updated>2018-02-17T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Neural Relational Inference for Interacting Systems</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6528,7 +6598,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Stylistic-Transfer-in-Natural-Language-Generation-Systems-Using-Recurrent-Neural-Networks"/>
-   <updated>2018-02-11T00:00:00+05:30</updated>
+   <updated>2018-02-11T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6584,7 +6654,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Get To The Point - Summarization with Pointer-Generator Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"/>
-   <updated>2018-02-05T00:00:00+05:30</updated>
+   <updated>2018-02-05T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Get To The Point-Summarization with Pointer-Generator Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6664,7 +6734,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>StarSpace - Embed All The Things!</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/StarSpace-Embed-All-The-Things"/>
-   <updated>2018-01-29T00:00:00+05:30</updated>
+   <updated>2018-01-29T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/StarSpace - Embed All The Things</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6729,7 +6799,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"/>
-   <updated>2018-01-22T00:00:00+05:30</updated>
+   <updated>2018-01-22T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Emotional Chatting Machine-Emotional Conversation Generation with Internal and External Memory</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -6816,7 +6886,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Exploring Models and Data for Image Question Answering</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Exploring-Models-and-Data-for-Image-Question-Answering"/>
-   <updated>2018-01-14T00:00:00+05:30</updated>
+   <updated>2018-01-14T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Exploring Models and Data for Image Question Answering</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -6901,7 +6971,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>How transferable are features in deep neural networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/How-transferable-are-features-in-deep-neural-networks"/>
-   <updated>2018-01-06T00:00:00+05:30</updated>
+   <updated>2018-01-06T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/How transferable are features in deep neural networks</id>
    <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
@@ -7008,7 +7078,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Distilling the Knowledge in a Neural Network</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Distilling-the-Knowledge-in-a-Neural-Network"/>
-   <updated>2017-12-31T00:00:00+05:30</updated>
+   <updated>2017-12-31T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Distilling the Knowledge in a Neural Network</id>
    <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
@@ -7108,7 +7178,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks"/>
-   <updated>2017-12-24T00:00:00+05:30</updated>
+   <updated>2017-12-24T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</id>
    <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
@@ -7213,7 +7283,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Revisiting Semi-Supervised Learning with Graph Embeddings</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Revisiting-Semi-Supervised-Learning-with-Graph-Embeddings"/>
-   <updated>2017-12-11T00:00:00+05:30</updated>
+   <updated>2017-12-11T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Revisiting Semi-Supervised Learning with Graph Embeddings</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7307,7 +7377,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Two-Stage Synthesis Networks for Transfer Learning in Machine Comprehension</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Two-Stage-Synthesis-Networks-for-Transfer-Learning-in-Machine-Comprehension"/>
-   <updated>2017-11-28T00:00:00+05:30</updated>
+   <updated>2017-11-28T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Two-Stage Synthesis Networks for Transfer Learning in Machine Comprehension</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7413,7 +7483,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Higher-order organization of complex networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Higher-order-organization-of-complex-networks"/>
-   <updated>2017-11-19T00:00:00+05:30</updated>
+   <updated>2017-11-19T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Higher-order organization of complex networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7483,7 +7553,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Network Motifs - Simple Building Blocks of Complex Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Network-Motifs-Simple-Building-Blocks-of-Complex-Networks"/>
-   <updated>2017-11-12T00:00:00+05:30</updated>
+   <updated>2017-11-12T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Network Motifs-Simple Building Blocks of Complex Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7525,7 +7595,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Word Representations via Gaussian Embedding</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Word-Representations-via-Gaussian-Embedding"/>
-   <updated>2017-11-05T00:00:00+05:30</updated>
+   <updated>2017-11-05T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Word Representations via Gaussian Embedding</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7595,7 +7665,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>HARP - Hierarchical Representation Learning for Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks"/>
-   <updated>2017-10-28T00:00:00+05:30</updated>
+   <updated>2017-10-28T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/HARP - Hierarchical Representation Learning for Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7658,7 +7728,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Swish - a Self-Gated Activation Function</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Swish-A-self-gated-activation-function"/>
-   <updated>2017-10-22T00:00:00+05:30</updated>
+   <updated>2017-10-22T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Swish-A self gated activation function</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7711,7 +7781,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Reading Wikipedia to Answer Open-Domain Questions</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions"/>
-   <updated>2017-10-15T00:00:00+05:30</updated>
+   <updated>2017-10-15T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Reading Wikipedia to Answer Open-Domain Questions</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7793,7 +7863,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Task-Oriented Query Reformulation with Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Task-Oriented-Query-Reformulation-with-Reinforcement-Learning"/>
-   <updated>2017-10-01T00:00:00+05:30</updated>
+   <updated>2017-10-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Task-Oriented Query Reformulation with Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -7915,7 +7985,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Refining Source Representations with Relation Networks for Neural Machine Translation</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Refining-Source-Representations-with-Relation-Networks-for-Neural-Machine-Translation"/>
-   <updated>2017-09-22T00:00:00+05:30</updated>
+   <updated>2017-09-22T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Refining Source Representations with Relation Networks for Neural Machine Translation</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8008,7 +8078,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Pointer Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Pointer-Networks"/>
-   <updated>2017-08-27T00:00:00+05:30</updated>
+   <updated>2017-08-27T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Pointer Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8080,7 +8150,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Learning to Compute Word Embeddings On the Fly</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly"/>
-   <updated>2017-08-21T00:00:00+05:30</updated>
+   <updated>2017-08-21T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Learning to Compute Word Embeddings On the Fly</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8167,7 +8237,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>R-NET - Machine Reading Comprehension with Self-matching Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/R-NET-Machine-Reading-Comprehension-with-Self-matching-Networks"/>
-   <updated>2017-08-07T00:00:00+05:30</updated>
+   <updated>2017-08-07T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/R-NET - Machine Reading Comprehension with Self-matching Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8265,7 +8335,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>ReasoNet - Learning to Stop Reading in Machine Comprehension</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"/>
-   <updated>2017-07-24T00:00:00+05:30</updated>
+   <updated>2017-07-24T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/ReasoNet - Learning to Stop Reading in Machine Comprehension</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8402,7 +8472,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Principled Detection of Out-of-Distribution Examples in Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"/>
-   <updated>2017-07-17T00:00:00+05:30</updated>
+   <updated>2017-07-17T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Principled Detection of Out of Distribution Examples in Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
 
@@ -8530,7 +8600,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing"/>
-   <updated>2017-07-09T00:00:00+05:30</updated>
+   <updated>2017-07-09T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Ask Me Anything- Dynamic Memory Networks for Natural Language Processing</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -8691,7 +8761,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>One Model To Learn Them All</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/One-Model-To-Learn-Them-All"/>
-   <updated>2017-07-01T00:00:00+05:30</updated>
+   <updated>2017-07-01T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/One Model To Learn Them All</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;
@@ -8876,7 +8946,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Two/Too Simple Adaptations of Word2Vec for Syntax Problems</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Two-Too-Simple-Adaptations-of-Word2Vec-for-Syntax-Problems"/>
-   <updated>2017-06-26T00:00:00+05:30</updated>
+   <updated>2017-06-26T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Two-Too Simple Adaptations of Word2Vec for Syntax Problems</id>
    <content type="html">&lt;ul&gt;
   &lt;li&gt;The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.&lt;/li&gt;
@@ -8893,7 +8963,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>A Decomposable Attention Model for Natural Language Inference</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/A-Decomposable-Attention-Model-for-Natural-Language-Inference"/>
-   <updated>2017-06-17T00:00:00+05:30</updated>
+   <updated>2017-06-17T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/A Decomposable Attention Model for Natural Language Inference</id>
    <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
@@ -8967,7 +9037,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>A Fast and Accurate Dependency Parser using Neural Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/A-Fast-and-Accurate-Dependency-Parser-using-Neural-Networks"/>
-   <updated>2017-06-03T00:00:00+05:30</updated>
+   <updated>2017-06-03T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/A Fast and Accurate Dependency Parser using Neural Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;ul&gt;
@@ -9042,7 +9112,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Neural Module Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Neural-Module-Networks"/>
-   <updated>2017-05-23T00:00:00+05:30</updated>
+   <updated>2017-05-23T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Neural Module Networks</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -9124,7 +9194,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"/>
-   <updated>2017-05-14T00:00:00+05:30</updated>
+   <updated>2017-05-14T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
@@ -9170,7 +9240,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Conditional Similarity Networks</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Conditional-Similarity-Networks"/>
-   <updated>2017-05-07T00:00:00+05:30</updated>
+   <updated>2017-05-07T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Conditional Similarity Networks</id>
    <content type="html">&lt;h2 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h2&gt;
 
@@ -9281,7 +9351,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>Simple Baseline for Visual Question Answering</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/Simple-Baseline-for-Visual-Question-Answering"/>
-   <updated>2017-04-28T00:00:00+05:30</updated>
+   <updated>2017-04-28T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/Simple Baseline for Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
@@ -9323,7 +9393,7 @@ Gated Graph Sequence Neural Networks&lt;/a&gt;, &lt;a href=&quot;http://tkipf.gi
  <entry>
    <title>VQA-Visual Question Answering</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/VQA-Visual-Question-Answering"/>
-   <updated>2017-04-27T00:00:00+05:30</updated>
+   <updated>2017-04-27T00:00:00-04:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/VQA Visual Question Answering</id>
    <content type="html">&lt;h3 id=&quot;problem-statement&quot;&gt;Problem Statement&lt;/h3&gt;
 
