@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Gossip based Actor-Learner Architectures for Deep RL](https://shagunsodhani.com/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL)
 * [How to train your MAML](https://shagunsodhani.com/papers-I-read/How-to-train-your-MAML)
 * [PHYRE - A New Benchmark for Physical Reasoning](https://shagunsodhani.com/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning)
 * [Large Memory Layers with Product Keys](https://shagunsodhani.com/papers-I-read/Large-Memory-Layers-with-Product-Keys)
