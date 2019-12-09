@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T23:08:30-05:00</updated>
+ <updated>2019-12-08T23:20:11-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -167,28 +167,28 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})}_{t=1}^T$ of state transition tuples.&lt;/p&gt;
+    &lt;p&gt;The training data is in the form of an experience buffer &lt;script type=&quot;math/tex&quot;&gt;B = \{(s_t, a_t, s_{t+1})\}_{t=1}^T&lt;/script&gt; of state transition tuples.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The goal is to learn:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;an encoder $E$ that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.&lt;/p&gt;
+        &lt;p&gt;an encoder &lt;script type=&quot;math/tex&quot;&gt;E&lt;/script&gt; that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;a transition model $T$ that predicts the dynamics in the hidden state.&lt;/p&gt;
+        &lt;p&gt;a transition model &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; that predicts the dynamics in the hidden state.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The model defines the enegry of a tuple $(s_t, a_t, s_{t+1})$ as $H = d(z_t + T(z_t, a_t), z_{t+1})$.&lt;/p&gt;
+    &lt;p&gt;The model defines the enegry of a tuple &lt;script type=&quot;math/tex&quot;&gt;(s_t, a_t, s_{t+1})&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;H = d(z_t + T(z_t, a_t), z_{t+1})&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The model has an inductive bias for modeling the effect of action as translation in the abstract state space.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;An extra hinge-loss term is added: $ max(0, \gamma - d(z^{~}&lt;em&gt;{t}, z&lt;/em&gt;{t+1})) $ where $ z^{~}&lt;em&gt;{t} = E(s^{~}&lt;/em&gt;{t}) $ is a corrputed latent state corresponding to a randomly sampled state $s^{~}_{t}$.&lt;/p&gt;
+    &lt;p&gt;An extra hinge-loss term is added: &lt;script type=&quot;math/tex&quot;&gt;max(0, \gamma - d(z^{~}_{t}, z_{t+1}))&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;z^{~}_{t} = E(s^{~}_{t})&lt;/script&gt; is a corrputed latent state corresponding to a randomly sampled state &lt;script type=&quot;math/tex&quot;&gt;s^{~}_{t}&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -199,7 +199,7 @@
     &lt;p&gt;The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times … Z_K$) and action spaces ($A_1 \times … A_k$) respectively.&lt;/p&gt;
+    &lt;p&gt;Assuming the number of object slots to be &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt;, the latent space, and the action space can be factored into &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; independent latent spaces (&lt;script type=&quot;math/tex&quot;&gt;Z_1 \times ... \times Z_K&lt;/script&gt;) and action spaces (&lt;script type=&quot;math/tex&quot;&gt;A_1 \times ... \times A_k&lt;/script&gt;) respectively.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;There are &lt;em&gt;K&lt;/em&gt; CNN-based object extractors and an MLP-based object encoder.&lt;/p&gt;

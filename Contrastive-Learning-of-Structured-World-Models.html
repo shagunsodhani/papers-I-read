@@ -173,28 +173,28 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <p>The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})}_{t=1}^T$ of state transition tuples.</p>
+    <p>The training data is in the form of an experience buffer <script type="math/tex">B = \{(s_t, a_t, s_{t+1})\}_{t=1}^T</script> of state transition tuples.</p>
   </li>
   <li>
     <p>The goal is to learn:</p>
 
     <ul>
       <li>
-        <p>an encoder $E$ that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.</p>
+        <p>an encoder <script type="math/tex">E</script> that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.</p>
       </li>
       <li>
-        <p>a transition model $T$ that predicts the dynamics in the hidden state.</p>
+        <p>a transition model <script type="math/tex">T</script> that predicts the dynamics in the hidden state.</p>
       </li>
     </ul>
   </li>
   <li>
-    <p>The model defines the enegry of a tuple $(s_t, a_t, s_{t+1})$ as $H = d(z_t + T(z_t, a_t), z_{t+1})$.</p>
+    <p>The model defines the enegry of a tuple <script type="math/tex">(s_t, a_t, s_{t+1})</script> as <script type="math/tex">H = d(z_t + T(z_t, a_t), z_{t+1})</script>.</p>
   </li>
   <li>
     <p>The model has an inductive bias for modeling the effect of action as translation in the abstract state space.</p>
   </li>
   <li>
-    <p>An extra hinge-loss term is added: $ max(0, \gamma - d(z^{~}<em>{t}, z</em>{t+1})) $ where $ z^{~}<em>{t} = E(s^{~}</em>{t}) $ is a corrputed latent state corresponding to a randomly sampled state $s^{~}_{t}$.</p>
+    <p>An extra hinge-loss term is added: <script type="math/tex">max(0, \gamma - d(z^{~}_{t}, z_{t+1}))</script> where <script type="math/tex">z^{~}_{t} = E(s^{~}_{t})</script> is a corrputed latent state corresponding to a randomly sampled state <script type="math/tex">s^{~}_{t}</script>.</p>
   </li>
 </ul>
 
@@ -205,7 +205,7 @@ MathJax.Hub.Config({
     <p>The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.</p>
   </li>
   <li>
-    <p>Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times … Z_K$) and action spaces ($A_1 \times … A_k$) respectively.</p>
+    <p>Assuming the number of object slots to be <script type="math/tex">K</script>, the latent space, and the action space can be factored into <script type="math/tex">K</script> independent latent spaces (<script type="math/tex">Z_1 \times ... \times Z_K</script>) and action spaces (<script type="math/tex">A_1 \times ... \times A_k</script>) respectively.</p>
   </li>
   <li>
     <p>There are <em>K</em> CNN-based object extractors and an MLP-based object encoder.</p>
