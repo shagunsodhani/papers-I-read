@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T22:58:55-05:00</updated>
+ <updated>2019-12-08T23:08:30-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -167,7 +167,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})]_{t=1}^T}$ of state transition tuples.&lt;/p&gt;
+    &lt;p&gt;The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})}_{t=1}^T$ of state transition tuples.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The goal is to learn:&lt;/p&gt;
@@ -188,7 +188,7 @@
     &lt;p&gt;The model has an inductive bias for modeling the effect of action as translation in the abstract state space.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;An extra hinge-loss term is added: $max(0, \gamma - d(z^~&lt;em&gt;t, z&lt;/em&gt;{t+1}))$ where $z^~_t = E(s^~_t)$ is a corrputed latent state corresponding to a randomly sampled state $s^~_t$.&lt;/p&gt;
+    &lt;p&gt;An extra hinge-loss term is added: $ max(0, \gamma - d(z^{~}&lt;em&gt;{t}, z&lt;/em&gt;{t+1})) $ where $ z^{~}&lt;em&gt;{t} = E(s^{~}&lt;/em&gt;{t}) $ is a corrputed latent state corresponding to a randomly sampled state $s^{~}_{t}$.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -199,7 +199,7 @@
     &lt;p&gt;The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times Z_K$) and action spaces ($A_1 \times A_k$) respectively.&lt;/p&gt;
+    &lt;p&gt;Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times … Z_K$) and action spaces ($A_1 \times … A_k$) respectively.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;There are &lt;em&gt;K&lt;/em&gt; CNN-based object extractors and an MLP-based object encoder.&lt;/p&gt;

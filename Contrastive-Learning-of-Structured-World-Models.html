@@ -173,7 +173,7 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <p>The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})]_{t=1}^T}$ of state transition tuples.</p>
+    <p>The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})}_{t=1}^T$ of state transition tuples.</p>
   </li>
   <li>
     <p>The goal is to learn:</p>
@@ -194,7 +194,7 @@ MathJax.Hub.Config({
     <p>The model has an inductive bias for modeling the effect of action as translation in the abstract state space.</p>
   </li>
   <li>
-    <p>An extra hinge-loss term is added: $max(0, \gamma - d(z^~<em>t, z</em>{t+1}))$ where $z^~_t = E(s^~_t)$ is a corrputed latent state corresponding to a randomly sampled state $s^~_t$.</p>
+    <p>An extra hinge-loss term is added: $ max(0, \gamma - d(z^{~}<em>{t}, z</em>{t+1})) $ where $ z^{~}<em>{t} = E(s^{~}</em>{t}) $ is a corrputed latent state corresponding to a randomly sampled state $s^{~}_{t}$.</p>
   </li>
 </ul>
 
@@ -205,7 +205,7 @@ MathJax.Hub.Config({
     <p>The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.</p>
   </li>
   <li>
-    <p>Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times Z_K$) and action spaces ($A_1 \times A_k$) respectively.</p>
+    <p>Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times … Z_K$) and action spaces ($A_1 \times … A_k$) respectively.</p>
   </li>
   <li>
     <p>There are <em>K</em> CNN-based object extractors and an MLP-based object encoder.</p>
