@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T22:27:36-05:00</updated>
+ <updated>2019-12-08T22:36:38-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -24,7 +24,7 @@
     &lt;p&gt;The paper presents the MuZero algorithm that performs planning with a learned model.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like chess and go (where generall planning approaches perform the best).&lt;/p&gt;
+    &lt;p&gt;The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like Chess and Go (where generall planning approaches perform the best).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1911.08265&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
@@ -58,16 +58,16 @@
     &lt;p&gt;Now the model takes hypothetical actions for the next &lt;em&gt;K&lt;/em&gt; timesteps by unrolling the model for &lt;em&gt;K&lt;/em&gt; steps.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;For each timestep &lt;em&gt;k = 1, …, K&lt;/em&gt;, the dyanmics model predicts the immediate reward &lt;em&gt;r&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; and a new hidden state &lt;em&gt;h&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; using the previous hidden state &lt;em&gt;h&lt;sub&gt;k-1&lt;/sub&gt;&lt;/em&gt; and action &lt;em&gt;a&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+    &lt;p&gt;For each timestep &lt;em&gt;k = 1, …, K&lt;/em&gt;, the dynamics model predicts the immediate reward &lt;em&gt;r&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; and a new hidden state &lt;em&gt;h&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; using the previous hidden state &lt;em&gt;h&lt;sub&gt;k-1&lt;/sub&gt;&lt;/em&gt; and action &lt;em&gt;a&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;At the ame time, the policy &lt;em&gt;p&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; and the value function &lt;em&gt;v&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; are computed using the prediction network.&lt;/p&gt;
+    &lt;p&gt;At the same time, the policy &lt;em&gt;p&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; and the value function &lt;em&gt;v&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; are computed using the prediction network.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The initial hidden state &lt;em&gt;h&lt;sub&gt;0&lt;/sub&gt;&lt;/em&gt; is initialized using the state &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Any MDP Planning algorithm can be used to search for an optimal policy and value function given the state transitions and the rewards induced by the dynamics function.&lt;/p&gt;
+    &lt;p&gt;Any MDP Planning algorithm can be used to search for optimal policy and value function given the state transitions and the rewards induced by the dynamics function.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action &lt;em&gt;a&lt;sub&gt;t+1&lt;/sub&gt;&lt;/em&gt; (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.&lt;/p&gt;
@@ -2716,6 +2716,76 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Even with lower embedding dimensions, TuckER’s performance does not deteriorate as much as other models.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Gossip based Actor-Learner Architectures for Deep RL</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL"/>
+   <updated>2019-02-12T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Gossip based Actor-Learner Architectures for Deep RL</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.04585&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers the task of training an RL system by sampling data from multiple simulators (over parallel devices).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The setup is that of distributed RL setting with &lt;em&gt;n&lt;/em&gt; agents or actor-learners (composed of a single learner and several actors). These agents are trying to maximize a common value function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One (existing) approach is to perform on-policy updates with a shared policy. The policy could be updated in synchronous (does not scale well) or asynchronous manner (can be unstable due to stale gradients).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Off policy approaches allow for better computational efficiency but can be unstable during training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposed Gossip based Actor-Learner Architecture (GALA) which uses asynchronous communication (gossip) between the &lt;em&gt;n&lt;/em&gt; agents to improve the training of Deep RL models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These agents are expected to converge to the same policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, the different agents are not required to share the same policy and it is sufficient that the agent’s policies remain $\epsilon$-close to each other. This relaxation allows the policies to be trained asynchronously.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA approach is combined with A2C agents resulting in GALA-A2C agents. They have better computational efficiency and scalability (as compared to A2C) and similar in performance to A3C and Impala.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training alternates between one local policy-gradient (and TD update) and asynchronous gossip between agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During the gossip step, the agents send their parameters to some of the other agents (referred to as the peers) and update their parameters based on the parameters received from the other agents (for which the given agent is a peer).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA agents are implemented using non-blocking communication so that they can operate asynchronously.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper includes the proof that the policies learned by the different agents are within $\epsilon$ distance of each other (ie all the policies lie within an $\epsilon$-distance ball) thus ensuring that the policies do not diverge much from each other.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Six games from the Ataru 2600 games suite are used for the experiments.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines: A2C, A3C, Impala&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GALA agents are configured in a directed ring graph topology.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;With A2C, as the number of simulators increases, the number of convergent runs (runs with a threshold reward) decreases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using gossip algorithms increases or maintains the number of convergent runs. It also improves the performance, sample efficiency and compute efficiency of A2C across all the six games.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When compared to Impala and A3C, GALA-A2C generally outperforms (or performs as well as) those baselines.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given that the learned policies remain within an $\epsilon$ ball, the agent’s gradients are less correlated as compared to the A2C agents.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>

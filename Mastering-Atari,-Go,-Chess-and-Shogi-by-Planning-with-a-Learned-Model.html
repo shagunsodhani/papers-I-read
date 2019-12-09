@@ -155,7 +155,7 @@ MathJax.Hub.Config({
     <p>The paper presents the MuZero algorithm that performs planning with a learned model.</p>
   </li>
   <li>
-    <p>The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like chess and go (where generall planning approaches perform the best).</p>
+    <p>The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like Chess and Go (where generall planning approaches perform the best).</p>
   </li>
   <li>
     <p><a href="https://arxiv.org/abs/1911.08265">Link to the paper</a></p>
@@ -189,16 +189,16 @@ MathJax.Hub.Config({
     <p>Now the model takes hypothetical actions for the next <em>K</em> timesteps by unrolling the model for <em>K</em> steps.</p>
   </li>
   <li>
-    <p>For each timestep <em>k = 1, …, K</em>, the dyanmics model predicts the immediate reward <em>r<sub>k</sub></em> and a new hidden state <em>h<sub>k</sub></em> using the previous hidden state <em>h<sub>k-1</sub></em> and action <em>a<sub>k</sub></em>.</p>
+    <p>For each timestep <em>k = 1, …, K</em>, the dynamics model predicts the immediate reward <em>r<sub>k</sub></em> and a new hidden state <em>h<sub>k</sub></em> using the previous hidden state <em>h<sub>k-1</sub></em> and action <em>a<sub>k</sub></em>.</p>
   </li>
   <li>
-    <p>At the ame time, the policy <em>p<sup>k</sup></em> and the value function <em>v<sup>k</sup></em> are computed using the prediction network.</p>
+    <p>At the same time, the policy <em>p<sup>k</sup></em> and the value function <em>v<sup>k</sup></em> are computed using the prediction network.</p>
   </li>
   <li>
     <p>The initial hidden state <em>h<sub>0</sub></em> is initialized using the state <em>s<sub>t</sub></em></p>
   </li>
   <li>
-    <p>Any MDP Planning algorithm can be used to search for an optimal policy and value function given the state transitions and the rewards induced by the dynamics function.</p>
+    <p>Any MDP Planning algorithm can be used to search for optimal policy and value function given the state transitions and the rewards induced by the dynamics function.</p>
   </li>
   <li>
     <p>Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action <em>a<sub>t+1</sub></em> (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.</p>
