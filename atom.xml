@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T22:36:38-05:00</updated>
+ <updated>2019-12-08T22:58:55-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -136,6 +136,145 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;During training, using more simulations of MCTS helps to achieve better performance through even just 6 simulations per move is sufficient to learn a good model for Ms. Pacman.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Contrastive Learning of Structured World Models</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Contrastive-Learning-of-Structured-World-Models"/>
+   <updated>2019-11-28T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Contrastive Learning of Structured World Models</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces Contrastively-trained Structured World Models (C-SWMs).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These models use a contrastive approach for learning representations in environments with compositional structure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1911.12247&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/tkipf/c-swm&quot;&gt;Link to the code&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The training data is in the form of an experience buffer $B = {(s_t, a_t, s_{t+1})]_{t=1}^T}$ of state transition tuples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The goal is to learn:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;an encoder $E$ that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;a transition model $T$ that predicts the dynamics in the hidden state.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model defines the enegry of a tuple $(s_t, a_t, s_{t+1})$ as $H = d(z_t + T(z_t, a_t), z_{t+1})$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model has an inductive bias for modeling the effect of action as translation in the abstract state space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An extra hinge-loss term is added: $max(0, \gamma - d(z^~&lt;em&gt;t, z&lt;/em&gt;{t+1}))$ where $z^~_t = E(s^~_t)$ is a corrputed latent state corresponding to a randomly sampled state $s^~_t$.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;object-oriented-state-factorization&quot;&gt;Object-Oriented State Factorization&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Assuming the number of object slots to be $K$, the latent space, and the action space can be factored into $K$ independent latent spaces ($Z_1 \times Z_K$) and action spaces ($A_1 \times A_k$) respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are &lt;em&gt;K&lt;/em&gt; CNN-based object extractors and an MLP-based object encoder.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The actions are represented as one-hot vectors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A fully connected graph is induced over &lt;em&gt;K&lt;/em&gt; objects (representations) and the transition function is modeled as a Graph Neural Network (GNN) over this graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The transition function produces the change in the latent state representation of each object.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The factorization can be taken into account in the loss function by summing over the loss corresponding to each object.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;environments&quot;&gt;Environments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Grid World Environments - 2D shapes, 3D blocks&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Atari games - Pong and Space Invaders&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;3-body physics simulation&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Random policy is used to collect the training data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation is performed in the latent space (no reconstruction in the pixel space) using ranking metrics. The observations (to compare against) are randomly sampled from the buffer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines - auto-encoder based World Models and &lt;a href=&quot;https://arxiv.org/abs/1905.11169&quot;&gt;Physics as Inverse Graphics model&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the grid-world environments, C-SWM models the latent dynamics almost perfectly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Removing either the state factorization or the GNN transition model hurts the performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;C-SWM performs well on Atari as well but the results tend to have high variance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The optimal values of $K$ should be obtained by hyperparameter tuning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the 3-body physics tasks, both the baselines and proposed models work quite well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interestingly, the paper has a section on limitations:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The object extractor module can not disambiguate between multiple instances of the same object (in a scene).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The current formulation of C-SWM can only be used with deterministic environments.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
