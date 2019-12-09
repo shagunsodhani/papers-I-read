@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T22:25:12-05:00</updated>
+ <updated>2019-12-08T22:27:36-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -70,7 +70,7 @@
     &lt;p&gt;Any MDP Planning algorithm can be used to search for an optimal policy and value function given the state transitions and the rewards induced by the dynamics function.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action *a&lt;tub&gt;t+1&amp;lt;/sub&amp;gt;* (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.&lt;/tub&gt;&lt;/p&gt;
+    &lt;p&gt;Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action &lt;em&gt;a&lt;sub&gt;t+1&lt;/sub&gt;&lt;/em&gt; (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
