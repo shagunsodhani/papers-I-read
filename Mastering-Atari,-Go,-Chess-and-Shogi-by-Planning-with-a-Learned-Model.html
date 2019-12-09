@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing &middot; Papers I Read
+      Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model &middot; Papers I Read
     
   </title>
 
@@ -145,160 +145,128 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Ask Me Anything -  Dynamic Memory Networks for Natural Language Processing</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Attention" title="Pages tagged Attention" rel="tag">Attention</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#POS" title="Pages tagged POS" rel="tag">POS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Sentiment+Analysis" title="Pages tagged Sentiment Analysis" rel="tag">Sentiment Analysis</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">09 Jul 2017</span>
+  <h1 class="post-title">Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model-Based" title="Pages tagged Model-Based" rel="tag">Model-Based</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model-Free" title="Pages tagged Model-Free" rel="tag">Model-Free</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Planning" title="Pages tagged Planning" rel="tag">Planning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">05 Dec 2019</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Dynamic Memory Networks (DMN) is a neural network based general framework that can be used for tasks like sequence tagging, classification, sequence to sequence and question answering requiring transitive reasoning.</p>
+    <p>The paper presents the MuZero algorithm that performs planning with a learned model.</p>
   </li>
   <li>
-    <p>The basic idea is that all these tasks can be modelled as question answering task in general and a common architecture could be used for solving them.</p>
+    <p>The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like chess and go (where generall planning approaches perform the best).</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1506.07285">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/1911.08265">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="architecture">Architecture</h2>
-
-<ul>
-  <li>DMN takes as input a document(sentence, story, article etc) and a question which is to be answered given the document.</li>
-</ul>
-
-<h3 id="input-module">Input Module</h3>
+<h2 id="relation-to-standard-model-based-approaches">Relation to standard Model-Based Approaches</h2>
 
 <ul>
   <li>
-    <p>Concatenate all the sentences (or facts) in the document and encode them by feeding the word embeddings of the text to a GRU.</p>
+    <p>Model-based approaches generally focus on reconstructing the true environment state or the sequence of full observations.</p>
   </li>
   <li>
-    <p>Each time a sentence ends, extract the hidden representation of the GRU till that point and use as the encoded representation of the sentence.</p>
+    <p>MuZero focuses on predicting only those aspects that are most relevant for planning - policy, value functions, and rewards.</p>
   </li>
 </ul>
 
-<h3 id="question-module">Question Module</h3>
-
-<ul>
-  <li>Similarly, feed the question to a GRU to obtain its representation.</li>
-</ul>
-
-<h3 id="episodic-memory-module">Episodic Memory Module</h3>
+<h2 id="approach">Approach</h2>
 
 <ul>
   <li>
-    <p>Episodic memory consists of an attention mechanism and a recurrent network with which it updates its memory.</p>
+    <p>The model consists of three components: (representation) encoder, dynamics function, and the prediction network.</p>
   </li>
   <li>
-    <p>During each iteration, the network generates an episode <em>e</em> by attending over the representation of the sentences, question and the previous memory.</p>
+    <p>The learning agent has two kinds of interactions - real interactions (ie the actions that are actually executed in the real environment) and hypothetical or imaginary actions (ie the actions that are executed in the learned model or the dynamics function).</p>
   </li>
   <li>
-    <p>The episodic memory is updated using the current episode and the previous memory.</p>
+    <p>At any timestep <em>t</em>, the past observations <em>o<sub>1</sub></em>, … <em>o<sub>t</sub></em> are encoded into the state <em>s<sub>t</sub></em> using the encoder.</p>
   </li>
   <li>
-    <p>Depending on the amount of supervision available, the network may perform multiple passes. eg, in the bAbI dataset, some tasks specify how many passes would be needed and which sentence should be attended to in each pass. For others, a fixed number of passes are made.</p>
+    <p>Now the model takes hypothetical actions for the next <em>K</em> timesteps by unrolling the model for <em>K</em> steps.</p>
   </li>
   <li>
-    <p>Multiple passes allow the network to perform transitive inference.</p>
-  </li>
-</ul>
-
-<h3 id="attention-mechanism">Attention Mechanism</h3>
-
-<ul>
-  <li>
-    <p>Given the input representation <em>c</em>, memory <em>m</em> and question <em>q</em>, produce a scalar score using a 2-layer feedforward network, to use as attention mechanism.</p>
+    <p>For each timestep <em>k = 1, …, K</em>, the dyanmics model predicts the immediate reward <em>r<sub>k</sub></em> and a new hidden state <em>h<sub>k</sub></em> using the previous hidden state <em>h<sub>k-1</sub></em> and action <em>a<sub>k</sub></em>.</p>
   </li>
   <li>
-    <p>A separate GRU encodes the input representation and weights it by the attention.</p>
+    <p>At the ame time, the policy <em>p<sup>k</sup></em> and the value function <em>v<sup>k</sup></em> are computed using the prediction network.</p>
   </li>
   <li>
-    <p>Final state of the GRU is fed to the answer module.</p>
+    <p>The initial hidden state <em>h<sub>0</sub></em> is initialized using the state <em>s<sub>t</sub></em></p>
+  </li>
+  <li>
+    <p>Any MDP Planning algorithm can be used to search for an optimal policy and value function given the state transitions and the rewards induced by the dynamics function.</p>
+  </li>
+  <li>
+    <p>Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action *a<tub>t+1&lt;/sub&gt;* (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.</tub></p>
   </li>
 </ul>
 
-<h3 id="answer-module">Answer Module</h3>
+<h2 id="collecting-data-for-the-replay-buffer">Collecting Data for the Replay Buffer</h2>
 
 <ul>
-  <li>Use a GRU (initialized with the final state of the episodic module) and at each timestep, feed it the question vector, last hidden state of the same GRU and the previously predicted output.</li>
-</ul>
-
-<h3 id="training">Training</h3>
-
-<ul>
-  <li>There are two possible losses:
-    <ul>
-      <li>Cross-entropy loss of the predicted answer (all datasets)</li>
-      <li>Cross-entropy loss of the attention supervision (for datasets like bAbI)</li>
-    </ul>
+  <li>
+    <p>At each timestep <em>t</em>, the MCTS algorithm is executed to choose the next action (which will be executed in the real environment).</p>
+  </li>
+  <li>
+    <p>The resulting next observation <em>o<sub>t+1</sub></em> and reward <em>r<sub>t+1</sub></em> are stored and the trajectory is written to the replay buffer (at the end of the episode).</p>
   </li>
 </ul>
 
-<h2 id="experiments">Experiments</h2>
-
-<h3 id="question-answering">Question Answering</h3>
+<h2 id="objective">Objective</h2>
 
 <ul>
   <li>
-    <p>bAbI Dataset</p>
+    <p>For every hypothetical step <em>k</em>, match the predicted policy, value, and reward to the actual target values.</p>
   </li>
   <li>
-    <p>For most tasks, DMN either outperforms or performs as good as Memory Networks.</p>
+    <p>The target policy is generated by the MCTS algorithm.</p>
   </li>
   <li>
-    <p>For tasks like answering with 2 or 3 supporting facts, DMN lags because of limitation of RNN in modelling long sentences.</p>
+    <p>The target value function and reward are generated by actually playing the game (or the MDP).</p>
   </li>
 </ul>
 
-<h3 id="text-classification">Text Classification</h3>
+<h2 id="relation-to-alphazero">Relation to AlphaZero</h2>
 
 <ul>
   <li>
-    <p>Stanford Sentiment Treebank Dataset</p>
+    <p>MuZero leverages the search-based policy iteration from AlphaZero.</p>
   </li>
   <li>
-    <p>DMN outperforms all the baselines for both binary and fine-grained sentiment analysis.</p>
+    <p>It extends AlphaZero to setups with a single agent (where self-play is not possible) and setups with a non-zero reward at the intermediate time steps.</p>
+  </li>
+  <li>
+    <p>The encoder and the predictions functions are similar to ones used by AlphZero.</p>
   </li>
 </ul>
 
-<h3 id="sequence-tagging">Sequence Tagging</h3>
+<h2 id="results">Results</h2>
 
 <ul>
   <li>
-    <p>Wall Street Journal Dataset</p>
+    <p><em>K</em> is set to 5.</p>
   </li>
   <li>
-    <p>DMN archives state of the art accuracy of 97.56%</p>
-  </li>
-</ul>
-
-<h2 id="observations">Observations</h2>
-
-<ul>
-  <li>
-    <p>Multiple passes help in reasoning tasks but not so much for sentiment/POS tags.</p>
+    <p>Environments: 57 games in Atari along with Chess, Go and Shogi</p>
   </li>
   <li>
-    <p>Attention in the case of 2-iteration DMN is more focused than attention in 1-iteration DMN.</p>
+    <p>MuZero achieves the same level of performance as AlphaZero for Chess and Shogi. In Go, MuZero slightly outperforms AlphaZero despite doing fewer computations per node in the search tree.</p>
   </li>
   <li>
-    <p>For 2-iteration DMN, attention in the second iteration focuses only on relevant words and less attention is paid to words that lose their relevance in the context of the entire document.</p>
-  </li>
-</ul>
-
-<h2 id="notes">Notes</h2>
-
-<ul>
-  <li>
-    <p>It would be interesting to put some mechanism in place to determine the number of episodes that should be generated before an answer is predicted. A naive way would be to predict the answer after each episode and check if the softmax score of the predicted answer is more than a threshold.</p>
+    <p>In Atari, MuZero achieves a new state-of-the-art compared to both model-based and model-free approaches.</p>
   </li>
   <li>
-    <p>Alternatively, the softmax score and other information could be fed to a Reinforcement Learning (RL) agent which decided if the document should be read again. So every time an episode is generated, the state is passed to the RL agent which decides if another iteration should be performed. If it decides to predict the answer and correct answer is generated, the agent gets a large +ve reward else a large -ve reward.</p>
+    <p>The paper considers a variant called MuZero Reanalyze that reanalyzes old trajectories by re-running the MCTS algorithm with the updated network parameter. The motivation is to have a better sample complexity.</p>
   </li>
   <li>
-    <p>To discourage unnecessary iterations, a small -ve reward could be given everytime the agent decides to perform another iteration.</p>
+    <p>MuZero performs well even when using a single simulation of MCTS (during inference).</p>
+  </li>
+  <li>
+    <p>During training, using more simulations of MCTS helps to achieve better performance through even just 6 simulations per move is sufficient to learn a good model for Ms. Pacman.</p>
   </li>
 </ul>
 
@@ -307,15 +275,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Mastering-Atari,-Go,-Chess-and-Shogi-by-Planning-with-a-Learned-Model">
-            Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model
-            <small>05 Dec 2019</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -331,6 +290,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/How-to-train-your-MAML">
             How to train your MAML
             <small>05 Sep 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning">
+            PHYRE - A New Benchmark for Physical Reasoning
+            <small>29 Aug 2019</small>
           </a>
         </h3>
       </li>
@@ -351,8 +319,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Ask-Me-Anything-Dynamic-Memory-Networks-for-Natural-Language-Processing"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Mastering-Atari,-Go,-Chess-and-Shogi-by-Planning-with-a-Learned-Model"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Mastering-Atari,-Go,-Chess-and-Shogi-by-Planning-with-a-Learned-Model"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

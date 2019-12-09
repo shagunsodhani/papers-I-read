@@ -4,13 +4,142 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-11-09T12:42:54-05:00</updated>
+ <updated>2019-12-08T22:25:12-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Mastering-Atari,-Go,-Chess-and-Shogi-by-Planning-with-a-Learned-Model"/>
+   <updated>2019-12-05T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents the MuZero algorithm that performs planning with a learned model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The algorithm achieves state of the art results on Atari suite (where generally model-free approaches perform the best) and on planning-oriented games like chess and go (where generall planning approaches perform the best).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1911.08265&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;relation-to-standard-model-based-approaches&quot;&gt;Relation to standard Model-Based Approaches&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model-based approaches generally focus on reconstructing the true environment state or the sequence of full observations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MuZero focuses on predicting only those aspects that are most relevant for planning - policy, value functions, and rewards.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model consists of three components: (representation) encoder, dynamics function, and the prediction network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learning agent has two kinds of interactions - real interactions (ie the actions that are actually executed in the real environment) and hypothetical or imaginary actions (ie the actions that are executed in the learned model or the dynamics function).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At any timestep &lt;em&gt;t&lt;/em&gt;, the past observations &lt;em&gt;o&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt;, … &lt;em&gt;o&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; are encoded into the state &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; using the encoder.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now the model takes hypothetical actions for the next &lt;em&gt;K&lt;/em&gt; timesteps by unrolling the model for &lt;em&gt;K&lt;/em&gt; steps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each timestep &lt;em&gt;k = 1, …, K&lt;/em&gt;, the dyanmics model predicts the immediate reward &lt;em&gt;r&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; and a new hidden state &lt;em&gt;h&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; using the previous hidden state &lt;em&gt;h&lt;sub&gt;k-1&lt;/sub&gt;&lt;/em&gt; and action &lt;em&gt;a&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the ame time, the policy &lt;em&gt;p&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; and the value function &lt;em&gt;v&lt;sup&gt;k&lt;/sup&gt;&lt;/em&gt; are computed using the prediction network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The initial hidden state &lt;em&gt;h&lt;sub&gt;0&lt;/sub&gt;&lt;/em&gt; is initialized using the state &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any MDP Planning algorithm can be used to search for an optimal policy and value function given the state transitions and the rewards induced by the dynamics function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Specifically, the MCTS (Monte Carlo Tree Search) algorithm is used and the action *a&lt;tub&gt;t+1&amp;lt;/sub&amp;gt;* (ie the action that is executed in the actual environment) is selected from the policy outputted by MCTS.&lt;/tub&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;collecting-data-for-the-replay-buffer&quot;&gt;Collecting Data for the Replay Buffer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;At each timestep &lt;em&gt;t&lt;/em&gt;, the MCTS algorithm is executed to choose the next action (which will be executed in the real environment).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting next observation &lt;em&gt;o&lt;sub&gt;t+1&lt;/sub&gt;&lt;/em&gt; and reward &lt;em&gt;r&lt;sub&gt;t+1&lt;/sub&gt;&lt;/em&gt; are stored and the trajectory is written to the replay buffer (at the end of the episode).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;objective&quot;&gt;Objective&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For every hypothetical step &lt;em&gt;k&lt;/em&gt;, match the predicted policy, value, and reward to the actual target values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The target policy is generated by the MCTS algorithm.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The target value function and reward are generated by actually playing the game (or the MDP).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;relation-to-alphazero&quot;&gt;Relation to AlphaZero&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MuZero leverages the search-based policy iteration from AlphaZero.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It extends AlphaZero to setups with a single agent (where self-play is not possible) and setups with a non-zero reward at the intermediate time steps.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The encoder and the predictions functions are similar to ones used by AlphZero.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;K&lt;/em&gt; is set to 5.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Environments: 57 games in Atari along with Chess, Go and Shogi&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MuZero achieves the same level of performance as AlphaZero for Chess and Shogi. In Go, MuZero slightly outperforms AlphaZero despite doing fewer computations per node in the search tree.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In Atari, MuZero achieves a new state-of-the-art compared to both model-based and model-free approaches.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers a variant called MuZero Reanalyze that reanalyzes old trajectories by re-running the MCTS algorithm with the updated network parameter. The motivation is to have a better sample complexity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MuZero performs well even when using a single simulation of MCTS (during inference).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, using more simulations of MCTS helps to achieve better performance through even just 6 simulations per move is sufficient to learn a good model for Ms. Pacman.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Gossip based Actor-Learner Architectures for Deep RL</title>
