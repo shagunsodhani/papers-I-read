@@ -4,13 +4,225 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-08T23:20:11-05:00</updated>
+ <updated>2019-12-15T23:51:56-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Everything-Happens-for-a-Reason-Discovering-the-Purpose-of-Actions-in-Procedural-Text"/>
+   <updated>2019-12-12T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Procedural text comprehension tasks focus on modeling the effect of actions and predicting what happens next.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;But they do not consider &lt;em&gt;why&lt;/em&gt; some actions need to happen before other actions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a new model called XPAD (eXPlainable Action Dependency) that considers the &lt;em&gt;purpose&lt;/em&gt; of actions while predicting their effect.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model favors &lt;em&gt;effects&lt;/em&gt; that:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;explain more of actions in the text.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;are more plausible given the context.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An existing procedural text benchmark dataset (Propara) is expanded by adding the task of explaining actions by predicting their dependencies.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.04745&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://data.allenai.org/propara/&quot;&gt;Link to the dataset&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Input&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Procedural (chronologically ordered text) sequence of &lt;em&gt;T&lt;/em&gt; sentences.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;List of &lt;em&gt;N&lt;/em&gt; participant entities, whose state changes at some step.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;State change matrix $\pi(T \times N)$ with four possible states - move, create destroy, none.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This matrix tracks how property changes after each step.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dependency Explanation Graph&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Identify what steps are necessary to execute a given step (say &lt;em&gt;s&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;) and represent this dependency in the form of a dependency explanation graph &lt;em&gt;G = &amp;lt;S, E&amp;gt;&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this graph, each node is a step and the direction of edge describes the order of dependency.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dependency-graph-dataset&quot;&gt;Dependency Graph Dataset&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.06975&quot;&gt;Propara dataset&lt;/a&gt; is expanded to extract the dependency graph using both heuristic and automated methods.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The automated method is based on the coherence assumption that if step &lt;em&gt;s&lt;sub&gt;j&lt;/sub&gt;&lt;/em&gt; changes state of entity &lt;em&gt;e&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt; then &lt;em&gt;s&lt;sub&gt;j&lt;/sub&gt;&lt;/em&gt; is a precondition for the first subsequent step that changes the state of &lt;em&gt;e&lt;sub&gt;k&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;xpad-model&quot;&gt;XPAD Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is based on the ProStruct system and uses an encoder-decoder based architecture.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Encoder&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Input: Sentence &lt;em&gt;s&lt;sub&gt;t&lt;/sub&gt;&lt;/em&gt; and entity &lt;em&gt;e&lt;sub&gt;j&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sentence is encoded using the GloVe vectors and a BiLSTM model and the entity is encoded as an indicator variable.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The combined representation is denoted as &lt;em&gt;c&lt;sub&gt;tj&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This representation is passed through an MLP to generate &lt;em&gt;k&lt;/em&gt; logits that encode the probability of each entity &lt;em&gt;j&lt;/em&gt; undergoing a state change at step &lt;em&gt;t&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Decoder&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Beam search is performed to decode the encoder representation into the state change matrix and dependency graph using a score function that ensures global consistency.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Score function has two components:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;State change score - depends on the likelihood that the selected state changes at step &lt;em&gt;t&lt;/em&gt; given the text and state change history from steps &lt;em&gt;s&lt;sub&gt;1&lt;/sub&gt;&lt;/em&gt; to &lt;em&gt;s&lt;sub&gt;t-1&lt;/sub&gt;&lt;/em&gt;.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Dependency graph score&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;This is based on the connectivity and likelihood of the resulting dependency explanation graph.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;This score is used to bias the graph search towards:&lt;/p&gt;
+
+                &lt;ul&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;predictions that have an identifiable purpose ie checking if a particular state change prediction leads to a connection in the dependency explanation graph.&lt;/p&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;graphs that are more likely according to the background knowledge to distinguish likely dependency links from the unlikely ones.&lt;/p&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, XPAD has access to the correct path (in the search space) and learns to minimize the joint loss corresponding to predicting the state change and the dependency explanation graph.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During testing, XPAD performs beam search to predict the most likely state change and dependency explanation graph.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tasks:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;State change prediction&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Dependency explanation prediction&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1612.03969&quot;&gt;Recurrent Entity Networks&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1606.04582&quot;&gt;Query-Reduction Networks&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.06975&quot;&gt;ProLocal and ProGlobal&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1808.10012&quot;&gt;ProStruct&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;XPAD significantly outperforms all the baseline models on the dependency explanation task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improvements on the state change prediction task are less significant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Removing dependency graph scores from XPAD leads to a drop in the F1 score.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper provides an elaborate discussion on the different types of errors that the XPAD system makes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model</title>
