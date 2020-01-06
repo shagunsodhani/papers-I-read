@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-01-06T00:16:52-05:00</updated>
+ <updated>2020-01-06T00:25:36-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -242,7 +242,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;Abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; is a function that maps a given state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; to its abstract counterpart &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The inverse image &lt;script type=&quot;math/tex&quot;&gt;\phi^-1(\widetilde{s})&lt;/script&gt; is the set of ground states that map to the &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt; under the abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The inverse image &lt;script type=&quot;math/tex&quot;&gt;\phi^{-1}(\widetilde{s})&lt;/script&gt; is the set of ground states that map to the &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt; under the abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A wieghing functioon &lt;script type=&quot;math/tex&quot;&gt;w(s)&lt;/script&gt; is used to measure how much does a state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; contribute to the abstract state &lt;script type=&quot;math/tex&quot;&gt;\phi(s)&lt;/script&gt;.&lt;/p&gt;
@@ -253,7 +253,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Given two abstraction functions &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; is said to be &lt;em&gt;finer&lt;/em&gt; than &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt; iff for any states &lt;script type=&quot;math/tex&quot;&gt;s_{1}, s_{2}&lt;/script&gt; if &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}(s_{1} = \phi_{1}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}(s_{1} = \phi_{2}(s_{2})&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;Given two abstraction functions &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; is said to be &lt;em&gt;finer&lt;/em&gt; than &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt; iff for any states &lt;script type=&quot;math/tex&quot;&gt;s_{1}, s_{2}&lt;/script&gt; if &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}(s_{1}) = \phi_{1}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}(s_{1}) = \phi_{2}(s_{2})&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;This &lt;em&gt;finer&lt;/em&gt; relation is reflex, antisymmetric, transitive and partially ordered.&lt;/p&gt;
@@ -274,7 +274,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
         &lt;p&gt;If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}} = \sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}}&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}^{a}} = \sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}^{a}}&lt;/script&gt;.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -312,7 +312,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In terms of &lt;em&gt;fineness&lt;/em&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}&lt;/script&gt;. Here &lt;script type=&quot;math/tex&quot;&gt;\phi_0&lt;/script&gt; is the identity mapping ie &lt;script type=&quot;math/tex&quot;&gt;\phi_0(s) = s_&lt;/script&gt;&lt;/p&gt;
+    &lt;p&gt;In terms of &lt;em&gt;fineness&lt;/em&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}&lt;/script&gt;. Here &lt;script type=&quot;math/tex&quot;&gt;\phi_0&lt;/script&gt; is the identity mapping ie &lt;script type=&quot;math/tex&quot;&gt;\phi_0(s) = s&lt;/script&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;If a property applies to any abstraction, it also applies to all the finer abstractions.&lt;/p&gt;
@@ -326,7 +326,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;As we go from finer to coarser abstractions, the information loss increases (ie fewer components can be recovered) while the state-space reduces (ie the efficiency of solving the problem increases). This leads to a tradeoff when selecting abstractions.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;For example, with abstractions &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the optimal abstract policy &lt;script type=&quot;math/tex&quot;&gt;\widetilde(\pi^*)&lt;/script&gt; is optimal in the ground MDP.&lt;/p&gt;
+    &lt;p&gt;For example, with abstractions &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the optimal abstract policy &lt;script type=&quot;math/tex&quot;&gt;\widetilde(\pi)^*&lt;/script&gt; is optimal in the ground MDP.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}&lt;/script&gt; converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.&lt;/p&gt;

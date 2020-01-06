@@ -184,7 +184,7 @@ M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> 
     <p>Abstraction function <script type="math/tex">\phi</script> is a function that maps a given state <script type="math/tex">s</script> to its abstract counterpart <script type="math/tex">\widetilde{s}</script>.</p>
   </li>
   <li>
-    <p>The inverse image <script type="math/tex">\phi^-1(\widetilde{s})</script> is the set of ground states that map to the <script type="math/tex">\widetilde{s}</script> under the abstraction function <script type="math/tex">\phi</script>.</p>
+    <p>The inverse image <script type="math/tex">\phi^{-1}(\widetilde{s})</script> is the set of ground states that map to the <script type="math/tex">\widetilde{s}</script> under the abstraction function <script type="math/tex">\phi</script>.</p>
   </li>
   <li>
     <p>A wieghing functioon <script type="math/tex">w(s)</script> is used to measure how much does a state <script type="math/tex">s</script> contribute to the abstract state <script type="math/tex">\phi(s)</script>.</p>
@@ -195,7 +195,7 @@ M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> 
 
 <ul>
   <li>
-    <p>Given two abstraction functions <script type="math/tex">\phi_{1}</script> and <script type="math/tex">\phi_{2}</script>, <script type="math/tex">\phi_{1}</script> is said to be <em>finer</em> than <script type="math/tex">\phi_{2}</script> iff for any states <script type="math/tex">s_{1}, s_{2}</script> if <script type="math/tex">\phi_{1}(s_{1} = \phi_{1}(s_{2})</script> then <script type="math/tex">\phi_{2}(s_{1} = \phi_{2}(s_{2})</script>.</p>
+    <p>Given two abstraction functions <script type="math/tex">\phi_{1}</script> and <script type="math/tex">\phi_{2}</script>, <script type="math/tex">\phi_{1}</script> is said to be <em>finer</em> than <script type="math/tex">\phi_{2}</script> iff for any states <script type="math/tex">s_{1}, s_{2}</script> if <script type="math/tex">\phi_{1}(s_{1}) = \phi_{1}(s_{2})</script> then <script type="math/tex">\phi_{2}(s_{1}) = \phi_{2}(s_{2})</script>.</p>
   </li>
   <li>
     <p>This <em>finer</em> relation is reflex, antisymmetric, transitive and partially ordered.</p>
@@ -216,7 +216,7 @@ M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> 
         <p>If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.</p>
       </li>
       <li>
-        <p>Consider any action <script type="math/tex">a</script> and any abstract state <script type="math/tex">\widetilde{s}</script>, if <script type="math/tex">\phi_{model}(s_{1} = \phi_{model}(s_{2})</script> then <script type="math/tex">R(s_1, a) = R(s_2, a)</script> and <script type="math/tex">\sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}} = \sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}}</script>.</p>
+        <p>Consider any action <script type="math/tex">a</script> and any abstract state <script type="math/tex">\widetilde{s}</script>, if <script type="math/tex">\phi_{model}(s_{1} = \phi_{model}(s_{2})</script> then <script type="math/tex">R(s_1, a) = R(s_2, a)</script> and <script type="math/tex">\sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}^{a}} = \sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}^{a}}</script>.</p>
       </li>
     </ul>
   </li>
@@ -254,7 +254,7 @@ M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> 
     </ul>
   </li>
   <li>
-    <p>In terms of <em>fineness</em>, <script type="math/tex">\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}</script>. Here <script type="math/tex">\phi_0</script> is the identity mapping ie <script type="math/tex">\phi_0(s) = s_</script></p>
+    <p>In terms of <em>fineness</em>, <script type="math/tex">\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}</script>. Here <script type="math/tex">\phi_0</script> is the identity mapping ie <script type="math/tex">\phi_0(s) = s</script></p>
   </li>
   <li>
     <p>If a property applies to any abstraction, it also applies to all the finer abstractions.</p>
@@ -268,7 +268,7 @@ M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> 
     <p>As we go from finer to coarser abstractions, the information loss increases (ie fewer components can be recovered) while the state-space reduces (ie the efficiency of solving the problem increases). This leads to a tradeoff when selecting abstractions.</p>
   </li>
   <li>
-    <p>For example, with abstractions <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}</script>, the optimal abstract policy <script type="math/tex">\widetilde(\pi^*)</script> is optimal in the ground MDP.</p>
+    <p>For example, with abstractions <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}</script>, the optimal abstract policy <script type="math/tex">\widetilde(\pi)^*</script> is optimal in the ground MDP.</p>
   </li>
   <li>
     <p>Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}</script> converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.</p>
