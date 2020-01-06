@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-01-06T00:25:36-05:00</updated>
+ <updated>2020-01-06T00:34:00-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -35,7 +35,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Consider a task with input &lt;script type=&quot;math/tex&quot;&gt;x \in R^N&lt;/script&gt; and parameter &lt;script type=&quot;math/tex&quot;&gt;W$ \in R^{M \times N}$ where the output (target or features) are given as&lt;/script&gt;y=Wx$$.&lt;/p&gt;
+    &lt;p&gt;Consider a task with input &lt;script type=&quot;math/tex&quot;&gt;x \in R^N&lt;/script&gt; and parameter &lt;script type=&quot;math/tex&quot;&gt;W$ \in R^{M \times N}&lt;/script&gt; where the output (target or features) are given as &lt;script type=&quot;math/tex&quot;&gt;y=Wx&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Now consider &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; such tasks with parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, W_2, \cdots W_K&lt;/script&gt;.&lt;/p&gt;
@@ -44,7 +44,7 @@
     &lt;p&gt;If each &lt;script type=&quot;math/tex&quot;&gt;W_k&lt;/script&gt; requires only a small subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;, then a linear transformation &lt;script type=&quot;math/tex&quot;&gt;C_k^{-1}&lt;/script&gt; can be used such that each &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt; occupies a mutually orthogonal subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The set of parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, \cdots W_K&lt;/script&gt; can be represented by a single &lt;script type=&quot;math/tex&quot;&gt;W^{M \cross N}&lt;/script&gt; by adding &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The set of parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, \cdots W_K&lt;/script&gt; can be represented by a single &lt;script type=&quot;math/tex&quot;&gt;W^{M \times N}&lt;/script&gt; by adding &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The parameter corresponding to the &lt;script type=&quot;math/tex&quot;&gt;k^{th}&lt;/script&gt; task can be retrived (with some noise) using the context &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;W^{~}_k = WC_k&lt;/script&gt;&lt;/p&gt;
@@ -53,7 +53,7 @@
     &lt;p&gt;Even though the retrieval is noisy, the effect of noise is limited for the context vectors used in the paper.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Finally, $$y^~ = W^~_kx$ = (WC_k)x = W(C_kx)$&lt;/p&gt;
+    &lt;p&gt;Finally, &lt;script type=&quot;math/tex&quot;&gt;\widetilde(y) = \widetilde(W)_{k}x = (WC_{k})x = W(C_{k}x)&lt;/script&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Instead of learning &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; separate models, only &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; context vectors (along with 1 superimposed model) needs to be learned.&lt;/p&gt;
@@ -89,7 +89,7 @@
         &lt;p&gt;The design of rotational superposition can be improved by choosing &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; to be a diagonal matrix ie &lt;script type=&quot;math/tex&quot;&gt;C_k = diag(c_k)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; is a vector of size &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Choosing &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; to be a vector of complex numbers (of the form &lt;script type=&quot;math/tex&quot;&gt;c_k^j = e^{i\phi_j(k)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\phi_j(k)&lt;/script&gt; or the phase is sampled uniformly from &lt;script type=&quot;math/tex&quot;&gt;\[-\pi, \pi\]&lt;/script&gt;) leads to &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; being a digonal orthogonal matrix.&lt;/p&gt;
+        &lt;p&gt;Choosing &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; to be a vector of complex numbers (of the form &lt;script type=&quot;math/tex&quot;&gt;c_{k}^{j} = e^{i\phi_{j}(k)}&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\phi_{j}(k)&lt;/script&gt; or the phase is sampled uniformly from &lt;script type=&quot;math/tex&quot;&gt;[-\pi, \pi]&lt;/script&gt;) leads to &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; being a digonal orthogonal matrix.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -274,7 +274,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
         &lt;p&gt;If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}^{a}} = \sum_{s' \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}^{a}}&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_1, s'}^{a} = \sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_2, s'}^{a}&lt;/script&gt;.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
