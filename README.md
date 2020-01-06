@@ -5,6 +5,9 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Superposition of many models into one](https://shagunsodhani.com/papers-I-read/Superposition-of-many-models-into-one)
+* [Towards a Unified Theory of State Abstraction for MDPs](https://shagunsodhani.com/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs)
+* [ALBERT - A Lite BERT for Self-supervised Learning of Language Representations](https://shagunsodhani.com/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations)
 * [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://shagunsodhani.com/papers-I-read/Mastering-Atari,-Go,-Chess-and-Shogi-by-Planning-with-a-Learned-Model)
 * [Contrastive Learning of Structured World Models](https://shagunsodhani.com/papers-I-read/Contrastive-Learning-of-Structured-World-Models)
 * [Gossip based Actor-Learner Architectures for Deep RL](https://shagunsodhani.com/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL)
