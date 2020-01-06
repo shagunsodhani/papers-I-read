@@ -4,13 +4,462 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2019-12-15T23:51:56-05:00</updated>
+ <updated>2020-01-06T00:16:52-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Superposition of many models into one</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Superposition-of-many-models-into-one"/>
+   <updated>2020-01-02T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Superposition of many models into one</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a technique (called Parameter Superposition or PSP) for training and storing multiple models within a single set (or instance) of parameters.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The different models exist in “superposition” and can be retrieved dynamically given task-specific context information.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1902.05522&quot;&gt;Link to the paper&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;parameter-substitution&quot;&gt;Parameter Substitution&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider a task with input &lt;script type=&quot;math/tex&quot;&gt;x \in R^N&lt;/script&gt; and parameter &lt;script type=&quot;math/tex&quot;&gt;W$ \in R^{M \times N}$ where the output (target or features) are given as&lt;/script&gt;y=Wx$$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now consider &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; such tasks with parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, W_2, \cdots W_K&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If each &lt;script type=&quot;math/tex&quot;&gt;W_k&lt;/script&gt; requires only a small subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;, then a linear transformation &lt;script type=&quot;math/tex&quot;&gt;C_k^{-1}&lt;/script&gt; can be used such that each &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt; occupies a mutually orthogonal subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The set of parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, \cdots W_K&lt;/script&gt; can be represented by a single &lt;script type=&quot;math/tex&quot;&gt;W^{M \cross N}&lt;/script&gt; by adding &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The parameter corresponding to the &lt;script type=&quot;math/tex&quot;&gt;k^{th}&lt;/script&gt; task can be retrived (with some noise) using the context &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;W^{~}_k = WC_k&lt;/script&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Even though the retrieval is noisy, the effect of noise is limited for the context vectors used in the paper.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Finally, $$y^~ = W^~_kx$ = (WC_k)x = W(C_kx)$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Instead of learning &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; separate models, only &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; context vectors (along with 1 superimposed model) needs to be learned.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key assumption is that &lt;script type=&quot;math/tex&quot;&gt;N&lt;/script&gt; (in &lt;script type=&quot;math/tex&quot;&gt;x \in R^N)&lt;/script&gt; is large enough such that each &lt;script type=&quot;math/tex&quot;&gt;W_k&lt;/script&gt; requires only a small subspace of &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since images and speech signals tend to occupy a low dimensional manifold, this requirement can be satisfied by over-parameterizing x.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;choice-of-context-c&quot;&gt;Choice of Context C&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rotational Superposition (pspRotation)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sample rotations uniformly from the orthogonal group &lt;script type=&quot;math/tex&quot;&gt;O(M)&lt;/script&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Downside is that if &lt;script type=&quot;math/tex&quot;&gt;M \sim N&lt;/script&gt;, it requires storing as many parameters as learning &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; individual models (since &lt;script type=&quot;math/tex&quot;&gt;C&lt;/script&gt; is of the size of ##M \times M$$).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Complex Superposition (pspComplex)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The design of rotational superposition can be improved by choosing &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; to be a diagonal matrix ie &lt;script type=&quot;math/tex&quot;&gt;C_k = diag(c_k)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; is a vector of size &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Choosing &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; to be a vector of complex numbers (of the form &lt;script type=&quot;math/tex&quot;&gt;c_k^j = e^{i\phi_j(k)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\phi_j(k)&lt;/script&gt; or the phase is sampled uniformly from &lt;script type=&quot;math/tex&quot;&gt;\[-\pi, \pi\]&lt;/script&gt;) leads to &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; being a digonal orthogonal matrix.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Powers of a single context&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;The memory footprint can be further reduced by choosing the context vectors to be integral powers of the first context vector.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Binary Superposition (pspBinary)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;This is a special case of complex superposition where the context vectors are binary.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;neural-network-superposition&quot;&gt;Neural Network Superposition&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The parameter superposition principle can be applied to all the linear layers of a network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the convolutional layers, it makes more sense to apply superposition to the convolutional kernel and not to the input image (as the dimensionality of convolutional parameters is smaller than that of inputs).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For all the experiments, the baseline is a standard supervised learning setup, unless mentioned otherwise.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The metric is the performance on the previous tasks when the model has been trained on the newer tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Input Interference&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The input distribution changes over time.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Permuted MNIST dataset is used where each permutation of the pixels corresponds to a new task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;A new task is sampled every 1000 mini-batches.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;As the network size increases, the performance of Parameter Superposition (psp) outperforms the baseline significantly.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;pspRotation &amp;gt; pspComplex &amp;gt; pspBinary in terms of both performance and the number of additional parameters required for each new task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Given that pspBinary is the easiest to implement while being comparable to more sophisticated baselines like Elastic Weight Consolidation (EWC) and Synaptic Intelligence, the paper presents most of the results with the pspBinary model.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Continous Domain Shift&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Rotating-MNIST and Rotating-FashionMNIST tasks are proposed to simulate continuous domain shift.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In these tasks, the input images are rotated in-plane by a small angle such that the rotation is complete after 1000 steps.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;A new context is assigned after 100 steps as per step changes in the angle would be very small.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The 10 context vectors used in the first 1000 steps are reused for the subsequent steps.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Randomly changing the context vector&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper considers an ablation where the context vector is randomly changed at every step (of the 1000 step cycle). This required the superposition model to store 1000 models.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This approach is better than the supervised learning baseline but not as good as the proposed psp* models.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output Interference&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;This is the setup where the model transitions from one classification task to another.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Incremental CIFAR dataset is used with Resnet18 as the base model.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Baseline is a standard supervised learning model where a new classification head is used for each task (since the classes have a different meaning in each dataset). The model component before the classification layer is shared across the tasks.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Even though the labels are different across the datasets, the pspBinary model, trained with a single output layer, outperforms the multi-headed baseline.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Towards a Unified Theory of State Abstraction for MDPs</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs"/>
+   <updated>2019-12-26T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Towards a Unified Theory of State Abstraction for MDPs</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studies five different techniques for stat abstraction in MDPs (Markov Decision Processes) and evaluates their usefulness for planning and learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The general idea behind abstraction is to map the actual (or observed) state to an abstract state that should be more amenable for learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It can be thought of as a mapping from one representation to another representation while preserving some useful properties.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://pdfs.semanticscholar.org/ca9a/2d326b9de48c095a6cb5912e1990d2c5ab46.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;general-definition&quot;&gt;General Definition&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider a MDP &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;S&lt;/script&gt; is the finite set of states, &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt; is finite set of actions, &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; is the transition function, &lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt; is the bounded reward function and &lt;script type=&quot;math/tex&quot;&gt;\gamma&lt;/script&gt; is the discount factor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The abstract version of the MDP is &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\widetilde{M} = &lt;\widetilde{S}, A, \widetilde{P}, \widetilde{R}, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\widetilde{S}&lt;/script&gt; is the finite set if abstract states, &lt;script type=&quot;math/tex&quot;&gt;\widetilde{P}&lt;/script&gt; is the transition function in the abstract state space and &lt;script type=&quot;math/tex&quot;&gt;\widetilde{R}&lt;/script&gt; is the bounded reward function in the abstract reward space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; is a function that maps a given state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; to its abstract counterpart &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The inverse image &lt;script type=&quot;math/tex&quot;&gt;\phi^-1(\widetilde{s})&lt;/script&gt; is the set of ground states that map to the &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt; under the abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A wieghing functioon &lt;script type=&quot;math/tex&quot;&gt;w(s)&lt;/script&gt; is used to measure how much does a state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; contribute to the abstract state &lt;script type=&quot;math/tex&quot;&gt;\phi(s)&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;topology-of-abstraction-space&quot;&gt;Topology of Abstraction Space&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given two abstraction functions &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; is said to be &lt;em&gt;finer&lt;/em&gt; than &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt; iff for any states &lt;script type=&quot;math/tex&quot;&gt;s_{1}, s_{2}&lt;/script&gt; if &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}(s_{1} = \phi_{1}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}(s_{1} = \phi_{2}(s_{2})&lt;/script&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This &lt;em&gt;finer&lt;/em&gt; relation is reflex, antisymmetric, transitive and partially ordered.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;five-types-of-abstraction&quot;&gt;Five Types of Abstraction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;While many abstractions are possible, not all abstractions are equally important.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model-irrelevance abstraction &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}&lt;/script&gt;:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}} = \sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}}&lt;/script&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;Q^{\pi}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;It preserves the state-action value finction for all the states.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\phi_{Q^{\pi}}(s_1) = \phi_{Q^{\pi}}(s_2)&lt;/script&gt; implies &lt;script type=&quot;math/tex&quot;&gt;Q^{\pi}(s_1, a) = Q^{\pi}(s_1, a)&lt;/script&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;Q^{*}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;It preserves the optimal state-action value function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;a^{*}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;It preserves the optimal action and its value function.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\phi_{\pi^{*}}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;It preserves the optimal action.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In terms of &lt;em&gt;fineness&lt;/em&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}&lt;/script&gt;. Here &lt;script type=&quot;math/tex&quot;&gt;\phi_0&lt;/script&gt; is the identity mapping ie &lt;script type=&quot;math/tex&quot;&gt;\phi_0(s) = s_&lt;/script&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If a property applies to any abstraction, it also applies to all the finer abstractions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;key-theorems&quot;&gt;Key Theorems&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;As we go from finer to coarser abstractions, the information loss increases (ie fewer components can be recovered) while the state-space reduces (ie the efficiency of solving the problem increases). This leads to a tradeoff when selecting abstractions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, with abstractions &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the optimal abstract policy &lt;script type=&quot;math/tex&quot;&gt;\widetilde(\pi^*)&lt;/script&gt; is optimal in the ground MDP.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}&lt;/script&gt; converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the model built with the experience converges to the true abstract model with infinite experience if the weighing function &lt;script type=&quot;math/tex&quot;&gt;w(s)&lt;/script&gt; is fixed.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>ALBERT - A Lite BERT for Self-supervised Learning of Language Representations</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations"/>
+   <updated>2019-12-19T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/ALBERT - A Lite BERT for Self-supervised Learning of Language Representations</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes parameter-reduction techniques to lower the memory consumption (and improve training speed) of BERT.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It also proposes to use a self-supervised loss (based on inter-sentence coherence) and argues that this loss is better than the NSP loss used by BERT.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.11942&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ALBERT architecture is similar to that of BERT with three major differences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Factorized Embedding Parameterization&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In BERT and followup works, the embedding size was tied to the size of the context vector.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Since context vector is expected to encoder the entire context, it needs to have a large dimensionality.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;One consequence of this choice is that even the embedding layer (which encodes the representation for each token) has a large size. This increases the overall memory footprint of the model.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper proposed to factorize the embedding parameters into two smaller matrics.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The embedding layer learns a low dimensional representation of the tokens and this representation is projected into a high dimensional space.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cross-layer parameter sharing&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;ALBERT shares all the parameters across the layers.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Inter-sentence coherence loss&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;BERT uses two losses - Masked Language Modeling loss (MLM) and Next Sentence Prediction (NSP).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In the NSP task, the model is provided a pair of sentences and it has to predict if the two sentences appear consecutively in the same document or not. Negative samples are created by sampling sentences from different documents.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper argues that NSP is not effective as a loss function as it merges topic prediction and coherence prediction into one task (as the two sentences come from different documents). The topic prediction is an easier task as compared to coherence prediction.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Hence the paper proposes to use the Sentence Order Prediction task where the model has to predict which of the two sentences comes first in a document. The negative samples are created by simply swapping the order in the positive samples. Hence both the sentences come from the same document and topic prediction alone can not be used to solve the task.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Different variants (in terms of size) of ALBERT and BERT models are compared (eg ALBERT, ALBERT-x, BERT-x, etc).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, ALBERT models have many-times fewer parameters as compared to the BERT models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets - BookCorpus, English Wikipedia.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ALBERT-xxlarge significantly outperforms the BERT-large model even though it has around 70% parameters as the BERT-large model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BERT-xlarge performs worse than BERT-base hinting that it is difficult to train such large models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ALBERT models also have better data throughput as compared to BERT models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the ALBERT models, an embedding size of 128 performs the best.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As the hidden dimension is increased, the model obtains better performance, but with diminishing returns.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Very wide ALBERT models (say with a context size of 1024) do not benefit much from depth.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using additional training data boosts the performance for most of the downstream tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper empirically shows that using dropout could hurt the performance of the ALBERT models. This observation may not hold for BERT as it does not share parameters across layers and hence may need regularization via dropout.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ALBERT also improves the state of the art performance on GLUE, SQuAD and RACE benchmarks, for both single-model and ensemble setup.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text</title>
@@ -3067,76 +3516,6 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Even with lower embedding dimensions, TuckER’s performance does not deteriorate as much as other models.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Gossip based Actor-Learner Architectures for Deep RL</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/Gossip-based-Actor-Learner-Architectures-for-Deep-RL"/>
-   <updated>2019-02-12T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/Gossip based Actor-Learner Architectures for Deep RL</id>
-   <content type="html">&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.04585&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper considers the task of training an RL system by sampling data from multiple simulators (over parallel devices).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The setup is that of distributed RL setting with &lt;em&gt;n&lt;/em&gt; agents or actor-learners (composed of a single learner and several actors). These agents are trying to maximize a common value function.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;One (existing) approach is to perform on-policy updates with a shared policy. The policy could be updated in synchronous (does not scale well) or asynchronous manner (can be unstable due to stale gradients).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Off policy approaches allow for better computational efficiency but can be unstable during training.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper proposed Gossip based Actor-Learner Architecture (GALA) which uses asynchronous communication (gossip) between the &lt;em&gt;n&lt;/em&gt; agents to improve the training of Deep RL models.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;These agents are expected to converge to the same policy.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;During training, the different agents are not required to share the same policy and it is sufficient that the agent’s policies remain $\epsilon$-close to each other. This relaxation allows the policies to be trained asynchronously.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;GALA approach is combined with A2C agents resulting in GALA-A2C agents. They have better computational efficiency and scalability (as compared to A2C) and similar in performance to A3C and Impala.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Training alternates between one local policy-gradient (and TD update) and asynchronous gossip between agents.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;During the gossip step, the agents send their parameters to some of the other agents (referred to as the peers) and update their parameters based on the parameters received from the other agents (for which the given agent is a peer).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;GALA agents are implemented using non-blocking communication so that they can operate asynchronously.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper includes the proof that the policies learned by the different agents are within $\epsilon$ distance of each other (ie all the policies lie within an $\epsilon$-distance ball) thus ensuring that the policies do not diverge much from each other.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Six games from the Ataru 2600 games suite are used for the experiments.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Baselines: A2C, A3C, Impala&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;GALA agents are configured in a directed ring graph topology.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;With A2C, as the number of simulators increases, the number of convergent runs (runs with a threshold reward) decreases.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Using gossip algorithms increases or maintains the number of convergent runs. It also improves the performance, sample efficiency and compute efficiency of A2C across all the six games.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;When compared to Impala and A3C, GALA-A2C generally outperforms (or performs as well as) those baselines.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Given that the learned policies remain within an $\epsilon$ ball, the agent’s gradients are less correlated as compared to the A2C agents.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>

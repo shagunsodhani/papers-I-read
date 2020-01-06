@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Towards a Unified Theory of State Abstraction for MDPs &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Towards a Unified Theory of State Abstraction for MDPs</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2006" title="Pages tagged 2006" rel="tag">2006</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Markov+Decision+Process" title="Pages tagged Markov Decision Process" rel="tag">Markov Decision Process</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#State+Abstraction" title="Pages tagged State Abstraction" rel="tag">State Abstraction</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MDP" title="Pages tagged MDP" rel="tag">MDP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">26 Dec 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper studies five different techniques for stat abstraction in MDPs (Markov Decision Processes) and evaluates their usefulness for planning and learning.</p>
+  </li>
+  <li>
+    <p>The general idea behind abstraction is to map the actual (or observed) state to an abstract state that should be more amenable for learning.</p>
+  </li>
+  <li>
+    <p>It can be thought of as a mapping from one representation to another representation while preserving some useful properties.</p>
+  </li>
+  <li>
+    <p><a href="https://pdfs.semanticscholar.org/ca9a/2d326b9de48c095a6cb5912e1990d2c5ab46.pdf">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="general-definition">General Definition</h2>
+
+<ul>
+  <li>
+    <p>Consider a MDP <script type="math/tex">% <![CDATA[
+M = <S, A, P, R, \gamma> %]]></script> where <script type="math/tex">S</script> is the finite set of states, <script type="math/tex">A</script> is finite set of actions, <script type="math/tex">P</script> is the transition function, <script type="math/tex">R</script> is the bounded reward function and <script type="math/tex">\gamma</script> is the discount factor.</p>
+  </li>
+  <li>
+    <p>The abstract version of the MDP is <script type="math/tex">% <![CDATA[
+\widetilde{M} = <\widetilde{S}, A, \widetilde{P}, \widetilde{R}, \gamma> %]]></script> where <script type="math/tex">\widetilde{S}</script> is the finite set if abstract states, <script type="math/tex">\widetilde{P}</script> is the transition function in the abstract state space and <script type="math/tex">\widetilde{R}</script> is the bounded reward function in the abstract reward space.</p>
+  </li>
+  <li>
+    <p>Abstraction function <script type="math/tex">\phi</script> is a function that maps a given state <script type="math/tex">s</script> to its abstract counterpart <script type="math/tex">\widetilde{s}</script>.</p>
+  </li>
+  <li>
+    <p>The inverse image <script type="math/tex">\phi^-1(\widetilde{s})</script> is the set of ground states that map to the <script type="math/tex">\widetilde{s}</script> under the abstraction function <script type="math/tex">\phi</script>.</p>
+  </li>
+  <li>
+    <p>A wieghing functioon <script type="math/tex">w(s)</script> is used to measure how much does a state <script type="math/tex">s</script> contribute to the abstract state <script type="math/tex">\phi(s)</script>.</p>
+  </li>
+</ul>
+
+<h2 id="topology-of-abstraction-space">Topology of Abstraction Space</h2>
+
+<ul>
+  <li>
+    <p>Given two abstraction functions <script type="math/tex">\phi_{1}</script> and <script type="math/tex">\phi_{2}</script>, <script type="math/tex">\phi_{1}</script> is said to be <em>finer</em> than <script type="math/tex">\phi_{2}</script> iff for any states <script type="math/tex">s_{1}, s_{2}</script> if <script type="math/tex">\phi_{1}(s_{1} = \phi_{1}(s_{2})</script> then <script type="math/tex">\phi_{2}(s_{1} = \phi_{2}(s_{2})</script>.</p>
+  </li>
+  <li>
+    <p>This <em>finer</em> relation is reflex, antisymmetric, transitive and partially ordered.</p>
+  </li>
+</ul>
+
+<h2 id="five-types-of-abstraction">Five Types of Abstraction</h2>
+
+<ul>
+  <li>
+    <p>While many abstractions are possible, not all abstractions are equally important.</p>
+  </li>
+  <li>
+    <p>Model-irrelevance abstraction <script type="math/tex">\phi_{model}</script>:</p>
+
+    <ul>
+      <li>
+        <p>If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.</p>
+      </li>
+      <li>
+        <p>Consider any action <script type="math/tex">a</script> and any abstract state <script type="math/tex">\widetilde{s}</script>, if <script type="math/tex">\phi_{model}(s_{1} = \phi_{model}(s_{2})</script> then <script type="math/tex">R(s_1, a) = R(s_2, a)</script> and <script type="math/tex">\sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_1, s'}} = \sum_{\widetilde{s} \in \phi_{model}^{-1}(\widetilde(s))P_{s_2, s'}}</script>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><script type="math/tex">Q^{\pi}</script>-irrelevance abstraction:</p>
+
+    <ul>
+      <li>
+        <p>It preserves the state-action value finction for all the states.</p>
+      </li>
+      <li>
+        <p><script type="math/tex">\phi_{Q^{\pi}}(s_1) = \phi_{Q^{\pi}}(s_2)</script> implies <script type="math/tex">Q^{\pi}(s_1, a) = Q^{\pi}(s_1, a)</script>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><script type="math/tex">Q^{*}</script>-irrelevance abstraction:</p>
+
+    <ul>
+      <li>It preserves the optimal state-action value function.</li>
+    </ul>
+  </li>
+  <li>
+    <p><script type="math/tex">a^{*}</script>-irrelevance abstraction:</p>
+
+    <ul>
+      <li>It preserves the optimal action and its value function.</li>
+    </ul>
+  </li>
+  <li>
+    <p><script type="math/tex">\phi_{\pi^{*}}</script>-irrelevance abstraction:</p>
+
+    <ul>
+      <li>It preserves the optimal action.</li>
+    </ul>
+  </li>
+  <li>
+    <p>In terms of <em>fineness</em>, <script type="math/tex">\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}</script>. Here <script type="math/tex">\phi_0</script> is the identity mapping ie <script type="math/tex">\phi_0(s) = s_</script></p>
+  </li>
+  <li>
+    <p>If a property applies to any abstraction, it also applies to all the finer abstractions.</p>
+  </li>
+</ul>
+
+<h2 id="key-theorems">Key Theorems</h2>
+
+<ul>
+  <li>
+    <p>As we go from finer to coarser abstractions, the information loss increases (ie fewer components can be recovered) while the state-space reduces (ie the efficiency of solving the problem increases). This leads to a tradeoff when selecting abstractions.</p>
+  </li>
+  <li>
+    <p>For example, with abstractions <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}</script>, the optimal abstract policy <script type="math/tex">\widetilde(\pi^*)</script> is optimal in the ground MDP.</p>
+  </li>
+  <li>
+    <p>Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}</script> converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.</p>
+  </li>
+  <li>
+    <p>For <script type="math/tex">\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}</script>, the model built with the experience converges to the true abstract model with infinite experience if the weighing function <script type="math/tex">w(s)</script> is fixed.</p>
+  </li>
+</ul>
+
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Superposition-of-many-models-into-one">
+            Superposition of many models into one
+            <small>02 Jan 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations">
+            ALBERT - A Lite BERT for Self-supervised Learning of Language Representations
+            <small>19 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Everything-Happens-for-a-Reason-Discovering-the-Purpose-of-Actions-in-Procedural-Text">
+            Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text
+            <small>12 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

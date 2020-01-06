@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Superposition of many models into one &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Superposition of many models into one</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">02 Jan 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes a technique (called Parameter Superposition or PSP) for training and storing multiple models within a single set (or instance) of parameters.</p>
+  </li>
+  <li>
+    <p>The different models exist in “superposition” and can be retrieved dynamically given task-specific context information.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1902.05522">Link to the paper</a>.</p>
+  </li>
+</ul>
+
+<h2 id="parameter-substitution">Parameter Substitution</h2>
+
+<ul>
+  <li>
+    <p>Consider a task with input <script type="math/tex">x \in R^N</script> and parameter <script type="math/tex">W$ \in R^{M \times N}$ where the output (target or features) are given as</script>y=Wx$$.</p>
+  </li>
+  <li>
+    <p>Now consider <script type="math/tex">K</script> such tasks with parameters <script type="math/tex">W_1, W_2, \cdots W_K</script>.</p>
+  </li>
+  <li>
+    <p>If each <script type="math/tex">W_k</script> requires only a small subspace in <script type="math/tex">R^N</script>, then a linear transformation <script type="math/tex">C_k^{-1}</script> can be used such that each <script type="math/tex">W_kC_k^{-1}</script> occupies a mutually orthogonal subspace in <script type="math/tex">R^N</script>.</p>
+  </li>
+  <li>
+    <p>The set of parameters <script type="math/tex">W_1, \cdots W_K</script> can be represented by a single <script type="math/tex">W^{M \cross N}</script> by adding <script type="math/tex">W_kC_k^{-1}</script>.</p>
+  </li>
+  <li>
+    <p>The parameter corresponding to the <script type="math/tex">k^{th}</script> task can be retrived (with some noise) using the context <script type="math/tex">C_k</script> as <script type="math/tex">W^{~}_k = WC_k</script></p>
+  </li>
+  <li>
+    <p>Even though the retrieval is noisy, the effect of noise is limited for the context vectors used in the paper.</p>
+  </li>
+  <li>
+    <p>Finally, $$y^~ = W^~_kx$ = (WC_k)x = W(C_kx)$</p>
+  </li>
+  <li>
+    <p>Instead of learning <script type="math/tex">K</script> separate models, only <script type="math/tex">K</script> context vectors (along with 1 superimposed model) needs to be learned.</p>
+  </li>
+  <li>
+    <p>The key assumption is that <script type="math/tex">N</script> (in <script type="math/tex">x \in R^N)</script> is large enough such that each <script type="math/tex">W_k</script> requires only a small subspace of <script type="math/tex">R^N</script>.</p>
+  </li>
+  <li>
+    <p>Since images and speech signals tend to occupy a low dimensional manifold, this requirement can be satisfied by over-parameterizing x.</p>
+  </li>
+</ul>
+
+<h2 id="choice-of-context-c">Choice of Context C</h2>
+
+<ul>
+  <li>
+    <p>Rotational Superposition (pspRotation)</p>
+
+    <ul>
+      <li>
+        <p>Sample rotations uniformly from the orthogonal group <script type="math/tex">O(M)</script>.</p>
+      </li>
+      <li>
+        <p>Downside is that if <script type="math/tex">M \sim N</script>, it requires storing as many parameters as learning <script type="math/tex">K</script> individual models (since <script type="math/tex">C</script> is of the size of ##M \times M$$).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Complex Superposition (pspComplex)</p>
+
+    <ul>
+      <li>
+        <p>The design of rotational superposition can be improved by choosing <script type="math/tex">C_k</script> to be a diagonal matrix ie <script type="math/tex">C_k = diag(c_k)</script> where <script type="math/tex">c_k</script> is a vector of size <script type="math/tex">M</script>.</p>
+      </li>
+      <li>
+        <p>Choosing <script type="math/tex">c_k</script> to be a vector of complex numbers (of the form <script type="math/tex">c_k^j = e^{i\phi_j(k)</script> where <script type="math/tex">\phi_j(k)</script> or the phase is sampled uniformly from <script type="math/tex">\[-\pi, \pi\]</script>) leads to <script type="math/tex">C_k</script> being a digonal orthogonal matrix.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Powers of a single context</p>
+
+    <ul>
+      <li>The memory footprint can be further reduced by choosing the context vectors to be integral powers of the first context vector.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Binary Superposition (pspBinary)</p>
+
+    <ul>
+      <li>This is a special case of complex superposition where the context vectors are binary.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="neural-network-superposition">Neural Network Superposition</h2>
+
+<ul>
+  <li>
+    <p>The parameter superposition principle can be applied to all the linear layers of a network.</p>
+  </li>
+  <li>
+    <p>For the convolutional layers, it makes more sense to apply superposition to the convolutional kernel and not to the input image (as the dimensionality of convolutional parameters is smaller than that of inputs).</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>For all the experiments, the baseline is a standard supervised learning setup, unless mentioned otherwise.</p>
+  </li>
+  <li>
+    <p>The metric is the performance on the previous tasks when the model has been trained on the newer tasks.</p>
+  </li>
+  <li>
+    <p>Input Interference</p>
+
+    <ul>
+      <li>
+        <p>The input distribution changes over time.</p>
+      </li>
+      <li>
+        <p>Permuted MNIST dataset is used where each permutation of the pixels corresponds to a new task.</p>
+      </li>
+      <li>
+        <p>A new task is sampled every 1000 mini-batches.</p>
+      </li>
+      <li>
+        <p>As the network size increases, the performance of Parameter Superposition (psp) outperforms the baseline significantly.</p>
+      </li>
+      <li>
+        <p>pspRotation &gt; pspComplex &gt; pspBinary in terms of both performance and the number of additional parameters required for each new task.</p>
+      </li>
+      <li>
+        <p>Given that pspBinary is the easiest to implement while being comparable to more sophisticated baselines like Elastic Weight Consolidation (EWC) and Synaptic Intelligence, the paper presents most of the results with the pspBinary model.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Continous Domain Shift</p>
+
+    <ul>
+      <li>
+        <p>Rotating-MNIST and Rotating-FashionMNIST tasks are proposed to simulate continuous domain shift.</p>
+      </li>
+      <li>
+        <p>In these tasks, the input images are rotated in-plane by a small angle such that the rotation is complete after 1000 steps.</p>
+      </li>
+      <li>
+        <p>A new context is assigned after 100 steps as per step changes in the angle would be very small.</p>
+      </li>
+      <li>
+        <p>The 10 context vectors used in the first 1000 steps are reused for the subsequent steps.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Randomly changing the context vector</p>
+
+    <ul>
+      <li>
+        <p>The paper considers an ablation where the context vector is randomly changed at every step (of the 1000 step cycle). This required the superposition model to store 1000 models.</p>
+      </li>
+      <li>
+        <p>This approach is better than the supervised learning baseline but not as good as the proposed psp* models.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Output Interference</p>
+
+    <ul>
+      <li>
+        <p>This is the setup where the model transitions from one classification task to another.</p>
+      </li>
+      <li>
+        <p>Incremental CIFAR dataset is used with Resnet18 as the base model.</p>
+      </li>
+      <li>
+        <p>Baseline is a standard supervised learning model where a new classification head is used for each task (since the classes have a different meaning in each dataset). The model component before the classification layer is shared across the tasks.</p>
+      </li>
+      <li>
+        <p>Even though the labels are different across the datasets, the pspBinary model, trained with a single output layer, outperforms the multi-headed baseline.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs">
+            Towards a Unified Theory of State Abstraction for MDPs
+            <small>26 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations">
+            ALBERT - A Lite BERT for Self-supervised Learning of Language Representations
+            <small>19 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Everything-Happens-for-a-Reason-Discovering-the-Purpose-of-Actions-in-Procedural-Text">
+            Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text
+            <small>12 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Superposition-of-many-models-into-one"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Superposition-of-many-models-into-one"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
