@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Learning an SAT Solver from Single-Bit Supervision &middot; Papers I Read
+      Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour &middot; Papers I Read
     
   </title>
 
@@ -149,119 +149,122 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Learning an SAT Solver from Single-Bit Supervision</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#GNN" title="Pages tagged GNN" rel="tag">GNN</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SAT" title="Pages tagged SAT" rel="tag">SAT</a></p>
-  <span class="post-date">24 Feb 2018</span>
+  <h1 class="post-title">Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Computing" title="Pages tagged Distributed Computing" rel="tag">Distributed Computing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+SGD" title="Pages tagged Distributed SGD" rel="tag">Distributed SGD</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical+Advice" title="Pages tagged Empirical Advice" rel="tag">Empirical Advice</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Synchronous+SGD%27" title="Pages tagged Synchronous SGD'" rel="tag">Synchronous SGD'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ImageNet" title="Pages tagged ImageNet" rel="tag">ImageNet</a></p>
+  <span class="post-date">09 Jan 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper presents NeuroSAT, a message passing neural network that is trained to predict if a given SAT can be solved. As a side effect of training, the model also learns how to solve the SAT problem itself without any extra supervision.</p>
+    <p>Training models with large minibatches (using distributed synchronous SGD) can lead to optimization issues.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1802.03685">Link to the paper</a></p>
+    <p>The paper presents techniques for training models with large batch size while matching the accuracy of small minibatch setups.</p>
+  </li>
+  <li>
+    <p>The paper focuses on the ImageNet dataset, but many of the proposed ideas are applicable broadly.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1706.02677">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="background">Background</h2>
+<h2 id="linear-scaling-rule">Linear Scaling Rule</h2>
 
 <ul>
   <li>
-    <p>Given an expression in the propositional logic, the task is to predict if there exists a substitution of variables that make the expression true.</p>
+    <p>When the minibatch size increases by a factor of <em>k</em>, the learning rate should also be increased by a factor of <em>k</em> (while keeping all other hyperparameters like weight decay fixed).</p>
   </li>
   <li>
-    <p>The expression itself can be written as a conjunction of disjunctions (“and” over “or”) where each conjunct is called a clause and each variable within a clause is called a literal.</p>
+    <p>Note that this is an empirical rule and is not expected to hold under all conditions.</p>
   </li>
   <li>
-    <p>Invariants</p>
-
-    <ul>
-      <li>
-        <p>The variables or clauses or literals (within the clauses) can be permuted.</p>
-      </li>
-      <li>
-        <p>Every occurrence of a variable can be negated.</p>
-      </li>
-    </ul>
+    <p>One such condition is when the model is changing rapidly during the first few epochs. In this case, a warmup phase is introduced to stabilize the model.</p>
+  </li>
+  <li>
+    <p>The paper verifies that the scaling rule is applicable to batch sizes as large as 8K.</p>
   </li>
 </ul>
 
-<h2 id="model">Model</h2>
+<h2 id="warmup">Warmup</h2>
+
+<ul>
+  <li>The learning rate should be gradually ramped up from a small value to a large value to allow convergence.</li>
+</ul>
+
+<h2 id="batch-normalization">Batch Normalization</h2>
 
 <ul>
   <li>
-    <p>Given the SAT problem,  create an undirected graph of literals, their negations and the clauses they belong to.</p>
+    <p>Batch normalization uses batch statistics to normalize the data. Hence, the loss corresponding to each data point (in the batch) is not independent. Thus, changing the batch size could change the underlying function being optimized.</p>
   </li>
   <li>
-    <p>Put an edge between every literal and the clause to which it belongs and another kind of edge between every literal and its negation.</p>
-  </li>
-  <li>
-    <p>Perform message passing between nodes to obtain vector representations corresponding to each node. Specifically, first, each clause received a message from its neighbours (literals) and updates its embeddings. Then every literal receives a message from its neighbours (both literals and clauses) and updates its embeddings.</p>
-  </li>
-  <li>
-    <p>After T iterations, the nodes vote to decide the prediction of the model as a whole.</p>
-  </li>
-  <li>
-    <p>The model is trained end-to-end using the cross-entropy loss between logit and the true label.</p>
-  </li>
-  <li>
-    <p>Permutation invariance is ensured by operating on the nodes and the edges in the topological order and negation invariance is ensured by treating all literals as the same.</p>
+    <p>In the distributed SGD setup, the per-GPU (or per-worker) batch size should be kept constant, and only one worker should compute the batch norm statistics.</p>
   </li>
 </ul>
 
-<h2 id="decoding-satisfying-assignment">Decoding Satisfying Assignment</h2>
+<h2 id="pitfalls-when-using-distributed-sgd">Pitfalls when using distributed SGD</h2>
 
 <ul>
   <li>
-    <p>The most interesting aspect of this work is that even though the model was trained to predict if the SAT problem can be satisfied, it is actually possible to extract the correct assignment from the classifier.</p>
+    <p>When using weight decay, scaling the cross-entropy loss is not the same as scaling the learning rate.</p>
   </li>
   <li>
-    <p>In the early iterations, all the nodes vote “unsolvable” with low confidence. Then a few nodes start voting “solvable” and then a phase transition happens where most of the nodes start voting “solvable” with high confidence.</p>
+    <p>When using momentum, changing the learning rate could require “momentum correction.”</p>
   </li>
   <li>
-    <p>The model never becomes highly confident that problem is “unsolvable” and almost never guesses “solvable” on an “unsolvable” problem. So in some sense, the model is looking for the combination of literals that actually solves the problem.</p>
+    <p>Ensure that the per-worker loss is normalized by the size of the total minibatch and not just by the size of minibatch that each worker sees.</p>
   </li>
   <li>
-    <p>The authors found that the 2 dimensional PCA projections of the literal embeddings are initially mixed up but become more and more linearly separable as the phase transition happens.</p>
-  </li>
-  <li>
-    <p>Based on this insight, the authors propose to obtain cluster centres C1 and C2, partition the variables according to the cluster centres and then try assignments from both the partitions.</p>
-  </li>
-  <li>
-    <p>This alone provides a satisfying solution in over 70% of the cases when though there is no explicit supervising signal about how to solve the problem.</p>
-  </li>
-  <li>
-    <p>The other strengths of the paper includes</p>
-
-    <ul>
-      <li>
-        <p>Generalizing to longer and more difficult SAT problems (than those seen during training).</p>
-      </li>
-      <li>
-        <p>Generalizing to another kind of search problems like graph colouring, clique detection etc (over small random graphs).</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p>The paper also reports that by adding supervising signal about which clauses in the given expression are unsatisfiable, it is possible to decode the literals which prove the “unsatisfiability” of an expression at test time. Though not a lot of details have been provided about this part and would probably be covered in the next iteration of the paper.</p>
+    <p>For each epoch, uses a single random shuffling of the training data (before dividing between the workers).</p>
   </li>
 </ul>
 
+<h2 id="communication">Communication</h2>
+
+<ul>
+  <li>
+    <p>The paper describes various techniques to speed up the training pipeline by reducing the communication overhead between nodes. (Each node can have one or more GPUs).</p>
+  </li>
+  <li>
+    <p>First, a node sums the gradient from all the GPUs it has.</p>
+  </li>
+  <li>
+    <p>The gradients are shared and summed across all the nodes.</p>
+  </li>
+  <li>
+    <p>Each node broadcasts the resulting gradient to all the GPUs it has.</p>
+  </li>
+  <li>
+    <p>Gradient Aggregation is performed in parallel with the backpropagation operator. While aggregating the gradient for one layer, the system starts computing the gradient of the next layer.</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>Using these approaches, a Resnet50 model can be trained on the ImageNet dataset in an hour (using 256 workers).</p>
+  </li>
+  <li>
+    <p>When an appropriate warmup strategy is used, the training and the validation curves (for the large batch size setup) matches the corresponding curves for the small batch size setup.</p>
+  </li>
+  <li>
+    <p>The best performing warmup strategy is the one where training starts at a learning rate of 0.1 and linearly increases to 3.2 over five epochs.</p>
+  </li>
+  <li>
+    <p>The paper shows that the results are not specific to the Resnet50 model (experiments with Resnet101 model) or the use case (experiments with object detection and instance segmentation using Mask R-CNN).</p>
+  </li>
+  <li>
+    <p>Along with providing the empirical validation of the proposed ideas, the paper describes all the hyperparameters. It also includes the training and validation curves with the different configurations which enable others to replicate and build on this work.</p>
+  </li>
+</ul>
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour">
-            Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour
-            <small>09 Jan 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -277,6 +280,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs">
             Towards a Unified Theory of State Abstraction for MDPs
             <small>26 Dec 2019</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations">
+            ALBERT - A Lite BERT for Self-supervised Learning of Language Representations
+            <small>19 Dec 2019</small>
           </a>
         </h3>
       </li>
@@ -297,8 +309,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Learning-a-SAT-Solver-from-Single-Bit-Supervision"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Learning-a-SAT-Solver-from-Single-Bit-Supervision"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

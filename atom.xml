@@ -4,13 +4,128 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-01-06T00:34:00-05:00</updated>
+ <updated>2020-01-21T23:58:47-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour"/>
+   <updated>2020-01-09T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Accurate Large Minibatch SGD - Training ImageNet in 1 Hour</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training models with large minibatches (using distributed synchronous SGD) can lead to optimization issues.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents techniques for training models with large batch size while matching the accuracy of small minibatch setups.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper focuses on the ImageNet dataset, but many of the proposed ideas are applicable broadly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1706.02677&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;linear-scaling-rule&quot;&gt;Linear Scaling Rule&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When the minibatch size increases by a factor of &lt;em&gt;k&lt;/em&gt;, the learning rate should also be increased by a factor of &lt;em&gt;k&lt;/em&gt; (while keeping all other hyperparameters like weight decay fixed).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that this is an empirical rule and is not expected to hold under all conditions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One such condition is when the model is changing rapidly during the first few epochs. In this case, a warmup phase is introduced to stabilize the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper verifies that the scaling rule is applicable to batch sizes as large as 8K.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;warmup&quot;&gt;Warmup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The learning rate should be gradually ramped up from a small value to a large value to allow convergence.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;batch-normalization&quot;&gt;Batch Normalization&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Batch normalization uses batch statistics to normalize the data. Hence, the loss corresponding to each data point (in the batch) is not independent. Thus, changing the batch size could change the underlying function being optimized.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the distributed SGD setup, the per-GPU (or per-worker) batch size should be kept constant, and only one worker should compute the batch norm statistics.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pitfalls-when-using-distributed-sgd&quot;&gt;Pitfalls when using distributed SGD&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When using weight decay, scaling the cross-entropy loss is not the same as scaling the learning rate.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When using momentum, changing the learning rate could require “momentum correction.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ensure that the per-worker loss is normalized by the size of the total minibatch and not just by the size of minibatch that each worker sees.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each epoch, uses a single random shuffling of the training data (before dividing between the workers).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;communication&quot;&gt;Communication&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes various techniques to speed up the training pipeline by reducing the communication overhead between nodes. (Each node can have one or more GPUs).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;First, a node sums the gradient from all the GPUs it has.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The gradients are shared and summed across all the nodes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each node broadcasts the resulting gradient to all the GPUs it has.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gradient Aggregation is performed in parallel with the backpropagation operator. While aggregating the gradient for one layer, the system starts computing the gradient of the next layer.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using these approaches, a Resnet50 model can be trained on the ImageNet dataset in an hour (using 256 workers).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When an appropriate warmup strategy is used, the training and the validation curves (for the large batch size setup) matches the corresponding curves for the small batch size setup.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The best performing warmup strategy is the one where training starts at a learning rate of 0.1 and linearly increases to 3.2 over five epochs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that the results are not specific to the Resnet50 model (experiments with Resnet101 model) or the use case (experiments with object detection and instance segmentation using Mask R-CNN).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Along with providing the empirical validation of the proposed ideas, the paper describes all the hyperparameters. It also includes the training and validation curves with the different configurations which enable others to replicate and build on this work.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Superposition of many models into one</title>
