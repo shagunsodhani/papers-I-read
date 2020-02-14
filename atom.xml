@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-02-13T22:53:41-05:00</updated>
+ <updated>2020-02-13T22:59:45-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -21,7 +21,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The paper studies the phenomenon of observational overfitting: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.&lt;/p&gt;
+    &lt;p&gt;The paper studies &lt;em&gt;observational overfitting&lt;/em&gt;: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Unlike other works, the “background information” (in the pixel space) is correlated with the progress of the agent (and is not just noise).&lt;/p&gt;
@@ -78,19 +78,19 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Observation at time $t$ is given as $[W_c W_{\theta}]^{-1} s_t$.&lt;/p&gt;
+    &lt;p&gt;Observation at time $t$ , $o_t$, is given as $[W_c W_{\theta}]^{-1} s_t$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Action at time $t$ is given as $a_t = K o_{t}$ where $K$ is the policy matrix.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Shapes:&lt;/p&gt;
+    &lt;p&gt;Dimensionality:&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;state $s$: 100&lt;/li&gt;
-      &lt;li&gt;$f(s)$: 100&lt;/li&gt;
-      &lt;li&gt;$g_{\theta}(s)$: 100&lt;/li&gt;
-      &lt;li&gt;observation $o$: 1100&lt;/li&gt;
+      &lt;li&gt;state $s$: $d_{state}$ 100&lt;/li&gt;
+      &lt;li&gt;$f(s)$: $d_{state}$ 100&lt;/li&gt;
+      &lt;li&gt;$g_{\theta}(s)$: $d_{noise}$ 100&lt;/li&gt;
+      &lt;li&gt;observation $o$: $d_{state}$ + $d_{noise}$ 1100&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;

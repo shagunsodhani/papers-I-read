@@ -156,7 +156,7 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <p>The paper studies the phenomenon of observational overfitting: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.</p>
+    <p>The paper studies <em>observational overfitting</em>: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.</p>
   </li>
   <li>
     <p>Unlike other works, the “background information” (in the pixel space) is correlated with the progress of the agent (and is not just noise).</p>
@@ -213,19 +213,19 @@ MathJax.Hub.Config({
     </ul>
   </li>
   <li>
-    <p>Observation at time $t$ is given as $[W_c W_{\theta}]^{-1} s_t$.</p>
+    <p>Observation at time $t$ , $o_t$, is given as $[W_c W_{\theta}]^{-1} s_t$.</p>
   </li>
   <li>
     <p>Action at time $t$ is given as $a_t = K o_{t}$ where $K$ is the policy matrix.</p>
   </li>
   <li>
-    <p>Shapes:</p>
+    <p>Dimensionality:</p>
 
     <ul>
-      <li>state $s$: 100</li>
-      <li>$f(s)$: 100</li>
-      <li>$g_{\theta}(s)$: 100</li>
-      <li>observation $o$: 1100</li>
+      <li>state $s$: $d_{state}$ 100</li>
+      <li>$f(s)$: $d_{state}$ 100</li>
+      <li>$g_{\theta}(s)$: $d_{noise}$ 100</li>
+      <li>observation $o$: $d_{state}$ + $d_{noise}$ 1100</li>
     </ul>
   </li>
   <li>
