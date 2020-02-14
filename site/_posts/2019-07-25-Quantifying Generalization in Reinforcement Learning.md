@@ -3,7 +3,7 @@ layout: post
 title: Quantifying Generalization in Reinforcement Learning
 comments: True
 excerpt: 
-tags: ['2018', 'Deep Reinforcement Learning', 'ICML 2019', Evaluating Generalization', Reinforcement Learning',  AI, DRL, Environment, Evaluation, ICML, Generalization, RL]
+tags: ['2018', 'Deep Reinforcement Learning', 'ICML 2019', 'Evaluating Generalization', 'Reinforcement Learning',  AI, DRL, Environment, Evaluation, ICML, Generalization, RL]
 
 ---
 

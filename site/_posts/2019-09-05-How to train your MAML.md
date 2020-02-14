@@ -3,7 +3,7 @@ layout: post
 title: How to train your MAML
 comments: True
 excerpt: 
-tags: ['2018', 'Empirical Advice', ICLR 2019', 'Meta Learning', AI, ICLR, MAML]
+tags: ['2018', 'Empirical Advice', 'ICLR 2019', 'Meta Learning', AI, ICLR, MAML]
 
 ---
 

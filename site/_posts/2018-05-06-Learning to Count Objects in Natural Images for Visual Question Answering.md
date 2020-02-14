@@ -3,7 +3,7 @@ layout: post
 title: Learning to Count Objects in Natural Images for Visual Question Answering
 comments: True
 excerpt: The paper proposes to overcome challenges related to count-based questions in VQA task by using the attention maps (and not the aggregated feature vectors) as input to a separate **count** module.
-tags: ['2018', 'Count Based VQA', 'ICLR2018', AI, CV, ICLR, NLP, VQA, SOTA]
+tags: ['2018', 'Count Based VQA', 'ICLR 2018', AI, CV, ICLR, NLP, VQA, SOTA]
 ---
 
 ## Introduction

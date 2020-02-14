@@ -3,7 +3,7 @@ layout: post
 title: Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour
 comments: True
 excerpt: 
-tags: ['2017', 'Distributed Computing', 'Distributed SGD', 'Empirical Advice', Synchronous SGD', AI, ImageNet]
+tags: ['2017', 'Distributed Computing', 'Distributed SGD', 'Empirical Advice', 'Synchronous SGD', AI, ImageNet]
 
 ---
 

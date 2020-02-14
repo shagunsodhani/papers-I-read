@@ -3,7 +3,7 @@ layout: post
 title: Get To The Point - Summarization with Pointer-Generator Networks
 comments: True
 excerpt: The paper proposes a hybrid Pointer-Generator network along with the use of a coverage vector for the task of article summarization.
-tags: ['2017', 'ACL2017', 'Abstract Summarization', 'Pointer Network', ACL, AI, NLP, SOTA, Summarization]
+tags: ['2017', 'ACL 2017', 'Abstract Summarization', 'Pointer Network', ACL, AI, NLP, SOTA, Summarization]
 ---
 
 ## Introduction

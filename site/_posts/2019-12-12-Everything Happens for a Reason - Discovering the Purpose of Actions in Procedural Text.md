@@ -3,7 +3,7 @@ layout: post
 title: Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text
 comments: True
 excerpt: 
-tags: ['2019', 'EMNLP 2019', 'Procedural Text', 'Relation Learning', 'Relational Learning', AI, Dataset, ENMLP, Graph, NLP, Reasoning]
+tags: ['2019', 'EMNLP 2019', 'Procedural Text', 'Relation Learning', 'Relational Learning', AI, Dataset, EMNLP, Graph, NLP, Reasoning]
 
 ---
 
