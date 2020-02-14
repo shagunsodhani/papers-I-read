@@ -4,13 +4,238 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-01-21T23:58:47-05:00</updated>
+ <updated>2020-02-13T22:26:11-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Observational Overfitting in Reinforcement Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning"/>
+   <updated>2020-01-23T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Observational Overfitting in Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studies the phenomenon of observational overfitting: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unlike other works, the “background information” (in the pixel space) is correlated with the progress of the agent (and is not just noise).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1912.02975&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Base MDP $M = (S, A, R, T)$ where $S$ is the state space, $A$ is the action space, $R$ is the reward function and $T$ is the transition dynamics.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$M$ is parameterized using $\theta$. In practice, it means introducing an observation function $\phi_{\theta}$ ie $M_{\theta} = (M, \phi_{theta})$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A distribution over $\theta$ defines a distribution over the MDPs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The learning agent has access to the pixel space observations and not the state space observations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generalization gap is defined as $J_{\theta}(\pi) - J_{\theta^{train}}(\pi)$ where $\pi$ is the learning agent, $\theta$ is the distribution over all the observation functions, $\theta_{train}$ is the distribution over the observation functions corresponding to the training environments. $J_{\theta}(\pi)$ is the average reward that the agent obtains over environments sampled from $M_{\theta}$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\phi_{\theta}$ considers two featurs - generalizable (invariant across $\theta$) and non-generalizable (depends on $\theta$) ie $\phi_{\theta}(s) = concat(f(s), g_{\theta}(s))$ where $f$ is the invariant function and $g$ is the non-generalizable function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The problem is setup such that “explicit regularization” can easily solve it. The focus is on understanding the effect of “implicit regularization”.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;overparameterized-lqr&quot;&gt;Overparameterized LQR&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;LQR is used as a proxy for deep RL architectures given its advantages like enabling exact gradient descent.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The functions are parameterized as follows:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;$f(s) = W_c(s)$&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;$g_{\theta}(s) = W_{\theta}(s)&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Observation at time $t$ is given as $[W_c W_{\theta}]^{-1} s_t$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Action at time $t$ is given as $a_t = K o_{t}$ where $K$ is the policy matrix.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Shapes:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;$s$ - 100&lt;/li&gt;
+      &lt;li&gt;$f(s)$ - 100&lt;/li&gt;
+      &lt;li&gt;$g_{\theta}(s)$ - 100&lt;/li&gt;
+      &lt;li&gt;$o_t$ - 1100&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of training on just 1 environment, multiple solutions exist and overfitting happens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Increasing $d_noise$ increases the generalization gap.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overparameterizing the network decreases the generalization gap and also reduces the norm of the policy.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;projected-gym-environments&quot;&gt;Projected Gym Environments&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The base MDP is the Gym Environment.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$M_{\theta}$ is generated as before.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Increasing both width and depth for basic MLPs improves generalization.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generalization also depends on the choice of activation function, residual layers etc.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;deconvolutional-projections&quot;&gt;Deconvolutional Projections&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the Gym environment, the actual state is projected to a larger vector and reshaped into a 84x84 tensor (image).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The image from $f$ is concatenated with the image from $g$. This setup is referred as the Gym-Deconv.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The relative order of performance between NatureCNN, IMPALA and IMPALA-Large (on both CoinRun and Gym-Deconv) is the same as the order of the number of parameters they contain.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In an abalation, the policy is given access to only $g_{\theta}(s)* which makes it impossible for the model to generalize. In this test of memorization capacity, implicit regularization seems to reudce the memorization effect.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;overparameterization-in-coinrun&quot;&gt;Overparameterization in CoinRun&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The pixel space observation in CoinRun are downsized from 64x64 to 32x32 and flattened into a vector.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In CoinRun, the dynamics change per level and the noisy “irrelevant” features change location across the 1D input, making this setup more challenging than the previous ones.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overparameterization improves generalization in this scenario as well.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Rapid-Learning-or-Feature-Reuse-Towards-Understanding-the-Effectiveness-of-MAML"/>
+   <updated>2020-01-16T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper investigated two possible reaosns behind the usefulness of MAML algorithm:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Rapid Learning&lt;/strong&gt; - Does MAML learn features that are amenable for rapid learning?&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Feature Reuse&lt;/strong&gt; - Does the MAML initialization provide high quality featues that are useful for the unseen tasks.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This leads to a followup questions: how much task-specific inner loopadaptation is needed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.09157&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In a standard few shot learning setup, the different datatsets have different classes. Hence, the top-most layer (or the head) of the learning model should be different for dofferent tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The subsequent discussion only applies to the body of the network (ie network minus the head).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Freezing Layer Representations&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this setup, a subset (or all) of parameters are forzen after MAML training and are not adapted during representation.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Even when the entire network is frozen, the performance drops only marginally.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This indicates that the representation learnt by the meta-initialization is good enough to be useful on the test tasks (without requiring any adapation setep).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Note that the head of the network is still adapated during testing.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Representational Similarity&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In this setup, the paper reports the change in the latent representation (learned by the network) during the inner loop update with a fully trained model.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Canonical Correlation Analysis (CCA) and Central Kernel Alignment (CKA) metrics are used to measure the similarity between the representations.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The main finding is that the representations in the body of the network are very sunular before and after the inner loop updates while the representaions in the head of the network are very different.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The above two observations indicate that feature reuse is the primary diriving factir for the success of MAML.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;When does feature reuse happen&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper considers the model at different stages of training and compares the similariyt in the representation (beofre and after the iunner loop update).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Even early in training, the CCA similairyt between the representations (before and after the inner loop update) is quote high. This suggests that feature reuse happens early in the training.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour</title>

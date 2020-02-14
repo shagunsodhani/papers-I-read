@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      PHYRE - A New Benchmark for Physical Reasoning &middot; Papers I Read
+      Observational Overfitting in Reinforcement Learning &middot; Papers I Read
     
   </title>
 
@@ -149,45 +149,20 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">PHYRE - A New Benchmark for Physical Reasoning</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Physical+Reasoning" title="Pages tagged Physical Reasoning" rel="tag">Physical Reasoning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Benchmark" title="Pages tagged Benchmark" rel="tag">Benchmark</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Physics" title="Pages tagged Physics" rel="tag">Physics</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reasoning" title="Pages tagged Reasoning" rel="tag">Reasoning</a></p>
-  <span class="post-date">29 Aug 2019</span>
+  <h1 class="post-title">Observational Overfitting in Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2020" title="Pages tagged ICLR 2020" rel="tag">ICLR 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization" title="Pages tagged Evaluating Generalization" rel="tag">Evaluating Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Markov+Decision+Process" title="Pages tagged Markov Decision Process" rel="tag">Markov Decision Process</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MDP" title="Pages tagged MDP" rel="tag">MDP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">23 Jan 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper proposes the PHYRE (PHYsical REasoning) benchmark - consisting of classic mechanical puzzles in 2D physical environments - as a means to evaluate the physical reasoning ability of machine learning models.</p>
+    <p>The paper studies the phenomenon of observational overfitting: The phenomenon where an agent overfits to different observation spaces even though the underlying MDP remains fixed.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1908.05656">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="environment">Environment</h2>
-
-<ul>
-  <li>
-    <p>2D world that obeys Newtonian mechanics.</p>
+    <p>Unlike other works, the “background information” (in the pixel space) is correlated with the progress of the agent (and is not just noise).</p>
   </li>
   <li>
-    <p>Gravitational force + Friction.</p>
-  </li>
-  <li>
-    <p>Non-deformable objects that can be static (ie fixed) or dynamic (ie can move and are affected by collisions etc).</p>
-  </li>
-</ul>
-
-<h2 id="task">Task</h2>
-
-<ul>
-  <li>
-    <p>The learning agent starts in some initial world state (ie configuration of objects).</p>
-  </li>
-  <li>
-    <p>Goal is described in the form of (<code class="highlighter-rouge">subject</code>, <code class="highlighter-rouge">relation</code>, <code class="highlighter-rouge">object</code>) where the agent’s task is to satisfy the <code class="highlighter-rouge">relation</code> between the <code class="highlighter-rouge">subject</code> and the <code class="highlighter-rouge">object</code>.</p>
-  </li>
-  <li>
-    <p>Currently, only the “touch” <code class="highlighter-rouge">relation</code> is supported.</p>
+    <p><a href="https://arxiv.org/abs/1912.02975">Link to the paper</a></p>
   </li>
 </ul>
 
@@ -195,125 +170,120 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <p>The learning agent has to take a single action - placing one or more new dynamic objects in the world.</p>
+    <p>Base MDP $M = (S, A, R, T)$ where $S$ is the state space, $A$ is the action space, $R$ is the reward function and $T$ is the transition dynamics.</p>
   </li>
   <li>
-    <p>A simulator is run on the new configuration (for a fixed amount of time) to check if the goal condition is satisfied.</p>
+    <p>$M$ is parameterized using $\theta$. In practice, it means introducing an observation function $\phi_{\theta}$ ie $M_{\theta} = (M, \phi_{theta})$.</p>
   </li>
   <li>
-    <p>At the end of the simulation, a binary reward and intermediate observations (collected as the simulator executes) are provided to the learning agent.</p>
+    <p>A distribution over $\theta$ defines a distribution over the MDPs.</p>
   </li>
   <li>
-    <p>These observations are 256*256 grids where each grid cell can take 1 of the 7 values (denoting different types of objects).</p>
+    <p>The learning agent has access to the pixel space observations and not the state space observations.</p>
   </li>
   <li>
-    <p>Since only one relation supported currently, the color is sufficient to encode the goal.</p>
+    <p>Generalization gap is defined as $J_{\theta}(\pi) - J_{\theta^{train}}(\pi)$ where $\pi$ is the learning agent, $\theta$ is the distribution over all the observation functions, $\theta_{train}$ is the distribution over the observation functions corresponding to the training environments. $J_{\theta}(\pi)$ is the average reward that the agent obtains over environments sampled from $M_{\theta}$.</p>
+  </li>
+  <li>
+    <p>$\phi_{\theta}$ considers two featurs - generalizable (invariant across $\theta$) and non-generalizable (depends on $\theta$) ie $\phi_{\theta}(s) = concat(f(s), g_{\theta}(s))$ where $f$ is the invariant function and $g$ is the non-generalizable function.</p>
+  </li>
+  <li>
+    <p>The problem is setup such that “explicit regularization” can easily solve it. The focus is on understanding the effect of “implicit regularization”.</p>
   </li>
 </ul>
 
-<h2 id="benchmark-tiers">Benchmark Tiers</h2>
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="overparameterized-lqr">Overparameterized LQR</h3>
 
 <ul>
   <li>
-    <p>Two benchmark tiers are provided where each tier comprises of a combination of:</p>
+    <p>LQR is used as a proxy for deep RL architectures given its advantages like enabling exact gradient descent.</p>
+  </li>
+  <li>
+    <p>The functions are parameterized as follows:</p>
 
     <ul>
       <li>
-        <p>a predefined set of all the actions that the agent is allowed to perform.</p>
+        <p>$f(s) = W_c(s)$</p>
       </li>
       <li>
-        <p>set of tasks that can be solved by at least one action from the allowed action set.</p>
+        <p>$g_{\theta}(s) = W_{\theta}(s)</p>
       </li>
     </ul>
   </li>
   <li>
-    <p><strong>PHYRE-B</strong> - The agent is allowed to place a single (ball of any radii) at any valid location.</p>
+    <p>Observation at time $t$ is given as $[W_c W_{\theta}]^{-1} s_t$.</p>
   </li>
   <li>
-    <p><strong>PHYRE-2B</strong> - The agent is allowed to place 2 balls at any valid pair of locations.</p>
+    <p>Action at time $t$ is given as $a_t = K o_{t}$ where $K$ is the policy matrix.</p>
   </li>
   <li>
-    <p>Each of the two tiers has 25 task templates where each template comprises of variants of a single task (same goal but different initial conditions).</p>
-  </li>
-</ul>
-
-<h2 id="evaluation">Evaluation</h2>
-
-<ul>
-  <li>
-    <p>Two evaluation setups are considered:</p>
+    <p>Shapes:</p>
 
     <ul>
-      <li>
-        <p><strong>within-template</strong> where the agent is trained on some tasks in a template and evaluated on a set of held-out tasks from the same template.</p>
-      </li>
-      <li>
-        <p><strong>cross-template</strong> where the agent is evaluated on tasks from a different template.</p>
-      </li>
+      <li>$s$ - 100</li>
+      <li>$f(s)$ - 100</li>
+      <li>$g_{\theta}(s)$ - 100</li>
+      <li>$o_t$ - 1100</li>
     </ul>
   </li>
   <li>
-    <p>In the training phase, the model has access to the simulator (but not to the correct solution). So the model could learn an action-prediction model or forward dynamics model or both.</p>
+    <p>In case of training on just 1 environment, multiple solutions exist and overfitting happens.</p>
   </li>
   <li>
-    <p>In the testing phase, the model can query the simulator only a few times. Each query provides it with the binary reward and the intermediate observations.</p>
-  </li>
-</ul>
-
-<h2 id="performance-measure">Performance Measure</h2>
-
-<ul>
-  <li>
-    <p>The emphasis is on solving more tasks (in few queries) during the test phase.</p>
+    <p>Increasing $d_noise$ increases the generalization gap.</p>
   </li>
   <li>
-    <p>This requirement is captured using a metric called AUCCESS.</p>
-  </li>
-  <li>
-    <p>In general, the tasks in PHYRE-2B are harder than tasks in PHYRE-B.</p>
+    <p>Overparameterizing the network decreases the generalization gap and also reduces the norm of the policy.</p>
   </li>
 </ul>
 
-<h2 id="baseline-agents">Baseline Agents</h2>
+<h3 id="projected-gym-environments">Projected Gym Environments</h3>
 
 <ul>
   <li>
-    <p>Random Agent - Randomly samples actions</p>
+    <p>The base MDP is the Gym Environment.</p>
   </li>
   <li>
-    <p>Non-parametric agent (MEM) - generates R actions at random and uses the simulator to check how many tasks can be solved using these R random actions. During testing, try the R actions in the decreasing order of the number of tasks they solve.</p>
+    <p>$M_{\theta}$ is generated as before.</p>
   </li>
   <li>
-    <p>Non-parametric agent with online learning (MEM-O) - Variant of MEM where an online adaptation step is performed during test time (to update the rank of the actions).</p>
+    <p>Increasing both width and depth for basic MLPs improves generalization.</p>
   </li>
   <li>
-    <p>Deep Q Networks with an action encoder, observation encoder and fusion model (combine action and observation representation).</p>
-  </li>
-  <li>
-    <p>DQN with online learning (DQN-0): Variant of DQN with online updates (during the test phase).</p>
-  </li>
-  <li>
-    <p>Contextual bandits.</p>
-  </li>
-  <li>
-    <p>Policy learning approaches like PPO and A2C.</p>
+    <p>Generalization also depends on the choice of activation function, residual layers etc.</p>
   </li>
 </ul>
 
-<h2 id="observations">Observations</h2>
+<h3 id="deconvolutional-projections">Deconvolutional Projections</h3>
 
 <ul>
   <li>
-    <p>Both Contextual bandits and policy-based approaches show poor training stability.</p>
+    <p>In the Gym environment, the actual state is projected to a larger vector and reshaped into a 84x84 tensor (image).</p>
   </li>
   <li>
-    <p>The best agent, DQN-O, reaches AUCCESS of 56.2\% on PHYRE-B and 39.26\% on PHYRE-2B. In general, agents with online adaptation perform better.</p>
+    <p>The image from $f$ is concatenated with the image from $g$. This setup is referred as the Gym-Deconv.</p>
   </li>
   <li>
-    <p>The tasks are designed such that 100000 attempts are sufficient to solve 100\% of tasks in PHYRE-B and 95\% of tasks in PHYRE-2B.</p>
+    <p>The relative order of performance between NatureCNN, IMPALA and IMPALA-Large (on both CoinRun and Gym-Deconv) is the same as the order of the number of parameters they contain.</p>
   </li>
   <li>
-    <p>Even though only two tiers are provided right now, the benchmark is readily extensible and new tasks can be added in the future.</p>
+    <p>In an abalation, the policy is given access to only $g_{\theta}(s)* which makes it impossible for the model to generalize. In this test of memorization capacity, implicit regularization seems to reudce the memorization effect.</p>
+  </li>
+</ul>
+
+<h3 id="overparameterization-in-coinrun">Overparameterization in CoinRun</h3>
+
+<ul>
+  <li>
+    <p>The pixel space observation in CoinRun are downsized from 64x64 to 32x32 and flattened into a vector.</p>
+  </li>
+  <li>
+    <p>In CoinRun, the dynamics change per level and the noisy “irrelevant” features change location across the 1D input, making this setup more challenging than the previous ones.</p>
+  </li>
+  <li>
+    <p>Overparameterization improves generalization in this scenario as well.</p>
   </li>
 </ul>
 
@@ -322,15 +292,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning">
-            Observational Overfitting in Reinforcement Learning
-            <small>23 Jan 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -346,6 +307,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour">
             Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour
             <small>09 Jan 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Superposition-of-many-models-into-one">
+            Superposition of many models into one
+            <small>02 Jan 2020</small>
           </a>
         </h3>
       </li>
@@ -366,8 +336,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/PHYRE-A-New-Benchmark-for-Physical-Reasoning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Observational-Overfitting-in-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
