@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-02-13T22:26:11-05:00</updated>
+ <updated>2020-02-13T22:37:32-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -35,10 +35,10 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Base MDP $M = (S, A, R, T)$ where $S$ is the state space, $A$ is the action space, $R$ is the reward function and $T$ is the transition dynamics.&lt;/p&gt;
+    &lt;p&gt;Base MDP $M = (S, A, R, T)$ where $S$ is the state space, $A$ is the action space, $R$ is the reward function, and $T$ is the transition dynamics.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;$M$ is parameterized using $\theta$. In practice, it means introducing an observation function $\phi_{\theta}$ ie $M_{\theta} = (M, \phi_{theta})$.&lt;/p&gt;
+    &lt;p&gt;$M$ is parameterized using $\theta$. In practice, it means introducing an observation function $\phi_{\theta}$ ie $M_{\theta} = (M, \phi_{\theta})$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A distribution over $\theta$ defines a distribution over the MDPs.&lt;/p&gt;
@@ -47,13 +47,13 @@
     &lt;p&gt;The learning agent has access to the pixel space observations and not the state space observations.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Generalization gap is defined as $J_{\theta}(\pi) - J_{\theta^{train}}(\pi)$ where $\pi$ is the learning agent, $\theta$ is the distribution over all the observation functions, $\theta_{train}$ is the distribution over the observation functions corresponding to the training environments. $J_{\theta}(\pi)$ is the average reward that the agent obtains over environments sampled from $M_{\theta}$.&lt;/p&gt;
+    &lt;p&gt;Generalization gap is defined as $J_{\theta}(\pi) - J_{\theta^{train}}(\pi)$ where $\pi$ is the learning agent, $\theta$ is the distribution over all the observation functions, $\theta^{train}$ is the distribution over the observation functions corresponding to the training environments. $J_{\theta}(\pi)$ is the average reward that the agent obtains over environments sampled from $M_{\theta}$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;$\phi_{\theta}$ considers two featurs - generalizable (invariant across $\theta$) and non-generalizable (depends on $\theta$) ie $\phi_{\theta}(s) = concat(f(s), g_{\theta}(s))$ where $f$ is the invariant function and $g$ is the non-generalizable function.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The problem is setup such that “explicit regularization” can easily solve it. The focus is on understanding the effect of “implicit regularization”.&lt;/p&gt;
+    &lt;p&gt;The problem is set up such that “explicit regularization” can easily solve it. The focus is on understanding the effect of “implicit regularization”.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -73,7 +73,7 @@
         &lt;p&gt;$f(s) = W_c(s)$&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;$g_{\theta}(s) = W_{\theta}(s)&lt;/p&gt;
+        &lt;p&gt;$g_{\theta}(s) = W_{\theta}(s)$&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -87,17 +87,17 @@
     &lt;p&gt;Shapes:&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;$s$ - 100&lt;/li&gt;
-      &lt;li&gt;$f(s)$ - 100&lt;/li&gt;
-      &lt;li&gt;$g_{\theta}(s)$ - 100&lt;/li&gt;
-      &lt;li&gt;$o_t$ - 1100&lt;/li&gt;
+      &lt;li&gt;state $s$: 100&lt;/li&gt;
+      &lt;li&gt;$f(s)$: 100&lt;/li&gt;
+      &lt;li&gt;$g_{\theta}(s)$: 100&lt;/li&gt;
+      &lt;li&gt;observation $o$: 1100&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In case of training on just 1 environment, multiple solutions exist and overfitting happens.&lt;/p&gt;
+    &lt;p&gt;In case of training on just one environment, multiple solutions exist, and overfitting happens.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Increasing $d_noise$ increases the generalization gap.&lt;/p&gt;
+    &lt;p&gt;Increasing $d_{noise}$ increases the generalization gap.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Overparameterizing the network decreases the generalization gap and also reduces the norm of the policy.&lt;/p&gt;
@@ -117,7 +117,7 @@
     &lt;p&gt;Increasing both width and depth for basic MLPs improves generalization.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Generalization also depends on the choice of activation function, residual layers etc.&lt;/p&gt;
+    &lt;p&gt;Generalization also depends on the choice of activation function, residual layers, etc.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -125,16 +125,16 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;In the Gym environment, the actual state is projected to a larger vector and reshaped into a 84x84 tensor (image).&lt;/p&gt;
+    &lt;p&gt;In the Gym environment, the actual state is projected to a larger vector and reshaped into an 84x84 tensor (image).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The image from $f$ is concatenated with the image from $g$. This setup is referred as the Gym-Deconv.&lt;/p&gt;
+    &lt;p&gt;The image from $f$ is concatenated with the image from $g$. This setup is referred to as the Gym-Deconv.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The relative order of performance between NatureCNN, IMPALA and IMPALA-Large (on both CoinRun and Gym-Deconv) is the same as the order of the number of parameters they contain.&lt;/p&gt;
+    &lt;p&gt;The relative order of performance between NatureCNN, IMPALA, and IMPALA-Large (on both CoinRun and Gym-Deconv) is the same as the order of the number of parameters they contain.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In an abalation, the policy is given access to only $g_{\theta}(s)* which makes it impossible for the model to generalize. In this test of memorization capacity, implicit regularization seems to reudce the memorization effect.&lt;/p&gt;
+    &lt;p&gt;In an ablation, the policy is given access to only $g_{\theta}(s)$, which makes it impossible for the model to generalize. In this test of memorization capacity, implicit regularization seems to reduce the memorization effect.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -142,10 +142,10 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The pixel space observation in CoinRun are downsized from 64x64 to 32x32 and flattened into a vector.&lt;/p&gt;
+    &lt;p&gt;The pixel space observation in CoinRun is downsized from 64x64 to 32x32 and flattened into a vector.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In CoinRun, the dynamics change per level and the noisy “irrelevant” features change location across the 1D input, making this setup more challenging than the previous ones.&lt;/p&gt;
+    &lt;p&gt;In CoinRun, the dynamics change per level, and the noisy “irrelevant” features change location across the 1D input, making this setup more challenging than the previous ones.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Overparameterization improves generalization in this scenario as well.&lt;/p&gt;
