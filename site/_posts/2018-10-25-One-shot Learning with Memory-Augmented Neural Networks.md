@@ -3,7 +3,7 @@ layout: post
 title: One-shot Learning with Memory-Augmented Neural Networks
 comments: True
 excerpt: 
-tags: ['2016', Memory Augmented Neural Network', 'Meta-Learning', 'One shot learning', AI, MANN, Memory]
+tags: ['2016', 'Memory Augmented Neural Network', 'Meta Learning', 'One shot learning', AI, MANN, Memory]
 ---
 
 ## Introduction

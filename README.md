@@ -5,6 +5,9 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Massively Multilingual Neural Machine Translation in the Wild - Findings and Challenges](https://shagunsodhani.com/papers-I-read/Massively-Multilingual-Neural-Machine-Translation-in-the-Wild-Findings-and-Challenges)
+* [Observational Overfitting in Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning)
+* [Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML](https://shagunsodhani.com/papers-I-read/Rapid-Learning-or-Feature-Reuse-Towards-Understanding-the-Effectiveness-of-MAML)
 * [Accurate, Large Minibatch SGD - Training ImageNet in 1 Hour](https://shagunsodhani.com/papers-I-read/Accurate-Large-Minibatch-SGD-Training-ImageNet-in-1-Hour)
 * [Superposition of many models into one](https://shagunsodhani.com/papers-I-read/Superposition-of-many-models-into-one)
 * [Towards a Unified Theory of State Abstraction for MDPs](https://shagunsodhani.com/papers-I-read/Towards-a-Unified-Theory-of-State-Abstraction-for-MDPs)
