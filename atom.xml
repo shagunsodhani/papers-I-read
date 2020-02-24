@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-02-13T22:59:45-05:00</updated>
+ <updated>2020-02-23T22:51:56-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -162,42 +162,50 @@
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The paper investigated two possible reaosns behind the usefulness of MAML algorithm:
+  &lt;li&gt;
+    &lt;p&gt;The paper investigated two possible reasons behind the usefulness of MAML algorithm:&lt;/p&gt;
+
     &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Rapid Learning&lt;/strong&gt; - Does MAML learn features that are amenable for rapid learning?&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Feature Reuse&lt;/strong&gt; - Does the MAML initialization provide high quality featues that are useful for the unseen tasks.&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Rapid Learning&lt;/strong&gt; - Does MAML learn features that are amenable for rapid learning?&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;strong&gt;Feature Reuse&lt;/strong&gt; - Does the MAML initialization provide high-quality features that are useful for the unseen tasks.&lt;/p&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;This leads to a followup questions: how much task-specific inner loopadaptation is needed.&lt;/p&gt;
+    &lt;p&gt;This leads to a follow-up question: how much task-specific inner loop adaptation is needed.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.09157&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.09157&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;In a standard few shot learning setup, the different datatsets have different classes. Hence, the top-most layer (or the head) of the learning model should be different for dofferent tasks.&lt;/p&gt;
+    &lt;p&gt;In a standard few-shot learning setup, the different datasets have different classes. Hence, the top-most layer (or the head) of the learning model should be different for different tasks.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The subsequent discussion only applies to the body of the network (ie network minus the head).&lt;/p&gt;
+    &lt;p&gt;The subsequent discussion only applies to the body of the network (ie, network minus the head).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Freezing Layer Representations&lt;/strong&gt;&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;In this setup, a subset (or all) of parameters are forzen after MAML training and are not adapted during representation.&lt;/p&gt;
+        &lt;p&gt;In this setup, a subset (or all) of parameters are frozen (after MAML training) and are not adapted during the representation.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
         &lt;p&gt;Even when the entire network is frozen, the performance drops only marginally.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;This indicates that the representation learnt by the meta-initialization is good enough to be useful on the test tasks (without requiring any adapation setep).&lt;/p&gt;
+        &lt;p&gt;This indicates that the representation learned by the meta-initialization is good enough to be useful on the test tasks (without requiring any adaptation step).&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Note that the head of the network is still adapated during testing.&lt;/p&gt;
+        &lt;p&gt;Note that the head of the network is still adapted during testing.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -212,28 +220,86 @@
         &lt;p&gt;Canonical Correlation Analysis (CCA) and Central Kernel Alignment (CKA) metrics are used to measure the similarity between the representations.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;The main finding is that the representations in the body of the network are very sunular before and after the inner loop updates while the representaions in the head of the network are very different.&lt;/p&gt;
+        &lt;p&gt;The main finding is that the representations in the body of the network are very similar before and after the inner loop updates while the representations in the head of the network are very different.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The above two observations indicate that feature reuse is the primary diriving factir for the success of MAML.&lt;/p&gt;
+    &lt;p&gt;The above two observations indicate that feature reuse is the primary driving factor for the success of MAML.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;When does feature reuse happen&lt;/strong&gt;&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;The paper considers the model at different stages of training and compares the similariyt in the representation (beofre and after the iunner loop update).&lt;/p&gt;
+        &lt;p&gt;The paper considers the model at different stages of training and compares the similarity in the representation (before and after the inner loop update).&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Even early in training, the CCA similairyt between the representations (before and after the inner loop update) is quote high. This suggests that feature reuse happens early in the training.&lt;/p&gt;
+        &lt;p&gt;Even early in training, the CCA similarity between the representations (before and after the inner loop update) is quite high. Similarly, freezing the layers (for the test time update), early in training, does not degrade the test time performance much. This hints that the feature reuse happens early in the learning process.&lt;/p&gt;
       &lt;/li&gt;
-      &lt;li&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;the-anil-almost-no-inner-loop-algorithm&quot;&gt;The ANIL (Almost No Inner Loop) Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The empirical evidence suggests that the success of MAML lies in the feature reuse.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The authors build on this observation and propose a simplification of the MAML algorithm: ANIL or Almost No Inner Loop Algorithm&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In this algorithm, the inner loop updates are applied only to the head of the network.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Despite being much more straightforward, the performance of ANIL is close to the performance of MAML for both few-shot image classification and RL tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Removing most of the inner loop parameters speed up the computation by a factor of 1.7 (during training) and 4.1 (during inference).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;removing-the-inner-loop-update&quot;&gt;Removing the Inner Loop Update&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given that it is possible to remove most of the parameters from the inner loop update (without affecting the performance), the next step is to check if the inner loop update can be removed entirely.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This leads to the NIL (No Inner Loop) algorithm, which does not involve any inner loop adaptation steps.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;algorithm&quot;&gt;Algorithm&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A few-shot learning model is trained - either with MAML or ANIL.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During testing, the head is removed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each task, the K training examples are fed to the body to obtain class representations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a given test data point, the representation of the data point is compared with the different class representations to obtain the target class.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The NIL algorithm performs similar to the MAML and the ANIL algorithms for the few-shot image classification task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that it is still important to use MAML/ANIL during training, even though the learned head is not used during evaluation.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper discusses the different classes of meta-learning approaches. It concludes with the observation that feature reuse (and not rapid adaptation) seems to be the common model of operation for both optimization-based meta-learning (e.g., MAML) and model-based meta-learning.&lt;/li&gt;
+&lt;/ul&gt;
 </content>
  </entry>
  
