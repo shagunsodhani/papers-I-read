@@ -5,6 +5,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Your Classifier is Secretly an Energy Based Model and You Should Treat it Like One](https://shagunsodhani.com/papers-I-read/Your-Classifier-is-Secretly-an-Energy-Based-Model,-and-You-Should-Treat-it-Like-One)
 * [Massively Multilingual Neural Machine Translation in the Wild - Findings and Challenges](https://shagunsodhani.com/papers-I-read/Massively-Multilingual-Neural-Machine-Translation-in-the-Wild-Findings-and-Challenges)
 * [Observational Overfitting in Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning)
 * [Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML](https://shagunsodhani.com/papers-I-read/Rapid-Learning-or-Feature-Reuse-Towards-Understanding-the-Effectiveness-of-MAML)
