@@ -5,6 +5,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [ELECTRA - Pre-training Text Encoders as Discriminators Rather Than Generators](https://shagunsodhani.com/papers-I-read/ELECTRA-Pre-training-Text-Encoders-as-Discriminators-Rather-Than-Generators)
+* [Gradient based sample selection for online continual learning](https://shagunsodhani.com/papers-I-read/Gradient-based-sample-selection-for-online-continual-learning)
 * [Your Classifier is Secretly an Energy Based Model and You Should Treat it Like One](https://shagunsodhani.com/papers-I-read/Your-Classifier-is-Secretly-an-Energy-Based-Model,-and-You-Should-Treat-it-Like-One)
 * [Massively Multilingual Neural Machine Translation in the Wild - Findings and Challenges](https://shagunsodhani.com/papers-I-read/Massively-Multilingual-Neural-Machine-Translation-in-the-Wild-Findings-and-Challenges)
 * [Observational Overfitting in Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning)
