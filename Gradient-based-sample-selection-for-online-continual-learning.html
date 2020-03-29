@@ -182,7 +182,7 @@ MathJax.Hub.Config({
     <p>When considering the $t^{th}$ task, the objective is: minimize the loss on the current task without increasing the loss on any of the previous tasks.</p>
   </li>
   <li>
-    <p>The above constraint can be rephrased as $&lt;g_t, g_i&gt; \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.</p>
+    <p>The above constraint can be rephrased as $dot(g_t, g_i) \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.</p>
   </li>
   <li>
     <p>This is equivalent to saying that the current task gradient should not interfere negatively with the previous task gradient.</p>

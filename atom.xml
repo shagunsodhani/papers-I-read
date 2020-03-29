@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-03-28T23:02:36-04:00</updated>
+ <updated>2020-03-28T23:08:00-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -47,7 +47,7 @@
     &lt;p&gt;When considering the $t^{th}$ task, the objective is: minimize the loss on the current task without increasing the loss on any of the previous tasks.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The above constraint can be rephrased as $&amp;lt;g_t, g_i&amp;gt; \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.&lt;/p&gt;
+    &lt;p&gt;The above constraint can be rephrased as $dot(g_t, g_i) \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;This is equivalent to saying that the current task gradient should not interfere negatively with the previous task gradient.&lt;/p&gt;
