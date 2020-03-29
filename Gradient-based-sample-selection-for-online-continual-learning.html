@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Reading Wikipedia to Answer Open-Domain Questions &middot; Papers I Read
+      Gradient based sample selection for online continual learning &middot; Papers I Read
     
   </title>
 
@@ -149,98 +149,137 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Reading Wikipedia to Answer Open-Domain Questions</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACL+2017" title="Pages tagged ACL 2017" rel="tag">ACL 2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a></p>
-  <span class="post-date">15 Oct 2017</span>
+  <h1 class="post-title">Gradient based sample selection for online continual learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning%27" title="Pages tagged Continual Learning'" rel="tag">Continual Learning'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS+2019" title="Pages tagged NeurIPS 2019" rel="tag">NeurIPS 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Replay+Buffer" title="Pages tagged Replay Buffer" rel="tag">Replay Buffer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">13 Feb 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper presents a new machine comprehension dataset for question answering in real life setting (say when interacting with Cortana/Siri).</p>
+    <p>Use of replay buffer (and rehearsal) is a common technique for mitigating catastrophic forgetting.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1704.00051">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="unique-aspects-of-the-dataset">Unique Aspects of the dataset</h2>
-
-<ul>
-  <li>
-    <p>Existing machine comprehension (MC) datasets are either too small or synthetic (with a distribution different from that or real-questions posted by humans). MARCO questions are sampled from real, anonymized user queries.</p>
+    <p>The paper builds on this idea but focuses on the sample selection aspect ie, which data points to store in the replay buffer.</p>
   </li>
   <li>
-    <p>Most datasets would provide a comparatively small and clean context to answer the question. In MARCO, the context documents (which may or may not contain the answer) are extracted using Bing from real-world documents. As such the questions and the context documents are noisy.</p>
+    <p>It formulates sample selection as a constraint minimization problem and shows that the proposed formulation is equivalent to maximizing the diversity of the samples with respect to parameter gradient.</p>
   </li>
   <li>
-    <p>In general, the answer to the questions are restricted to an entity or text span within the document. In case of MARCO, the human judges are encouraged to generate complete sentences as answers.</p>
+    <p><a href="https://arxiv.org/abs/1903.08671">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="dataset-description">Dataset Description</h2>
+<h2 id="setup">Setup</h2>
 
 <ul>
   <li>
-    <p>First release consists of 100K questions with the aim of releasing 1M questions in the future releases.</p>
+    <p>Supervised learning tasks</p>
   </li>
   <li>
-    <p>All questions are tagged with segment information.</p>
+    <p>Online stream of data (i.e., one or few datapoints accessed at a time).</p>
   </li>
   <li>
-    <p>A subset of questions has multiple answers and another subset has no answers at all.</p>
+    <p>When considering the $t^{th}$ task, the objective is: minimize the loss on the current task without increasing the loss on any of the previous tasks.</p>
   </li>
   <li>
-    <p>Each record in the dataset contains the following information:</p>
+    <p>The above constraint can be rephrased as $&lt;g_t, g_i&gt; \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.</p>
+  </li>
+  <li>
+    <p>This is equivalent to saying that the current task gradient should not interfere negatively with the previous task gradient.</p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>In practice, the gradient constraint is enforced only over the examples in the minibatch (and not the full dataset).</p>
+  </li>
+  <li>
+    <p>The paper interprets the constraint satisfaction problem as approximating an optimal feasible region (in the gradient space) where current task performance can be improved without hurting the performance on the previous tasks.</p>
+  </li>
+  <li>
+    <p>The approximate region (of the shape of a polyhedral convex cone) is determined using only the examples from the replay buffer. Hence, the optimal region (defined for the entire dataset) would be contained within the approximate region.</p>
+  </li>
+  <li>
+    <p>The size of the approximate region can be measured in terms of the solid angle defined by the intersection between the approximate region and a unit sphere.</p>
+  </li>
+  <li>
+    <p>The paper argues that the approximate region can be made smaller by reducing the angle between each pair of gradients.</p>
+  </li>
+  <li>
+    <p>The set of points, satisfying the constraint, can be computed using the Integer Quadratic Programming (IQP).</p>
+  </li>
+  <li>
+    <p>Given that the problem setup is online learning, using IDP for every new data point is not feasible.</p>
+  </li>
+  <li>
+    <p>An in-exact, greedy alternative is suggested where a score is maintained for each example in the buffer.</p>
+  </li>
+  <li>
+    <p>When a new datapoint comes in, the score is computed and used to decide if the existing datapoint in the buffer should be replaced.</p>
+  </li>
+  <li>
+    <p>The score is the maximal cosine similarity of the current example with a random sample in the buffer.</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>Benchmarks</p>
 
     <ul>
-      <li><strong>Query</strong> - The actual question</li>
-      <li><strong>Passage</strong> - Top 10 contextual passages extracted from web search engine (which may or may not contain the answer to the question).</li>
-      <li><strong>Document URLs</strong> - URLs for the top documents (which are the source of the contextual passages).</li>
-      <li><strong>Answer</strong> - Answer synthesised by human evaluators.</li>
-      <li><strong>Segment</strong> - Query type, description, neumeric, entity, location, person.</li>
+      <li>
+        <p>Disjoint MNIST</p>
+      </li>
+      <li>
+        <p>Permuted MNIST</p>
+      </li>
+      <li>
+        <p>Disjoint CIFAR10</p>
+      </li>
     </ul>
   </li>
-</ul>
-
-<h2 id="experimental-results">Experimental Results</h2>
-
-<ul>
   <li>
-    <p>Metrics</p>
+    <p>Shared head setup</p>
+  </li>
+  <li>
+    <p>Baselines for sample selection</p>
 
     <ul>
-      <li>Accuracy and precision/recall for numeric questions</li>
-      <li>ROGUE-L/paraphrasing aware evaluation framework for long, textual answers.</li>
+      <li>
+        <p>Randomly select examples to keep in the buffer.</p>
+      </li>
+      <li>
+        <p>Perform clustering - either in the feature space or in the gradient space.</p>
+      </li>
+      <li>
+        <p>Use IQP to select the examples. This approach is not used for CIFAR10, as it is computationally costly.</p>
+      </li>
+      <li>
+        <p>It would be interesting if the paper had considered baselines like selecting samples which had the largest loss.</p>
+      </li>
     </ul>
   </li>
   <li>
-    <p>Among generative models, Memory Networks performed better than seq-to-seq.</p>
+    <p>The proposed greedy approach outperforms the other methods.</p>
   </li>
   <li>
-    <p>In the cloze-style test, <a href="https://arxiv.org/abs/1609.05284">ReasoNet</a> achieved an accuracy of approx. 59% while <a href="ASR">Attention Sum Reader</a> achieved an accuracy of approx 55%.</p>
+    <p>In an ablation experiment, the paper shows that the proposed approach works better than reservoir sampling (when the underlying data distribution is imbalanced).</p>
   </li>
   <li>
-    <p>Current QA systems (including the ones using memory and attention) derive their power from supervised data and are very different from how humans do reasoning.</p>
-  </li>
-  <li>
-    <p>Imagenet dataset pushed the state-of-the-art performance on object classification to beyond human accuracy. Similar was the case with speech recognition dataset from DARPA which led to the advancement of speech recognition. Having a large, diverse and human-like questions dataset is a fundamental requirement to advance the field and the paper aims to provide just the right kind of dataset.</p>
+    <p>Another experiment compares the proposed approach with <a href="https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf">Gradient Episodic Memory</a> and <a href="https://arxiv.org/abs/1611.07725">iCaRL</a>. For Permuted and Disjoint MNIST, the different methods perform quite similar though the proposed approach performs better on Disjoint CIFAR10.</p>
   </li>
 </ul>
+
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Gradient-based-sample-selection-for-online-continual-learning">
-            Gradient based sample selection for online continual learning
-            <small>13 Feb 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -256,6 +295,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Massively-Multilingual-Neural-Machine-Translation-in-the-Wild-Findings-and-Challenges">
             Massively Multilingual Neural Machine Translation in the Wild - Findings and Challenges
             <small>30 Jan 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Observational-Overfitting-in-Reinforcement-Learning">
+            Observational Overfitting in Reinforcement Learning
+            <small>23 Jan 2020</small>
           </a>
         </h3>
       </li>
@@ -276,8 +324,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Reading-Wikipedia-to-Answer-Open-Domain-Questions"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Reading-Wikipedia-to-Answer-Open-Domain-Questions"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Gradient-based-sample-selection-for-online-continual-learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Gradient-based-sample-selection-for-online-continual-learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
