@@ -4,6 +4,9 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Competitive Training of Mixtures of Independent Deep Generative Models](https://shagunsodhani.com/papers-I-read/Competitive-Training-of-Mixtures-of-Independent-Deep-Generative-Models)
+* [What Does Classifying More Than 10,000 Image Categories Tell Us?](https://shagunsodhani.com/papers-I-read/What-Does-Classifying-More-Than-10,000-Image-Categories-Tell-Us)
+* [mixup - Beyond Empirical Risk Minimization](https://shagunsodhani.com/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization)
 * [ELECTRA - Pre-training Text Encoders as Discriminators Rather Than Generators](https://shagunsodhani.com/papers-I-read/ELECTRA-Pre-training-Text-Encoders-as-Discriminators-Rather-Than-Generators)
 * [Gradient based sample selection for online continual learning](https://shagunsodhani.com/papers-I-read/Gradient-based-sample-selection-for-online-continual-learning)
 * [Your Classifier is Secretly an Energy Based Model and You Should Treat it Like One](https://shagunsodhani.com/papers-I-read/Your-Classifier-is-Secretly-an-Energy-Based-Model,-and-You-Should-Treat-it-Like-One)
