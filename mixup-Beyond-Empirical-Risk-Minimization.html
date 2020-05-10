@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks &middot; Papers I Read
+      mixup - Beyond Empirical Risk Minimization &middot; Papers I Read
     
   </title>
 
@@ -153,56 +153,79 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Stylistic Transfer in Natural Language Generation Systems Using Recurrent Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACL+2016" title="Pages tagged ACL 2016" rel="tag">ACL 2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACL" title="Pages tagged ACL" rel="tag">ACL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLG" title="Pages tagged NLG" rel="tag">NLG</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Workshop" title="Pages tagged Workshop" rel="tag">Workshop</a></p>
-  <span class="post-date">11 Feb 2018</span>
+  <h1 class="post-title">mixup - Beyond Empirical Risk Minimization</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Adversarial+Robustness" title="Pages tagged Adversarial Robustness" rel="tag">Adversarial Robustness</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data+Augmentation" title="Pages tagged Data Augmentation" rel="tag">Data Augmentation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2018%27" title="Pages tagged ICLR 2018'" rel="tag">ICLR 2018'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ERM" title="Pages tagged ERM" rel="tag">ERM</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Robustness" title="Pages tagged Robustness" rel="tag">Robustness</a></p>
+  <span class="post-date">27 Feb 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li><a href="https://aclweb.org/anthology/W/W16/W16-6010.pdf">This workshop paper</a> explores the problem of style transfer in natural language generation (NLG).</li>
-  <li>One possible manifestation would be rewriting technical articles in an easy-to-understate manner.</li>
-</ul>
-
-<h2 id="challenges">Challenges</h2>
-
-<ul>
-  <li>Identifying relevant stylistic cues and using them to control text generation in NLG systems.</li>
-  <li>Absence of a large amount of training data.</li>
-</ul>
-
-<h2 id="pitch">Pitch</h2>
-
-<ul>
-  <li>Using Recurrent Neural Networks (RNNs) to disentangle the style from semantic content.</li>
-  <li>Autoencoder model with two components - one for learning style and another for learning content.</li>
-  <li>This allows for “style” component to be replaced while keeping the “content” component same, resulting in a style transfer.</li>
-  <li>One way to think about this is - the encoder generates a 100-dimensional vector. In this, the first 50 entries, correspond to the “style” component and remaining to the “content” component.</li>
-  <li>The proposal is that the loss function should be modified to include a cross-covariance term for ensuring disentanglement.</li>
-  <li>I think one way of doing this is to have two loss functions:
-    <ul>
-      <li>The <strong>first loss</strong> function ensures that the input sentence is decoded properly into the target sentence. This loss is computed for each sentence.</li>
-      <li>The <strong>second loss</strong> ensures that the first 50 entries across all the encoded represenations are are correlated. This loss operates at the batch level.</li>
-      <li>The <strong>total loss</strong> is the weighted sum of these 2 losses.</li>
-    </ul>
+  <li>
+    <p>The paper proposes a simple and dataset-agnostic data augmentation mechanism called <em>mixup</em>.</p>
+  </li>
+  <li>
+    <p><a href="">Link to the paper</a></p>
+  </li>
+  <li>
+    <p>Consider two training examples, $(x_1, y_1)$ and $(y_1, y_2)$, where $x_1$ and $x_2$ are the datapoints and $y_1$ and $y_2$ are the labels.</p>
+  </li>
+  <li>
+    <p>New training examples of the form $(\lambda \times x_1 + (1-\lambda) \times x_2, \lambda \times y_1 + (1-\lambda) \times y_2)$ are constructured by considering the linear interpolation of the datapoints and the labels. Here $\lambda \in [0, 1]$.</p>
+  </li>
+  <li>
+    <p>$\lambda$ is sampled from a Beta distribution $Beta(\alpha, \alpha)$ where $\alpha \in (0, \infty)$.</p>
+  </li>
+  <li>
+    <p>Setting $\lambda$ to 0 or 1 eliminates the effect of <em>mixup</em>.</p>
+  </li>
+  <li>
+    <p>Mixup encourages the neural network to favor linear behavior between the training examples.</p>
   </li>
 </ul>
 
-<h2 id="possible-datasets">Possible Datasets</h2>
+<h2 id="experiments">Experiments</h2>
 
 <ul>
-  <li><a href="http://norvig.com/ngrams/shakespeare.txt">Complete works of Shakespeare</a></li>
-  <li><a href="https://www.kaggle.com/c/wikichallenge/data">Wikpedia Kaggle dataset</a></li>
-  <li><a href="https://ota.ox.ac.uk/">Oxford Text Archive</a></li>
-  <li>Twitter data</li>
+  <li>
+    <p><strong>Supervised Learning</strong></p>
+
+    <ul>
+      <li>
+        <p>ImageNet for ResNet-50, ResNet-101 and ResNext-101.</p>
+      </li>
+      <li>
+        <p>CIFAR10/CIFAR100 for PreAct ResNet-18, WideResNet-28-10 and DenseNet.</p>
+      </li>
+      <li>
+        <p>Google command dataset for LeNet and VGG.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>In all these setups, adding <em>mixup</em> improves the performance of the model.</p>
+  </li>
+  <li>
+    <p><em>Mixup</em> makes the model more robust to noisy labels. Moreover, <em>mixup</em> + dropout improves over <em>mixup</em> alone. This hints that <em>mixup</em>’s benefits are complementary to those of dropout.</p>
+  </li>
+  <li>
+    <p><em>Mixup</em> makes the network more robust to adversarial examples in both white-box and black-box settings (ImageNet + Resnet101).</p>
+  </li>
+  <li>
+    <p><em>Mixup</em> also stabilizes the training of GANs by acting as a regularizer for the gradient of the discriminator.</p>
+  </li>
 </ul>
 
-<h2 id="possible-metrics">Possible Metrics</h2>
+<h2 id="observations">Observations</h2>
 
 <ul>
-  <li>Soundness - is the generated text entailed with the input sentence.</li>
-  <li>Coherence - free of grammatical errors, proper word usage etc.</li>
-  <li>Effectiveness - how effective was the style transfer</li>
-  <li>Since some of the metrics are subjective, human evaluators also need to be employed.</li>
+  <li>
+    <p>Convex combination of three or more examples (with weights sampled from a Dirichlet distribution) does not provide gains over the case of two examples.</p>
+  </li>
+  <li>
+    <p>In the authors’ implementation, <em>mixup</em> is applied between images of the same batch (after shuffling).</p>
+  </li>
+  <li>
+    <p>Interpolating only between inputs, with the same labels, did not lead to the same kind of gains as <em>mixup</em>.</p>
+  </li>
 </ul>
 
 </div>
@@ -231,8 +254,8 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization">
-            mixup - Beyond Empirical Risk Minimization
+          <a href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning">
+            CURL - Contrastive Unsupervised Representations for Reinforcement Learning
             <small>27 Feb 2020</small>
           </a>
         </h3>
@@ -254,8 +277,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Stylistic-Transfer-in-Natural-Language-Generation-Systems-Using-Recurrent-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Stylistic-Transfer-in-Natural-Language-Generation-Systems-Using-Recurrent-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/mixup-Beyond-Empirical-Risk-Minimization"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

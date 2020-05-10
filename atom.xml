@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-05-09T20:09:35-04:00</updated>
+ <updated>2020-05-09T20:12:45-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -256,9 +256,9 @@
  
  <entry>
    <title>mixup - Beyond Empirical Risk Minimization</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimizatio"/>
+   <link href="https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization"/>
    <updated>2020-02-27T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/mixup Beyond Empirical Risk Minimizatio</id>
+   <id>https://shagunsodhani.github.io/papers-I-read/mixup Beyond Empirical Risk Minimization</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -307,13 +307,13 @@
     &lt;p&gt;In all these setups, adding &lt;em&gt;mixup&lt;/em&gt; improves the performance of the model.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the  model more robust to noisy labels. Moreover, &lt;em&gt;mixup&lt;/em&gt; + dropout improves over &lt;em&gt;mixup&lt;/em&gt; alone. This hints that &lt;em&gt;mixup&lt;/em&gt;’s benefit’s are complementary to those of dropout.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the model more robust to noisy labels. Moreover, &lt;em&gt;mixup&lt;/em&gt; + dropout improves over &lt;em&gt;mixup&lt;/em&gt; alone. This hints that &lt;em&gt;mixup&lt;/em&gt;’s benefits are complementary to those of dropout.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the network more robust to adverserial examples in both whitebox and blacknox settings (ImageNet + Resnet101).&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the network more robust to adversarial examples in both white-box and black-box settings (ImageNet + Resnet101).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; also stabilizes the training of GANs as it acts as a regularizer on the gradient of the discriminator.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; also stabilizes the training of GANs by acting as a regularizer for the gradient of the discriminator.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -327,7 +327,7 @@
     &lt;p&gt;In the authors’ implementation, &lt;em&gt;mixup&lt;/em&gt; is applied between images of the same batch (after shuffling).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Interpolating only between inputs, with the same labels, did not lead to same kind of gains as &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
+    &lt;p&gt;Interpolating only between inputs, with the same labels, did not lead to the same kind of gains as &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
