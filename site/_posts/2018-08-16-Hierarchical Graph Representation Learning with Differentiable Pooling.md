@@ -3,7 +3,7 @@ layout: post
 title: Hierarchical Graph Representation Learning with Differentiable Pooling
 comments: True
 excerpt: 
-tags: ['2018', 'Graph Representation', AI, Graph, GNN, Pooling]
+tags: ['2018', 'Graph Neural Network', 'Graph Representation', AI, Graph, GNN, Pooling]
 ---
 
 ## Introduction

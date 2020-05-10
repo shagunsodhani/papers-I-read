@@ -3,7 +3,7 @@ layout: post
 title: GNN Explainer - A Tool for Post-hoc Explanation of Graph Neural Networks
 comments: True
 excerpt: 
-tags: ['2019', 'Graph Representation', AI, Embedding, GNN, Graph]
+tags: ['2019', 'Graph Neural Network', 'Graph Representation', AI, Embedding, GNN, Graph]
 ---
 
 ## Introduction

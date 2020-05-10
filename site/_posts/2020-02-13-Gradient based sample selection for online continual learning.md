@@ -3,7 +3,7 @@ layout: post
 title: Gradient based sample selection for online continual learning
 comments: True
 excerpt: 
-tags: ['2019', 'Catastrophic Forgetting', Continual Learning', 'Lifelong Learning', 'NeurIPS 2019', 'Replay Buffer', AI, CL, LL, NeurIPS]
+tags: ['2019', 'Catastrophic Forgetting', 'Continual Learning', 'Lifelong Learning', 'NeurIPS 2019', 'Replay Buffer', AI, CL, LL, NeurIPS]
 
 ---
 

@@ -3,7 +3,7 @@ layout: post
 title: Learning an SAT Solver from Single-Bit Supervision
 comments: True
 excerpt: 
-tags: ['2018',  AI, Graph, GNN, SAT]
+tags: ['2018', 'Graph Neural Network', AI, Graph, GNN, SAT]
 ---
 
 ## Introduction
