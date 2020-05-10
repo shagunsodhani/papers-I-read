@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-04-25T13:14:07-04:00</updated>
+ <updated>2020-05-09T20:09:35-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -13,9 +13,330 @@
 
  
  <entry>
+   <title>Supervised Contrastive Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Supervised-Contrastive-Learning"/>
+   <updated>2020-04-30T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Supervised Contrastive Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper builds on the prior work on self-supervised contrastive learning and extends it for the supervised learning case where many positive examples are available for each anchor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2004.11362&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The representation learning framework has the following components:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;data-augmentation-module&quot;&gt;Data Augmentation Module&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;This module transforms the input example. The paper considers the following strategies:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Random crop, followed by resizing&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.09501&quot;&gt;Auto Augment&lt;/a&gt; - A method to search for data augmentation strategies.&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1909.13719&quot;&gt;Rand Augment&lt;/a&gt; - Randomly sampling a sequence of data augmentations, with repetition&lt;/li&gt;
+      &lt;li&gt;SimAugment - Sequentially apply random color distortion and Gaussian blurring, followed by probabilistic sparse image wrap.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;encoder-network&quot;&gt;Encoder Network&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the input to a latent representation.
+
+* The same network is used to encode both the anchor and the sample.
+
+* The representation vector is normalized to lie on the unit hypersphere.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;projection-network&quot;&gt;Projection Network&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the normalized representation to another representation, on which the contrastive loss is computed.
+
+* This network is only used for training the supervised contrastive loss.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;loss-function&quot;&gt;Loss function&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* The paper extends the standard contrastive loss formulation to handle multiple positive examples.
+
+* The main effect is that the modified loss accounts for all the same-class pairs (from within the sampled batch as well as the augmented batch).
+
+* The paper shows that the gradient (corresponding to the modified loss) causes the learning to focus more on hard examples. &quot;Hard&quot; cases are the ones where contrasting the anchor benefits the encoder more.
+
+* The proposed loss can also be seen as a generalization of the triplet loss.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dataset - ImageNet&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models - ResNet50, ResNet200&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The network is “pretrained” using supervised contrastive loss.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After pre-training, the projection network is removed, and a linear classifier is added.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This classifier is trained with the CE loss while the rest of the network is kept fixed.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using supervised contrastive loss improves over all the baseline models and data augmentation approaches.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting classifier is more robust to image corruptions, as shown by the mean Corruption Error (mCE) metric on the ImageNet-C dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is more stable to the choice oh hyperparameter values (like optimizers, data augmentation, and learning rates).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;training-details&quot;&gt;Training Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Supervised Contrastive loss is trained for 700 epochs during pre-training.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each step is about 50% more expensive than performing CE.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The dense classifier layer can be trained in as few as ten epochs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The temperature value is set to 0.07. Using a lower temperature is better than using a higher temperature.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>CURL - Contrastive Unsupervised Representations for Reinforcement Learning</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning"/>
    <updated>2020-04-09T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/CURL Contrastive Unsupervised Representations for Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a contrastive learning approach, called CURL, for performing off-policy control from raw pixel observations (by transforming them into high dimensional features).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is motivated by the application of contrastive losses in computer vision. But there are additional challenges:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The learning agent has to perform both unsupervised and reinforcement learning.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The “dataset” for unsupervised learning is not fixed and keeps changing with the policy of the agent.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unlike prior work, CURL introduces fewer changes in the underlying RL pipeline and provides more significant sample efficiency gains. For example, CURL (trained on pixels) nearly matches the performance of SAC policy (trained on state-based features).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/MishaLaskin/curl&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CURL uses instance discrimination. Deep RL algorithms commonly use a stack of temporally consecutive frames as input to the policy. In such cases, instance discrimination is applied to all the images in the stack.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For generating the positive and negative samples, random crop data augmentation is used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bilinear inner product is used as the similarity metric as it outperforms the commonly used normalized dot product.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For encoding the anchors and the samples, InfoNCE is used. It learns two encoders $f_q$ and $f_k$ that transform the query (base input) and the key (positive/negative samples) into latent representations. The similarity loss is applied to these latents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Momentum contrast is used to update the parameters ($\theta_k$) of the $f_k$ network. ie $\theta_k = m \theta_k + (1-m) \theta_q$. $\theta_q$ are the parameters of the $f_q$ network and are updated in the usual way, using both the contrastive loss and the RL loss.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;DMControl100K and Atart100K refer to the setups where the agent is trained for 100K steps on DMControl and Atari, respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sample Efficiency - How many steps does the baseline need to match CURL’s performance after 100K steps.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Performance - Ratio of episodic returns by CURL vs. the baseline after 100K steps.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Baselines:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;DMControl&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1910.01741&quot;&gt;SAC-AE&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1907.00953&quot;&gt;SLAC&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://planetrl.github.io/&quot;&gt;PlaNet&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://openreview.net/forum?id=S1lOTC4tDS&quot;&gt;Dreamer&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1812.05905&quot;&gt;Pixel SAC&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;SAC trained on state-space observations&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Atari&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1903.00374&quot;&gt;SimPLe&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1710.02298&quot;&gt;RainbowDQN&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://openreview.net/forum?id=Bke9u1HFwB&quot;&gt;OTRainbow (Over Trained Rainbow)&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.05243&quot;&gt;Efficient Rainbow&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;Random Agent&lt;/li&gt;
+          &lt;li&gt;Human Performance&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Results&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;DM Control&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;CURL outperforms all pixel-based RL algorithms by a significant margin for all environments on DMControl and most environments on Atari.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;On DMControl, it closely matches the performance of the SAC agent trained on state-space observations.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;On Atari, it achieves better median human normalizes score (HNS) than the other baselines and close to human efficiency in three environments.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>mixup - Beyond Empirical Risk Minimization</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimizatio"/>
+   <updated>2020-02-27T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/mixup Beyond Empirical Risk Minimizatio</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a simple and dataset-agnostic data augmentation mechanism called &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider two training examples, $(x_1, y_1)$ and $(y_1, y_2)$, where $x_1$ and $x_2$ are the datapoints and $y_1$ and $y_2$ are the labels.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;New training examples of the form $(\lambda \times x_1 + (1-\lambda) \times x_2, \lambda \times y_1 + (1-\lambda) \times y_2)$ are constructured by considering the linear interpolation of the datapoints and the labels. Here $\lambda \in [0, 1]$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\lambda$ is sampled from a Beta distribution $Beta(\alpha, \alpha)$ where $\alpha \in (0, \infty)$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Setting $\lambda$ to 0 or 1 eliminates the effect of &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Mixup encourages the neural network to favor linear behavior between the training examples.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Supervised Learning&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;ImageNet for ResNet-50, ResNet-101 and ResNext-101.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;CIFAR10/CIFAR100 for PreAct ResNet-18, WideResNet-28-10 and DenseNet.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Google command dataset for LeNet and VGG.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In all these setups, adding &lt;em&gt;mixup&lt;/em&gt; improves the performance of the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the  model more robust to noisy labels. Moreover, &lt;em&gt;mixup&lt;/em&gt; + dropout improves over &lt;em&gt;mixup&lt;/em&gt; alone. This hints that &lt;em&gt;mixup&lt;/em&gt;’s benefit’s are complementary to those of dropout.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; makes the network more robust to adverserial examples in both whitebox and blacknox settings (ImageNet + Resnet101).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Mixup&lt;/em&gt; also stabilizes the training of GANs as it acts as a regularizer on the gradient of the discriminator.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Convex combination of three or more examples (with weights sampled from a Dirichlet distribution) does not provide gains over the case of two examples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the authors’ implementation, &lt;em&gt;mixup&lt;/em&gt; is applied between images of the same batch (after shuffling).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interpolating only between inputs, with the same labels, did not lead to same kind of gains as &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>CURL - Contrastive Unsupervised Representations for Reinforcement Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning"/>
+   <updated>2020-02-27T00:00:00-05:00</updated>
    <id>https://shagunsodhani.github.io/papers-I-read/CURL Contrastive Unsupervised Representations for Reinforcement Learning</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
