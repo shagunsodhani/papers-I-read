@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-05-09T20:12:45-04:00</updated>
+ <updated>2020-05-09T21:39:53-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -255,6 +255,58 @@
  </entry>
  
  <entry>
+   <title>What Does Classifying More Than 10,000 Image Categories Tell Us?</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/What-Does-Classifying-More-Than-10,000-Image-Categories-Tell-Us"/>
+   <updated>2020-03-05T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/What Does Classifying More Than 10,000 Image Categories Tell Us</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper is among the first to study image classification at a large scale (10000 classes and 9 million examples).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is a relatively old paper (2010). Some of the findings may not be relevant anymore. For instance, specific scaling challenges have been significantly overcome. Moreover, the paper uses approaches like SVM and KNN (popular at that time) and not use CNNs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Other observations of the paper are still very relevant, and it is an educating paper. For example, since ImagetNet classes are based on WordNet, the paper looks at the effect of semantic relations (tree) of categories on the performance of the training models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://openaccess.thecvf.com/content_cvpr_2015/papers/Jain_What_do_15000_2015_CVPR_paper.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers three variants of the ImageNet dataset - ImageNet 10K (10184 classes), ImageNet 7K (7404 classes) and ImageNet 1K (1000 classes).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;They also consider smaller variants with randomly sampled classes or cases where the examples are sampled from one high-level category like vehicles.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SVM and KNN models are used with features like Bag of Words, GIST descriptors, and spatial pyramid of histograms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Observations&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;A model that performs well on the smaller dataset (with fewer classes) may not perform well on the larger dataset (with more classes).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;There seems to be an approximate correlation between the structure of the semantic hierarchy of the labels (obtained via WordNet) and visual confusion between the categories.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For example, consider two high-level concepts - says artifacts and animals. The model is less likely to confuse between the classes across the high-level concepts but more likely to confuse between the classes in the respective concepts.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For dense categories (categories where the classes are semantically more closely related to each other), the model tends to make more mistakes (even if the number of classes is fewer).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Accounting for the label hierarchy (in the loss function) improves the classification performance.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>mixup - Beyond Empirical Risk Minimization</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization"/>
    <updated>2020-02-27T00:00:00-05:00</updated>
@@ -328,130 +380,6 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Interpolating only between inputs, with the same labels, did not lead to the same kind of gains as &lt;em&gt;mixup&lt;/em&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>CURL - Contrastive Unsupervised Representations for Reinforcement Learning</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning"/>
-   <updated>2020-02-27T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/CURL Contrastive Unsupervised Representations for Reinforcement Learning</id>
-   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;The paper proposes a contrastive learning approach, called CURL, for performing off-policy control from raw pixel observations (by transforming them into high dimensional features).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The idea is motivated by the application of contrastive losses in computer vision. But there are additional challenges:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;The learning agent has to perform both unsupervised and reinforcement learning.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;The “dataset” for unsupervised learning is not fixed and keeps changing with the policy of the agent.&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Unlike prior work, CURL introduces fewer changes in the underlying RL pipeline and provides more significant sample efficiency gains. For example, CURL (trained on pixels) nearly matches the performance of SAC policy (trained on state-based features).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://github.com/MishaLaskin/curl&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;implementation&quot;&gt;Implementation&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;CURL uses instance discrimination. Deep RL algorithms commonly use a stack of temporally consecutive frames as input to the policy. In such cases, instance discrimination is applied to all the images in the stack.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For generating the positive and negative samples, random crop data augmentation is used.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Bilinear inner product is used as the similarity metric as it outperforms the commonly used normalized dot product.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For encoding the anchors and the samples, InfoNCE is used. It learns two encoders $f_q$ and $f_k$ that transform the query (base input) and the key (positive/negative samples) into latent representations. The similarity loss is applied to these latents.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Momentum contrast is used to update the parameters ($\theta_k$) of the $f_k$ network. ie $\theta_k = m \theta_k + (1-m) \theta_q$. $\theta_q$ are the parameters of the $f_q$ network and are updated in the usual way, using both the contrastive loss and the RL loss.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;DMControl100K and Atart100K refer to the setups where the agent is trained for 100K steps on DMControl and Atari, respectively.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Metrics:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Sample Efficiency - How many steps does the baseline need to match CURL’s performance after 100K steps.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Performance - Ratio of episodic returns by CURL vs. the baseline after 100K steps.&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Baselines:&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;DMControl&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1910.01741&quot;&gt;SAC-AE&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1907.00953&quot;&gt;SLAC&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://planetrl.github.io/&quot;&gt;PlaNet&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://openreview.net/forum?id=S1lOTC4tDS&quot;&gt;Dreamer&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1812.05905&quot;&gt;Pixel SAC&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;SAC trained on state-space observations&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Atari&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1903.00374&quot;&gt;SimPLe&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1710.02298&quot;&gt;RainbowDQN&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://openreview.net/forum?id=Bke9u1HFwB&quot;&gt;OTRainbow (Over Trained Rainbow)&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.05243&quot;&gt;Efficient Rainbow&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;Random Agent&lt;/li&gt;
-          &lt;li&gt;Human Performance&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Results&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;DM Control&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;CURL outperforms all pixel-based RL algorithms by a significant margin for all environments on DMControl and most environments on Atari.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;On DMControl, it closely matches the performance of the SAC agent trained on state-space observations.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;On Atari, it achieves better median human normalizes score (HNS) than the other baselines and close to human efficiency in three environments.&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
