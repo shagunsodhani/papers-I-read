@@ -3,7 +3,7 @@ layout: post
 title: Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models
 comments: True
 excerpt: 
-tags: ['2018', 'Deep Reinforcement Learning', 'Model-based', 'Neurips 2018', 'Reinforcement Learning',  AI, DRL, MBRL, Neurips, RL]
+tags: ['2018', 'Deep Reinforcement Learning', 'Model-Based', 'Neurips 2018', 'Reinforcement Learning',  AI, DRL, Neurips, RL]
 
 ---
 
