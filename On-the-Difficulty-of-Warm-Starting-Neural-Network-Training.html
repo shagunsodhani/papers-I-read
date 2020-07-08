@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Quantifying Generalization in Reinforcement Learning &middot; Papers I Read
+      On the Difficulty of Warm-Starting Neural Network Training &middot; Papers I Read
     
   </title>
 
@@ -153,135 +153,143 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Quantifying Generalization in Reinforcement Learning</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2019" title="Pages tagged ICML 2019" rel="tag">ICML 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization" title="Pages tagged Evaluating Generalization" rel="tag">Evaluating Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Environment" title="Pages tagged Environment" rel="tag">Environment</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
-  <span class="post-date">25 Jul 2019</span>
+  <h1 class="post-title">On the Difficulty of Warm-Starting Neural Network Training</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Incremental+Learning" title="Pages tagged Incremental Learning" rel="tag">Incremental Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Online+Learning" title="Pages tagged Online Learning" rel="tag">Online Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Transfer+Learning" title="Pages tagged Transfer Learning" rel="tag">Transfer Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical" title="Pages tagged Empirical" rel="tag">Empirical</a></p>
+  <span class="post-date">18 Jun 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper introduces a new, procedurally generated environment called as CoinRun that is designed to benchmark the generalization capabilities of RL algorithms.</p>
+    <p>The paper considers learning scenarios where the training data is available incrementally (and not at once).</p>
   </li>
   <li>
-    <p>The paper reports that deep convolutional architectures and techniques like L2 regularization, batch norm, etc (which were proposed in the context of generalization in supervised learning) are also useful for RL.</p>
+    <p>For example, in some applications, new data is available periodically (e.g., latest news articles come out every day).</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1812.02341">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="coinrun-environment">CoinRun Environment</h2>
-
-<ul>
-  <li>
-    <p>CoinRun is made of multiple levels.</p>
+    <p>The paper highlights that, in such scenarios, the conventional wisdom of “warm start” does not apply.</p>
   </li>
   <li>
-    <p>In each level, the agent spawns on the far left side and needs to collect a single coin that lies on the far right side.</p>
+    <p>When new data is available, it is better to train a new model from scratch than to update the model trained on previously available data.</p>
   </li>
   <li>
-    <p>There are many obstacles in between and colliding with an obstacle leads to agent’s death.</p>
+    <p>While the two setups lead to similar training performance, the randomly initialized model has a much better generalization performance.</p>
   </li>
   <li>
-    <p>Each episode extends for a maximum for 1000 steps.</p>
-  </li>
-  <li>
-    <p>CoinRun is designed such that given sufficient training time and levels, a near-optimal policy can be learned for all the levels.</p>
+    <p><a href="https://arxiv.org/abs/1910.08475">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="generalization">Generalization</h2>
+<h2 id="basic-batch-updating">Basic Batch Updating</h2>
 
 <ul>
   <li>
-    <p>Generalization can be measure by training an agent on a given set of training tasks and evaluating on an unseen set of test tasks.</p>
+    <p>Create two random, equally-sized partitions of the training data.</p>
   </li>
   <li>
-    <p>9 agents are trained to play CoinRun, on different training sets (each with a different number of levels).</p>
+    <p>Train the model till convergence on the first half of the data. Then train the model on the entire dataset.</p>
   </li>
   <li>
-    <p>The first 8 agents are trained on sets of size 100 to 16000 levels while the last agent is trained on an unbounded set of levels.</p>
+    <p>Models: ResNet18, MLPs, Logisitic Regression (LR)</p>
   </li>
   <li>
-    <p>Training a model on an unbounded set of levels provides a good proxy for the train-to-test generalization performance.</p>
+    <p>Dataset: CIFAR10, CIFAR100, SVHN</p>
+  </li>
+  <li>
+    <p>Optimizers: Adam, SGD</p>
+  </li>
+  <li>
+    <p>Warm starting hurts generalization in all the cases.</p>
+  </li>
+  <li>
+    <p>The effect is more pronounced in the case of ResNets and MLPs (compared to LR) and harder CIFAR 10 dataset (as compared to SVHN dataset).</p>
   </li>
 </ul>
 
-<h2 id="evaluating-architectures">Evaluating Architectures</h2>
+<h2 id="online-learning">Online Learning</h2>
+
+<h3 id="passive-online-learning">Passive Online Learning</h3>
 
 <ul>
   <li>
-    <p>Two convolutional architectures (of different sizes) are compared:</p>
-
-    <ul>
-      <li>
-        <p>Nature-CNN: The CNN architecture used in the <a href="https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf">Deep Q Network</a>. This is the smaller network among the two models.</p>
-      </li>
-      <li>
-        <p>IMPALA-CNN: The CNN architecture used in the <a href="https://arxiv.org/abs/1802.01561">Imapla architecture</a>.</p>
-      </li>
-    </ul>
+    <p>The model is given access to k new learning examples at each iteration.</p>
   </li>
   <li>
-    <p>IMPALA-CNN agent always outperforms the Nature-CNN agent indicating that larger architecture has more capacity for generalization. But increasing the network size beyond a limit gives diminishing returns.</p>
+    <p>A warm started model reuses the previously initialized model and trains (till convergence) on the new batch of k items.</p>
+  </li>
+  <li>
+    <p>A “randomly initialized” model is trained on all the examples (seen so far) from scratch.</p>
+  </li>
+  <li>
+    <p>Dataset: CIFAR10</p>
+  </li>
+  <li>
+    <p>Model: ResNet18</p>
+  </li>
+  <li>
+    <p>As more training data becomes available, the generalization gap between the two setups increases, and warmup starts hurting generalization.</p>
   </li>
 </ul>
 
-<h2 id="evaluating-regularization">Evaluating Regularization</h2>
+<h3 id="active-online-learning">Active Online Learning</h3>
 
 <ul>
   <li>
-    <p>While both L2 regularization and Dropout helps to improve generalization, L2 regularization is more impactful.</p>
+    <p>In this setup, the learner is trained to sample k new examples to add to the training dataset (using margin-based sampling).</p>
   </li>
   <li>
-    <p>A domain randomization/data augmentation approach is tested where rectangular regions of different sizes are masked and assigned a random color. This approach seems to improve performance.</p>
-  </li>
-  <li>
-    <p>Batch Normalization helps to improve performance as well.</p>
-  </li>
-  <li>
-    <p>Environment stochasticity is introduced by using sticky actions while policy stochasticity is introduced by controlling the entropy bonus. Both these forms of stochasticity boost performance.</p>
-  </li>
-  <li>
-    <p>While combining different regularization methods help, the gains are only marginally better than using just 1 regularization approach. This suggests that these different approaches induce similar generalization properties.</p>
+    <p>Like the previous setup, warmup strategy still hurts generalization.</p>
   </li>
 </ul>
 
-<h2 id="additional-environments">Additional Environments</h2>
+<h2 id="transfer-learning">Transfer Learning</h2>
 
 <ul>
   <li>
-    <p>Two additional environments are also considered to verify the high degree of overfitting observed in the CoinRun environment:</p>
-
-    <ul>
-      <li>
-        <p>CoinRun-Platforms:</p>
-
-        <ul>
-          <li>
-            <p>Unlike CoinRun, each episode can have multiple coins and the time limit is 0increased to 1000 steps.</p>
-          </li>
-          <li>
-            <p>Levels are larger as well so the agent might need to backtrack their steps.</p>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <p>RandomMazes:</p>
-
-        <ul>
-          <li>
-            <p>Partially observed environment with square mazes of dimensions 3x3 to 25x25.</p>
-          </li>
-          <li>
-            <p>Timelimit of 500 steps</p>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <p>Train a Resnet18 model on the CIFAR10 dataset and use this model to warm start training on the SVHN dataset.</p>
   </li>
   <li>
-    <p>Overfitting is observed for both these environments as well.</p>
+    <p>When a small percentage of the SVHN dataset is used, the setup resembles pretraining / transfer learning and performs better than training from scratch.</p>
+  </li>
+  <li>
+    <p>As the percentage of the SVHN dataset increases, the warmup approach starts underperforming.</p>
+  </li>
+</ul>
+
+<h2 id="overcoming-warm-start-problem">Overcoming warm start problem</h2>
+
+<ul>
+  <li>
+    <p>ResNet18 model on CIFAR10 dataset</p>
+  </li>
+  <li>
+    <p>When performing a hyper-parameter sweep over the learning rate and batch size, it is possible to train warm start models to reach the same generalization performance as training from scratch.</p>
+  </li>
+  <li>
+    <p>Though, in that case, there are no computational savings as the warm-started models take about the same time (to converge) as the randomly initialized model.</p>
+  </li>
+  <li>
+    <p>The increased training time indicates that the warm started model probably needs to forget the knowledge from previous training rounds.</p>
+  </li>
+  <li>
+    <p>Warm start Resnet models, that generalize well, have a low correlation to their initialization stage (measured via Pearson correlation coefficient between the model weights).</p>
+  </li>
+  <li>
+    <p>Generalization is damaged even when using a model trained on incomplete data for only a few epochs.</p>
+  </li>
+  <li>
+    <p>For warm start models, the gradient (corresponding to the “new” data) is higher than that for randomly initialized models. This hints that regularisation may help to close the generalization gap. But in practice, regularization helps both the warmup and randomly initialized model.</p>
+  </li>
+  <li>
+    <p>Warm starting only a few layers also does not close the gap.</p>
+  </li>
+  <li>
+    <p>Adding some noise to the warm started model (with the motivation of having a partially random initialization) does help somewhat but also increases the training time.</p>
+  </li>
+  <li>
+    <p>Motivating the problem as an instance of catastrophic forgetting, the authors use the EWC algorithm but report that using EWC hurts model performance.</p>
+  </li>
+  <li>
+    <p>The paper does not propose a solution to the problem but provides a thorough analysis of the problem setup, which is quite useful for understanding the phenomenon itself.</p>
   </li>
 </ul>
 
@@ -311,9 +319,9 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training">
-            On the Difficulty of Warm-Starting Neural Network Training
-            <small>18 Jun 2020</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Supervised-Contrastive-Learning">
+            Supervised Contrastive Learning
+            <small>30 Apr 2020</small>
           </a>
         </h3>
       </li>
@@ -334,8 +342,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Quantifying-Generalization-in-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Quantifying-Generalization-in-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

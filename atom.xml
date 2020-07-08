@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-07-08T12:40:15-04:00</updated>
+ <updated>2020-07-08T14:40:03-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -207,6 +207,150 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;On DeepMind Lab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>On the Difficulty of Warm-Starting Neural Network Training</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training"/>
+   <updated>2020-06-18T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/On the Difficulty of Warm-Starting Neural Network Training</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considers learning scenarios where the training data is available incrementally (and not at once).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, in some applications, new data is available periodically (e.g., latest news articles come out every day).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper highlights that, in such scenarios, the conventional wisdom of “warm start” does not apply.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When new data is available, it is better to train a new model from scratch than to update the model trained on previously available data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While the two setups lead to similar training performance, the randomly initialized model has a much better generalization performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1910.08475&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;basic-batch-updating&quot;&gt;Basic Batch Updating&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create two random, equally-sized partitions of the training data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Train the model till convergence on the first half of the data. Then train the model on the entire dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models: ResNet18, MLPs, Logisitic Regression (LR)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dataset: CIFAR10, CIFAR100, SVHN&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Optimizers: Adam, SGD&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Warm starting hurts generalization in all the cases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The effect is more pronounced in the case of ResNets and MLPs (compared to LR) and harder CIFAR 10 dataset (as compared to SVHN dataset).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;online-learning&quot;&gt;Online Learning&lt;/h2&gt;
+
+&lt;h3 id=&quot;passive-online-learning&quot;&gt;Passive Online Learning&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is given access to k new learning examples at each iteration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A warm started model reuses the previously initialized model and trains (till convergence) on the new batch of k items.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A “randomly initialized” model is trained on all the examples (seen so far) from scratch.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dataset: CIFAR10&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model: ResNet18&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As more training data becomes available, the generalization gap between the two setups increases, and warmup starts hurting generalization.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;active-online-learning&quot;&gt;Active Online Learning&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In this setup, the learner is trained to sample k new examples to add to the training dataset (using margin-based sampling).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Like the previous setup, warmup strategy still hurts generalization.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;transfer-learning&quot;&gt;Transfer Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Train a Resnet18 model on the CIFAR10 dataset and use this model to warm start training on the SVHN dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When a small percentage of the SVHN dataset is used, the setup resembles pretraining / transfer learning and performs better than training from scratch.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As the percentage of the SVHN dataset increases, the warmup approach starts underperforming.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;overcoming-warm-start-problem&quot;&gt;Overcoming warm start problem&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ResNet18 model on CIFAR10 dataset&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When performing a hyper-parameter sweep over the learning rate and batch size, it is possible to train warm start models to reach the same generalization performance as training from scratch.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Though, in that case, there are no computational savings as the warm-started models take about the same time (to converge) as the randomly initialized model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The increased training time indicates that the warm started model probably needs to forget the knowledge from previous training rounds.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Warm start Resnet models, that generalize well, have a low correlation to their initialization stage (measured via Pearson correlation coefficient between the model weights).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generalization is damaged even when using a model trained on incomplete data for only a few epochs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For warm start models, the gradient (corresponding to the “new” data) is higher than that for randomly initialized models. This hints that regularisation may help to close the generalization gap. But in practice, regularization helps both the warmup and randomly initialized model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Warm starting only a few layers also does not close the gap.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adding some noise to the warm started model (with the motivation of having a partially random initialization) does help somewhat but also increases the training time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Motivating the problem as an instance of catastrophic forgetting, the authors use the EWC algorithm but report that using EWC hurts model performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper does not propose a solution to the problem but provides a thorough analysis of the problem setup, which is quite useful for understanding the phenomenon itself.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
