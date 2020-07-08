@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-07-08T12:38:13-04:00</updated>
+ <updated>2020-07-08T12:40:15-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -206,7 +206,7 @@
     &lt;p&gt;For the large-scale experiments, when evaluated on 500 levels of CoinRun, the proposed method improves the success rates from 39.8% to 58.7%.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;On DeepMindLab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).&lt;/p&gt;
+    &lt;p&gt;On DeepMind Lab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
