@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      HARP - Hierarchical Representation Learning for Networks &middot; Papers I Read
+      Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning &middot; Papers I Read
     
   </title>
 
@@ -153,62 +153,85 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">HARP - Hierarchical Representation Learning for Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph+Representation" title="Pages tagged Graph Representation" rel="tag">Graph Representation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">28 Oct 2017</span>
+  <h1 class="post-title">Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2020" title="Pages tagged ICLR 2020" rel="tag">ICLR 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">25 Jun 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.</p>
+    <p>The paper proposed a Technique for improving the generalization ability of RL agents when evaluated on an unseen environment (which is similar to the training environment).</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1706.07845">Link to the paper</a>.</p>
+    <p><a href="https://openreview.net/forum?id=HJgcvJBFvB">Link to the paper</a></p>
   </li>
   <li>
-    <p>Given a graph <em>G = (V, E)</em>, compute a series of successively smaller (coarse) graphs <em>G<sub>0</sub>, …, G<sub>L</sub></em>. Learn the node representations in <em>G<sub>L</sub></em> and successively refine the embeddings for larger graphs in the series.</p>
+    <p><a href="https://github.com/pokaxpoka/netrand">Link to the code</a></p>
   </li>
-  <li>
-    <p>The architecture is independent of the algorithms used to embed the nodes or to refine the node representations.</p>
-  </li>
-  <li>
-    <p><strong>Graph coarsening technique that preserves global structure</strong></p>
+</ul>
 
-    <ul>
-      <li>
-        <p>Collapse edges and stars to preserve first and second order proximity.</p>
-      </li>
-      <li>
-        <p><strong>Edge collapsing</strong> - select the subset of <em>E</em> such that no two edges are incident on the same vertex and merge their nodes into a single node and merge their edges as well.</p>
-      </li>
-      <li>
-        <p><strong>Star collapsing</strong> - given star structure, collapse the pairs of neighboring nodes (of the central node).</p>
-      </li>
-      <li>
-        <p>In practice, first apply star collapsing, followed by edge collapsing.</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Extending node representation from coarse graph to finer graph</strong></p>
+<h2 id="approach">Approach</h2>
 
-    <ul>
-      <li>
-        <p>Lets say <em>node1</em> and <em>node2</em> were merged into <em>node12</em> during coarsening. First copy the representation of <em>node12</em> into <em>node1</em>, <em>node2</em>.</p>
-      </li>
-      <li>
-        <p>Additionally, if hierarchical softmax was used, extend the B-tree such that <em>node12</em> is replaced by 2 child nodes <em>node1</em> and <em>node2</em>.</p>
-      </li>
-      <li>
-        <p>Time complexity for HARP + DeepWalk is <em>O(number of walks * |V|)</em> while for HARP + LINE is <em>O(number of iterations * |E|)</em>.</p>
-      </li>
-      <li>
-        <p>The asymptotic complexity remains the same as the HARP-less version for the two cases.</p>
-      </li>
-    </ul>
+<ul>
+  <li>
+    <p>The key idea is to learn features that are invariant across environments by using a randomized CNN (<em>f</em>) that randomly perturbs the inputs.</p>
   </li>
   <li>
-    <p>Multilabel classification task shows that HAR improves all the node embedding technique with gains up to 14%.</p>
+    <p>The policy is trained using the randomized observations obtained using <em>f</em>.</p>
+  </li>
+  <li>
+    <p>Invariant features are learned using a feature matching (FM) loss that matches the feature representation of the original and randomized observations.</p>
+  </li>
+  <li>
+    <p>The random network’s parameters are initialized as $\alpha I + (1 - \alpha) N(0, \sqrt\frac{2}{n_{in} + n_{out}})$ where $\alpha \in [0, 1]$, $N$ denotes the Gaussian Distribution and $n_{in}, n_{out}$ denote the number of input and output channels respectively.</p>
+  </li>
+  <li>
+    <p>Xavier Normal distribution is used for randomization to maintain the variance between the input and the randomized input.</p>
+  </li>
+  <li>
+    <p><em>f</em> is randomized per iteration.</p>
+  </li>
+  <li>
+    <p>During inference, the expected action is computed by approximating over <em>M</em> samples (i.e., randomizing the input <em>M</em> times).</p>
+  </li>
+</ul>
+
+<h2 id="environments">Environments</h2>
+
+<ul>
+  <li>
+    <p>2D CoinRun, 3D DeepMind Lab, 3D Robotics Control Task</p>
+  </li>
+  <li>
+    <p>The evaluation environments consist of different styles of backgrounds, objects, and floors.</p>
+  </li>
+</ul>
+
+<h2 id="baselines">Baselines</h2>
+
+<ul>
+  <li>
+    <p>Regularization methods: Dropout, L2 regularization, Batch Normalization</p>
+  </li>
+  <li>
+    <p>Dataset Augmentation methods: Cutout, Gray out, Inversion, Color Jitter</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>On CoinRun, the proposed approaches significantly outperforms the other baselines during evaluation. The performance improvement saturates around 10 <em>M</em> samples.</p>
+  </li>
+  <li>
+    <p>Cycle consistency is used to measure the similarity between two trajectories. The proposed method improves the cycle consistency as compared to the vanilla PPO baseline. It also produces sharper activation maps in the evaluation environments.</p>
+  </li>
+  <li>
+    <p>For the large-scale experiments, when evaluated on 500 levels of CoinRun, the proposed method improves the success rates from 39.8% to 58.7%.</p>
+  </li>
+  <li>
+    <p>On DeepMindLab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).</p>
   </li>
 </ul>
 
@@ -229,18 +252,18 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning">
-            Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning
-            <small>25 Jun 2020</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Supervised-Contrastive-Learning">
+            Supervised Contrastive Learning
+            <small>30 Apr 2020</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Supervised-Contrastive-Learning">
-            Supervised Contrastive Learning
-            <small>30 Apr 2020</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning">
+            CURL - Contrastive Unsupervised Representations for Reinforcement Learning
+            <small>09 Apr 2020</small>
           </a>
         </h3>
       </li>
@@ -261,8 +284,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/HARP-Hierarchical-Representation-Learning-for-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/HARP-Hierarchical-Representation-Learning-for-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

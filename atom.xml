@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-07-08T11:03:59-04:00</updated>
+ <updated>2020-07-08T12:38:13-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -121,6 +121,92 @@
       &lt;li&gt;planning backward for credit assignment - even if the model is in-accurate, backward planning will only update fictional states.&lt;/li&gt;
       &lt;li&gt;planning forward for behavior - the resulting plan is only used to collect real &lt;em&gt;experience&lt;/em&gt; in the environment (and not directly update the policy).&lt;/li&gt;
     &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning"/>
+   <updated>2020-06-25T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Network Randomization-A Simple Technique for Generalization in Deep Reinforcement Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposed a Technique for improving the generalization ability of RL agents when evaluated on an unseen environment (which is similar to the training environment).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://openreview.net/forum?id=HJgcvJBFvB&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/pokaxpoka/netrand&quot;&gt;Link to the code&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key idea is to learn features that are invariant across environments by using a randomized CNN (&lt;em&gt;f&lt;/em&gt;) that randomly perturbs the inputs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The policy is trained using the randomized observations obtained using &lt;em&gt;f&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Invariant features are learned using a feature matching (FM) loss that matches the feature representation of the original and randomized observations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The random network’s parameters are initialized as $\alpha I + (1 - \alpha) N(0, \sqrt\frac{2}{n_{in} + n_{out}})$ where $\alpha \in [0, 1]$, $N$ denotes the Gaussian Distribution and $n_{in}, n_{out}$ denote the number of input and output channels respectively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Xavier Normal distribution is used for randomization to maintain the variance between the input and the randomized input.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;f&lt;/em&gt; is randomized per iteration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During inference, the expected action is computed by approximating over &lt;em&gt;M&lt;/em&gt; samples (i.e., randomizing the input &lt;em&gt;M&lt;/em&gt; times).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;environments&quot;&gt;Environments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;2D CoinRun, 3D DeepMind Lab, 3D Robotics Control Task&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The evaluation environments consist of different styles of backgrounds, objects, and floors.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;baselines&quot;&gt;Baselines&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Regularization methods: Dropout, L2 regularization, Batch Normalization&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Dataset Augmentation methods: Cutout, Gray out, Inversion, Color Jitter&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;On CoinRun, the proposed approaches significantly outperforms the other baselines during evaluation. The performance improvement saturates around 10 &lt;em&gt;M&lt;/em&gt; samples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cycle consistency is used to measure the similarity between two trajectories. The proposed method improves the cycle consistency as compared to the vanilla PPO baseline. It also produces sharper activation maps in the evaluation environments.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the large-scale experiments, when evaluated on 500 levels of CoinRun, the proposed method improves the success rates from 39.8% to 58.7%.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On DeepMindLab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
