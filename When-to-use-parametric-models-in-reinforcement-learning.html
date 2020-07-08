@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Smooth Loss Functions for Deep Top-k Classification &middot; Papers I Read
+      When to use parametric models in reinforcement learning? &middot; Papers I Read
     
   </title>
 
@@ -153,124 +153,113 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Smooth Loss Functions for Deep Top-k Classification</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2018" title="Pages tagged ICLR 2018" rel="tag">ICLR 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Loss+Function" title="Pages tagged Loss Function" rel="tag">Loss Function</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Loss" title="Pages tagged Loss" rel="tag">Loss</a></p>
-  <span class="post-date">25 Dec 2018</span>
+  <h1 class="post-title">When to use parametric models in reinforcement learning?</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model-Based" title="Pages tagged Model-Based" rel="tag">Model-Based</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model-Free" title="Pages tagged Model-Free" rel="tag">Model-Free</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips+2019" title="Pages tagged Neurips 2019" rel="tag">Neurips 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Neurips" title="Pages tagged Neurips" rel="tag">Neurips</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Planning" title="Pages tagged Planning" rel="tag">Planning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">02 Jul 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>For top-k classification tasks, cross entropy is widely used as the learning objective even though it is the optimal metric only in the limit of infinite data.</p>
+    <p>The paper compares replay-based approaches with model-based approaches in Reinforcement Learning (RL).</p>
   </li>
   <li>
-    <p>The paper introduces a family of smoothed loss functions that are specially designed for top-k optimization.</p>
+    <p>It hypothesizes that if the parametric model is only used for generation transitions for the update rule, then under certain conditions, replay-based approaches will be as good as model-based approaches.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1802.07595">Paper</a></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/oval-group/smooth-topk">Code</a></p>
+    <p><a href="https://arxiv.org/abs/1906.05243">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="idea">Idea</h2>
-
-<ul>
-  <li>Inspired by the multi-loss SVMs, a surrogate loss (l<sub>k</sub>) is introduced that creates a margin between the ground truth and the kth largest score.</li>
-</ul>
-
-<p><img src="https://github.com/shagunsodhani/papers-I-read/raw/master/assets/topk/eq1.png" alt="Equation 1" /></p>
+<h2 id="terminology">Terminology</h2>
 
 <ul>
   <li>
-    <p>Here <strong>s</strong> denotes the output of the classifier model to be learnt, <em>y</em> is the ground truth label, <em>s[p]</em> denotes the kth largest element of <strong>s</strong> and <strong>s\p</strong> denotes the vector <strong>s</strong> without <em>p</em>th element.</p>
+    <p>Planning: Any algorithm that uses additional computations (but not additional experience) to improve its performance.</p>
   </li>
   <li>
-    <p>This l<sub>k</sub> loss has two limitations:</p>
+    <p>Learning: Any algorithm that uses additional experience to improve its performance.</p>
+  </li>
+  <li>
+    <p>In some cases, a replay buffer can be seen as a model. For example, querying using state-action pair (from the replay buffer) is similar to querying the (expected) next-state and reward from a model. In general, the model will be more flexible as any arbitrary state-action pair can be used for querying.</p>
+  </li>
+</ul>
+
+<h2 id="computation-properties">Computation Properties</h2>
+
+<ul>
+  <li>
+    <p>Parametric models require more computation than sampling from a replay buffer. In contrast, the cost of maintaining a replay buffer scales linearly with their capacity.</p>
+  </li>
+  <li>
+    <p>Parametric models are useful for planning multiple-steps into the future while it is much harder to do so with a replay buffer (even more so with pixel observations).</p>
+  </li>
+  <li>
+    <p>An imperfect model maybe be more suitable for selecting actions (instead of updating the policy) because the chosen action, when executed in the environment, will lead to transitions that would improve the model.</p>
+  </li>
+  <li>
+    <p>When planning with an imperfect model, it is better to plan backward, as the update is applied on an imaginary state (which would not be encountered if the model is poor).</p>
+  </li>
+  <li>
+    <p>If the model is accurate, forward and backward planning is equivalent. This distinction between forward and backward updates does not apply to replay buffers.</p>
+  </li>
+</ul>
+
+<h2 id="failure-to-learn">Failure to learn</h2>
+
+<ul>
+  <li>
+    <p>When using a replay buffer and (i) uniformly replaying transitions, (ii) from a buffer containing only full episodes, and (iii) using TD updates, then the algorithm is stable.</p>
+  </li>
+  <li>
+    <p>When using a replay buffer and (i) uniformly replaying transitions, (ii) generating transitions using a model, and (iii) using TD updates, then the algorithm can diverge.</p>
+  </li>
+  <li>
+    <p>This case can be fixed by:</p>
 
     <ul>
       <li>
-        <p>It is continous but not differentiable in <em>s</em>.</p>
+        <p>Repeatedly interating over the model and sampling transitions <em>to</em> and <em>from</em> the state model generates (not a satisfactory solution).</p>
       </li>
       <li>
-        <p>Its weak derivatives have at most 2-nonzero elements.</p>
+        <p>Using multiple-step returns (this can increase the variance).</p>
+      </li>
+      <li>
+        <p>Use algorithms specifically for stable off-policy learning (not a definitive solution).</p>
       </li>
     </ul>
   </li>
-  <li>
-    <p>The loss can be reformulated by adding and subtracting the k-1 largest scores of <strong>s\y</strong> and <em>s<sub>y</sub></em> and by introducing a temperature parameter τ.</p>
-  </li>
 </ul>
 
-<p><img src="https://github.com/shagunsodhani/papers-I-read/raw/master/assets/topk/eq2.png" alt="Equation 2" /></p>
-
-<h2 id="properties-of-lkτ">Properties of L<sub>kτ</sub></h2>
+<h2 id="model-based-algorithms-at-scale">Model-based algorithms at scale</h2>
 
 <ul>
   <li>
-    <p>For any τ &gt; 0, L<sub>kτ</sub> is infinite-differentiable and has non-sparse gradients.</p>
+    <p>The paper compares against SimPLe (model-based) with Rainbow DQN (replay-based).</p>
   </li>
   <li>
-    <p>Under mild conditions, L<sub>kτ</sub> apporachs l<sub>k</sub> (in a pointwise sense) as τ approaches to 0+<sup>+</sup>.</p>
+    <p>The paper shows that when using a similar number of real interactions, Rainbow DQN needs fewer replay samples than model samples in SimPLe, making it more efficient (computation-wise).</p>
   </li>
-  <li>
-    <p>It is an upper bound on the actual loss (up to a constant factor).</p>
+  <li>Changes to Rainbow DQN:
+    <ul>
+      <li>Increase number of steps, for bootstrapping, from 3 to 20.</li>
+      <li>Reduce the number of steps, before sampling starts from the replay buffer, from 20K to 1600.</li>
+    </ul>
   </li>
-  <li>
-    <p>It is a generalization of the cross-entropy loss for different values of k, and τ and higher margins.</p>
-  </li>
+  <li>With these changes, Rainbow DQN outperforms SimPLe in 17 out of 26 games.</li>
 </ul>
 
-<h2 id="computational-challenges">Computational Challenges</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <ul>
   <li>
-    <p><em>nCk</em> number of terms needs to be evaluated for computing the loss for one sample (n is number of classes).</p>
+    <p>When using a parametric model in a replay-like setting (sampling observed states from the past), model-based learning can be unstable (in theory). Using a replay buffer is likely a better strategy under the state sampling distribution.</p>
   </li>
   <li>
-    <p>Loss L<sub>kτ</sub> can be expressed in terms of elementary symmetric polynomials σ<sub>i</sub>(<strong>e</strong>) (sum of all products of i distinct elements of vector e). Thus the challenge is to compute σ<sub>k</sub> efficiently.</p>
-  </li>
-</ul>
-
-<h3 id="forward-computation">Forward Computation</h3>
-
-<ul>
-  <li>
-    <p>Compute σ<sub>k</sub>(<strong>e</strong>) where <strong>e</strong> is a n-dimensional vector and k« n and e[i]!=0 for all i.</p>
-  </li>
-  <li>
-    <p>σ<sub>i</sub>(<em>e</em>) can be computed using the coefficients of the polynomial (X+e<sub>1</sub>)(X+e<sub>2</sub>)…(X+e<sub>n</sub>) by divide and conquer approach with polynomial multiplication.</p>
-  </li>
-  <li>
-    <p>With some more optimizations (eg log(n) levels of recursion and each level being parallelized on a GPU), the resulting algorithms scale well with n on a GPU.</p>
-  </li>
-  <li>
-    <p>Operations are performed in the log-space using the log-sum-exp trick to achieve numerical stability in single floating point precision.</p>
-  </li>
-</ul>
-
-<h3 id="backward-computation">Backward computation</h3>
-
-<ul>
-  <li>
-    <p>The backward pass uses optimizations like computing derivative of σ<sub>j</sub> with respect to e<sub>i</sub> in a recursive manner.</p>
-  </li>
-  <li>
-    <p>Appendix of the paper describes these techniques in detail.</p>
-  </li>
-</ul>
-
-<h2 id="experiments">Experiments</h2>
-
-<ul>
-  <li>
-    <p>Experiments are performed on CIFAR-100 (with noise) and Imagenet.</p>
-  </li>
-  <li>
-    <p>For CIFAR-100 with noise, the labels are randomized with probability p (within the same top-level class).</p>
-  </li>
-  <li>
-    <p>The proposed loss function is very robust to both noise and reduction in the amount of training dataset as compared to cross-entropy loss function for both top-k and top-1 performance.</p>
+    <p>Parametric models are likely more useful when:</p>
+    <ul>
+      <li>planning backward for credit assignment - even if the model is in-accurate, backward planning will only update fictional states.</li>
+      <li>planning forward for behavior - the resulting plan is only used to collect real <em>experience</em> in the environment (and not directly update the policy).</li>
+    </ul>
   </li>
 </ul>
 
@@ -279,15 +268,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning">
-            When to use parametric models in reinforcement learning?
-            <small>02 Jul 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -303,6 +283,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning">
             CURL - Contrastive Unsupervised Representations for Reinforcement Learning
             <small>09 Apr 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Competitive-Training-of-Mixtures-of-Independent-Deep-Generative-Models">
+            Competitive Training of Mixtures of Independent Deep Generative Models
+            <small>12 Mar 2020</small>
           </a>
         </h3>
       </li>
@@ -323,8 +312,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Smooth-Loss-Functions-for-Deep-Top-k-Classification"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Smooth-Loss-Functions-for-Deep-Top-k-Classification"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/When-to-use-parametric-models-in-reinforcement-learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

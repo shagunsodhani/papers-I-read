@@ -4,13 +4,127 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-05-09T22:55:43-04:00</updated>
+ <updated>2020-07-08T11:03:59-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>When to use parametric models in reinforcement learning?</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning"/>
+   <updated>2020-07-02T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/When to use parametric models in reinforcement learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper compares replay-based approaches with model-based approaches in Reinforcement Learning (RL).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It hypothesizes that if the parametric model is only used for generation transitions for the update rule, then under certain conditions, replay-based approaches will be as good as model-based approaches.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.05243&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;terminology&quot;&gt;Terminology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Planning: Any algorithm that uses additional computations (but not additional experience) to improve its performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Learning: Any algorithm that uses additional experience to improve its performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In some cases, a replay buffer can be seen as a model. For example, querying using state-action pair (from the replay buffer) is similar to querying the (expected) next-state and reward from a model. In general, the model will be more flexible as any arbitrary state-action pair can be used for querying.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;computation-properties&quot;&gt;Computation Properties&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parametric models require more computation than sampling from a replay buffer. In contrast, the cost of maintaining a replay buffer scales linearly with their capacity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parametric models are useful for planning multiple-steps into the future while it is much harder to do so with a replay buffer (even more so with pixel observations).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An imperfect model maybe be more suitable for selecting actions (instead of updating the policy) because the chosen action, when executed in the environment, will lead to transitions that would improve the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When planning with an imperfect model, it is better to plan backward, as the update is applied on an imaginary state (which would not be encountered if the model is poor).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the model is accurate, forward and backward planning is equivalent. This distinction between forward and backward updates does not apply to replay buffers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;failure-to-learn&quot;&gt;Failure to learn&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When using a replay buffer and (i) uniformly replaying transitions, (ii) from a buffer containing only full episodes, and (iii) using TD updates, then the algorithm is stable.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When using a replay buffer and (i) uniformly replaying transitions, (ii) generating transitions using a model, and (iii) using TD updates, then the algorithm can diverge.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This case can be fixed by:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Repeatedly interating over the model and sampling transitions &lt;em&gt;to&lt;/em&gt; and &lt;em&gt;from&lt;/em&gt; the state model generates (not a satisfactory solution).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Using multiple-step returns (this can increase the variance).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use algorithms specifically for stable off-policy learning (not a definitive solution).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;model-based-algorithms-at-scale&quot;&gt;Model-based algorithms at scale&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper compares against SimPLe (model-based) with Rainbow DQN (replay-based).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that when using a similar number of real interactions, Rainbow DQN needs fewer replay samples than model samples in SimPLe, making it more efficient (computation-wise).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Changes to Rainbow DQN:
+    &lt;ul&gt;
+      &lt;li&gt;Increase number of steps, for bootstrapping, from 3 to 20.&lt;/li&gt;
+      &lt;li&gt;Reduce the number of steps, before sampling starts from the replay buffer, from 20K to 1600.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;With these changes, Rainbow DQN outperforms SimPLe in 17 out of 26 games.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When using a parametric model in a replay-like setting (sampling observed states from the past), model-based learning can be unstable (in theory). Using a replay buffer is likely a better strategy under the state sampling distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Parametric models are likely more useful when:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;planning backward for credit assignment - even if the model is in-accurate, backward planning will only update fictional states.&lt;/li&gt;
+      &lt;li&gt;planning forward for behavior - the resulting plan is only used to collect real &lt;em&gt;experience&lt;/em&gt; in the environment (and not directly update the policy).&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Supervised Contrastive Learning</title>
