@@ -4,6 +4,11 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [When to use parametric models in reinforcement learning?](https://shagunsodhani.com/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning)
+* [Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning)
+* [On the Difficulty of Warm-Starting Neural Network Training](https://shagunsodhani.com/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training)
+* [Supervised Contrastive Learning](https://shagunsodhani.com/papers-I-read/Supervised-Contrastive-Learning)
+* [CURL - Contrastive Unsupervised Representations for Reinforcement Learning](https://shagunsodhani.com/papers-I-read/CURL-Contrastive-Unsupervised-Representations-for-Reinforcement-Learning)
 * [Competitive Training of Mixtures of Independent Deep Generative Models](https://shagunsodhani.com/papers-I-read/Competitive-Training-of-Mixtures-of-Independent-Deep-Generative-Models)
 * [What Does Classifying More Than 10,000 Image Categories Tell Us?](https://shagunsodhani.com/papers-I-read/What-Does-Classifying-More-Than-10,000-Image-Categories-Tell-Us)
 * [mixup - Beyond Empirical Risk Minimization](https://shagunsodhani.com/papers-I-read/mixup-Beyond-Empirical-Risk-Minimization)
