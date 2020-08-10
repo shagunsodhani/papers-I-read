@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Decentralized Reinforcement Learning: Global Decision-Making via Local Economic Transactions](https://shagunsodhani.com/papers-I-read/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions)
 * [When to use parametric models in reinforcement learning?](https://shagunsodhani.com/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning)
 * [Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning)
 * [On the Difficulty of Warm-Starting Neural Network Training](https://shagunsodhani.com/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training)
