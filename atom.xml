@@ -4,13 +4,155 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-07-08T14:40:03-04:00</updated>
+ <updated>2020-08-09T22:35:54-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Decentralized Reinforcement Learning -- Global Decision-Making via Local Economic Transactions</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions"/>
+   <updated>2020-07-09T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Decentralized Reinforcement Learning -- Global Decision-Making via Local Economic Transactions</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper explores the connections between the concepts of a single agent vs. society of agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A society of agents can be modeled as a single agent while a single agent can be modeled as a society of components (or sub-agents).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper focuses on mechanisms for training a society of self-interested agents to solve a given task – as if the system was a single task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2007.02382&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;contributions&quot;&gt;Contributions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Societal-decision making&lt;/strong&gt; framework relates the local optimization problem of a single agent with the global optimization problem of a society of agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Cloned Vicekrey Society&lt;/strong&gt; is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A class of &lt;strong&gt;decentralized RL algorithms&lt;/strong&gt; that optimize the MDP object of the society as a whole, as a consequence of individual agents optimizing their objectives.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Empirical evaluation of Cloned Vicekrey Society using any implementation called &lt;strong&gt;Credit Conserving Vickery&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;terminology&quot;&gt;Terminology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Environment&lt;/em&gt; - a tuple that specifies an input space, an output space, and parameters for determining an objective.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;A standard RL setup can be mapped to &lt;em&gt;environment&lt;/em&gt; by mapping state space to input space, action space to output space and reward function, transition function, and discount factors to the parameters specifying the objective.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Agent&lt;/em&gt; - a function that maps input space to output space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Objective&lt;/em&gt; - a functional that maps an agent to a real number.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In &lt;em&gt;auction environments&lt;/em&gt;, the input space is a single auction item (say &lt;em&gt;s&lt;/em&gt;), and the output space is bidding space &lt;em&gt;B&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are &lt;em&gt;N&lt;/em&gt; agents who compete by bidding for an item &lt;em&gt;s&lt;/em&gt; using their bidding policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;b&lt;/strong&gt; is a vector of bids produced by the agents.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;$v_s$&lt;/strong&gt; is a vector of agent’s valuations of item &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay for.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;design-choices&quot;&gt;Design Choices&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each agent is independently maximizing its utility.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In certain conditions (i.e., if the auction is dominant strategy incentive compatible), it is optimal for each agent to bid its valuation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These conditions are satisfied by the Vickery auction where $P^i(b)$ is set to be the second-highest bid and $X^i(b) = 1$ if the $i^{th}$ agent wins (and 0 otherwise).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A &lt;em&gt;society&lt;/em&gt; is a set of primitives where each primitive is a tuple of bidding policy $\psi$ and a transformation function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The environment is modeled at two levels - (i) global environment (referred to as the global MDP) and local environment (referred to as local auction).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each state $s$ in the global MDP is an auction item in a different auction. The winner (of local auction at $s$) transforms $s$ into some other state $s’$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If these transformations are modeled as actions, then the proposed framework can be interpreted as a decentralized reinforcement learning framework.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Motivated by the design of market economy (where economic transactions determine wealth distribution), the paper proposes that, for an agent, the valuation of winning an auction is the revenue it can receive in the auction at the next timestep by selling the transformed state.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A global MDP that adhere to this design is referred to as the Market MDP.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There is a catch in the design of the market MDP - the winning primitive, at time t-1, gets the amount that the highest bidder is willing to pay at time t+1. But the winner at time t+1 only paid the second-highest bid. Hence, the credit is not conserved.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This inconsistency can be fixed by introducing “duplicate” (or cloned) agents, and the society is called the Cloned Vickery Society.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The Cloned Vickrey Auction mechanism is compared against alternate bidding mechanisms like &lt;em&gt;first price auction&lt;/em&gt; (where winner pays the bid they proposed), solitary version of Vickrey auction (no cloning), and &lt;em&gt;Environment Reward&lt;/em&gt; where only environment reward is used, and there is no price term.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is empirically shown that Cloned Vickrey Auction learns bids that are most close to their actual valuations. Moreover, solitary version leads bids which are more spread out than the ones learned by cloned version. This highlights the importance of competitive pressure to learn bid values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three different implementations of Cloned Vickrey Auction are considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Bucket Brigade (BB) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Vickrey (V) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Credit Conserving Vickrey (CCV) - winner at timestep t receives the second-highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CCV implementation provides bid values closest to the optimal Q-values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In one experiment, the paper explores the use of the proposed approach for selecting between sub-policies. It shows that CVV is more sample efficient for pretraining sub-policies and adapting them to transfer tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In another experiment, the task is to transform MNIST images by composing two out of 6 affine transformations. The transformed images are fed to a pretrained classifier that predicts a label. The agent gets a reward of 1 if the classifier makes correct prediction and 0 otherwise. CCV implementation obtains a mean reward of 0.933, thus highlighting the effectiveness of the CCV model.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>When to use parametric models in reinforcement learning?</title>

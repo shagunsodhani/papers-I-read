@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Decentralized Reinforcement Learning -- Global Decision-Making via Local Economic Transactions &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Decentralized Reinforcement Learning -- Global Decision-Making via Local Economic Transactions</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Credit+Assignment" title="Pages tagged Credit Assignment" rel="tag">Credit Assignment</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Decentralized+Reinforcement+Learning" title="Pages tagged Decentralized Reinforcement Learning" rel="tag">Decentralized Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2020" title="Pages tagged ICML 2020" rel="tag">ICML 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Hierarchical+Reinforcement+Learning" title="Pages tagged Hierarchical Reinforcement Learning" rel="tag">Hierarchical Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Economics" title="Pages tagged Economics" rel="tag">Economics</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#HRL" title="Pages tagged HRL" rel="tag">HRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">09 Jul 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper explores the connections between the concepts of a single agent vs. society of agents.</p>
+  </li>
+  <li>
+    <p>A society of agents can be modeled as a single agent while a single agent can be modeled as a society of components (or sub-agents).</p>
+  </li>
+  <li>
+    <p>The paper focuses on mechanisms for training a society of self-interested agents to solve a given task – as if the system was a single task.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2007.02382">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="contributions">Contributions</h2>
+
+<ul>
+  <li>
+    <p><strong>Societal-decision making</strong> framework relates the local optimization problem of a single agent with the global optimization problem of a society of agents.</p>
+  </li>
+  <li>
+    <p><strong>Cloned Vicekrey Society</strong> is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.</p>
+  </li>
+  <li>
+    <p>A class of <strong>decentralized RL algorithms</strong> that optimize the MDP object of the society as a whole, as a consequence of individual agents optimizing their objectives.</p>
+  </li>
+  <li>
+    <p>Empirical evaluation of Cloned Vicekrey Society using any implementation called <strong>Credit Conserving Vickery</strong>.</p>
+  </li>
+</ul>
+
+<h2 id="terminology">Terminology</h2>
+
+<ul>
+  <li>
+    <p><em>Environment</em> - a tuple that specifies an input space, an output space, and parameters for determining an objective.</p>
+
+    <ul>
+      <li>A standard RL setup can be mapped to <em>environment</em> by mapping state space to input space, action space to output space and reward function, transition function, and discount factors to the parameters specifying the objective.</li>
+    </ul>
+  </li>
+  <li>
+    <p><em>Agent</em> - a function that maps input space to output space.</p>
+  </li>
+  <li>
+    <p><em>Objective</em> - a functional that maps an agent to a real number.</p>
+  </li>
+  <li>
+    <p>In <em>auction environments</em>, the input space is a single auction item (say <em>s</em>), and the output space is bidding space <em>B</em>.</p>
+  </li>
+  <li>
+    <p>There are <em>N</em> agents who compete by bidding for an item <em>s</em> using their bidding policy.</p>
+  </li>
+  <li>
+    <p><strong>b</strong> is a vector of bids produced by the agents.</p>
+  </li>
+  <li>
+    <p><strong>$v_s$</strong> is a vector of agent’s valuations of item <em>s</em>.</p>
+  </li>
+  <li>
+    <p>The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay for.</p>
+  </li>
+</ul>
+
+<h2 id="design-choices">Design Choices</h2>
+
+<ul>
+  <li>
+    <p>Each agent is independently maximizing its utility.</p>
+  </li>
+  <li>
+    <p>In certain conditions (i.e., if the auction is dominant strategy incentive compatible), it is optimal for each agent to bid its valuation.</p>
+  </li>
+  <li>
+    <p>These conditions are satisfied by the Vickery auction where $P^i(b)$ is set to be the second-highest bid and $X^i(b) = 1$ if the $i^{th}$ agent wins (and 0 otherwise).</p>
+  </li>
+  <li>
+    <p>A <em>society</em> is a set of primitives where each primitive is a tuple of bidding policy $\psi$ and a transformation function.</p>
+  </li>
+  <li>
+    <p>The environment is modeled at two levels - (i) global environment (referred to as the global MDP) and local environment (referred to as local auction).</p>
+  </li>
+  <li>
+    <p>Each state $s$ in the global MDP is an auction item in a different auction. The winner (of local auction at $s$) transforms $s$ into some other state $s’$.</p>
+  </li>
+  <li>
+    <p>If these transformations are modeled as actions, then the proposed framework can be interpreted as a decentralized reinforcement learning framework.</p>
+  </li>
+  <li>
+    <p>Motivated by the design of market economy (where economic transactions determine wealth distribution), the paper proposes that, for an agent, the valuation of winning an auction is the revenue it can receive in the auction at the next timestep by selling the transformed state.</p>
+  </li>
+  <li>
+    <p>A global MDP that adhere to this design is referred to as the Market MDP.</p>
+  </li>
+  <li>
+    <p>There is a catch in the design of the market MDP - the winning primitive, at time t-1, gets the amount that the highest bidder is willing to pay at time t+1. But the winner at time t+1 only paid the second-highest bid. Hence, the credit is not conserved.</p>
+  </li>
+  <li>
+    <p>This inconsistency can be fixed by introducing “duplicate” (or cloned) agents, and the society is called the Cloned Vickery Society.</p>
+  </li>
+  <li>
+    <p>The Cloned Vickrey Auction mechanism is compared against alternate bidding mechanisms like <em>first price auction</em> (where winner pays the bid they proposed), solitary version of Vickrey auction (no cloning), and <em>Environment Reward</em> where only environment reward is used, and there is no price term.</p>
+  </li>
+  <li>
+    <p>It is empirically shown that Cloned Vickrey Auction learns bids that are most close to their actual valuations. Moreover, solitary version leads bids which are more spread out than the ones learned by cloned version. This highlights the importance of competitive pressure to learn bid values.</p>
+  </li>
+  <li>
+    <p>Three different implementations of Cloned Vickrey Auction are considered:</p>
+
+    <ul>
+      <li>
+        <p>Bucket Brigade (BB) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.</p>
+      </li>
+      <li>
+        <p>Vickrey (V) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.</p>
+      </li>
+      <li>
+        <p>Credit Conserving Vickrey (CCV) - winner at timestep t receives the second-highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>CCV implementation provides bid values closest to the optimal Q-values.</p>
+  </li>
+  <li>
+    <p>In one experiment, the paper explores the use of the proposed approach for selecting between sub-policies. It shows that CVV is more sample efficient for pretraining sub-policies and adapting them to transfer tasks.</p>
+  </li>
+  <li>
+    <p>In another experiment, the task is to transform MNIST images by composing two out of 6 affine transformations. The transformed images are fed to a pretrained classifier that predicts a label. The agent gets a reward of 1 if the classifier makes correct prediction and 0 otherwise. CCV implementation obtains a mean reward of 0.933, thus highlighting the effectiveness of the CCV model.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning">
+            When to use parametric models in reinforcement learning?
+            <small>02 Jul 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning">
+            Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning
+            <small>25 Jun 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/On-the-Difficulty-of-Warm-Starting-Neural-Network-Training">
+            On the Difficulty of Warm-Starting Neural Network Training
+            <small>18 Jun 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
