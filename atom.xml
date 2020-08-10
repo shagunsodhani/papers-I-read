@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-08-09T22:35:54-04:00</updated>
+ <updated>2020-08-09T22:41:45-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -41,13 +41,13 @@
     &lt;p&gt;&lt;strong&gt;Societal-decision making&lt;/strong&gt; framework relates the local optimization problem of a single agent with the global optimization problem of a society of agents.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Cloned Vicekrey Society&lt;/strong&gt; is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Cloned Vickrey Society&lt;/strong&gt; is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A class of &lt;strong&gt;decentralized RL algorithms&lt;/strong&gt; that optimize the MDP object of the society as a whole, as a consequence of individual agents optimizing their objectives.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Empirical evaluation of Cloned Vicekrey Society using any implementation called &lt;strong&gt;Credit Conserving Vickery&lt;/strong&gt;.&lt;/p&gt;
+    &lt;p&gt;Empirical evaluation of Cloned Vickrey Society using any implementation called &lt;strong&gt;Credit Conserving Vickery&lt;/strong&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -74,13 +74,13 @@
     &lt;p&gt;There are &lt;em&gt;N&lt;/em&gt; agents who compete by bidding for an item &lt;em&gt;s&lt;/em&gt; using their bidding policy.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;b&lt;/strong&gt; is a vector of bids produced by the agents.&lt;/p&gt;
+    &lt;p&gt;$b$ is a vector of bids produced by the agents.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;$v_s$&lt;/strong&gt; is a vector of agent’s valuations of item &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;
+    &lt;p&gt;$v_s$ is a vector of agent’s valuations of item &lt;em&gt;s&lt;/em&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay for.&lt;/p&gt;
+    &lt;p&gt;The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -97,7 +97,7 @@
     &lt;p&gt;These conditions are satisfied by the Vickery auction where $P^i(b)$ is set to be the second-highest bid and $X^i(b) = 1$ if the $i^{th}$ agent wins (and 0 otherwise).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;A &lt;em&gt;society&lt;/em&gt; is a set of primitives where each primitive is a tuple of bidding policy $\psi$ and a transformation function.&lt;/p&gt;
+    &lt;p&gt;A &lt;em&gt;society&lt;/em&gt; is a set of agents where each agent is a tuple of bidding policy $\psi$ and a transformation function.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The environment is modeled at two levels - (i) global environment (referred to as the global MDP) and local environment (referred to as local auction).&lt;/p&gt;
@@ -115,7 +115,7 @@
     &lt;p&gt;A global MDP that adhere to this design is referred to as the Market MDP.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;There is a catch in the design of the market MDP - the winning primitive, at time t-1, gets the amount that the highest bidder is willing to pay at time t+1. But the winner at time t+1 only paid the second-highest bid. Hence, the credit is not conserved.&lt;/p&gt;
+    &lt;p&gt;There is a catch in the design of the market MDP - the winning agent, at time $t-1$, gets the amount that the highest bidder is willing to pay at time $t+1$. But the winner at time $t+1$ only paid the second-highest bid. Hence, the credit is not conserved.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;This inconsistency can be fixed by introducing “duplicate” (or cloned) agents, and the society is called the Cloned Vickery Society.&lt;/p&gt;
@@ -131,13 +131,13 @@
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;Bucket Brigade (BB) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.&lt;/p&gt;
+        &lt;p&gt;Bucket Brigade (BB) - winner at timestep $t$ receives the highest bid at time step $t+1$, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Vickrey (V) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.&lt;/p&gt;
+        &lt;p&gt;Vickrey (V) - winner at timestep $t$ receives the highest bid at time step $t+1$, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Credit Conserving Vickrey (CCV) - winner at timestep t receives the second-highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.&lt;/p&gt;
+        &lt;p&gt;Credit Conserving Vickrey (CCV) - winner at timestep $t$ receives the second-highest bid at time step $t+1$, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;

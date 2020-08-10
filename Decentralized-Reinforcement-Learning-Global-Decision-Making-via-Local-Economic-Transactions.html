@@ -180,13 +180,13 @@ MathJax.Hub.Config({
     <p><strong>Societal-decision making</strong> framework relates the local optimization problem of a single agent with the global optimization problem of a society of agents.</p>
   </li>
   <li>
-    <p><strong>Cloned Vicekrey Society</strong> is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.</p>
+    <p><strong>Cloned Vickrey Society</strong> is proposed as a mechanism to guarantee that an agent’s dominant strategy equilibrium coincides with the group’s optimal policy.</p>
   </li>
   <li>
     <p>A class of <strong>decentralized RL algorithms</strong> that optimize the MDP object of the society as a whole, as a consequence of individual agents optimizing their objectives.</p>
   </li>
   <li>
-    <p>Empirical evaluation of Cloned Vicekrey Society using any implementation called <strong>Credit Conserving Vickery</strong>.</p>
+    <p>Empirical evaluation of Cloned Vickrey Society using any implementation called <strong>Credit Conserving Vickery</strong>.</p>
   </li>
 </ul>
 
@@ -213,13 +213,13 @@ MathJax.Hub.Config({
     <p>There are <em>N</em> agents who compete by bidding for an item <em>s</em> using their bidding policy.</p>
   </li>
   <li>
-    <p><strong>b</strong> is a vector of bids produced by the agents.</p>
+    <p>$b$ is a vector of bids produced by the agents.</p>
   </li>
   <li>
-    <p><strong>$v_s$</strong> is a vector of agent’s valuations of item <em>s</em>.</p>
+    <p>$v_s$ is a vector of agent’s valuations of item <em>s</em>.</p>
   </li>
   <li>
-    <p>The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay for.</p>
+    <p>The $i^{th}$ agent’s utility is given as $v_s^i \times X^i(b) - P^i(b)$. Here, $X^i(b)$ is the portion of $s$ allocated to $i^{th}$ agent and $P^i(b)$ is the price that $i^{th}$ agent is willing to pay.</p>
   </li>
 </ul>
 
@@ -236,7 +236,7 @@ MathJax.Hub.Config({
     <p>These conditions are satisfied by the Vickery auction where $P^i(b)$ is set to be the second-highest bid and $X^i(b) = 1$ if the $i^{th}$ agent wins (and 0 otherwise).</p>
   </li>
   <li>
-    <p>A <em>society</em> is a set of primitives where each primitive is a tuple of bidding policy $\psi$ and a transformation function.</p>
+    <p>A <em>society</em> is a set of agents where each agent is a tuple of bidding policy $\psi$ and a transformation function.</p>
   </li>
   <li>
     <p>The environment is modeled at two levels - (i) global environment (referred to as the global MDP) and local environment (referred to as local auction).</p>
@@ -254,7 +254,7 @@ MathJax.Hub.Config({
     <p>A global MDP that adhere to this design is referred to as the Market MDP.</p>
   </li>
   <li>
-    <p>There is a catch in the design of the market MDP - the winning primitive, at time t-1, gets the amount that the highest bidder is willing to pay at time t+1. But the winner at time t+1 only paid the second-highest bid. Hence, the credit is not conserved.</p>
+    <p>There is a catch in the design of the market MDP - the winning agent, at time $t-1$, gets the amount that the highest bidder is willing to pay at time $t+1$. But the winner at time $t+1$ only paid the second-highest bid. Hence, the credit is not conserved.</p>
   </li>
   <li>
     <p>This inconsistency can be fixed by introducing “duplicate” (or cloned) agents, and the society is called the Cloned Vickery Society.</p>
@@ -270,13 +270,13 @@ MathJax.Hub.Config({
 
     <ul>
       <li>
-        <p>Bucket Brigade (BB) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.</p>
+        <p>Bucket Brigade (BB) - winner at timestep $t$ receives the highest bid at time step $t+1$, and the subsequent winner pays the highest bid. This case satisfies Credit Conservation and Bellman Optimality.</p>
       </li>
       <li>
-        <p>Vickrey (V) - winner at timestep t receives the highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.</p>
+        <p>Vickrey (V) - winner at timestep $t$ receives the highest bid at time step $t+1$, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Bellman Optimality.</p>
       </li>
       <li>
-        <p>Credit Conserving Vickrey (CCV) - winner at timestep t receives the second-highest bid at time step t+1, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.</p>
+        <p>Credit Conserving Vickrey (CCV) - winner at timestep $t$ receives the second-highest bid at time step $t+1$, and the subsequent winner pays the second-highest bid. This case satisfies Truthful Dominant Strategy and Credit Conservation.</p>
       </li>
     </ul>
   </li>
