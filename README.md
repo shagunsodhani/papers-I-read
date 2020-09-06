@@ -4,6 +4,9 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Alpha Net: Adaptation with Composition in Classifier Space](https://shagunsodhani.com/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space)
+* [TaskNorm: Rethinking Batch Normalization for Meta-Learning](https://shagunsodhani.com/papers-I-read/TASKNORM-Rethinking-Batch-Normalization-for-Meta-Learning)
+* [Averaging Weights leads to Wider Optima and Better Generalization](https://shagunsodhani.com/papers-I-read/Averaging-Weights-leads-to-Wider-Optima-and-Better-Generalization)
 * [Decentralized Reinforcement Learning: Global Decision-Making via Local Economic Transactions](https://shagunsodhani.com/papers-I-read/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions)
 * [When to use parametric models in reinforcement learning?](https://shagunsodhani.com/papers-I-read/When-to-use-parametric-models-in-reinforcement-learning)
 * [Network Randomization - A Simple Technique for Generalization in Deep Reinforcement Learning](https://shagunsodhani.com/papers-I-read/Network-Randomization-A-Simple-Technique-for-Generalization-in-Deep-Reinforcement-Learning)
