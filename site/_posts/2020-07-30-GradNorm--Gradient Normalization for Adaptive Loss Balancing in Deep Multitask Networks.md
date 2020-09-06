@@ -3,7 +3,7 @@ layout: post
 title: GradNorm--Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks
 comments: True
 excerpt: 
-tags: ['1027', 'Gradient Manipulation', 'Gradient Normalization', 'ICML 2018', 'Multi Task', AI, ICML]
+tags: ['2017', 'Gradient Manipulation', 'Gradient Normalization', 'ICML 2018', 'Multi Task', AI, ICML]
 
 
 ---

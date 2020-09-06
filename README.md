@@ -4,7 +4,11 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Deep Reinforcement Learning and the Deadly Triad](https://shagunsodhani.com/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad)
 * [Alpha Net: Adaptation with Composition in Classifier Space](https://shagunsodhani.com/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space)
+* [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer](https://shagunsodhani.com/papers-I-read/Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer)
+* [Gradient Surgery for Multi-Task Learning](https://shagunsodhani.com/papers-I-read/Gradient-Surgery-for-Multi-Task-Learning)
+* [GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks](https://shagunsodhani.com/papers-I-read/GradNorm-Gradient-Normalization-for-Adaptive-Loss-Balancing-in-Deep-Multitask-Networks)
 * [TaskNorm: Rethinking Batch Normalization for Meta-Learning](https://shagunsodhani.com/papers-I-read/TASKNORM-Rethinking-Batch-Normalization-for-Meta-Learning)
 * [Averaging Weights leads to Wider Optima and Better Generalization](https://shagunsodhani.com/papers-I-read/Averaging-Weights-leads-to-Wider-Optima-and-Better-Generalization)
 * [Decentralized Reinforcement Learning: Global Decision-Making via Local Economic Transactions](https://shagunsodhani.com/papers-I-read/Decentralized-Reinforcement-Learning-Global-Decision-Making-via-Local-Economic-Transactions)
