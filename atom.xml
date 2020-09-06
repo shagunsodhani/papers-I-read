@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-09-06T07:54:28-04:00</updated>
+ <updated>2020-09-06T09:40:22-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -103,6 +103,127 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;While the idea is described in the context of long-tail data distribution, the idea is useful in the general context of non-stationary data distribution. One instantiation could be lifelong class incremental learning where the model encounters new data classes during training. For some time duration (till sufficient data points are seen), the newly seen classes are the “few” classes. This approach can help with faster adaptation when the model is yet to see sufficient examples for the unseen classes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Gradient Surgery for Multi-Task Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Gradient-Surgery-for-Multi-Task-Learning"/>
+   <updated>2020-08-06T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Gradient Surgery for Multi-Task Learning</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper hypothesizes that main optimization challenges in multi-task learning arise because of negative interference between different tasks’ gradients.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It hypothesizes that negative interference happens when:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The gradients are conflicting (i.e., have a negative cosine similarity).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The gradients coincide with high positive curvature.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The difference in gradient magnitude is quite large.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proses to work around this problem by performing “gradient surgery.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If two gradients are conflicting, modify the gradients by projecting each onto the other’s normal plane.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This modification is equivalent to removing the conflicting component of the gradient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This approach is referred to as &lt;em&gt;projecting conflicting gradients&lt;/em&gt; (PCGrad).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2001.06782&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Theoretical Analysis&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper proves the local conditions under which PCGrad improves multi-task gradient descent in the two-task setup.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The conditions are:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Angle between the task gradients is not too small.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Difference in the magnitude of the gradients is sufficiently large.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Curvature of the multi-task gradient is large.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Large enough learning rate.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experimental Setup&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Multi-task supervised learning&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;MutliMNIST, Multi-task CIFAR100, NYUv2.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;For Multi-task CIFAR-100, PCGrad is used with the shared parameters of the routing networks.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;For NYUv2, PCGrad is combined with MTAN.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;In all the cases, using PCGrad improves the performance.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Multi-task Reinforcement Learning&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Meta-World Benchmark&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;PCGrad + SAC outperforms all other baselines.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;In the context of SAC, the paper suggests learning temperature $\alpha$ on a per-task basis.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Goal-conditioned Reinforcement Learning&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Goal-conditioned robotic pushing task with a Sawyer robot.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;PCGrad + SAC outperforms vanilla SAC.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
