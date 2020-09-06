@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Deep Reinforcement Learning and the Deadly Triad &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Deep Reinforcement Learning and the Deadly Triad</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical+Advice" title="Pages tagged Empirical Advice" rel="tag">Empirical Advice</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Off+policy+RL" title="Pages tagged Off policy RL" rel="tag">Off policy RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical" title="Pages tagged Empirical" rel="tag">Empirical</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">31 Aug 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper investigates the practical impact of the deadly triad (function approximation, bootstrapping, and off-policy learning) in deep Q-networks (trained with experience replay).</p>
+  </li>
+  <li>
+    <p>The deadly triad is called so because when all the three components are combined, TD learning can diverge, and value estimates can become unbounded.</p>
+  </li>
+  <li>
+    <p>However, in practice, the component of the deadly triad has been combined successfully. An example is training DQN agents to play Atari.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1812.02648">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>The effect of each component of the triad can be regulated with some design choices:</p>
+
+    <ul>
+      <li>
+        <p>Bootstrapping - by controlling the number of steps before bootstrapping.</p>
+      </li>
+      <li>
+        <p>Function approximation - by controlling the size of the neural network.</p>
+      </li>
+      <li>
+        <p>Off-policy learning - by controlling how data points are sampled from the replay buffer (i.e., using different prioritization approaches)</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The problem is studied in two contexts: toy example and Atari 2600 games.</p>
+  </li>
+  <li>
+    <p>The paper makes several hypotheses about how different components may interact in the triad and evaluate these hypotheses by training DQN with different hyperparameters:</p>
+
+    <ul>
+      <li>
+        <p>Number of steps before bootstrapping - 1, 3, 10</p>
+      </li>
+      <li>
+        <p>Four levels of prioritization (for sampling data from the replay buffer)</p>
+      </li>
+      <li>
+        <p>Bootstrap target - Q-learning, target Q-learning, inverse double Q-learning, and double Q-learning</p>
+      </li>
+      <li>
+        <p>Network sizes-small, medium, large and extra-large.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Each experiment was run with three different seeds.</p>
+  </li>
+  <li>
+    <p>The paper formulates a series of hypotheses and designs experiments to support/reject the hypotheses.</p>
+  </li>
+</ul>
+
+<h2 id="hypothesis-1-combining-q-learning-with-conventional-deep-rl-function-spaces-does-not-commonly-lead-to-divergence">Hypothesis 1: Combining Q learning with conventional deep RL function spaces does not commonly lead to divergence</h2>
+
+<ul>
+  <li>
+    <p>Rewards are clipped between -1 and 1, and the discount factor is set to 0.99. Hence, the maximum absolute action value is bound to smaller than 100. This upper bound is used soft-divergence in the value estimates.</p>
+  </li>
+  <li>
+    <p>The paper reports that while soft-divergence does occur, the values do not become unbounded, thus supporting the hypothesis.</p>
+  </li>
+</ul>
+
+<h2 id="hypothesis-2-there-is-less-divergence-when-correcting-for-overestimation-bias-or-when-bootstrapping-on-separate-networks">Hypothesis 2: There is less divergence when correcting for overestimation bias or when bootstrapping on separate networks.</h2>
+
+<ul>
+  <li>
+    <p>One manifestation of bootstrapping on separate networks is target-Q learning. While using separate networks helps on Atari, it does not entirely solve the problem on the toy setup.</p>
+  </li>
+  <li>
+    <p>One manifestation of correcting for the overestimation bias is using double Q-learning.</p>
+  </li>
+  <li>
+    <p>In the standard form, double Q-learning benefits by bootstrapping on a separate network. To isolate the gains by using each component independently, an inverse double Q-learning update is used that does not use a separate target-network for bootstrapping.</p>
+  </li>
+  <li>
+    <p>Experimentally, Q-learning is the most unstable while target Q-learning and double Q-learning are the most stable. This observation supports the hypothesis.</p>
+  </li>
+</ul>
+
+<h2 id="hypothesis-3-longer-multi-step-returns-will-diverge-easily">Hypothesis 3: Longer multi-step returns will diverge easily</h2>
+
+<ul>
+  <li>
+    <p>This hypothesis is intuitive as the dependence on bootstrapping is reduced with multi-step returns.</p>
+  </li>
+  <li>
+    <p>Experimental results support this hypothesis.</p>
+  </li>
+</ul>
+
+<h2 id="hypothesis-4-larger-more-capacity-networks-will-diverge-less-easily">Hypothesis 4: Larger, more capacity networks will diverge less easily.</h2>
+
+<ul>
+  <li>
+    <p>This hypothesis is based on the assumption that more flexible value function approximations may behave more like the tabular case.</p>
+  </li>
+  <li>
+    <p>In practice, smaller networks show fewer instances of instability than the larger networks.</p>
+  </li>
+  <li>
+    <p>The hypothesis is not supported by the experiments.</p>
+  </li>
+</ul>
+
+<h2 id="hypothesis-5-stronger-prioritization-of-updates-will-diverge-more-easily">Hypothesis 5: Stronger prioritization of updates will diverge more easily.</h2>
+
+<ul>
+  <li>This hypothesis is supported by the experiments for all the four updates.</li>
+</ul>
+
+<h2 id="effect-of-the-deadly-triad-on-the-agents-performance">Effect of the deadly triad on the agent’s performance</h2>
+
+<ul>
+  <li>
+    <p>Generally, soft-divergence correlates with poor control performance.</p>
+  </li>
+  <li>
+    <p>For example, longer multi-step returns lead to fewer instances of instabilities and better performance.</p>
+  </li>
+  <li>
+    <p>The trend is more interesting in terms of network capacity. Large networks tend to diverge more but also perform the best.</p>
+  </li>
+  <li>
+    <p>While action-value estimates can grow to large values, they can recover to plausible values as training progresses.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space">
+            Alpha Net--Adaptation with Composition in Classifier Space
+            <small>24 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer">
+            Outrageously Large Neural Networks--The Sparsely-Gated Mixture-of-Experts Layer
+            <small>14 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Gradient-Surgery-for-Multi-Task-Learning">
+            Gradient Surgery for Multi-Task Learning
+            <small>06 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Deep-Reinforcement-Learning-and-the-Deadly-Triad"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68140113-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>

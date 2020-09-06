@@ -4,13 +4,160 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-09-06T10:25:11-04:00</updated>
+ <updated>2020-09-06T11:41:50-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Deep Reinforcement Learning and the Deadly Triad</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad"/>
+   <updated>2020-08-31T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Deep Reinforcement Learning and the Deadly Triad</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper investigates the practical impact of the deadly triad (function approximation, bootstrapping, and off-policy learning) in deep Q-networks (trained with experience replay).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The deadly triad is called so because when all the three components are combined, TD learning can diverge, and value estimates can become unbounded.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;However, in practice, the component of the deadly triad has been combined successfully. An example is training DQN agents to play Atari.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1812.02648&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The effect of each component of the triad can be regulated with some design choices:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Bootstrapping - by controlling the number of steps before bootstrapping.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Function approximation - by controlling the size of the neural network.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Off-policy learning - by controlling how data points are sampled from the replay buffer (i.e., using different prioritization approaches)&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The problem is studied in two contexts: toy example and Atari 2600 games.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper makes several hypotheses about how different components may interact in the triad and evaluate these hypotheses by training DQN with different hyperparameters:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Number of steps before bootstrapping - 1, 3, 10&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Four levels of prioritization (for sampling data from the replay buffer)&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Bootstrap target - Q-learning, target Q-learning, inverse double Q-learning, and double Q-learning&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Network sizes-small, medium, large and extra-large.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each experiment was run with three different seeds.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper formulates a series of hypotheses and designs experiments to support/reject the hypotheses.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hypothesis-1-combining-q-learning-with-conventional-deep-rl-function-spaces-does-not-commonly-lead-to-divergence&quot;&gt;Hypothesis 1: Combining Q learning with conventional deep RL function spaces does not commonly lead to divergence&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rewards are clipped between -1 and 1, and the discount factor is set to 0.99. Hence, the maximum absolute action value is bound to smaller than 100. This upper bound is used soft-divergence in the value estimates.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper reports that while soft-divergence does occur, the values do not become unbounded, thus supporting the hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hypothesis-2-there-is-less-divergence-when-correcting-for-overestimation-bias-or-when-bootstrapping-on-separate-networks&quot;&gt;Hypothesis 2: There is less divergence when correcting for overestimation bias or when bootstrapping on separate networks.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;One manifestation of bootstrapping on separate networks is target-Q learning. While using separate networks helps on Atari, it does not entirely solve the problem on the toy setup.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One manifestation of correcting for the overestimation bias is using double Q-learning.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the standard form, double Q-learning benefits by bootstrapping on a separate network. To isolate the gains by using each component independently, an inverse double Q-learning update is used that does not use a separate target-network for bootstrapping.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experimentally, Q-learning is the most unstable while target Q-learning and double Q-learning are the most stable. This observation supports the hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hypothesis-3-longer-multi-step-returns-will-diverge-easily&quot;&gt;Hypothesis 3: Longer multi-step returns will diverge easily&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;This hypothesis is intuitive as the dependence on bootstrapping is reduced with multi-step returns.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Experimental results support this hypothesis.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hypothesis-4-larger-more-capacity-networks-will-diverge-less-easily&quot;&gt;Hypothesis 4: Larger, more capacity networks will diverge less easily.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;This hypothesis is based on the assumption that more flexible value function approximations may behave more like the tabular case.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, smaller networks show fewer instances of instability than the larger networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The hypothesis is not supported by the experiments.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hypothesis-5-stronger-prioritization-of-updates-will-diverge-more-easily&quot;&gt;Hypothesis 5: Stronger prioritization of updates will diverge more easily.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This hypothesis is supported by the experiments for all the four updates.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;effect-of-the-deadly-triad-on-the-agents-performance&quot;&gt;Effect of the deadly triad on the agent’s performance&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, soft-divergence correlates with poor control performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For example, longer multi-step returns lead to fewer instances of instabilities and better performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The trend is more interesting in terms of network capacity. Large networks tend to diverge more but also perform the best.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While action-value estimates can grow to large values, they can recover to plausible values as training progresses.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Alpha Net--Adaptation with Composition in Classifier Space</title>
