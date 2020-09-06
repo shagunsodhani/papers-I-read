@@ -4,13 +4,109 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-09-05T22:27:58-04:00</updated>
+ <updated>2020-09-05T22:36:35-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Alpha Net--Adaptation with Composition in Classifier Space</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space"/>
+   <updated>2020-08-24T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Alpha Net--Adaptation with Composition in Classifier Space</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Common transfer learning method focuses on transferring knowledge in the model feature space.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In contrast, the paper argues that the learned knowledge is more concisely captured in the “classifier space” as the classifier is fitted for all the samples for a given class, while the feature representation is specific to each sample.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Building on this intuition, the paper proposes to combine strong classifiers (trained on large datasets) with weak classifiers (trained on smaller datasets) to improve the weak classifiers’ performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2008.07073&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;high-level-idea&quot;&gt;High-Level Idea&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given $n$ classifiers, $C_1, …, C_n$, trained with a large amount of data and a weak classifier $a$ trained for a class with few samples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Find the nearest neighbors of $a$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Train a new classifier by linearly combining $a$ with its nearest classifiers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The coefficients (for linearly combining the classifiers) are learned using another classifier called as AlphaNet.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In theory, this approach can be used with any set of classifiers.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A long-tailed dataset is one where some classes (referred to as the tail classes) have very few examples—for example, ImageNet-LT and Places-LT.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Split the long-tailed dataset into two splits - “base” classes with $B$ (number of) classes and “few” classes with $F$ (number of) classes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Total number of classes $N = B + F$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Start with a pre-trained model, with classifiers $w_j$ and biases $b_j$ for $j \in (1, N)$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a given target class $j$, find its top $k$ nearest neighbor classifiers and concatenate their output.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For each “few” class, learn a feedforward network that takes the concatenated representation (of classifiers) as the input and returns a vector of $k \alpha$ values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These $\alpha$ values are interpreted as the classifier’s strength (or confidence) in its nearest neighbors.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The (normalized) alpha values are used for defining the weight and bias for the classifier for the given “few” class.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The collection of all the “few” classifiers is referred to as the AlphaNet.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper outlines a degenerate case, where the confidence in the prediction of all the strong classifiers goes to 0. The paper proposes to counter this case by clamping the $\alpha$ values.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The entire setup is trained end-to-end using cross-entropy loss on AlphaNet.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given the proposed approach’s flexibility, it is used to combine the state-of-the-art models on ImageNet-LT, namely retraining classifiers on class-balanced samples and training models with weight normalization. The combined setup outperforms the individual models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One interesting observation is that it is useful to include the weak classifiers, along with the strong classifiers, as AlphaNet adjusts the position of weak classifiers towards the appropriate strong classifier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;While the idea is described in the context of long-tail data distribution, the idea is useful in the general context of non-stationary data distribution. One instantiation could be lifelong class incremental learning where the model encounters new data classes during training. For some time duration (till sufficient data points are seen), the newly seen classes are the “few” classes. This approach can help with faster adaptation when the model is yet to see sufficient examples for the unseen classes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Averaging Weights leads to Wider Optima and Better Generalization</title>
