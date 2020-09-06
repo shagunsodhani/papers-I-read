@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-09-05T23:25:19-04:00</updated>
+ <updated>2020-09-06T07:54:28-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -103,6 +103,113 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;While the idea is described in the context of long-tail data distribution, the idea is useful in the general context of non-stationary data distribution. One instantiation could be lifelong class incremental learning where the model encounters new data classes during training. For some time duration (till sufficient data points are seen), the newly seen classes are the “few” classes. This approach can help with faster adaptation when the model is yet to see sufficient examples for the unseen classes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>GradNorm--Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/GradNorm-Gradient-Normalization-for-Adaptive-Loss-Balancing-in-Deep-Multitask-Networks"/>
+   <updated>2020-07-30T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/GradNorm--Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes GradNorm, a gradient normalization algorithm that improves multi-task training by dynamically tuning the magnitude of gradients corresponding to different tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1711.02257&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;During multi-task training, some tasks can dominate the training, at the expense of others.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is common to define the multi-task loss as a linearly weighted combination of the individual task losses.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes two changes to this setup:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Adapt weight-coefficients, assigned to each loss term, at each training step.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Directly modify the gradient magnitudes, corresponding to different tasks, so that all the tasks are learning at similar rates.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Proposed GradNorm algorithm is similar to BatchNorm, but it performs normalization across tasks, not data batches.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;algorithm&quot;&gt;Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gradient norm at timestep $t$, for the $i^{th}$ task, is computed as the product between average gradient norm (across all tasks at timestep $t$) and $r_i(t) ^ {\alpha}$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$r_i$ is the relative inverse training rate of task $i$. It is defined as the ratio between the loss ratio of task $i$ and the average loss ratio (across all the tasks).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\alpha$ is a hyperparameter.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This computed per-task gradient norm is treated as the target value for actual gradient norms.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An additional $L_1$ loss is incorporated between the actual and the target gradient norms, summed over all the tasks, and optimizes the weight-coefficients only.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After every step, the weight-coefficients are renormalized to decouple the gradient normalization from the global learning rate.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that all the gradient norm computations are performed only for the layers on which GradNorm is applied. Generally, GradNorm is used with only the last shared layer of weights (to save on computational costs).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two variants of NYUv2 dataset – NYUv2+seg (small dataset) and NYUv2+kpts (big dataset).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Both regression and classification setups were used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;SegNet with a symmetric VGG16 encoder/decoder&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;FCN with modified ResNet-50 as the encoder and shallow ResNet as the decoder.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Standard pixel-wise losses for each task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GradNorm with $\alpha=1.5$ outperforms the equal-weight baseline and either surpasses or matches the best performance of single networks for each task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Almost any value of 0 &amp;lt; $\alpha$ &amp;lt; 3 improves the network’s performance over an equal weight baseline.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
