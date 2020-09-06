@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-09-06T09:40:22-04:00</updated>
+ <updated>2020-09-06T10:25:11-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -103,6 +103,157 @@
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;While the idea is described in the context of long-tail data distribution, the idea is useful in the general context of non-stationary data distribution. One instantiation could be lifelong class incremental learning where the model encounters new data classes during training. For some time duration (till sufficient data points are seen), the newly seen classes are the “few” classes. This approach can help with faster adaptation when the model is yet to see sufficient examples for the unseen classes.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Outrageously Large Neural Networks--The Sparsely-Gated Mixture-of-Experts Layer</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer"/>
+   <updated>2020-08-14T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Outrageously Large Neural Networks--The Sparsely-Gated Mixture-of-Experts Layer</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Conditional computation is a technique to increase a model’s capacity (without a proportional increase in computation) by activating parts of the network on a per example basis.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes (and address) the computational and algorithmic challenges in conditional computation. It introduces a sparsely-gated Mixture-of-Experts layer (MoE) with 1000s of feed-forward sub-networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1701.06538&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;practical-challenges&quot;&gt;Practical Challenges&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GPUs are fast at matrix arithmetic but slow at branching.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Large batch sizes amortizes the cost of updates. Conditional computation reduces the effective batch size for different components of the model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Network bandwidth can be a bottleneck with the network demand overshadowing the computational demand.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Additional losses may be needed to achieve the desired level of sparsity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Conditional computation is most useful for large datasets.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;n&lt;/em&gt; Expert Networks - $E_1$, …, $E_n$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Gating Network $G$ to select a sparse combination of experts.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output of the MoE module is the weighted sum of predictions of experts (weighted by the output of the gate).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the gating network’s output is sparse, then some of the experts’ value does not have to be computed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In theory, one could use a hierarchical mixture of experts where a mixture of experts is trained at each level.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;choices-for-the-gating-network&quot;&gt;Choices for the Gating Network&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Softmax Gating&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Noisy top-k gating - Add tunable Gaussian noise to the output of softmax gating and retain only the top-k values. A second trainable weight matrix controls the amount of noise per component.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;addressing-performance-challenge&quot;&gt;Addressing Performance Challenge&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Shrinking Batch Problem&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;If the MoE selects &lt;em&gt;k&lt;/em&gt; out of &lt;em&gt;n&lt;/em&gt; experts, the effective batch size reduces by a factor of &lt;em&gt;k&lt;/em&gt; / &lt;em&gt;n&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This reduction in batch size is accounted for by combining data parallelism (for standard layers and gasting networks) and model parallelism (for experts in MoE). Thus, with &lt;em&gt;d&lt;/em&gt; devices, the batch size changes by a factor of (&lt;em&gt;k&lt;/em&gt; x &lt;em&gt;d&lt;/em&gt; ) / &lt;em&gt;n&lt;/em&gt;.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For hierarchical MoE, the primary gating network uses data parallelism while secondary MoEs use model parallelism.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper considers LSTM models where the MoE is applied once the previous layer has finished. This increases the batch size (for the current MoE layer) by a factor equal to the number of unrolling timesteps.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Network Bandwith limitations can be overcome by ensuring that the ratio of computation (of each expert) to the input and output size is greater than (or equal to) the ratio of computational to network capacity.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Computational efficiency can be improved by using larger hidden layers (or more hidden layers).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Balancing Expert Utilization&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Importance of an expert (relative to a batch of training examples) is defined as the batchwise sum of the expert’s goal values.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;An additional loss, called importance loss, is added to encourage the experts to have equal importance.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The importance loss is defined as the square of the coefficient of variation (of a set of importance values) multiplied by a (hand-tuned) scaling factor $w_{importance}$.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In practice, an additional loss called $L_{load}$ might be needed to ensure that the different experts get equal load (along with equal importance).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Billon Word Language modeling Benchmark&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;100 Billion word Google News Corpus&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Machine Translation datasets&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Single Language Pairs - WMT’14 En to Fr (36M sentence pairs) and En to De (5M sentence pairs).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Multilingual Machine Translation - large combine dataset of twelve language pairs.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In all the setups, the proposed MoE models achieve significantly better results than the baseline models, at a lower computational cost.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 </content>
