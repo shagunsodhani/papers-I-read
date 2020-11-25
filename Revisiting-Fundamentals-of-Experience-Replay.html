@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Revisiting Fundamentals of Experience Replay &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Revisiting Fundamentals of Experience Replay</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2020" title="Pages tagged ICML 2020" rel="tag">ICML 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Off+policy+RL" title="Pages tagged Off policy RL" rel="tag">Off policy RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Replay+Buffer" title="Pages tagged Replay Buffer" rel="tag">Replay Buffer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical" title="Pages tagged Empirical" rel="tag">Empirical</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">07 Sep 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents an extensive study of the effects of experience replay in Q-learning based methods.</p>
+  </li>
+  <li>
+    <p>It focuses explicitly on the replay capacity and replay ratio (ratio of learning updates to experience collected).</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2007.06700">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Replay capacity is defined as the total number of transitions stored in the replay buffer.</p>
+  </li>
+  <li>
+    <p>Age of a transition (stored in the replay buffer) is defined as the number of gradient steps taken by the agent since the transition was stored.</p>
+  </li>
+  <li>
+    <p>More is the replay capacity, more will be the age of the oldest transition (also referred to as the age of the oldest policy).</p>
+  </li>
+  <li>
+    <p>More is the replay capacity, more will be the degree of “off-policyness” of the transitions in the buffer (with everything else held constant).</p>
+  </li>
+  <li>
+    <p>Replay ratio is the number of gradient updates per environment transition. This ratio can be used as a proxy for how often the agent uses old data (vs. collecting new data) and is related to off-policyness.</p>
+  </li>
+  <li>
+    <p>In <a href="https://www.nature.com/articles/nature14236">DQN paper</a>, the replay ratio is set to be 0.25.</p>
+  </li>
+  <li>
+    <p>For experiments, a subset  (of 14 games) is selected from Atari ALE (Arcade Learning Environment) with sticky actions.</p>
+  </li>
+  <li>
+    <p>Each experiment is repeated with three seeds.</p>
+  </li>
+  <li>
+    <p>Rainbow is used as the base algorithm.</p>
+  </li>
+  <li>
+    <p>Total number of gradient updates and batch size (per gradient update) are fixed for all the experiments.</p>
+  </li>
+  <li>
+    <p>Rainbow used replay capacity of 1M and oldest policy of age 250K.</p>
+  </li>
+  <li>
+    <p>In experiments, replay capacity varies from 0.1M to 10M ( 5 values), and the age of the oldest policy varies from 25K to 25M (4 values).</p>
+  </li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>With the age of the oldest policy fixed, performance improves with higher replay capacity, probably due to increased state-action coverage.</p>
+  </li>
+  <li>
+    <p>With fixed replay capacity, reducing the oldest policy’s age improves performance, probably due to the reduced off-policyness of the data in the replay buffer.</p>
+  </li>
+  <li>
+    <p>However, in some specific instances (with sparse reward, hard exploration setup), performance can drop when reducing the oldest policy’s age.</p>
+  </li>
+  <li>
+    <p>Increasing replay capacity, while keeping the replay ratio fixed, provides varying improvements and depends on the particular values of replacy capacity and replay ratio.</p>
+  </li>
+  <li>
+    <p>The paper reports the effect of these choices for DQN as well.</p>
+  </li>
+  <li>
+    <p>Unlike Rainbow, DQN does not improve with larger replay capacity, irrespective of whether the replay ratio or age of the oldest policy is kept fixed.</p>
+  </li>
+  <li>
+    <p>Given that the Rainbow agent is a DQN agent with additional components, the paper explores which of these components leads to an improvement in Rainbow’s performance as replay capacity increases.</p>
+  </li>
+</ul>
+
+<h2 id="additive-experiments">Additive Experiments</h2>
+
+<ul>
+  <li>
+    <p>Four new DQN variants are created by adding each of Rainbow’s four components to the base DQN agent.</p>
+  </li>
+  <li>
+    <p>DQN with n-step returns is the only variant that benefits by increased replay capacity.</p>
+  </li>
+  <li>
+    <p>The usefulness of n-step returns is further validated by verifying that Rainbow agent without n-step returns does not benefit by increased replay capacity. While Rainbow agent without any other component benefits by the increased capacity.</p>
+  </li>
+  <li>
+    <p>Prioritized Experience Replay does not significantly affect the performance with increased replay capacity.</p>
+  </li>
+  <li>
+    <p>The observation that n-step returns are critical for taking advantage of larger replay sizes is surprising because the uncorrected n-step returns are theoretically not suitable for off-policy learning.</p>
+  </li>
+  <li>
+    <p>The paper tests the limits of increasing replay capacity (with n-step returns) by performing experiments in the offline-RL setup, the agent collects a dataset of about 200M frames. These frames are used to train another agent.</p>
+  </li>
+  <li>
+    <p>Even in this extreme setup, n-step returns improve the learning agent’s performance.</p>
+  </li>
+</ul>
+
+<h2 id="why-do-n-step-returns-help">Why do n-step returns help?</h2>
+
+<ul>
+  <li>
+    <p>Hypothesis 1: n-step returns help to counter the increased off-policyness produced by a larger replay buffer.</p>
+
+    <ul>
+      <li>This hypothesis does not seem to hold as keeping the oldest policy fixed or using the same contrastive factor as an n-step update does not improve the 1-step update’s performance.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Hypothesis 2: Increasing the replay buffer’s capacity may reduce the variance of the n-step returns.</p>
+
+    <ul>
+      <li>
+        <p>This hypothesis is evaluated by training on environments with lesser variance or by turning off the sticky actions in the atari domain.</p>
+      </li>
+      <li>
+        <p>While the hypothesis does explain the gains by using n-step returns to some extent, n-step gains are observed even in environments with low variance.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad">
+            Deep Reinforcement Learning and the Deadly Triad
+            <small>31 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space">
+            Alpha Net--Adaptation with Composition in Classifier Space
+            <small>24 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer">
+            Outrageously Large Neural Networks--The Sparsely-Gated Mixture-of-Experts Layer
+            <small>14 Aug 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Revisiting-Fundamentals-of-Experience-Replay"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Revisiting-Fundamentals-of-Experience-Replay"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>
