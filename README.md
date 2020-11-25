@@ -4,6 +4,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [MONet - Unsupervised Scene Decomposition and Representation](https://shagunsodhani.com/papers-I-read/MONet-Unsupervised-Scene-Decomposition-and-Representation)
+* [Revisiting Fundamentals of Experience Replay](https://shagunsodhani.com/papers-I-read/Revisiting-Fundamentals-of-Experience-Replay)
 * [Deep Reinforcement Learning and the Deadly Triad](https://shagunsodhani.com/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad)
 * [Alpha Net: Adaptation with Composition in Classifier Space](https://shagunsodhani.com/papers-I-read/Alpha-Net-Adaptation-with-Composition-in-Classifier-Space)
 * [Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer](https://shagunsodhani.com/papers-I-read/Outrageously-Large-Neural-Networks-The-Sparsely-Gated-Mixture-of-Experts-Layer)
