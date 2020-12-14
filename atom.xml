@@ -4,13 +4,183 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-11-25T08:55:37-05:00</updated>
+ <updated>2020-12-14T06:47:39-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>A Foliated View of Transfer Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/A-Foliated-View-of-Transfer-Learning"/>
+   <updated>2020-09-28T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/A Foliated View of Transfer Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents a formalism for transfer learning, offers a definition of relatedness between tasks, and proposes foliations as a mathematical framework to represent the relationship between tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2008.00546&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The term &lt;em&gt;representation&lt;/em&gt; denotes a mechanism for &lt;em&gt;describing&lt;/em&gt; and &lt;em&gt;realizing&lt;/em&gt; abstract objects, thus allowing manipulation and reasoning about the objects. This description goes beyond the usual meaning (in deep learning), where &lt;em&gt;representation&lt;/em&gt; denotes some useful information about data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Relatedness&lt;/em&gt; describes &lt;em&gt;what&lt;/em&gt; changes between tasks. Consider a set of transformations (or functions) that convert one task to another. A &lt;em&gt;relationship&lt;/em&gt; between two tasks is an element of this transformation set.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a transformation set, one can define a &lt;em&gt;set of related tasks&lt;/em&gt;, which is the set of all the tasks that can be transformed into each other using the functions from the given transformation set. This set of tasks is an equivalence class, and the transformation set is the equivalence relationship.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given two related tasks &lt;em&gt;t1&lt;/em&gt; and &lt;em&gt;t2&lt;/em&gt;, denote the corresponding models (trained on those tasks) as &lt;em&gt;m1&lt;/em&gt; and &lt;em&gt;m2&lt;/em&gt;. One can assume that &lt;em&gt;m1&lt;/em&gt; and &lt;em&gt;m2&lt;/em&gt; are related in the same way as &lt;em&gt;t1&lt;/em&gt; and &lt;em&gt;t2&lt;/em&gt; (equivariance).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, given a set of transformations, one can partition the space of continuous functions into non-overlapping spaces, which describe a set of related tasks. These spaces are referred to as the &lt;em&gt;parallel spaces&lt;/em&gt; or &lt;em&gt;transfer spaces&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The parallel space represents a lower dimension than the original space. So knowing which parallel space a model lies on can make it easier to find it. This is the primary motivation behind transfer learning - knowing the relationship between tasks can make it easier to find a solution to new tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another way of partitioning the set of transformations is to use tessellation (e.g., Voronoi diagrams). Tasks in the same partition are similar to each other as compared to a task from another partition.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two tasks are defined as &lt;em&gt;similar&lt;/em&gt; if the distance between them (under some distance metric) is small.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similarity is a &lt;em&gt;geometric&lt;/em&gt; notion, while relatedness is a &lt;em&gt;transformative&lt;/em&gt; notion. Parallelized space is to relatedness what tessellation is to similarity.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The distinction between similarity and relatedness is quite nuanced, and the authors provide several examples to differentiate between them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similarity can only be measured in terms of a reference element (similar to what). For example, when one finetunes a pre-trained model on a new task, one assumes that the model’s pretraining task is similar to the current task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given a set (say &lt;em&gt;T&lt;/em&gt;), a &lt;em&gt;quantity&lt;/em&gt; (a function that maps elemenets of &lt;em&gt;T&lt;/em&gt; to a &lt;em&gt;k&lt;/em&gt; dimensional vector) is said to be &lt;em&gt;invariant&lt;/em&gt; with respect to a transformation &lt;em&gt;p&lt;/em&gt; (defined on &lt;em&gt;T&lt;/em&gt;) if &lt;em&gt;q(f) = q(p(f))&lt;/em&gt; ie the value of &lt;em&gt;f&lt;/em&gt; (belonging to &lt;em&gt;T&lt;/em&gt;) does not change if &lt;em&gt;f&lt;/em&gt; is transformed by &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If one assumes that the set of transformations is a group, specifically a Lie group whose action on the set of tasks is locally free and regular, then one can define a parallel partitioning of the space of tasks and the space of models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One can develop a hierarchial categorization scheme for the set of all considered tasks using the invariant quantities.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One can consider the space of tasks and models to be smooth manifolds as manifolds naturally give a notion of representation and transformations between them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A manifold is a topological space that can be locally mapped to a Euclidean space using coordinate charts. One can define regular foliation by choosing charts that satisfy certain conditions. In that case, the manifold has immersed, connected, non-intersecting submanifolds called leaves.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The charts (that satisfies those conditions) give a set of rectified coordinates, where the notions of “which leaf a point is on” and “where on the leaf it is” are clearly separated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Thus, foliation can provide the theoretical tools to work with parallel spaces.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How can the foliations be incorporated into theory and solutions for transfer learning is left aa future work.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Harvest, Yield, and Scalable Tolerant Systems</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Harvest,-Yield,-and-Scalable-Tolerant-Systems"/>
+   <updated>2020-09-21T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Harvest, Yield, and Scalable Tolerant Systems</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;A classic paper that looks into strategies for scaling large systems that can tolerate graceful degradation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://dl.acm.org/doi/10.5555/822076.822436&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cap-theorem&quot;&gt;CAP Theorem&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CAP refers to strong &lt;strong&gt;C&lt;/strong&gt;onsistency, high &lt;strong&gt;A&lt;/strong&gt;vailability, and &lt;strong&gt;P&lt;/strong&gt;artitionability.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Strong consistency refers to single copy ACID consistency.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;High availability means any consumer can access the data anytime. Generally, this is achieved by adding one or more data replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Partitionability means that the system can survive a partition between the different replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Strong CAP theorem states that any system can have only two out of three properties.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Weak CAP theorem says that stronger are the guarantees about any two properties, weaker are the third property’s guarantees.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;harvest-yield-and-cap-theorem&quot;&gt;Harvest, Yield, and CAP Theorem&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Assume that the clients are making a request to a server.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are two quantities of interest here:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Yield - the probability of completing a request.&lt;/li&gt;
+      &lt;li&gt;Harvest - completeness of answer to a query.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;in the presence of faults, a tradeoff can is made between yield and harvest. This tradeoff applies to both read and update queries.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;two-strategies-for-scaling-systems&quot;&gt;Two strategies for scaling systems&lt;/h2&gt;
+
+&lt;h3 id=&quot;trading-harvest-for-yield&quot;&gt;Trading Harvest for Yield&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In a hundred node cluster (without replication), a single-node failure reduces harvest by 1 %, and in the case of multi-node failure, the harvest degrades linearly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The probability of losing high-priority data can be reduced by replicating it. However, replicating all the data would not n guarantee 100% harvest and yield despite significant costs.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;application-decomposition-and-orthogonal-mechanisms&quot;&gt;Application Decomposition and Orthogonal Mechanisms&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Decompose a large application into subcomponents so that each component can be provisioned separately. Strong consistency can only be applied only on the components that need it, instead of the application as a whole.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Further, failure of one or more components need not cause the application to fail as a whole.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Decomposition also provides the opportunity to use orthogonal mechanisms, i.e., mechanisms independent of other mechanisms with no runtime interface.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Composition of orthogonal subsystems improves the robustness of runtime interactions by &lt;em&gt;locally&lt;/em&gt; containing the errors. For example, the orthogonal components can be restarted /replaced independently without affecting other running components.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>MONet - Unsupervised Scene Decomposition and Representation</title>
