@@ -4,6 +4,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [A Foliated View of Transfer Learning](https://shagunsodhani.com/papers-I-read/A-Foliated-View-of-Transfer-Learning)
+* [Harvest, Yield, and Scalable Tolerant Systems](https://shagunsodhani.com/papers-I-read/Harvest,-Yield,-and-Scalable-Tolerant-Systems)
 * [MONet - Unsupervised Scene Decomposition and Representation](https://shagunsodhani.com/papers-I-read/MONet-Unsupervised-Scene-Decomposition-and-Representation)
 * [Revisiting Fundamentals of Experience Replay](https://shagunsodhani.com/papers-I-read/Revisiting-Fundamentals-of-Experience-Replay)
 * [Deep Reinforcement Learning and the Deadly Triad](https://shagunsodhani.com/papers-I-read/Deep-Reinforcement-Learning-and-the-Deadly-Triad)
