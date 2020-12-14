@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-12-14T06:47:39-05:00</updated>
+ <updated>2020-12-14T06:50:14-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -146,7 +146,7 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;in the presence of faults, a tradeoff can is made between yield and harvest. This tradeoff applies to both read and update queries.&lt;/p&gt;
+    &lt;p&gt;In the presence of faults, a tradeoff can is made between yield and harvest. This tradeoff applies to both read and update queries.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
