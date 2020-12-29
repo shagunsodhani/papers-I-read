@@ -4,6 +4,14 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [CAP twelve years later - How the rules have changed](https://shagunsodhani.com/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed)
+* [Consistency Tradeoffs in Modern Distributed Database System Design](https://shagunsodhani.com/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design)
+* [Exploring Simple Siamese Representation Learning](https://shagunsodhani.com/papers-I-read/Exploring-Simple-Siamese-Representation-Learning)
+* [Data Management for Internet-Scale Single-Sign-On](https://shagunsodhani.com/papers-I-read/Data-Management-for-Internet-Scale-Single-Sign-On)
+* [Searching for Build Debt - Experiences Managing Technical Debt at Google](https://shagunsodhani.com/papers-I-read/Searching-for-Build-Debt-Experiences-Managing-Technical-Debt-at-Google)
+* [One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL](https://shagunsodhani.com/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL)
+* [Learning Explanations That Are Hard To Vary](https://shagunsodhani.com/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary)
+* [Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting](https://shagunsodhani.com/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting)
 * [A Foliated View of Transfer Learning](https://shagunsodhani.com/papers-I-read/A-Foliated-View-of-Transfer-Learning)
 * [Harvest, Yield, and Scalable Tolerant Systems](https://shagunsodhani.com/papers-I-read/Harvest,-Yield,-and-Scalable-Tolerant-Systems)
 * [MONet - Unsupervised Scene Decomposition and Representation](https://shagunsodhani.com/papers-I-read/MONet-Unsupervised-Scene-Decomposition-and-Representation)
