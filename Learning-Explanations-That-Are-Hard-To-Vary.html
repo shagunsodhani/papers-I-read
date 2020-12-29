@@ -201,11 +201,11 @@ MathJax.Hub.Config({
 <h3 id="invariant-learning-consistencyilc">Invariant Learning Consistency(ILC)</h3>
 
 <ul>
-  <li>Given an algorithm <script type="math/tex">A</script>, let <script type="math/tex">\theta_{A}^{*}</script> denote the set of convergence points of <script type="math/tex">A</script> when trained on all the environments.</li>
+  <li>Given an algorithm \(A\), let \(\theta_{A}^{*}\) denote the set of convergence points of \(A\) when trained on all the environments.</li>
   <li>Each convergence point is associated with a consistency score.</li>
   <li>Intuitively, given a convergence point and an environment <em>e</em>, find the set of parameters equivalent to the convergence point (in terms of loss) with respect to <em>e</em>. Let’s call this set as <em>S</em>.</li>
   <li>Evaluate the points in this set for all the remaining environments. For the given convergence point, an environment <em>e’</em> is consistent with <em>e</em> if the maximum difference in the loss for two environments is small, for all points belonging to <em>S</em>.</li>
-  <li>This idea is used to define the invariant learning consistency score for algorithm <script type="math/tex">A</script>, which measures the expected consistency of the converged points (on the pooled data) across all the environments.</li>
+  <li>This idea is used to define the invariant learning consistency score for algorithm \(A\), which measures the expected consistency of the converged points (on the pooled data) across all the environments.</li>
   <li>The paper shows that the converged points’ consistency is linked to the Hessians’ geometric mean and that for the convex quadratic case, using the elementwise geometric mean of gradients improves consistency.</li>
   <li>However, there are some practical challenges:
     <ul>
@@ -269,27 +269,27 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
+            CAP twelve years later - How the rules have changed
+            <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design">
+            Consistency Tradeoffs in Modern Distributed Database System Design
+            <small>30 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
             Exploring Simple Siamese Representation Learning
             <small>23 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL">
-            One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL
-            <small>02 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting">
-            Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting
-            <small>12 Oct 2020</small>
           </a>
         </h3>
       </li>

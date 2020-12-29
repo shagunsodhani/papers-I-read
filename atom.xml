@@ -4,13 +4,306 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-12-28T21:07:29-05:00</updated>
+ <updated>2020-12-28T22:01:39-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>CAP twelve years later - How the rules have changed</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed"/>
+   <updated>2020-12-07T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/CAP twelve years later - How the rules have changed</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The CAP theorem states that any system sharing data over the network can only have at most two (out of three) desirable properties:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;consistency (C), i.e., a single, up-to-date copy of the data;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;high availability (A) of that data (for updates); and&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;tolerance to network partitions (P).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This “2 of 3” formulation is misleading as it oversimplifies the interplay between properties.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/abstract/document/6133253&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;acid-vs-base&quot;&gt;ACID vs. BASE&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ACID is a design philosophy that focuses on consistency as reflected in the traditional relational databases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The four properties in ACID are:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Atomicity (A), i.e., the operations are atomic, and either the entire operation succeeds or none of it succeeds.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Consistency (C), i.e., a transaction preserves all the rules. Note that the consistency in CAP is a subset of consistency in ACID.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Isolation (I), i.e., transactions occur in isolation and do not affect each other.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Durability (D), i.e., the transactions are durable irrespective of system failure.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BASE is an alternate design philosophy that focuses on availability as reflected in the NoSQL databases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The four properties in BASE are:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Basic Availability (BA), i.e., the database appears to work most of the time.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Soft state (S), i.e., the system’s state can change over time as it becomes eventually consistent.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Eventual consistency (E), i.e., the system will eventually become consistent over time.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cap-confusion&quot;&gt;CAP confusion&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, partitionability is seen as a must-have, thus reducing the choice to be between availability and consistency.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This view is somewhat misleading because the choice between C, A, and P is not binary but granular.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The choice between C and A can occur at various granularity levels, and different components (of a larger system) can prioritize different aspects.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Similarly, the CAP theorem generally ignores latency even though it is closely related to partitionability. For example, failing to achieve consistency within a time-bound (i.e., latency) implies a partition.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, there is no global notion of partition - some subset of nodes may experience a partition, and others may not.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once a partition is detected, the system can then choose between C and A.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;managing-partitions&quot;&gt;Managing Partitions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three-step process for managing partitions:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Detect the start of a partition.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Enter an explicit partition mode that may limit some operations.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Possible strategies:&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;Reduce availability by limiting some operations.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;Record extra information that can be used during partition recovery.&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The strategy depends on the invariants that the system should maintain.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;For example, if the invariant is that the keys (in a table) should be unique, the system could allow duplicate keys for some time and perform a de-duplication step during partition recovery.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;A counterexample is a monetary transaction (e.g., charging a credit card). In such cases, the system could disable the operation and record it for performing later. Sometimes this “unavailability” is not visible to the user.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;History of operations (over replicas across different partitions) can be tracked using version vectors of the form (node, logical time). The system can easily recreate the order in which they were executed (or mark them as being concurrent).&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Initiate partition recovery when communication is restored and make the state across the partitions consistent.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;One common approach is to revert to the state when the partition was detected and apply the operations consistently across all the replicas.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This may require some extra effort to merge conflicts.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;One workaround can be to constrain the use of certain operations so that the system does not encounter merge conflicts during recovery.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sometimes, certain invariants may be violated when the system is in the partition mode and needs to be fixed during recovery.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The key takeaway is that when partitions exist, the choice between availability and consistency is not binary, and both can be optimized for.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Consistency Tradeoffs in Modern Distributed Database System Design</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design"/>
+   <updated>2020-11-30T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Consistency Tradeoffs in Modern Distributed Database System Design</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;CAP theorem has been influential in the design decisions for distributed databases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;However, designers incorrectly assume that the CAP theorem “always” imposes restrictions in terms of the tradeoff between availability and consistency. In contrast, the tradeoff is applicable only in the case of partitions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CAP theorem led to the development of highly available systems with reduced consistency models (and reduced ACID guarantees).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another tradeoff - between latency and consistency - has also been influential for database design.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper unifies CAP and latency-consistency tradeoffs into a single formulation called PACELC.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that some of the observations, especially ones about the databases, may be outdated now (the paper was written in 2012). However, the core message is still relevant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;latency-consistencytradeofff&quot;&gt;latency-consistencyTradeofff&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Low latency (or high availability) means that the system must replicate data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of an update query, three possibilities arise:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The system can choose to send data updates to all the replicas at once. This leads to two possibilities:&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;A replica can receive the update queries in an arbitrary order, thus breaking consistency with other replicas.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Alternatively, the replicas could use some protocol to agree on the order of updates. However, this can introduce latency.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The update queries can be first sent to a master replica.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;The master replica can apply the updates and send them to the other replicas using one of the following strategies:&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;Synchronous replication where the master waits for all the updates to be applied to a replica(s). However, this approach introduces latency.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;Asynchronous replication where the master assumes the update to be complete before it completes. In this case, the latency-consistency tradeoff depends on how read queries are handled:&lt;/p&gt;
+
+                &lt;ul&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;The system can send all read queries to the master. In this case, there are no consistency issues, but additional latency is introduced because all the read queries go to the same replica, thus potentially overloading it.&lt;/p&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;Alternatively, the read query can be served from any replica. While this improves read latency, the results can be inconsistent now.&lt;/p&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;Use a mix of Synchronous and Asynchronous replication - i.e., some of the write queries are Synchronous, and others are Asynchronous. In this case, the latency-consistency tradeoff depends on how read queries are handled:&lt;/p&gt;
+
+                &lt;ul&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;If the read is routed to at least one replica that has been Synchrnously updated, the consistency can be preserved, with additional latency for discovering the updated replica, etc.&lt;/p&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;p&gt;If the read query can not be routed to an updated replica (maybe because none of the replicas is updated), then either latency suffers or inconsistent read can be performed.&lt;/p&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The update query is first sent to an arbitrary replica.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;This is the same as the previous case, with the query going to an arbitrary replica instead of the master replica, and suffers from the same latency issues as the last case.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In a nutshell, the tradeoff between consistency and latency is always present, irrespective of network failure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This contrasts with the CAP theorem, which imposes the tradeoff between consistency and availability only in the case of a network partition.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pacelc&quot;&gt;PACELC&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If there is a partition (P), how does the system tradeoff availability (A) and consistency (C); else (E), when the system is running without failures, how does the system tradeoff latency (L) and consistency (C)?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The latency-consistency tradeoff (ELC) is relevant only when the data is replicated.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Default versions of Dynamo, Cassandra, and Riak were PA/EL systems, i.e., if a partition occurs, availability is prioritized. In the absence of partition, lower latency is prioritized.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fully ACID systems (VoltDB, H-Store, and Megastore) and others like BigTable and HB are PC/EC, i.e., they prioritize consistency and give up availability and latency.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;MongoDB can be classified as a PA/EC system, while PNUTS is a PC/EL system.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Exploring Simple Siamese Representation Learning</title>
@@ -128,6 +421,289 @@
  </entry>
  
  <entry>
+   <title>Data Management for Internet-Scale Single-Sign-On</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Data-Management-for-Internet-Scale-Single-Sign-On"/>
+   <updated>2020-11-16T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Data Management for Internet-Scale Single-Sign-On</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes the architecture of an erstwhile single-sign-on (SSO) service used by Google, called Google Accounts (2006).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that some of the metrics and design decisions may be outdated now (the paper was written in 2006). However, the core message is still relevant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.usenix.org/legacy/event/worlds06/tech/prelim_papers/perl/perl.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;operational-constraints&quot;&gt;Operational Constraints&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSO’s availability affects the availability of all applications that require user sign-in.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, systems can achieve high availability by sacrificing consistency, but given the nature of SSO (matching username/passwords), providing an inconsistent view is not a good option, and single-copy consistency is a usability requirement.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;berkeley-db&quot;&gt;Berkeley DB&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Berkeley DB is an embedded, high-performance, scalable, transactional storage system for key-value data and provides both keyed and sequential lookup.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It provides a primary copy replication model with a single writer (called master) and multiple read-only replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;All writes are sent to the master, which first applies the changes and then propagates them to the replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The master and the replicas have identical logs, and in case of master failure, a new master is elected from the replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some synchronization may be needed between the replicas in case, e.g., the master dies in between a transaction.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sso-architecture&quot;&gt;SSO Architecture&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSO service maps usernames to user account data and services to service-specific data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The SSO database is partitioned into shards, where each shard is a replicated Berkeley DB (having 5 to 15 replicas).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each replica stores the data in a B+-link tree data structure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consistent reads must go to the master, while non-master replicas can serve “ stale” reads.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the case of larger replication groups (say 15 replicas), only a subset of replicas can become master (“electable replicas”).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In general, replicas are spread geographically to handle machine-failure, network-failure, and data center-failure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Replicas in a share are kept close to reduce the communication latency, which affects the time to commit a write operation or electing a new master.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some of the shards implement ID-map, i.e., map of username to userid and userid to shards.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;database-integration&quot;&gt;Database Integration&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Berkeley DB leaves decisions regarding quorums, leases, etc., up to the application.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;quorums&quot;&gt;Quorums&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSO chooses a quorum protocol that guarantees that updates are never lost.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the write queries, the master waits for a positive acknowledgment from a majority of the replicas, including itself, before marking the query as completed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When selecting a new leader, SSO requires a majority of replicas to agree. Moreover, Berkeley DB elections always choose a replica with the latest log entry during an election, thus guaranteeing that the new master’s log will include all the previous master’s updates.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;leases&quot;&gt;Leases&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The master holds a &lt;em&gt;master lease&lt;/em&gt; when responding to read queries and refreshes this lease periodically by communicating with a majority of replicas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The lease guarantees that the master is not returning stale data if a partition or failure causes the master to lose its mastership, i.e., holding the lease guarantees that the master is still the master.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Moreover, elections can not be completed within the lease timeout interval.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;replica-group-membership&quot;&gt;Replica Group Membership&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSO maintains a replica configuration containing the logical (DNS) name and IP address of each replica.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In case of any changes to the configuration, the changes are specified in a file that the master reads periodically.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the configuration changes, the master initiates a configuration change and update the database.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Non-master replicas can get the new configuration from the database.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A new replica or a replica that lost state (say due to a failure) starts as a non-voting replica and can not participate in an election till it has caught up with the master as of the time the replica joined (again).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Searching for Build Debt - Experiences Managing Technical Debt at Google</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Searching-for-Build-Debt-Experiences-Managing-Technical-Debt-at-Google"/>
+   <updated>2020-11-09T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Searching for Build Debt - Experiences Managing Technical Debt at Google</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes the efforts to control and repay the technical debt in the build system at Google (called the Build Debt).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Guiding Principles:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Automate techniques to analyze and fix issues that contribute to technical debt.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Make it easier to do the right thing as developers can incur technical debt unknowingly.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Make it hard to do the wrong thing, e.g., by building stricter checks into the build process.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that some of the metrics and design decisions may be outdated now (the paper was written in 2012). However, the core message is still relevant.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37755.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;googles-build-system-debt&quot;&gt;Google’s Build System Debt&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;BUILD files encapsulate the specifications for building software.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, these files are maintained manually, and the dependencies may not be up-to-date over time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In extreme cases, some of the build targets are not built for months. Such targets are called zombie targets.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Originally, any project could depend on any other project’s internal details, thus creating (sometimes unwanted) couplings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the lower-level project did not intend to expose some internal details, the unwanted couplings introduce technical debt and make it harder to modify the lower-level project.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One form of technical debt is the visibility debt or the cost of back-fitting visibility rules onto the existing build specifications to re-establish the appropriate encapsulations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another example of technical debt is dead code that can confuse the developers looking for useful APIs.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dependency-debt&quot;&gt;Dependency Debt&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Over-declared&lt;/em&gt; or &lt;em&gt;underutilized&lt;/em&gt; dependencies can slow the build and testing of systems.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Under-declared&lt;/em&gt; dependencies can make the build process brittle and make it difficult to remove &lt;em&gt;over-declared&lt;/em&gt; dependencies.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Potential solutions for &lt;em&gt;over-declared&lt;/em&gt; dependencies include:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Setting aside some dedicated time for fixing build rules. But this approach is not automated, and potential breakages make it harder for developers to do the right thing.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Automatically add all the &lt;em&gt;under-declared&lt;/em&gt; dependencies to the BUILD files. The system can raise an error if a direct dependency is missing, making it harder to do the wrong thing.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Automation can be applied for finding/reporting the over-declared dependencies as well.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Potential solutions for &lt;em&gt;underutilized&lt;/em&gt; dependencies include:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;While it is challenging to automate fixing &lt;em&gt;underutilized&lt;/em&gt; dependencies, automating the discovery of such dependencies is still useful.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Highlighting dependencies with high cost and low removal effort could incentivize developers to clean up their projects.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;zombie-targets&quot;&gt;Zombie Targets&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Zombie targets can be identified by query the results of build and test runs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A target is marked as “dead” if the attempts to build it have failed for at least 90 days. Until then, build errors are considered to be transient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A zombie target can be eliminated by deleting its definition from the BUILD and deleting the source files, which are reachable only via the zombie target.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;visibility-debt&quot;&gt;Visibility Debt&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Originally, the default visibility of all the targets was public, leading to unintended dependencies.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The visibility of all the existing builds was set to &lt;em&gt;legacy_public&lt;/em&gt;, and the default visibility was changed to private.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This encouraged developers to explicitly consider if they wanted other projects to depend on their project.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dead-flags&quot;&gt;Dead Flags&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Google developed its command-line parsing utilities and defined a set of recognized command-line flags for libraries and binaries.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overtime, the number of flags grew to half a million, and many of these flags are not useful anymore (i.e., dead).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These dead flags can it hard to understand and refactor code.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Existing flags are analyzed to check which ones have always been set to the same value and replaced by those contents, clearing about 150 thousand flags.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Removing dead flags also helps to clean up dead/unreachable code.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL</title>
    <link href="https://shagunsodhani.github.io/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL"/>
    <updated>2020-11-02T00:00:00-05:00</updated>
@@ -182,16 +758,11 @@
     &lt;p&gt;An unsupervised reward function is defined using the mutual information between states and latent variables.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;$$r(s, a) = log(q_{\phi})(z&lt;/td&gt;
-          &lt;td&gt;s) - log(p(z))&lt;script type=&quot;math/tex&quot;&gt;where&lt;/script&gt;q_{\phi}$$ is a learned discriminator.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;\(r(s, a) = log(q_{\phi})(z\|s) - log(p(z))\) where \(q_{\phi}\) is a learned discriminator.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;This unsupervised reward is optimized for only when the policy achieves close to an optimal return, i.e., the environment return is close to the optimal return. Otherwise, the agent optimizes only for the environment return.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This unsupervised reward is optimized for only when the policy achieves close to an optimal return, i.e., the environment return is close to the optimal return. Otherwise, the agent optimizes only for the environment return.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
@@ -201,32 +772,27 @@
     &lt;p&gt;SMERL is implemented using SAC with a latent variable maximum entropy policy.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The set of latent variables is a fixed discrete set &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;p(z)&lt;/script&gt; is set to be a uniform distribution over this set.&lt;/p&gt;
+    &lt;p&gt;The set of latent variables is a fixed discrete set \(Z\) and \(p(z)\) is set to be a uniform distribution over this set.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;At the start of an episode, a &lt;script type=&quot;math/tex&quot;&gt;z&lt;/script&gt; is sampled and used throughout the episode.&lt;/p&gt;
+    &lt;p&gt;At the start of an episode, a \(z\) is sampled and used throughout the episode.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Discriminator $$q_{\phi}(z&lt;/td&gt;
-          &lt;td&gt;s)&lt;script type=&quot;math/tex&quot;&gt;is trained to infer&lt;/script&gt;z$$ from the visited states.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Discriminator \(q_{\phi}(z\|s)\) is trained to infer \(z\) from the visited states.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A baseline SAC agent is trained beforehand to evaluate if the current training policy achieves close to optimal environment return.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;During the evaluation, the policy corresponding to each latent variable is executed in the test MDP, and the policy with the maximum return is returned.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During the evaluation, the policy corresponding to each latent variable is executed in the test MDP, and the policy with the maximum return is returned.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;theoretical-analysis&quot;&gt;Theoretical Analysis&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Given an MDP &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\epsilon&gt;0&lt;/script&gt;, the MDP robustness set is defined as the set of all MDPs &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; where the optimal policy of &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; produces the same trajectory distribution in &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;. Moreover, on the training MDP &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;, the optimal policies (corresponding to &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt;) obtain similar returns.&lt;/p&gt;
+    &lt;p&gt;Given an MDP \(M\) and \(\epsilon&amp;gt;0\), the MDP robustness set is defined as the set of all MDPs \(M'\) where the optimal policy of \(M'\) produces the same trajectory distribution in \(M'\) as \(M\). Moreover, on the training MDP \(M\), the optimal policies (corresponding to \(M\) and \(M'\)) obtain similar returns.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The paper shows that SMERL generalizes to MDPs belong to the robustness set.&lt;/p&gt;
@@ -296,11 +862,11 @@
 &lt;h3 id=&quot;invariant-learning-consistencyilc&quot;&gt;Invariant Learning Consistency(ILC)&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Given an algorithm &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;, let &lt;script type=&quot;math/tex&quot;&gt;\theta_{A}^{*}&lt;/script&gt; denote the set of convergence points of &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt; when trained on all the environments.&lt;/li&gt;
+  &lt;li&gt;Given an algorithm \(A\), let \(\theta_{A}^{*}\) denote the set of convergence points of \(A\) when trained on all the environments.&lt;/li&gt;
   &lt;li&gt;Each convergence point is associated with a consistency score.&lt;/li&gt;
   &lt;li&gt;Intuitively, given a convergence point and an environment &lt;em&gt;e&lt;/em&gt;, find the set of parameters equivalent to the convergence point (in terms of loss) with respect to &lt;em&gt;e&lt;/em&gt;. Let’s call this set as &lt;em&gt;S&lt;/em&gt;.&lt;/li&gt;
   &lt;li&gt;Evaluate the points in this set for all the remaining environments. For the given convergence point, an environment &lt;em&gt;e’&lt;/em&gt; is consistent with &lt;em&gt;e&lt;/em&gt; if the maximum difference in the loss for two environments is small, for all points belonging to &lt;em&gt;S&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;This idea is used to define the invariant learning consistency score for algorithm &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;, which measures the expected consistency of the converged points (on the pooled data) across all the environments.&lt;/li&gt;
+  &lt;li&gt;This idea is used to define the invariant learning consistency score for algorithm \(A\), which measures the expected consistency of the converged points (on the pooled data) across all the environments.&lt;/li&gt;
   &lt;li&gt;The paper shows that the converged points’ consistency is linked to the Hessians’ geometric mean and that for the convex quadratic case, using the elementwise geometric mean of gradients improves consistency.&lt;/li&gt;
   &lt;li&gt;However, there are some practical challenges:
     &lt;ul&gt;
@@ -377,8 +943,8 @@
 
 &lt;ul&gt;
   &lt;li&gt;The model is trained over a sequence of data distributions in the class-incremental learning setup. A single-head architecture is used so that the task ID is not required during inference.&lt;/li&gt;
-  &lt;li&gt;Along with the standard replay buffer (&lt;script type=&quot;math/tex&quot;&gt;M^{rep}&lt;/script&gt;) for the raw input examples (from different tasks), another replay buffer (&lt;script type=&quot;math/tex&quot;&gt;M^{RRR}&lt;/script&gt;) is maintained for storing the “explanations” (in the form of saliency maps), corresponding to examples in &lt;script type=&quot;math/tex&quot;&gt;M^{rep}&lt;/script&gt;.&lt;/li&gt;
-  &lt;li&gt;RRR is implemented as an L1 loss on the error between the saliency map generated after training on the current task and the saliency map in &lt;script type=&quot;math/tex&quot;&gt;M^{RRR}&lt;/script&gt;.&lt;/li&gt;
+  &lt;li&gt;Along with the standard replay buffer (\(M^{rep}\)) for the raw input examples (from different tasks), another replay buffer (\(M^{RRR}\)) is maintained for storing the “explanations” (in the form of saliency maps), corresponding to examples in \(M^{rep}\).&lt;/li&gt;
+  &lt;li&gt;RRR is implemented as an L1 loss on the error between the saliency map generated after training on the current task and the saliency map in \(M^{RRR}\).&lt;/li&gt;
   &lt;li&gt;Saliency maps need to be generated while the model is training. This requirement rules out black-box saliency methods, which can be used only after training.&lt;/li&gt;
   &lt;li&gt;The gradient-based white-box explainability techniques that are used include:
     &lt;ul&gt;
@@ -2258,7 +2824,7 @@
 
 &lt;h3 id=&quot;encoder-network&quot;&gt;Encoder Network&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the input to a latent representation.
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the input to a latent representation.
 
 * The same network is used to encode both the anchor and the sample.
 
@@ -2267,14 +2833,14 @@
 
 &lt;h3 id=&quot;projection-network&quot;&gt;Projection Network&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the normalized representation to another representation, on which the contrastive loss is computed.
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* This module maps the normalized representation to another representation, on which the contrastive loss is computed.
 
 * This network is only used for training the supervised contrastive loss.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;loss-function&quot;&gt;Loss function&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* The paper extends the standard contrastive loss formulation to handle multiple positive examples.
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* The paper extends the standard contrastive loss formulation to handle multiple positive examples.
 
 * The main effect is that the modified loss accounts for all the same-class pairs (from within the sampled batch as well as the augmented batch).
 
@@ -3719,31 +4285,31 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Consider a task with input &lt;script type=&quot;math/tex&quot;&gt;x \in R^N&lt;/script&gt; and parameter &lt;script type=&quot;math/tex&quot;&gt;W$ \in R^{M \times N}&lt;/script&gt; where the output (target or features) are given as &lt;script type=&quot;math/tex&quot;&gt;y=Wx&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;Consider a task with input \(x \in R^N\) and parameter \(W$ \in R^{M \times N}\) where the output (target or features) are given as \(y=Wx\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Now consider &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; such tasks with parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, W_2, \cdots W_K&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;Now consider \(K\) such tasks with parameters \(W_1, W_2, \cdots W_K\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;If each &lt;script type=&quot;math/tex&quot;&gt;W_k&lt;/script&gt; requires only a small subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;, then a linear transformation &lt;script type=&quot;math/tex&quot;&gt;C_k^{-1}&lt;/script&gt; can be used such that each &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt; occupies a mutually orthogonal subspace in &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;If each \(W_k\) requires only a small subspace in \(R^N\), then a linear transformation \(C_k^{-1}\) can be used such that each \(W_kC_k^{-1}\) occupies a mutually orthogonal subspace in \(R^N\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The set of parameters &lt;script type=&quot;math/tex&quot;&gt;W_1, \cdots W_K&lt;/script&gt; can be represented by a single &lt;script type=&quot;math/tex&quot;&gt;W^{M \times N}&lt;/script&gt; by adding &lt;script type=&quot;math/tex&quot;&gt;W_kC_k^{-1}&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The set of parameters \(W_1, \cdots W_K\) can be represented by a single \(W^{M \times N}\) by adding \(W_kC_k^{-1}\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The parameter corresponding to the &lt;script type=&quot;math/tex&quot;&gt;k^{th}&lt;/script&gt; task can be retrived (with some noise) using the context &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;W^{~}_k = WC_k&lt;/script&gt;&lt;/p&gt;
+    &lt;p&gt;The parameter corresponding to the \(k^{th}\) task can be retrived (with some noise) using the context \(C_k\) as \(W^{~}_k = WC_k\)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Even though the retrieval is noisy, the effect of noise is limited for the context vectors used in the paper.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Finally, &lt;script type=&quot;math/tex&quot;&gt;\widetilde(y) = \widetilde(W)_{k}x = (WC_{k})x = W(C_{k}x)&lt;/script&gt;&lt;/p&gt;
+    &lt;p&gt;Finally, \(\widetilde(y) = \widetilde(W)_{k}x = (WC_{k})x = W(C_{k}x)\)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Instead of learning &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; separate models, only &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; context vectors (along with 1 superimposed model) needs to be learned.&lt;/p&gt;
+    &lt;p&gt;Instead of learning \(K\) separate models, only \(K\) context vectors (along with 1 superimposed model) needs to be learned.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The key assumption is that &lt;script type=&quot;math/tex&quot;&gt;N&lt;/script&gt; (in &lt;script type=&quot;math/tex&quot;&gt;x \in R^N)&lt;/script&gt; is large enough such that each &lt;script type=&quot;math/tex&quot;&gt;W_k&lt;/script&gt; requires only a small subspace of &lt;script type=&quot;math/tex&quot;&gt;R^N&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The key assumption is that \(N\) (in \(x \in R^N)\) is large enough such that each \(W_k\) requires only a small subspace of \(R^N\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Since images and speech signals tend to occupy a low dimensional manifold, this requirement can be satisfied by over-parameterizing x.&lt;/p&gt;
@@ -3758,10 +4324,10 @@
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;Sample rotations uniformly from the orthogonal group &lt;script type=&quot;math/tex&quot;&gt;O(M)&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;Sample rotations uniformly from the orthogonal group \(O(M)\).&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Downside is that if &lt;script type=&quot;math/tex&quot;&gt;M \sim N&lt;/script&gt;, it requires storing as many parameters as learning &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; individual models (since &lt;script type=&quot;math/tex&quot;&gt;C&lt;/script&gt; is of the size of ##M \times M$$).&lt;/p&gt;
+        &lt;p&gt;Downside is that if \(M \sim N\), it requires storing as many parameters as learning \(K\) individual models (since \(C\) is of the size of ##M \times M$$).&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -3770,10 +4336,10 @@
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;The design of rotational superposition can be improved by choosing &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; to be a diagonal matrix ie &lt;script type=&quot;math/tex&quot;&gt;C_k = diag(c_k)&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; is a vector of size &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;The design of rotational superposition can be improved by choosing \(C_k\) to be a diagonal matrix ie \(C_k = diag(c_k)\) where \(c_k\) is a vector of size \(M\).&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Choosing &lt;script type=&quot;math/tex&quot;&gt;c_k&lt;/script&gt; to be a vector of complex numbers (of the form &lt;script type=&quot;math/tex&quot;&gt;c_{k}^{j} = e^{i\phi_{j}(k)}&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\phi_{j}(k)&lt;/script&gt; or the phase is sampled uniformly from &lt;script type=&quot;math/tex&quot;&gt;[-\pi, \pi]&lt;/script&gt;) leads to &lt;script type=&quot;math/tex&quot;&gt;C_k&lt;/script&gt; being a digonal orthogonal matrix.&lt;/p&gt;
+        &lt;p&gt;Choosing \(c_k\) to be a vector of complex numbers (of the form \(c_{k}^{j} = e^{i\phi_{j}(k)}\) where \(\phi_{j}(k)\) or the phase is sampled uniformly from \([-\pi, \pi]\)) leads to \(C_k\) being a digonal orthogonal matrix.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -3915,21 +4481,19 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Consider a MDP &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;S&lt;/script&gt; is the finite set of states, &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt; is finite set of actions, &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; is the transition function, &lt;script type=&quot;math/tex&quot;&gt;R&lt;/script&gt; is the bounded reward function and &lt;script type=&quot;math/tex&quot;&gt;\gamma&lt;/script&gt; is the discount factor.&lt;/p&gt;
+    &lt;p&gt;Consider a MDP \(M = &amp;lt;S, A, P, R, \gamma&amp;gt;\) where \(S\) is the finite set of states, \(A\) is finite set of actions, \(P\) is the transition function, \(R\) is the bounded reward function and \(\gamma\) is the discount factor.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The abstract version of the MDP is &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
-\widetilde{M} = &lt;\widetilde{S}, A, \widetilde{P}, \widetilde{R}, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;\widetilde{S}&lt;/script&gt; is the finite set if abstract states, &lt;script type=&quot;math/tex&quot;&gt;\widetilde{P}&lt;/script&gt; is the transition function in the abstract state space and &lt;script type=&quot;math/tex&quot;&gt;\widetilde{R}&lt;/script&gt; is the bounded reward function in the abstract reward space.&lt;/p&gt;
+    &lt;p&gt;The abstract version of the MDP is \(\widetilde{M} = &amp;lt;\widetilde{S}, A, \widetilde{P}, \widetilde{R}, \gamma&amp;gt;\) where \(\widetilde{S}\) is the finite set if abstract states, \(\widetilde{P}\) is the transition function in the abstract state space and \(\widetilde{R}\) is the bounded reward function in the abstract reward space.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt; is a function that maps a given state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; to its abstract counterpart &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;Abstraction function \(\phi\) is a function that maps a given state \(s\) to its abstract counterpart \(\widetilde{s}\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The inverse image &lt;script type=&quot;math/tex&quot;&gt;\phi^{-1}(\widetilde{s})&lt;/script&gt; is the set of ground states that map to the &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt; under the abstraction function &lt;script type=&quot;math/tex&quot;&gt;\phi&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The inverse image \(\phi^{-1}(\widetilde{s})\) is the set of ground states that map to the \(\widetilde{s}\) under the abstraction function \(\phi\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;A wieghing functioon &lt;script type=&quot;math/tex&quot;&gt;w(s)&lt;/script&gt; is used to measure how much does a state &lt;script type=&quot;math/tex&quot;&gt;s&lt;/script&gt; contribute to the abstract state &lt;script type=&quot;math/tex&quot;&gt;\phi(s)&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;A wieghing functioon \(w(s)\) is used to measure how much does a state \(s\) contribute to the abstract state \(\phi(s)\).&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -3937,7 +4501,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Given two abstraction functions &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}&lt;/script&gt; is said to be &lt;em&gt;finer&lt;/em&gt; than &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}&lt;/script&gt; iff for any states &lt;script type=&quot;math/tex&quot;&gt;s_{1}, s_{2}&lt;/script&gt; if &lt;script type=&quot;math/tex&quot;&gt;\phi_{1}(s_{1}) = \phi_{1}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;\phi_{2}(s_{1}) = \phi_{2}(s_{2})&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;Given two abstraction functions \(\phi_{1}\) and \(\phi_{2}\), \(\phi_{1}\) is said to be &lt;em&gt;finer&lt;/em&gt; than \(\phi_{2}\) iff for any states \(s_{1}, s_{2}\) if \(\phi_{1}(s_{1}) = \phi_{1}(s_{2})\) then \(\phi_{2}(s_{1}) = \phi_{2}(s_{2})\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;This &lt;em&gt;finer&lt;/em&gt; relation is reflex, antisymmetric, transitive and partially ordered.&lt;/p&gt;
@@ -3951,52 +4515,52 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;While many abstractions are possible, not all abstractions are equally important.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Model-irrelevance abstraction &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}&lt;/script&gt;:&lt;/p&gt;
+    &lt;p&gt;Model-irrelevance abstraction \(\phi_{model}\):&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
         &lt;p&gt;If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Consider any action &lt;script type=&quot;math/tex&quot;&gt;a&lt;/script&gt; and any abstract state &lt;script type=&quot;math/tex&quot;&gt;\widetilde{s}&lt;/script&gt;, if &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}(s_{1} = \phi_{model}(s_{2})&lt;/script&gt; then &lt;script type=&quot;math/tex&quot;&gt;R(s_1, a) = R(s_2, a)&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_1, s'}^{a} = \sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_2, s'}^{a}&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;Consider any action \(a\) and any abstract state \(\widetilde{s}\), if \(\phi_{model}(s_{1} = \phi_{model}(s_{2})\) then \(R(s_1, a) = R(s_2, a)\) and \(\sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_1, s'}^{a} = \sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_2, s'}^{a}\).&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;Q^{\pi}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+    &lt;p&gt;\(Q^{\pi}\)-irrelevance abstraction:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
         &lt;p&gt;It preserves the state-action value finction for all the states.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\phi_{Q^{\pi}}(s_1) = \phi_{Q^{\pi}}(s_2)&lt;/script&gt; implies &lt;script type=&quot;math/tex&quot;&gt;Q^{\pi}(s_1, a) = Q^{\pi}(s_1, a)&lt;/script&gt;.&lt;/p&gt;
+        &lt;p&gt;\(\phi_{Q^{\pi}}(s_1) = \phi_{Q^{\pi}}(s_2)\) implies \(Q^{\pi}(s_1, a) = Q^{\pi}(s_1, a)\).&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;Q^{*}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+    &lt;p&gt;\(Q^{*}\)-irrelevance abstraction:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;It preserves the optimal state-action value function.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;a^{*}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+    &lt;p&gt;\(a^{*}\)-irrelevance abstraction:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;It preserves the optimal action and its value function.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\phi_{\pi^{*}}&lt;/script&gt;-irrelevance abstraction:&lt;/p&gt;
+    &lt;p&gt;\(\phi_{\pi^{*}}\)-irrelevance abstraction:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;It preserves the optimal action.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In terms of &lt;em&gt;fineness&lt;/em&gt;, &lt;script type=&quot;math/tex&quot;&gt;\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}&lt;/script&gt;. Here &lt;script type=&quot;math/tex&quot;&gt;\phi_0&lt;/script&gt; is the identity mapping ie &lt;script type=&quot;math/tex&quot;&gt;\phi_0(s) = s&lt;/script&gt;&lt;/p&gt;
+    &lt;p&gt;In terms of &lt;em&gt;fineness&lt;/em&gt;, \(\phi_0 \geq \phi_{model} \geq \phi_{Q^{\pi}} \geq \phi_{Q^*} \geq \phi_{a^*} \geq \phi_{\pi^*}\). Here \(\phi_0\) is the identity mapping ie \(\phi_0(s) = s\)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;If a property applies to any abstraction, it also applies to all the finer abstractions.&lt;/p&gt;
@@ -4010,13 +4574,13 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;As we go from finer to coarser abstractions, the information loss increases (ie fewer components can be recovered) while the state-space reduces (ie the efficiency of solving the problem increases). This leads to a tradeoff when selecting abstractions.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;For example, with abstractions &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the optimal abstract policy &lt;script type=&quot;math/tex&quot;&gt;\widetilde(\pi)^*&lt;/script&gt; is optimal in the ground MDP.&lt;/p&gt;
+    &lt;p&gt;For example, with abstractions \(\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}\), the optimal abstract policy \(\widetilde(\pi)^*\) is optimal in the ground MDP.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}&lt;/script&gt; converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.&lt;/p&gt;
+    &lt;p&gt;Similarly, if each state-action pair is visited infinitely often and the step-size decays properly, Q-learning with \(\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}\) converges to the optimal state-action value functions in the MDP. More conditions are needed for convergence in the case of the remaining two abstractions.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;For &lt;script type=&quot;math/tex&quot;&gt;\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}&lt;/script&gt;, the model built with the experience converges to the true abstract model with infinite experience if the weighing function &lt;script type=&quot;math/tex&quot;&gt;w(s)&lt;/script&gt; is fixed.&lt;/p&gt;
+    &lt;p&gt;For \(\phi_{model}, \phi_{Q^{\pi}}, \phi_{Q^*}, \phi_{a^*}\), the model built with the experience converges to the true abstract model with infinite experience if the weighing function \(w(s)\) is fixed.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -4512,28 +5076,28 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The training data is in the form of an experience buffer &lt;script type=&quot;math/tex&quot;&gt;B = \{(s_t, a_t, s_{t+1})\}_{t=1}^T&lt;/script&gt; of state transition tuples.&lt;/p&gt;
+    &lt;p&gt;The training data is in the form of an experience buffer \(B = \{(s_t, a_t, s_{t+1})\}_{t=1}^T\) of state transition tuples.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The goal is to learn:&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;
-        &lt;p&gt;an encoder &lt;script type=&quot;math/tex&quot;&gt;E&lt;/script&gt; that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.&lt;/p&gt;
+        &lt;p&gt;an encoder \(E\) that maps the observed states $s_t$ (pixel state observations) to latent state $z_t$.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;a transition model &lt;script type=&quot;math/tex&quot;&gt;T&lt;/script&gt; that predicts the dynamics in the hidden state.&lt;/p&gt;
+        &lt;p&gt;a transition model \(T\) that predicts the dynamics in the hidden state.&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The model defines the enegry of a tuple &lt;script type=&quot;math/tex&quot;&gt;(s_t, a_t, s_{t+1})&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;H = d(z_t + T(z_t, a_t), z_{t+1})&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;The model defines the enegry of a tuple \((s_t, a_t, s_{t+1})\) as \(H = d(z_t + T(z_t, a_t), z_{t+1})\).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The model has an inductive bias for modeling the effect of action as translation in the abstract state space.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;An extra hinge-loss term is added: &lt;script type=&quot;math/tex&quot;&gt;max(0, \gamma - d(z^{~}_{t}, z_{t+1}))&lt;/script&gt; where &lt;script type=&quot;math/tex&quot;&gt;z^{~}_{t} = E(s^{~}_{t})&lt;/script&gt; is a corrputed latent state corresponding to a randomly sampled state &lt;script type=&quot;math/tex&quot;&gt;s^{~}_{t}&lt;/script&gt;.&lt;/p&gt;
+    &lt;p&gt;An extra hinge-loss term is added: \(max(0, \gamma - d(z^{~}_{t}, z_{t+1}))\) where \(z^{~}_{t} = E(s^{~}_{t})\) is a corrputed latent state corresponding to a randomly sampled state \(s^{~}_{t}\).&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -4544,7 +5108,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;The goal is to learn object-oriented representations where each state embedding is structured as a set of objects.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Assuming the number of object slots to be &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt;, the latent space, and the action space can be factored into &lt;script type=&quot;math/tex&quot;&gt;K&lt;/script&gt; independent latent spaces (&lt;script type=&quot;math/tex&quot;&gt;Z_1 \times ... \times Z_K&lt;/script&gt;) and action spaces (&lt;script type=&quot;math/tex&quot;&gt;A_1 \times ... \times A_k&lt;/script&gt;) respectively.&lt;/p&gt;
+    &lt;p&gt;Assuming the number of object slots to be \(K\), the latent space, and the action space can be factored into \(K\) independent latent spaces (\(Z_1 \times ... \times Z_K\)) and action spaces (\(A_1 \times ... \times A_k\)) respectively.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;There are &lt;em&gt;K&lt;/em&gt; CNN-based object extractors and an MLP-based object encoder.&lt;/p&gt;
@@ -4831,10 +5395,10 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
     &lt;p&gt;The learning agent starts in some initial world state (ie configuration of objects).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Goal is described in the form of (&lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;relation&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;) where the agent’s task is to satisfy the &lt;code class=&quot;highlighter-rouge&quot;&gt;relation&lt;/code&gt; between the &lt;code class=&quot;highlighter-rouge&quot;&gt;subject&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;object&lt;/code&gt;.&lt;/p&gt;
+    &lt;p&gt;Goal is described in the form of (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subject&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;relation&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;) where the agent’s task is to satisfy the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;relation&lt;/code&gt; between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subject&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Currently, only the “touch” &lt;code class=&quot;highlighter-rouge&quot;&gt;relation&lt;/code&gt; is supported.&lt;/p&gt;
+    &lt;p&gt;Currently, only the “touch” &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;relation&lt;/code&gt; is supported.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -8843,7 +9407,7 @@ M = &lt;S, A, P, R, \gamma&gt; %]]&gt;&lt;/script&gt; where &lt;script type=&quo
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;* Hyperlex - Gold standard to evaluate how well the semantics models capture lexical entailment on a scale of [0, 10].
 
 * The key takeaway is that for all the datasets/setups, hyperbolic embeddings give a performance benefit when the embedding dimension is small.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

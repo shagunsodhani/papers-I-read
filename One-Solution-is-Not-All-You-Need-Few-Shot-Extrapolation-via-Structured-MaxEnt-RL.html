@@ -224,16 +224,11 @@ MathJax.Hub.Config({
     <p>An unsupervised reward function is defined using the mutual information between states and latent variables.</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>$$r(s, a) = log(q_{\phi})(z</td>
-          <td>s) - log(p(z))<script type="math/tex">where</script>q_{\phi}$$ is a learned discriminator.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>\(r(s, a) = log(q_{\phi})(z\|s) - log(p(z))\) where \(q_{\phi}\) is a learned discriminator.</p>
   </li>
-  <li>This unsupervised reward is optimized for only when the policy achieves close to an optimal return, i.e., the environment return is close to the optimal return. Otherwise, the agent optimizes only for the environment return.</li>
+  <li>
+    <p>This unsupervised reward is optimized for only when the policy achieves close to an optimal return, i.e., the environment return is close to the optimal return. Otherwise, the agent optimizes only for the environment return.</p>
+  </li>
 </ul>
 
 <h3 id="implementation">Implementation</h3>
@@ -243,32 +238,27 @@ MathJax.Hub.Config({
     <p>SMERL is implemented using SAC with a latent variable maximum entropy policy.</p>
   </li>
   <li>
-    <p>The set of latent variables is a fixed discrete set <script type="math/tex">Z</script> and <script type="math/tex">p(z)</script> is set to be a uniform distribution over this set.</p>
+    <p>The set of latent variables is a fixed discrete set \(Z\) and \(p(z)\) is set to be a uniform distribution over this set.</p>
   </li>
   <li>
-    <p>At the start of an episode, a <script type="math/tex">z</script> is sampled and used throughout the episode.</p>
+    <p>At the start of an episode, a \(z\) is sampled and used throughout the episode.</p>
   </li>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Discriminator $$q_{\phi}(z</td>
-          <td>s)<script type="math/tex">is trained to infer</script>z$$ from the visited states.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Discriminator \(q_{\phi}(z\|s)\) is trained to infer \(z\) from the visited states.</p>
   </li>
   <li>
     <p>A baseline SAC agent is trained beforehand to evaluate if the current training policy achieves close to optimal environment return.</p>
   </li>
-  <li>During the evaluation, the policy corresponding to each latent variable is executed in the test MDP, and the policy with the maximum return is returned.</li>
+  <li>
+    <p>During the evaluation, the policy corresponding to each latent variable is executed in the test MDP, and the policy with the maximum return is returned.</p>
+  </li>
 </ul>
 
 <h2 id="theoretical-analysis">Theoretical Analysis</h2>
 
 <ul>
   <li>
-    <p>Given an MDP <script type="math/tex">M</script> and <script type="math/tex">\epsilon>0</script>, the MDP robustness set is defined as the set of all MDPs <script type="math/tex">M'</script> where the optimal policy of <script type="math/tex">M'</script> produces the same trajectory distribution in <script type="math/tex">M'</script> as <script type="math/tex">M</script>. Moreover, on the training MDP <script type="math/tex">M</script>, the optimal policies (corresponding to <script type="math/tex">M</script> and <script type="math/tex">M'</script>) obtain similar returns.</p>
+    <p>Given an MDP \(M\) and \(\epsilon&gt;0\), the MDP robustness set is defined as the set of all MDPs \(M'\) where the optimal policy of \(M'\) produces the same trajectory distribution in \(M'\) as \(M\). Moreover, on the training MDP \(M\), the optimal policies (corresponding to \(M\) and \(M'\)) obtain similar returns.</p>
   </li>
   <li>
     <p>The paper shows that SMERL generalizes to MDPs belong to the robustness set.</p>
@@ -312,27 +302,27 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
+            CAP twelve years later - How the rules have changed
+            <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design">
+            Consistency Tradeoffs in Modern Distributed Database System Design
+            <small>30 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
             Exploring Simple Siamese Representation Learning
             <small>23 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary">
-            Learning Explanations That Are Hard To Vary
-            <small>19 Oct 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting">
-            Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting
-            <small>12 Oct 2020</small>
           </a>
         </h3>
       </li>

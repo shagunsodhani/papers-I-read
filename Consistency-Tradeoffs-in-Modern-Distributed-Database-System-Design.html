@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Consistency Tradeoffs in Modern Distributed Database System Design &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Consistency Tradeoffs in Modern Distributed Database System Design</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2012" title="Pages tagged 2012" rel="tag">2012</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Big+Data" title="Pages tagged Big Data" rel="tag">Big Data</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Systems" title="Pages tagged Distributed Systems" rel="tag">Distributed Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software+Engineering" title="Pages tagged Software Engineering" rel="tag">Software Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CAP" title="Pages tagged CAP" rel="tag">CAP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data" title="Pages tagged Data" rel="tag">Data</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Database" title="Pages tagged Database" rel="tag">Database</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DBMS" title="Pages tagged DBMS" rel="tag">DBMS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#IEEE" title="Pages tagged IEEE" rel="tag">IEEE</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Latency" title="Pages tagged Latency" rel="tag">Latency</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software" title="Pages tagged Software" rel="tag">Software</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">30 Nov 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>CAP theorem has been influential in the design decisions for distributed databases.</p>
+  </li>
+  <li>
+    <p>However, designers incorrectly assume that the CAP theorem “always” imposes restrictions in terms of the tradeoff between availability and consistency. In contrast, the tradeoff is applicable only in the case of partitions.</p>
+  </li>
+  <li>
+    <p>CAP theorem led to the development of highly available systems with reduced consistency models (and reduced ACID guarantees).</p>
+  </li>
+  <li>
+    <p>Another tradeoff - between latency and consistency - has also been influential for database design.</p>
+  </li>
+  <li>
+    <p>The paper unifies CAP and latency-consistency tradeoffs into a single formulation called PACELC.</p>
+  </li>
+  <li>
+    <p>Note that some of the observations, especially ones about the databases, may be outdated now (the paper was written in 2012). However, the core message is still relevant.</p>
+  </li>
+  <li>
+    <p><a href="https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="latency-consistencytradeofff">latency-consistencyTradeofff</h2>
+
+<ul>
+  <li>
+    <p>Low latency (or high availability) means that the system must replicate data.</p>
+  </li>
+  <li>
+    <p>In case of an update query, three possibilities arise:</p>
+
+    <ul>
+      <li>
+        <p>The system can choose to send data updates to all the replicas at once. This leads to two possibilities:</p>
+
+        <ul>
+          <li>
+            <p>A replica can receive the update queries in an arbitrary order, thus breaking consistency with other replicas.</p>
+          </li>
+          <li>
+            <p>Alternatively, the replicas could use some protocol to agree on the order of updates. However, this can introduce latency.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>The update queries can be first sent to a master replica.</p>
+
+        <ul>
+          <li>
+            <p>The master replica can apply the updates and send them to the other replicas using one of the following strategies:</p>
+
+            <ul>
+              <li>
+                <p>Synchronous replication where the master waits for all the updates to be applied to a replica(s). However, this approach introduces latency.</p>
+              </li>
+              <li>
+                <p>Asynchronous replication where the master assumes the update to be complete before it completes. In this case, the latency-consistency tradeoff depends on how read queries are handled:</p>
+
+                <ul>
+                  <li>
+                    <p>The system can send all read queries to the master. In this case, there are no consistency issues, but additional latency is introduced because all the read queries go to the same replica, thus potentially overloading it.</p>
+                  </li>
+                  <li>
+                    <p>Alternatively, the read query can be served from any replica. While this improves read latency, the results can be inconsistent now.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>Use a mix of Synchronous and Asynchronous replication - i.e., some of the write queries are Synchronous, and others are Asynchronous. In this case, the latency-consistency tradeoff depends on how read queries are handled:</p>
+
+                <ul>
+                  <li>
+                    <p>If the read is routed to at least one replica that has been Synchrnously updated, the consistency can be preserved, with additional latency for discovering the updated replica, etc.</p>
+                  </li>
+                  <li>
+                    <p>If the read query can not be routed to an updated replica (maybe because none of the replicas is updated), then either latency suffers or inconsistent read can be performed.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>The update query is first sent to an arbitrary replica.</p>
+
+        <ul>
+          <li>This is the same as the previous case, with the query going to an arbitrary replica instead of the master replica, and suffers from the same latency issues as the last case.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>In a nutshell, the tradeoff between consistency and latency is always present, irrespective of network failure.</p>
+  </li>
+  <li>
+    <p>This contrasts with the CAP theorem, which imposes the tradeoff between consistency and availability only in the case of a network partition.</p>
+  </li>
+</ul>
+
+<h2 id="pacelc">PACELC</h2>
+
+<ul>
+  <li>
+    <p>If there is a partition (P), how does the system tradeoff availability (A) and consistency (C); else (E), when the system is running without failures, how does the system tradeoff latency (L) and consistency (C)?</p>
+  </li>
+  <li>
+    <p>The latency-consistency tradeoff (ELC) is relevant only when the data is replicated.</p>
+  </li>
+  <li>
+    <p>Default versions of Dynamo, Cassandra, and Riak were PA/EL systems, i.e., if a partition occurs, availability is prioritized. In the absence of partition, lower latency is prioritized.</p>
+  </li>
+  <li>
+    <p>Fully ACID systems (VoltDB, H-Store, and Megastore) and others like BigTable and HB are PC/EC, i.e., they prioritize consistency and give up availability and latency.</p>
+  </li>
+  <li>
+    <p>MongoDB can be classified as a PA/EC system, while PNUTS is a PC/EL system.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
+            CAP twelve years later - How the rules have changed
+            <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
+            Exploring Simple Siamese Representation Learning
+            <small>23 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Data-Management-for-Internet-Scale-Single-Sign-On">
+            Data Management for Internet-Scale Single-Sign-On
+            <small>16 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

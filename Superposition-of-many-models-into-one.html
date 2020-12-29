@@ -192,31 +192,31 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <p>Consider a task with input <script type="math/tex">x \in R^N</script> and parameter <script type="math/tex">W$ \in R^{M \times N}</script> where the output (target or features) are given as <script type="math/tex">y=Wx</script>.</p>
+    <p>Consider a task with input \(x \in R^N\) and parameter \(W$ \in R^{M \times N}\) where the output (target or features) are given as \(y=Wx\).</p>
   </li>
   <li>
-    <p>Now consider <script type="math/tex">K</script> such tasks with parameters <script type="math/tex">W_1, W_2, \cdots W_K</script>.</p>
+    <p>Now consider \(K\) such tasks with parameters \(W_1, W_2, \cdots W_K\).</p>
   </li>
   <li>
-    <p>If each <script type="math/tex">W_k</script> requires only a small subspace in <script type="math/tex">R^N</script>, then a linear transformation <script type="math/tex">C_k^{-1}</script> can be used such that each <script type="math/tex">W_kC_k^{-1}</script> occupies a mutually orthogonal subspace in <script type="math/tex">R^N</script>.</p>
+    <p>If each \(W_k\) requires only a small subspace in \(R^N\), then a linear transformation \(C_k^{-1}\) can be used such that each \(W_kC_k^{-1}\) occupies a mutually orthogonal subspace in \(R^N\).</p>
   </li>
   <li>
-    <p>The set of parameters <script type="math/tex">W_1, \cdots W_K</script> can be represented by a single <script type="math/tex">W^{M \times N}</script> by adding <script type="math/tex">W_kC_k^{-1}</script>.</p>
+    <p>The set of parameters \(W_1, \cdots W_K\) can be represented by a single \(W^{M \times N}\) by adding \(W_kC_k^{-1}\).</p>
   </li>
   <li>
-    <p>The parameter corresponding to the <script type="math/tex">k^{th}</script> task can be retrived (with some noise) using the context <script type="math/tex">C_k</script> as <script type="math/tex">W^{~}_k = WC_k</script></p>
+    <p>The parameter corresponding to the \(k^{th}\) task can be retrived (with some noise) using the context \(C_k\) as \(W^{~}_k = WC_k\)</p>
   </li>
   <li>
     <p>Even though the retrieval is noisy, the effect of noise is limited for the context vectors used in the paper.</p>
   </li>
   <li>
-    <p>Finally, <script type="math/tex">\widetilde(y) = \widetilde(W)_{k}x = (WC_{k})x = W(C_{k}x)</script></p>
+    <p>Finally, \(\widetilde(y) = \widetilde(W)_{k}x = (WC_{k})x = W(C_{k}x)\)</p>
   </li>
   <li>
-    <p>Instead of learning <script type="math/tex">K</script> separate models, only <script type="math/tex">K</script> context vectors (along with 1 superimposed model) needs to be learned.</p>
+    <p>Instead of learning \(K\) separate models, only \(K\) context vectors (along with 1 superimposed model) needs to be learned.</p>
   </li>
   <li>
-    <p>The key assumption is that <script type="math/tex">N</script> (in <script type="math/tex">x \in R^N)</script> is large enough such that each <script type="math/tex">W_k</script> requires only a small subspace of <script type="math/tex">R^N</script>.</p>
+    <p>The key assumption is that \(N\) (in \(x \in R^N)\) is large enough such that each \(W_k\) requires only a small subspace of \(R^N\).</p>
   </li>
   <li>
     <p>Since images and speech signals tend to occupy a low dimensional manifold, this requirement can be satisfied by over-parameterizing x.</p>
@@ -231,10 +231,10 @@ MathJax.Hub.Config({
 
     <ul>
       <li>
-        <p>Sample rotations uniformly from the orthogonal group <script type="math/tex">O(M)</script>.</p>
+        <p>Sample rotations uniformly from the orthogonal group \(O(M)\).</p>
       </li>
       <li>
-        <p>Downside is that if <script type="math/tex">M \sim N</script>, it requires storing as many parameters as learning <script type="math/tex">K</script> individual models (since <script type="math/tex">C</script> is of the size of ##M \times M$$).</p>
+        <p>Downside is that if \(M \sim N\), it requires storing as many parameters as learning \(K\) individual models (since \(C\) is of the size of ##M \times M$$).</p>
       </li>
     </ul>
   </li>
@@ -243,10 +243,10 @@ MathJax.Hub.Config({
 
     <ul>
       <li>
-        <p>The design of rotational superposition can be improved by choosing <script type="math/tex">C_k</script> to be a diagonal matrix ie <script type="math/tex">C_k = diag(c_k)</script> where <script type="math/tex">c_k</script> is a vector of size <script type="math/tex">M</script>.</p>
+        <p>The design of rotational superposition can be improved by choosing \(C_k\) to be a diagonal matrix ie \(C_k = diag(c_k)\) where \(c_k\) is a vector of size \(M\).</p>
       </li>
       <li>
-        <p>Choosing <script type="math/tex">c_k</script> to be a vector of complex numbers (of the form <script type="math/tex">c_{k}^{j} = e^{i\phi_{j}(k)}</script> where <script type="math/tex">\phi_{j}(k)</script> or the phase is sampled uniformly from <script type="math/tex">[-\pi, \pi]</script>) leads to <script type="math/tex">C_k</script> being a digonal orthogonal matrix.</p>
+        <p>Choosing \(c_k\) to be a vector of complex numbers (of the form \(c_{k}^{j} = e^{i\phi_{j}(k)}\) where \(\phi_{j}(k)\) or the phase is sampled uniformly from \([-\pi, \pi]\)) leads to \(C_k\) being a digonal orthogonal matrix.</p>
       </li>
     </ul>
   </li>
@@ -368,27 +368,27 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
+            CAP twelve years later - How the rules have changed
+            <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design">
+            Consistency Tradeoffs in Modern Distributed Database System Design
+            <small>30 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
             Exploring Simple Siamese Representation Learning
             <small>23 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL">
-            One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL
-            <small>02 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary">
-            Learning Explanations That Are Hard To Vary
-            <small>19 Oct 2020</small>
           </a>
         </h3>
       </li>

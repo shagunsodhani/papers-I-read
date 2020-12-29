@@ -188,8 +188,8 @@ MathJax.Hub.Config({
 
 <ul>
   <li>The model is trained over a sequence of data distributions in the class-incremental learning setup. A single-head architecture is used so that the task ID is not required during inference.</li>
-  <li>Along with the standard replay buffer (<script type="math/tex">M^{rep}</script>) for the raw input examples (from different tasks), another replay buffer (<script type="math/tex">M^{RRR}</script>) is maintained for storing the “explanations” (in the form of saliency maps), corresponding to examples in <script type="math/tex">M^{rep}</script>.</li>
-  <li>RRR is implemented as an L1 loss on the error between the saliency map generated after training on the current task and the saliency map in <script type="math/tex">M^{RRR}</script>.</li>
+  <li>Along with the standard replay buffer (\(M^{rep}\)) for the raw input examples (from different tasks), another replay buffer (\(M^{RRR}\)) is maintained for storing the “explanations” (in the form of saliency maps), corresponding to examples in \(M^{rep}\).</li>
+  <li>RRR is implemented as an L1 loss on the error between the saliency map generated after training on the current task and the saliency map in \(M^{RRR}\).</li>
   <li>Saliency maps need to be generated while the model is training. This requirement rules out black-box saliency methods, which can be used only after training.</li>
   <li>The gradient-based white-box explainability techniques that are used include:
     <ul>
@@ -246,27 +246,27 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
+            CAP twelve years later - How the rules have changed
+            <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design">
+            Consistency Tradeoffs in Modern Distributed Database System Design
+            <small>30 Nov 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
             Exploring Simple Siamese Representation Learning
             <small>23 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL">
-            One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL
-            <small>02 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary">
-            Learning Explanations That Are Hard To Vary
-            <small>19 Oct 2020</small>
           </a>
         </h3>
       </li>
