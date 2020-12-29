@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Learning to Compute Word Embeddings On the Fly &middot; Papers I Read
+      Exploring Simple Siamese Representation Learning &middot; Papers I Read
     
   </title>
 
@@ -171,86 +171,114 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Learning to Compute Word Embeddings On the Fly</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Out+of+Vocabulary+Words" title="Pages tagged Out of Vocabulary Words" rel="tag">Out of Vocabulary Words</a></p>
-  <span class="post-date">21 Aug 2017</span>
+  <h1 class="post-title">Exploring Simple Siamese Representation Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Self+Supervised" title="Pages tagged Self Supervised" rel="tag">Self Supervised</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ImageNet" title="Pages tagged ImageNet" rel="tag">ImageNet</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Siamese" title="Pages tagged Siamese" rel="tag">Siamese</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SSL" title="Pages tagged SSL" rel="tag">SSL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Unsupervised" title="Pages tagged Unsupervised" rel="tag">Unsupervised</a></p>
+  <span class="post-date">23 Nov 2020</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Word based language models suffer from the problem of rare or Out of Vocabulary (OOV) words.</p>
+    <p>The paper shows that Siamese networks can be used for unsupervised learning with images without needing techniques like negative sample pairs, large batch training, or momentum encoders. The training mechanism is referred to as the SimSiam method.</p>
   </li>
   <li>
-    <p>Learning representations for OOV words directly on the end task often results in poor representation.</p>
-  </li>
-  <li>
-    <p>The alternative is to replace all the rare words with a single, unique representation (loss of information) or use character level models to obtain word representations (they tend to miss on the semantic relationship).</p>
-  </li>
-  <li>
-    <p>The paper proposes to learn a network that can predict the representations of words using auxiliary data (referred to as definitions) such as dictionary definitions, Wikipedia infoboxes, the spelling of the word etc.</p>
-  </li>
-  <li>
-    <p>The auxiliary data encoders are trained jointly with the end task to ensure that word representations align with the requirements of the end task.</p>
+    <p><a href="https://arxiv.org/abs/2011.10566">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
+<h2 id="method">Method</h2>
 
 <ul>
   <li>
-    <p>Given a rare word <em>w</em>, let <em>d(w) = &lt;x<sub>1</sub>, x<sub>2</sub>…&gt;</em> denote its defination where <em>x<sub>i</sub></em> are words.</p>
+    <p>Given an input image <em>x</em>, create two augmented views <em>x1</em> and <em>x2</em>.</p>
   </li>
   <li>
-    <p><em>d(w)</em> is fed to a <em>defination reader</em> network <em>f</em> (LSTM) and its last state is used as the <em>defination embedding e<sub>d</sub>(w)</em></p>
+    <p>These views are processed by an encoder network <em>f</em>.</p>
   </li>
   <li>
-    <p>In case <em>w</em> has multiple definitions, the embeddings are combined using mean pooling.</p>
+    <p>One of the views (say <em>x1</em>) is processed by the encoder <em>f</em> as well as a predictor MLP <em>h</em> to obtain a projection <em>p1</em> ie <em>p1 = h(f(x1))</em>.</p>
   </li>
   <li>
-    <p>The approach can be extended to in-vocabulary words as well by using the <em>definition embedding</em> of such words to update their original embeddings.</p>
+    <p>The second view (<em>x2</em>) is processed only by the encoder <em>f</em> to obtain an encoding <em>z2</em> i.e., <em>z2 = f(x2)</em>.</p>
+  </li>
+  <li>
+    <p>Negative cosine similarity is minimized between <em>p1</em> and <em>z2</em> with the catch that the resulting gradients are not used to update the encoder via <em>z2</em>. I.e., Loss = <em>D(p1, stopgrad(z2))</em> where <em>D</em> is the negative cosine similarity and <em>stopgrad</em> is an operation that stops the flow of gradients.</p>
+  </li>
+  <li>
+    <p>In practice, both <em>p1, z2</em> and <em>p2, z1</em> pairs are used for computing the loss. ie  Loss = <em>0.5 * (D(p1, stopgrad(z2)) + D(p2, stopgrad(z1)))</em>.</p>
   </li>
 </ul>
 
-<h2 id="experiments">Experiments</h2>
+<h2 id="implementation-details">Implementation Details</h2>
 
 <ul>
-  <li>Auxiliary data sources
-    <ul>
-      <li>Word definitions from WordNet</li>
-      <li>Spelling of words</li>
-    </ul>
+  <li>
+    <p>Encoder uses batch norm in all the layers (including output) while projection MLP uses batch norm only in the hidden layers.</p>
   </li>
   <li>
-    <p>The proposed approach was tested on following tasks:</p>
-
-    <ul>
-      <li>Extractive Question Answering over SQuAD
-        <ul>
-          <li>Base model from <a href="https://arxiv.org/abs/1611.01604">Xiong et al. 2016</a></li>
-        </ul>
-      </li>
-      <li>Entailment Prediction over SNLI corpus
-        <ul>
-          <li>Base models from <a href="https://nlp.stanford.edu/pubs/snli_paper.pdf">Bowman et al. 2015</a> and <a href="https://arxiv.org/abs/1609.06038">Chen et al. 2016</a></li>
-        </ul>
-      </li>
-      <li>One Billion Words Language Modelling</li>
-    </ul>
+    <p>SGD optimizer with learning rate as <em>0.05 * batchsize / 256</em>, cosine learning rate decay schedule and SGD momentum = 0.9.</p>
   </li>
   <li>
-    <p>For all the tasks, models using both spelling and dictionary (SD) outperformed the model using just one.</p>
+    <p>Unsupervised pretraining on the ImageNet dataset followed by training a supervised linear classifier on the frozen representations.</p>
   </li>
-  <li>While SD does not outperform the Glove model (with full vocabulary), it does bridge the performance gap significantly.</li>
 </ul>
 
-<h2 id="future-work">Future Work</h2>
+<h2 id="results">Results</h2>
 
 <ul>
   <li>
-    <p>Multi-token words like “San Francisco” are not accounted for now.</p>
+    <p>Stop-gradient operation is necessary to avoid a degenerate solution. Without stop-gradient, the model maps all inputs to a constant <em>z</em>.</p>
   </li>
   <li>
-    <p>The model does not handle the rare words which appear in the definition and just replaces them by the <UNK> token. Making the model recursive would be a useful addition.</UNK></p>
+    <p>If the projection layer is removed, the method does not work (because of the loss’s symmetric nature). If the loss is also made asymmetric, the method still does not work without the projection layer. However, asymmetric loss + projection layer works.</p>
+  </li>
+  <li>
+    <p>Keeping the projection layer fixed (i.e., not updating during training) avoids collapse but leads to poor validation performance.</p>
+  </li>
+  <li>
+    <p>Training the projection layer with a constant learning rate works better in practice, likely because the projection layer needs to keep adapting before the encoder layer is sufficiently trained.</p>
+  </li>
+  <li>
+    <p>The method works well across different batch sizes.</p>
+  </li>
+  <li>
+    <p>Removing batch norm layers from all the layers in all the networks does not lead to collapse, though the model’s performance degrades on the validation dataset. Adding batch norm to the hidden layers alone is sufficient.</p>
+  </li>
+  <li>
+    <p>Adding batch norm to the encoder’s output further improves the performance but adding batch norm to all the layers of all the networks makes the training unstable, with the loss oscillating.</p>
+  </li>
+  <li>
+    <p>Overall, while batch norm helps to improve performance, it is not sufficient to avoid collapse.</p>
+  </li>
+  <li>
+    <p>The setup does not collapse when the cross-entropy loss replaces the cosine loss.</p>
+  </li>
+</ul>
+
+<h2 id="what-is-simsiam-solving">What is SimSiam solving?</h2>
+
+<ul>
+  <li>
+    <p>Given that the stop-gradient operation seems to be the critical ingredient for avoiding collapse, the paper hypothesizes that SimSiam is solving a different optimization problem.</p>
+  </li>
+  <li>
+    <p>The hypothesis is that SimSiam is implementing an Expectation-Maximisation (EM) algorithm with two sets of variables and two underlying sub-problems.</p>
+  </li>
+  <li>
+    <p>The paper performs several experiments to test this hypothesis. For example, they consider <em>k</em> SGD steps for the first problem before performing an update for the second problem, showing that the alternating optimization is a valid formulation, of which SimSiam is a particular case.</p>
+  </li>
+</ul>
+
+<h2 id="comparison-to-other-methods">Comparison to other methods</h2>
+
+<ul>
+  <li>
+    <p>SimSiam achieves the highest accuracy among SimCLR, MoCo, BYOL, and SwAV for training under 100 epochs. However, it lags behind other methods when trained longer.</p>
+  </li>
+  <li>
+    <p>SimSiam’s representations are transferable beyond the ImageNet tasks.</p>
+  </li>
+  <li>
+    <p>Adding projection layer and stop-gradient operator to SimCLR does not improve its performance.</p>
   </li>
 </ul>
 
@@ -259,15 +287,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning">
-            Exploring Simple Siamese Representation Learning
-            <small>23 Nov 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -283,6 +302,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary">
             Learning Explanations That Are Hard To Vary
             <small>19 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting">
+            Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting
+            <small>12 Oct 2020</small>
           </a>
         </h3>
       </li>
@@ -303,8 +331,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Learning-to-Compute-Word-Embeddings-On-the-Fly"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Learning-to-Compute-Word-Embeddings-On-the-Fly"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Exploring-Simple-Siamese-Representation-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

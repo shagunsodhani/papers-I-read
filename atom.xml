@@ -4,13 +4,265 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-12-28T20:48:39-05:00</updated>
+ <updated>2020-12-28T21:07:29-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Exploring Simple Siamese Representation Learning</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Exploring-Simple-Siamese-Representation-Learning"/>
+   <updated>2020-11-23T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Exploring Simple Siamese Representation Learning</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that Siamese networks can be used for unsupervised learning with images without needing techniques like negative sample pairs, large batch training, or momentum encoders. The training mechanism is referred to as the SimSiam method.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2011.10566&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;method&quot;&gt;Method&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an input image &lt;em&gt;x&lt;/em&gt;, create two augmented views &lt;em&gt;x1&lt;/em&gt; and &lt;em&gt;x2&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;These views are processed by an encoder network &lt;em&gt;f&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One of the views (say &lt;em&gt;x1&lt;/em&gt;) is processed by the encoder &lt;em&gt;f&lt;/em&gt; as well as a predictor MLP &lt;em&gt;h&lt;/em&gt; to obtain a projection &lt;em&gt;p1&lt;/em&gt; ie &lt;em&gt;p1 = h(f(x1))&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The second view (&lt;em&gt;x2&lt;/em&gt;) is processed only by the encoder &lt;em&gt;f&lt;/em&gt; to obtain an encoding &lt;em&gt;z2&lt;/em&gt; i.e., &lt;em&gt;z2 = f(x2)&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Negative cosine similarity is minimized between &lt;em&gt;p1&lt;/em&gt; and &lt;em&gt;z2&lt;/em&gt; with the catch that the resulting gradients are not used to update the encoder via &lt;em&gt;z2&lt;/em&gt;. I.e., Loss = &lt;em&gt;D(p1, stopgrad(z2))&lt;/em&gt; where &lt;em&gt;D&lt;/em&gt; is the negative cosine similarity and &lt;em&gt;stopgrad&lt;/em&gt; is an operation that stops the flow of gradients.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, both &lt;em&gt;p1, z2&lt;/em&gt; and &lt;em&gt;p2, z1&lt;/em&gt; pairs are used for computing the loss. ie  Loss = &lt;em&gt;0.5 * (D(p1, stopgrad(z2)) + D(p2, stopgrad(z1)))&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation-details&quot;&gt;Implementation Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Encoder uses batch norm in all the layers (including output) while projection MLP uses batch norm only in the hidden layers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SGD optimizer with learning rate as &lt;em&gt;0.05 * batchsize / 256&lt;/em&gt;, cosine learning rate decay schedule and SGD momentum = 0.9.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unsupervised pretraining on the ImageNet dataset followed by training a supervised linear classifier on the frozen representations.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Stop-gradient operation is necessary to avoid a degenerate solution. Without stop-gradient, the model maps all inputs to a constant &lt;em&gt;z&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the projection layer is removed, the method does not work (because of the loss’s symmetric nature). If the loss is also made asymmetric, the method still does not work without the projection layer. However, asymmetric loss + projection layer works.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Keeping the projection layer fixed (i.e., not updating during training) avoids collapse but leads to poor validation performance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Training the projection layer with a constant learning rate works better in practice, likely because the projection layer needs to keep adapting before the encoder layer is sufficiently trained.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The method works well across different batch sizes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Removing batch norm layers from all the layers in all the networks does not lead to collapse, though the model’s performance degrades on the validation dataset. Adding batch norm to the hidden layers alone is sufficient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adding batch norm to the encoder’s output further improves the performance but adding batch norm to all the layers of all the networks makes the training unstable, with the loss oscillating.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Overall, while batch norm helps to improve performance, it is not sufficient to avoid collapse.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The setup does not collapse when the cross-entropy loss replaces the cosine loss.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;what-is-simsiam-solving&quot;&gt;What is SimSiam solving?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given that the stop-gradient operation seems to be the critical ingredient for avoiding collapse, the paper hypothesizes that SimSiam is solving a different optimization problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The hypothesis is that SimSiam is implementing an Expectation-Maximisation (EM) algorithm with two sets of variables and two underlying sub-problems.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper performs several experiments to test this hypothesis. For example, they consider &lt;em&gt;k&lt;/em&gt; SGD steps for the first problem before performing an update for the second problem, showing that the alternating optimization is a valid formulation, of which SimSiam is a particular case.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comparison-to-other-methods&quot;&gt;Comparison to other methods&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SimSiam achieves the highest accuracy among SimCLR, MoCo, BYOL, and SwAV for training under 100 epochs. However, it lags behind other methods when trained longer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;SimSiam’s representations are transferable beyond the ImageNet tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adding projection layer and stop-gradient operator to SimCLR does not improve its performance.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>One Solution is Not All You Need - Few-Shot Extrapolation via Structured MaxEnt RL</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/One-Solution-is-Not-All-You-Need-Few-Shot-Extrapolation-via-Structured-MaxEnt-RL"/>
+   <updated>2020-11-02T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/One Solution is Not All You Need: Few-Shot Extrapolation via Structured MaxEnt RL</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Key idea: Practicing and remembering diverse solutions to a task can lead to robustness to that task’s variations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes a framework to implement this idea - train multiple policies such that they are &lt;em&gt;collectively&lt;/em&gt; robust to a new distribution over environments while using a single training environment.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2010.14484&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, the agent has access to only one MDP.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During the evaluation, the agent encounters a new MDP which has the same state and action space but may have a different reward and transition function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The agent is allowed some interactions (say &lt;em&gt;k&lt;/em&gt;) with the test MDP and is then evaluated on the test MDP. The setup is referred to as &lt;em&gt;few-shot robustness&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;structured-maximum-entropy-reinforcement-learning-smerl&quot;&gt;Structured Maximum Entropy Reinforcement Learning (SMERL)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Represent a set of policies using a latent variable policy (i.e., a policy conditioned on a latent variable &lt;em&gt;z&lt;/em&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This has two benefits: (i) Multiple policies can be represented by the same object, and (ii) diverse behaviors can be learned by encouraging the trajectories, corresponding to different &lt;em&gt;z&lt;/em&gt; to be different, while being able to solve the task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A diversity-inducing objective is used to encourage the agent to learn different trajectories for different &lt;em&gt;z&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Specifically, the mutual information between &lt;em&gt;p(Z)&lt;/em&gt; and marginal trajectory distribution for the latent variable policy is maximized, subject to the constraint that each policy achieves close to optimal returns in the train MDP.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The mutual information between &lt;em&gt;p(Z)&lt;/em&gt; and marginal trajectory distribution for the latent variable policy is lower bounded by the sum of mutual information terms over individual states (appearing in the trajectory).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An unsupervised reward function is defined using the mutual information between states and latent variables.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;$$r(s, a) = log(q_{\phi})(z&lt;/td&gt;
+          &lt;td&gt;s) - log(p(z))&lt;script type=&quot;math/tex&quot;&gt;where&lt;/script&gt;q_{\phi}$$ is a learned discriminator.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;This unsupervised reward is optimized for only when the policy achieves close to an optimal return, i.e., the environment return is close to the optimal return. Otherwise, the agent optimizes only for the environment return.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SMERL is implemented using SAC with a latent variable maximum entropy policy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The set of latent variables is a fixed discrete set &lt;script type=&quot;math/tex&quot;&gt;Z&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;p(z)&lt;/script&gt; is set to be a uniform distribution over this set.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the start of an episode, a &lt;script type=&quot;math/tex&quot;&gt;z&lt;/script&gt; is sampled and used throughout the episode.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Discriminator $$q_{\phi}(z&lt;/td&gt;
+          &lt;td&gt;s)&lt;script type=&quot;math/tex&quot;&gt;is trained to infer&lt;/script&gt;z$$ from the visited states.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A baseline SAC agent is trained beforehand to evaluate if the current training policy achieves close to optimal environment return.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;During the evaluation, the policy corresponding to each latent variable is executed in the test MDP, and the policy with the maximum return is returned.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;theoretical-analysis&quot;&gt;Theoretical Analysis&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an MDP &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;\epsilon&gt;0&lt;/script&gt;, the MDP robustness set is defined as the set of all MDPs &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; where the optimal policy of &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; produces the same trajectory distribution in &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt; as &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;. Moreover, on the training MDP &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt;, the optimal policies (corresponding to &lt;script type=&quot;math/tex&quot;&gt;M&lt;/script&gt; and &lt;script type=&quot;math/tex&quot;&gt;M'&lt;/script&gt;) obtain similar returns.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper shows that SMERL generalizes to MDPs belong to the robustness set.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It also provides a simplified view of the optimization objective and shows how it naturally leads to a trajectory-centric mutual information objective.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Environments&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;2D navigation environments with point mass.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Mujoco Environments: HalfCheetah-Goal, Walker2d-Velocity, Hopper-Velocity.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On the 2D navigation environment, the paper shows that SMERL learns to use different trajectories to reach the goal.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On the Mujoco setup, the evaluation shows that SMERL generally outperforms the best-performing baseline or is close to the best-performing baseline on different tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generally, higher train performance does not correlate with higher test performance, and there is no single policy that performs the best across all the tasks. Thus, it should be beneficial to learn multiple diverse policies that can be selected from during testing.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Learning Explanations That Are Hard To Vary</title>
@@ -44,7 +296,7 @@
 &lt;h3 id=&quot;invariant-learning-consistencyilc&quot;&gt;Invariant Learning Consistency(ILC)&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Given an algorithm &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;, let &lt;script type=&quot;math/tex&quot;&gt;\theta_{A}^{\*}&lt;/script&gt; denote the set of convergence points of &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt; when trained on all the environments.&lt;/li&gt;
+  &lt;li&gt;Given an algorithm &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt;, let &lt;script type=&quot;math/tex&quot;&gt;\theta_{A}^{*}&lt;/script&gt; denote the set of convergence points of &lt;script type=&quot;math/tex&quot;&gt;A&lt;/script&gt; when trained on all the environments.&lt;/li&gt;
   &lt;li&gt;Each convergence point is associated with a consistency score.&lt;/li&gt;
   &lt;li&gt;Intuitively, given a convergence point and an environment &lt;em&gt;e&lt;/em&gt;, find the set of parameters equivalent to the convergence point (in terms of loss) with respect to &lt;em&gt;e&lt;/em&gt;. Let’s call this set as &lt;em&gt;S&lt;/em&gt;.&lt;/li&gt;
   &lt;li&gt;Evaluate the points in this set for all the remaining environments. For the given convergence point, an environment &lt;em&gt;e’&lt;/em&gt; is consistent with &lt;em&gt;e&lt;/em&gt; if the maximum difference in the loss for two environments is small, for all points belonging to &lt;em&gt;S&lt;/em&gt;.&lt;/li&gt;
