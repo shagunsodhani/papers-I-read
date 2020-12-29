@@ -4,6 +4,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Design patterns for container-based distributed systems](https://shagunsodhani.com/papers-I-read/Design-patterns-for-container-based-distributed-systems)
+* [Cassandra - a decentralized structured storage system](https://shagunsodhani.com/papers-I-read/Cassandra-a-decentralized-structured-storage-system)
 * [CAP twelve years later - How the rules have changed](https://shagunsodhani.com/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed)
 * [Consistency Tradeoffs in Modern Distributed Database System Design](https://shagunsodhani.com/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design)
 * [Exploring Simple Siamese Representation Learning](https://shagunsodhani.com/papers-I-read/Exploring-Simple-Siamese-Representation-Learning)
