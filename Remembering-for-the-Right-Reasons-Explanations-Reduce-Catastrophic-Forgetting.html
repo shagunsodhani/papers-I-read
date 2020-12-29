@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Replay+Buffer" title="Pages tagged Replay Buffer" rel="tag">Replay Buffer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">12 Oct 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>The paper hypothesizes that catastrophic forgetting can happen if the model can not rely on “reasoning” used for an old datapoint. If that is the case, catastrophic forgetting may be alleviated when the model “remembers” why it made a prediction previously.</li>
+  <li>The paper presents a simple instantiation of this hypothesis, in the form of a technique called Remembering for the Right Reasons (RRR).</li>
+  <li>The idea is to store model explanations, along with previous examples in the replay buffer. During replay, an additional <em>explanation loss</em> is used, along with the regular replay loss.</li>
+  <li><a href="https://arxiv.org/abs/2010.01528">Link to the paper</a></li>
+  <li><a href="https://github.com/SaynaEbrahimi/Remembering-for-the-Right-Reasons">Link to the code</a></li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>The model is trained over a sequence of data distributions in the class-incremental learning setup. A single-head architecture is used so that the task ID is not required during inference.</li>
+  <li>Along with the standard replay buffer (<script type="math/tex">M^{rep}</script>) for the raw input examples (from different tasks), another replay buffer (<script type="math/tex">M^{RRR}</script>) is maintained for storing the “explanations” (in the form of saliency maps), corresponding to examples in <script type="math/tex">M^{rep}</script>.</li>
+  <li>RRR is implemented as an L1 loss on the error between the saliency map generated after training on the current task and the saliency map in <script type="math/tex">M^{RRR}</script>.</li>
+  <li>Saliency maps need to be generated while the model is training. This requirement rules out black-box saliency methods, which can be used only after training.</li>
+  <li>The gradient-based white-box explainability techniques that are used include:
+    <ul>
+      <li>Vanilla backpropagation - Perform a forward pass through the model and take the gradient of the given output class with respect to the input.</li>
+      <li>Backpropagation with SmoothGrad - Saliency maps generated using Vanilla backpropagation can be visually noisy. These maps can be improved by adding pixel-wise Gaussian noise to <em>n</em> copies of the image and averaging the resulting gradients. The paper used <em>n=40</em>.</li>
+      <li>Gradient-weighted Class Activation Mapping (Grad-CAM) - Uses gradients to determine the importance of feature map activations on a given prediction.</li>
+    </ul>
+  </li>
+  <li>RRR can be easily used with memory and regularization based approaches.</li>
+  <li>The paper combined RRR with the following standard Class Incremental Learning (CIL) models:
+    <ul>
+      <li><a href="https://arxiv.org/abs/2003.11652">iTAML : An incremental task-agnostic meta-learning approach</a></li>
+      <li><a href="https://arxiv.org/abs/1807.09536">End-to-end incremental learning (EEIL)</a></li>
+      <li><a href="https://arxiv.org/abs/1905.13260">Large scale incremental learning (BiC)</a></li>
+      <li><a href="https://arxiv.org/abs/2004.10956">TOpology-Preserving knowledge InCrementer (TOPIC)</a></li>
+      <li><a href="https://arxiv.org/abs/1611.07725">iCaRL: Incremental Classifier and Representation Learning</a></li>
+      <li><a href="https://arxiv.org/abs/1612.00796">Elastic Weight Consolidation</a></li>
+      <li><a href="https://arxiv.org/abs/1606.09282">Learning without forgetting</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="few-shiot-class-incremental-learning">Few-Shiot Class Incremental Learning</h3>
+
+<ul>
+  <li>C-way K-shot class incremental learning with C classes and K training samples per class and b base classes to learn as the first task.</li>
+  <li>Caltech-UCSD Birds dataset with 100 base classes and remaining 100 classes divided into ten tasks, with three samples per class. The test set is not changed.</li>
+  <li>In teems of saliency maps., Grad-CAM is better than Vanilla Backpropagation, which in turn is comparable to SmoothGrad. The same trend is seen in terms of memory overhead, with Grad-CAM having the least memory overhead.</li>
+  <li>Adding the RRR loss improves the performance of all the baselines.</li>
+</ul>
+
+<h3 id="standard-class-incremental-learning">Standard Class Incremental Learning</h3>
+
+<ul>
+  <li>CIFAR100 and ImageNet100 with a memory budget of 2000 samples.</li>
+  <li>Adding the RRR loss improves all the baselines’ performance, and the gains for ImageNet100 are more significant than the gains for CIFAR100.</li>
+</ul>
+
+<h3 id="how-often-does-the-model-remember-its-decision-for-the-right-reason">How often does the model remember its decision for the right reason?</h3>
+
+<ul>
+  <li>The paper uses the Pointing Game (PG) experiment, which uses the ground truth image segmentation to define the true object region.</li>
+  <li>If the maximum attention location (in the predicted saliency map) falls inside the objects, it is considered a <em>hit</em>, else a <em>miss</em>. A <em>hit</em> on a previous example is considered a proxy for the model remembering its decision for the right reason.</li>
+  <li>The precision and recall are reported for the <em>hit</em> metric. Using RRR increases both precision (i.e., less often the model makes the correct decision without looking at the right evidence) and recall (i.e., less frequently does the model makes an incorrect decision, despite looking at the proper evidence).</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary">
+            Learning Explanations That Are Hard To Vary
+            <small>19 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/A-Foliated-View-of-Transfer-Learning">
+            A Foliated View of Transfer Learning
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Harvest,-Yield,-and-Scalable-Tolerant-Systems">
+            Harvest, Yield, and Scalable Tolerant Systems
+            <small>21 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Learning Explanations That Are Hard To Vary &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Learning Explanations That Are Hard To Vary</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Replay+Buffer" title="Pages tagged Replay Buffer" rel="tag">Replay Buffer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">19 Oct 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>The paper builds on the principle “good explanations are hard to vary” to propose that <em>invariant mechanisms</em> can be identified by finding explanations (say model parameters) that are hard to vary across examples.</li>
+  <li><a href="https://arxiv.org/abs/2009.00329">Link to the paper</a></li>
+  <li><a href="https://github.com/gibipara92/learning-explanations-hard-to-vary">Link to the code</a></li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>Collection of <em>d</em> different datasets (from different environments). Each dataset is a collection of input-target tuples.</li>
+  <li>Objective is to learn a function <em>f</em> (also called <em>mechanism</em>) to map the input to the target (for all the environments).</li>
+  <li>The standard approach is to pool the loss for examples corresponding to the different environments and perform gradient updates on this average-pooled loss.</li>
+  <li>In this standard gradient-based setup, the model may not learn invariances due to the following reasons:
+    <ul>
+      <li>Model learned the spurious features first, and now the training loss is too small.</li>
+      <li>The pooled loss is generally computed by summing (or averaging) the loss corresponding to individual examples. Thus the gradient for each example is calculated independently. Each sample can be thought of as a dataset of size 1, for which all the features are relevant.</li>
+      <li>Gradient descent with averaging (of gradients across the environments) greedily maximizes for the learning speed and not invariance.</li>
+    </ul>
+  </li>
+  <li>Performing arithmetic mean can be seen as performing an OR operation (i.e., the sum can be high if any one of the constituents is high), whereas performing geometric mean can be seen as performing an AND operation (i.e., the product can be high only if all the constituents are high).</li>
+</ul>
+
+<h3 id="invariant-learning-consistencyilc">Invariant Learning Consistency(ILC)</h3>
+
+<ul>
+  <li>Given an algorithm <script type="math/tex">A</script>, let <script type="math/tex">\theta_{A}^{\*}</script> denote the set of convergence points of <script type="math/tex">A</script> when trained on all the environments.</li>
+  <li>Each convergence point is associated with a consistency score.</li>
+  <li>Intuitively, given a convergence point and an environment <em>e</em>, find the set of parameters equivalent to the convergence point (in terms of loss) with respect to <em>e</em>. Let’s call this set as <em>S</em>.</li>
+  <li>Evaluate the points in this set for all the remaining environments. For the given convergence point, an environment <em>e’</em> is consistent with <em>e</em> if the maximum difference in the loss for two environments is small, for all points belonging to <em>S</em>.</li>
+  <li>This idea is used to define the invariant learning consistency score for algorithm <script type="math/tex">A</script>, which measures the expected consistency of the converged points (on the pooled data) across all the environments.</li>
+  <li>The paper shows that the converged points’ consistency is linked to the Hessians’ geometric mean and that for the convex quadratic case, using the elementwise geometric mean of gradients improves consistency.</li>
+  <li>However, there are some practical challenges:
+    <ul>
+      <li>Geometric mean is defined only when all signs are consistent. This issue can potentially be handled by treating different signs as 0.</li>
+      <li>There is very little flexibility in “partial” agreement, and even a single zero gradient component can stop optimization for that component. This can probably be handled by not masking if many environments have a gradient for that component.</li>
+      <li>Geometric component needs to be computed in the log-domain (for numerical scalability), but that can be computationally more expensive.</li>
+      <li>When using adaptive optimizers like Adam, the exact magnitude of geometric mean will be ignored because of rescaling for the local curvature adaptation.</li>
+    </ul>
+  </li>
+  <li>Some of these challenges can be handled using average gradients when the geometric mean would be 0 and masking out components based on the sign.</li>
+</ul>
+
+<h3 id="and-mask">AND-mask</h3>
+
+<ul>
+  <li>The ideas from the previous section can be used to develop a practical algorithm called AND-mask.</li>
+  <li>Zero-out gradients that have inconsistent signs across some threshold number (hyper-parameter) of environments.</li>
+  <li>In the presence of purely random gradient patterns, the AND-mask decreases the signals’ strength exponentially fast.</li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="synthetic-memorization-dataset">Synthetic Memorization Dataset</h3>
+
+<ul>
+  <li>This is a binary classification task with two kind of features: (i) “meaningful” features that are shared across environments but harder for the model to learn and (ii) “shortcut” features that are easy to learn but not shared across environments.</li>
+  <li>While the dataset may look simple, it is difficult to find the invariant mechanism because the “shortcut” features allow for a simple, linear decision boundary, with a large margin that is fast to learn, has perfect accuracy, robust to input noise, and no iid generalization gap.</li>
+  <li>Baselines:
+    <ul>
+      <li>MLPs trained with regularizers like dropout, L1, L2, and batch norm.</li>
+      <li>Domain Adversarial Neural Networks (DANN)</li>
+      <li>Invariant Risk Minimization (IRM)</li>
+    </ul>
+  </li>
+  <li>In terms of results, AND-mask with L1/L2 regularizers gives the best results.</li>
+  <li>Empirically, the paper shows that the signal from the “meaningful” features is present when the gradients are averaged, but their magnitude is much smaller than the signal from the “shortcut” features.</li>
+</ul>
+
+<h3 id="experiments-on-cifar-10">Experiments on CIFAR-10</h3>
+
+<ul>
+  <li>A ResNet model is trained on the CIFAR-10 dataset with random labels, with and without the AND-mask.</li>
+  <li>The model with the AND-mask did not memorize the data, whereas the model without the AND-mask did. As sanity, the paper ensured that both the models generalize well when trained with the original labels.</li>
+  <li>Note that for this experiment, every example was treated to have come from its own environment.</li>
+</ul>
+
+<h3 id="behavioral-cloning-on-coinrun">Behavioral Cloning on CoinRun</h3>
+
+<ul>
+  <li>Train an expert policy using PPO for 400M steps on the full distribution of levels.</li>
+  <li>Generate a dataset of state-action pairs. Training data consists of 1000 states from each of the 64 levels, while the test data comes from 2000 levels.</li>
+  <li>A ResNet18 model is used as an imitation learning policy.</li>
+  <li>The exact implementation of the AND-mask is a little more involved, but the key takeaway is that model trained with AND-mask identifies invariant mechanisms across different levels.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Remembering-for-the-Right-Reasons-Explanations-Reduce-Catastrophic-Forgetting">
+            Remembering for the Right Reasons - Explanations Reduce Catastrophic Forgetting
+            <small>12 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/A-Foliated-View-of-Transfer-Learning">
+            A Foliated View of Transfer Learning
+            <small>28 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Harvest,-Yield,-and-Scalable-Tolerant-Systems">
+            Harvest, Yield, and Scalable Tolerant Systems
+            <small>21 Sep 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Learning-Explanations-That-Are-Hard-To-Vary"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Learning-Explanations-That-Are-Hard-To-Vary"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>
