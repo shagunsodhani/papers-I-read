@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering &middot; Papers I Read
+      Design patterns for container-based distributed systems &middot; Papers I Read
     
   </title>
 
@@ -175,46 +175,76 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Making the V in VQA Matter - Elevating the Role of Image Understanding in Visual Question Answering</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
-  <span class="post-date">14 May 2017</span>
-  <h3 id="problem-statement">Problem Statement</h3>
+  <h1 class="post-title">Design patterns for container-based distributed systems</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Design+Pattern" title="Pages tagged Design Pattern" rel="tag">Design Pattern</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Systems" title="Pages tagged Distributed Systems" rel="tag">Distributed Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software+Engineering" title="Pages tagged Software Engineering" rel="tag">Software Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Container" title="Pages tagged Container" rel="tag">Container</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#USENIX" title="Pages tagged USENIX" rel="tag">USENIX</a></p>
+  <span class="post-date">21 Dec 2020</span>
+  <h2 id="introduction">Introduction</h2>
 
 <ul>
-  <li>Standard VQA models benefit from the inherent bias in the structure of the world and the language of the question.</li>
-  <li>For example, if the question starts with “Do you see a …”, it is more likely to be “yes” than “no”.</li>
-  <li>To truly assess the capability of any VQA system, we need to have evaluation tasks that require the use of both the visual and the language modality.</li>
-  <li>The authors present a balanced version of <a href="https://shagunsodhani.in/papers-I-read/VQA-Visual-Question-Answering">VQA dataset</a> where each question in the dataset is associated with a pair of similar images such that the same question would give different answers on the two images.</li>
-  <li>The proposed data collection procedure enables the authors to develop a novel interpretable model which, given an image and a question, identifies an image that is similar to the original image but has a different answer to the same question thereby building trust for the system.</li>
-  <li><a href="https://arxiv.org/abs/1612.00837">Link to the paper</a></li>
+  <li>The paper describes three design patterns for container-based distributed systems: single-container pattern, single-node pattern, and multi-node pattern.</li>
+  <li><a href="https://www.usenix.org/conference/hotcloud16/workshop-program/presentation/burns">Link to the paper</a></li>
 </ul>
 
-<h3 id="dataset-collection">Dataset Collection</h3>
+<h2 id="single-container-management-patterns">Single-container management patterns</h2>
 
 <ul>
-  <li>Given an (image, question, answer) triplet (I, Q, A) from the VQA dataset, a human worker (on AMT) is asked to identify an image I’ which is similar to I but for which the answer to question Q is A’ (different from A).</li>
-  <li>To facilitate the search for I’, the worker is shown 24 nearest-neighbor images of I (based on VGGNet features) and is asked to choose the most similar image to I, for which Q makes sense and answer for Q is different than A. In case none of the 24 images qualifies, the worker may select “not possible”.</li>
-  <li>In the second round, the workers were asked to answer Q for I’.</li>
-  <li>This 2-stage protocol results in a significantly more balanced dataset than the previous dataset.</li>
+  <li>Traditionally, containers have exposed three functions: run, pause and stop.</li>
+  <li>A richer API can be implemented to provide fine-grained control to system developers and operators.</li>
+  <li>Similarly, much more application information (including monitoring metrics) can be exposed.</li>
+  <li>The container interface can be used to define a contract for a complex lifecycle. For example, instead of arbitrarily shutting down the container, the system could signal that it will be terminated, giving the container some time to perform some cleanup/follow-up actions.</li>
 </ul>
 
-<h3 id="observation">Observation</h3>
+<h2 id="single-node-multi-container-pattern">Single-node, multi-container pattern</h2>
+
+<h3 id="sidecar-pattern">Sidecar pattern</h3>
 
 <ul>
-  <li>State-of-the-art models trained on unbalanced VQA dataset perform significantly worse on the new, balanced dataset indicating that those models benefitted from the language bias in the older dataset.</li>
-  <li>Training on balanced dataset improves performance on the unbalanced dataset.</li>
-  <li>Further, the VQA model, trained on the balanced dataset, learns to differentiate between otherwise similar images.</li>
+  <li>Multiple containers extend and enhance the main container.</li>
+  <li>For example, a web-server serves from the local disk (main container) while a side container updates the data.</li>
+  <li>Benefits:
+    <ul>
+      <li>independent development, deployment, and scaling of containers</li>
+      <li>possibility of combining different type of containers</li>
+      <li>failure containment boundary, i.e., one failing container, need not bring down the entire system.</li>
+    </ul>
+  </li>
 </ul>
 
-<h3 id="counter-example-explanations">Counter-example Explanations</h3>
+<h3 id="ambassador-pattern">Ambassador pattern</h3>
 
 <ul>
-  <li>Given an image and a question, the model not only answers the question, it also provides an image (from the k nearest neighbours of I, based on VGGNet features) which is similar to the input image but for which the model would have given different answer for the same image.</li>
-  <li>Supervising signal is provided by the data collection procedure where humans pick the image I’ from the same set of candidate images.</li>
-  <li>For each image in the candidate set, compute the inner product of question-image embedding and answer embedding.</li>
-  <li>The K inner product values are passed through a fully connected layer to generate K scores.</li>
-  <li>Trained with pairwise hinge ranking loss so that the score of the human picked image is higher than the score of all other images by a margin of M (hyperparameter).</li>
-  <li>The proposed explanation model achieves a recall@5 of 43.49%</li>
+  <li>Proxy communication to and from the main container with the ambassador hiding the complexities of communication with a distributed (multi-shard system) that may be written in a different language.</li>
+</ul>
+
+<h3 id="adapter-pattern">Adapter pattern</h3>
+
+<ul>
+  <li>Standardize output and interfaces across the containers to provide a simple, homogenized view to external applications.</li>
+  <li>A common example is using a single tool for collecting/processing metrics from multiple applications.</li>
+  <li>This is different from the adapter pattern, which aims to provide a simplified view of the external world to an application.</li>
+</ul>
+
+<h2 id="multi-node-application-patterns">Multi-node application patterns</h2>
+
+<h3 id="leader-election-pattern">Leader election pattern</h3>
+
+<ul>
+  <li>In a sharded (or replication-based) system, the system may have to elect a leader (or multiple leaders) among the replicas (or shards).</li>
+  <li>Instead of using a leader election library, a leader election container can be used (that communicates with other containers over, say, HTTP). This removes the restriction of using a leader election library compatible with the containers (e.g., using the same language).</li>
+</ul>
+
+<h3 id="work-queue-pattern">Work queue pattern</h3>
+
+<ul>
+  <li>A work coordinator container can queue different containers, each of which may have a different implementation or dependencies, thus removing the restriction that all the works use the same runtime.</li>
+</ul>
+
+<h3 id="scattergather-pattern">Scatter/gather pattern</h3>
+
+<ul>
+  <li>An external client sends a request to a root container.</li>
+  <li>This container fans out the request to many containers that may perform the computation in parallel.</li>
+  <li>The root container gathers these parallel computations’ results and aggregates them into a response to the external client.</li>
 </ul>
 
 </div>
@@ -222,15 +252,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Design-patterns-for-container-based-distributed-systems">
-            Design patterns for container-based distributed systems
-            <small>21 Dec 2020</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -246,6 +267,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed">
             CAP twelve years later - How the rules have changed
             <small>07 Dec 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Consistency-Tradeoffs-in-Modern-Distributed-Database-System-Design">
+            Consistency Tradeoffs in Modern Distributed Database System Design
+            <small>30 Nov 2020</small>
           </a>
         </h3>
       </li>
@@ -266,8 +296,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Making-the-V-in-VQA-Matter-Elevating-the-Role-of-Image-Understanding-in-Visual-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Design-patterns-for-container-based-distributed-systems"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Design-patterns-for-container-based-distributed-systems"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

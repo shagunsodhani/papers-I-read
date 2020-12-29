@@ -4,13 +4,198 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2020-12-28T22:01:39-05:00</updated>
+ <updated>2020-12-29T07:54:27-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Design patterns for container-based distributed systems</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Design-patterns-for-container-based-distributed-systems"/>
+   <updated>2020-12-21T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Design patterns for container-based distributed systems</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The paper describes three design patterns for container-based distributed systems: single-container pattern, single-node pattern, and multi-node pattern.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.usenix.org/conference/hotcloud16/workshop-program/presentation/burns&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;single-container-management-patterns&quot;&gt;Single-container management patterns&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Traditionally, containers have exposed three functions: run, pause and stop.&lt;/li&gt;
+  &lt;li&gt;A richer API can be implemented to provide fine-grained control to system developers and operators.&lt;/li&gt;
+  &lt;li&gt;Similarly, much more application information (including monitoring metrics) can be exposed.&lt;/li&gt;
+  &lt;li&gt;The container interface can be used to define a contract for a complex lifecycle. For example, instead of arbitrarily shutting down the container, the system could signal that it will be terminated, giving the container some time to perform some cleanup/follow-up actions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;single-node-multi-container-pattern&quot;&gt;Single-node, multi-container pattern&lt;/h2&gt;
+
+&lt;h3 id=&quot;sidecar-pattern&quot;&gt;Sidecar pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Multiple containers extend and enhance the main container.&lt;/li&gt;
+  &lt;li&gt;For example, a web-server serves from the local disk (main container) while a side container updates the data.&lt;/li&gt;
+  &lt;li&gt;Benefits:
+    &lt;ul&gt;
+      &lt;li&gt;independent development, deployment, and scaling of containers&lt;/li&gt;
+      &lt;li&gt;possibility of combining different type of containers&lt;/li&gt;
+      &lt;li&gt;failure containment boundary, i.e., one failing container, need not bring down the entire system.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ambassador-pattern&quot;&gt;Ambassador pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Proxy communication to and from the main container with the ambassador hiding the complexities of communication with a distributed (multi-shard system) that may be written in a different language.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;adapter-pattern&quot;&gt;Adapter pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Standardize output and interfaces across the containers to provide a simple, homogenized view to external applications.&lt;/li&gt;
+  &lt;li&gt;A common example is using a single tool for collecting/processing metrics from multiple applications.&lt;/li&gt;
+  &lt;li&gt;This is different from the adapter pattern, which aims to provide a simplified view of the external world to an application.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;multi-node-application-patterns&quot;&gt;Multi-node application patterns&lt;/h2&gt;
+
+&lt;h3 id=&quot;leader-election-pattern&quot;&gt;Leader election pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In a sharded (or replication-based) system, the system may have to elect a leader (or multiple leaders) among the replicas (or shards).&lt;/li&gt;
+  &lt;li&gt;Instead of using a leader election library, a leader election container can be used (that communicates with other containers over, say, HTTP). This removes the restriction of using a leader election library compatible with the containers (e.g., using the same language).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;work-queue-pattern&quot;&gt;Work queue pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A work coordinator container can queue different containers, each of which may have a different implementation or dependencies, thus removing the restriction that all the works use the same runtime.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;scattergather-pattern&quot;&gt;Scatter/gather pattern&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An external client sends a request to a root container.&lt;/li&gt;
+  &lt;li&gt;This container fans out the request to many containers that may perform the computation in parallel.&lt;/li&gt;
+  &lt;li&gt;The root container gathers these parallel computations’ results and aggregates them into a response to the external client.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Cassandra - a decentralized structured storage system</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Cassandra-a-decentralized-structured-storage-system"/>
+   <updated>2020-12-14T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Cassandra - a decentralized structured storage system</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cassandra is a distributed storage system that runs over cheap commodity servers and handles high write throughput while maintaining low latency for read operations.&lt;/li&gt;
+  &lt;li&gt;At the time of writing, it was used to support the search for Facebook Inbox.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dl.acm.org/doi/10.1145/1773912.1773922&quot;&gt;Link to the paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cassandra.apache.org/&quot;&gt;Link to the implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;data-model&quot;&gt;Data Model&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A table is a distributed multidimensional map.&lt;/li&gt;
+  &lt;li&gt;The key is a string (generally 16-36 bytes long), while the value is a structured object.&lt;/li&gt;
+  &lt;li&gt;Every operation under a single row key is atomic per replica.&lt;/li&gt;
+  &lt;li&gt;Columns are grouped together into sets called column families.&lt;/li&gt;
+  &lt;li&gt;There are two types of columns families:
+    &lt;ul&gt;
+      &lt;li&gt;Simple families.&lt;/li&gt;
+      &lt;li&gt;Super column families: visualized as a column family within a column family.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Columns can be sorted by name or time (used to display results in time sorted order).&lt;/li&gt;
+  &lt;li&gt;The API supports insert, get and delete operations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;system-architecture&quot;&gt;System Architecture&lt;/h2&gt;
+
+&lt;h3 id=&quot;handling-requests&quot;&gt;Handling Requests&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Any read/write request gets routed to any node in the cluster. The node determines the replicas for a given key and routes the request.&lt;/li&gt;
+  &lt;li&gt;For write query, the system waits for a quorum of replicas to acknowledge the writes’ completion.&lt;/li&gt;
+  &lt;li&gt;For read query, the system either routes the requests to the closest replica (might fetch stale results) or routes the requests to all replicas and waits for a quorum of responses.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;partitioning&quot;&gt;Partitioning&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cassandra partitions data across the cluster using consistent hashing with an order-preserving hash function.&lt;/li&gt;
+  &lt;li&gt;The hash function’s output range is treated as a fixed circular ring, and each node is assigned a random position on the ring.&lt;/li&gt;
+  &lt;li&gt;An incoming request specifies a key used to route requests.&lt;/li&gt;
+  &lt;li&gt;One benefit of this approach is that the addition/removal of a node only affects its immediate neighbors.&lt;/li&gt;
+  &lt;li&gt;However, randomly assigning nodes leads to non-uniform data and load distribution.&lt;/li&gt;
+  &lt;li&gt;Cassandra uses the load information and moves lightly loaded nodes to reduce the load on other nodes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;replication&quot;&gt;Replication&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Each data item is replicated at N hosts, where N is the per-instance replication factor.&lt;/li&gt;
+  &lt;li&gt;Cassandra supports the following replication policies: Rack Unaware, Rack Aware (within a datacenter), and Datacenter Aware.&lt;/li&gt;
+  &lt;li&gt;For “Rack Aware” and “Datacenter Aware” strategies, Zookeeper elects a leader among the nodes and holds metadata about which range a node is responsible for.&lt;/li&gt;
+  &lt;li&gt;In case of node failure and network partitions, the quorum requirements are relaxed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;membership&quot;&gt;Membership&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cluster membership is based on Scuttlebutt, a very efficient anti-entropy Gossip based mechanism.&lt;/li&gt;
+  &lt;li&gt;Cassandra uses a modified version of $\phi$ Accrual Failure Detector for detecting failures, which provides the suspicion level (of failure) for each node.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bootstrapping&quot;&gt;Bootstrapping&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A node, starting for the first time, chooses a random position in the ring.&lt;/li&gt;
+  &lt;li&gt;This information is persisted on the local disk, on Zookeeper, and gossiped around the cluster (so any node can route any query in the cluster).&lt;/li&gt;
+  &lt;li&gt;During bootstrapping, the newly joined node reads a list of contact points (within the cluster) using a configuration file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;local-persistence&quot;&gt;Local Persistence&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Generally, a write operation involves a write into a commit log (for durability and recoverability), followed by a write into the in-memory data structures.&lt;/li&gt;
+  &lt;li&gt;A read operation starts with querying the in-memory data and then looks into the filesystem.&lt;/li&gt;
+  &lt;li&gt;Read queries on the filesystem use bloom filters.&lt;/li&gt;
+  &lt;li&gt;Column indices are maintained to make it faster to look up relevant columns.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation-details&quot;&gt;Implementation Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Components implemented in Java.&lt;/li&gt;
+  &lt;li&gt;System control messages use UDP while messages for replication and request routing uses TCP.&lt;/li&gt;
+  &lt;li&gt;A new commit log is rolled out after the older one exceeds 128MB of size.&lt;/li&gt;
+  &lt;li&gt;All the data is indexed using a primary key.&lt;/li&gt;
+  &lt;li&gt;Data on the disk is chunked into sequences of blocks. Each block contains at most 128 keys and is demarcated by a block index.&lt;/li&gt;
+  &lt;li&gt;When the data is written to the disk, a block index is generated and maintained in the memory for faster access.&lt;/li&gt;
+  &lt;li&gt;A compaction process is performed to merge multiple files (on disk) into one file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;practical-experience&quot;&gt;Practical Experience&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Data from MySQL servers is added to Cassandra using MapReduce processes.&lt;/li&gt;
+  &lt;li&gt;Although Cassandra is a completely decentralized system, adding some coordination (via Zookeeper) is helpful.&lt;/li&gt;
+  &lt;li&gt;For Inbox Search, a per-user index is maintained for all the messages.&lt;/li&gt;
+  &lt;li&gt;For “term search”, the key is the userid, and the words in the message become the super column.&lt;/li&gt;
+  &lt;li&gt;For searching all the messages ever sent/received by a user, the key is the userid, and the recipient ids are the super columns.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>CAP twelve years later - How the rules have changed</title>
@@ -205,7 +390,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;latency-consistencytradeofff&quot;&gt;latency-consistencyTradeofff&lt;/h2&gt;
+&lt;h2 id=&quot;latency-consistency-tradeoff&quot;&gt;Latency-Consistency Tradeoff&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -276,10 +461,10 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In a nutshell, the tradeoff between consistency and latency is always present, irrespective of network failure.&lt;/p&gt;
+    &lt;p&gt;In a nutshell, the tradeoff between latency and consistency  is always present, irrespective of network failure.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;This contrasts with the CAP theorem, which imposes the tradeoff between consistency and availability only in the case of a network partition.&lt;/p&gt;
+    &lt;p&gt;This contrasts with the CAP theorem, which imposes the tradeoff between availability and consistency only in the case of a network partition.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
