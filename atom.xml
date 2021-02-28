@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-02-28T09:21:04-05:00</updated>
+ <updated>2021-02-28T14:59:36-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -58,7 +58,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Boltzman distribution is used to define the conditional likelihood of label $y$, given an input $x$. ie, \(p(y\|x) = \frac{exp(E(x, y))}{Z(x)}\) where \(Z(x) = \sum_{y \in Y}(-E(x, y))$. Here\)E$$ is the learnt energy function that maps an input-label pair to a scalar energy value.&lt;/p&gt;
+    &lt;p&gt;Boltzman distribution is used to define the conditional likelihood of label $y$, given an input $x$. ie, $p(y|x) = \frac{exp(E(x, y))}{Z(x)}$ where $Z(x) = \sum_{y \in Y}(-E(x, y))$. Here $E$ is the learnt energy function that maps an input-label pair to a scalar energy value.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;During training, the contrastive divergence loss is used.&lt;/p&gt;
