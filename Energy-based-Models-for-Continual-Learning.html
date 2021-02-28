@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Emergence of Grounded Compositional Language in Multi-Agent Populations &middot; Papers I Read
+      Energy-based Models for Continual Learning &middot; Papers I Read
     
   </title>
 
@@ -175,129 +175,142 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Emergence of Grounded Compositional Language in Multi-Agent Populations</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAAI+2018" title="Pages tagged AAAI 2018" rel="tag">AAAI 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Emergent+Language" title="Pages tagged Emergent Language" rel="tag">Emergent Language</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Multi-Agent" title="Pages tagged Multi-Agent" rel="tag">Multi-Agent</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAAI" title="Pages tagged AAAI" rel="tag">AAAI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">12 Sep 2018</span>
+  <h1 class="post-title">Energy-based Models for Continual Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Energy-Based+Models" title="Pages tagged Energy-Based Models" rel="tag">Energy-Based Models</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Replay+Buffer" title="Pages tagged Replay Buffer" rel="tag">Replay Buffer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EBM" title="Pages tagged EBM" rel="tag">EBM</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">18 Jan 2021</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper provides a multi-agent learning environment and proposes a learning approach that facilitates the emergence of a basic compositional language.</p>
+    <p>The paper proposes to use Energy-based Models (EBMs) for Continual Learning.</p>
   </li>
   <li>
-    <p>The language is quite rudimentary and is essentially a sequence of abstract discrete symbols. But it does comprise of a defined vocabulary and syntax.</p>
+    <p>In classification tasks, the standard approach uses a cross-entropy objective function along with a normalized probability distribution.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1703.04908">Link to the paper</a></p>
+    <p>However, cross-entropy reduces all negative classes’ likelihood when updating the model for a given sample, potentially leading to catastrophic forgetting.</p>
+  </li>
+  <li>
+    <p>Classification can be seen as learning an EBM across separate classes.</p>
+  </li>
+  <li>
+    <p>During an update, the energy for a pair of samples and its ground truth class decreases while the energy corresponding to the pairs of sample and negative classes increases.</p>
+  </li>
+  <li>
+    <p>Unlike the cross-entropy loss, EBMs allow choosing the negative classes to update.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2011.12216">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="setup">Setup</h2>
+<h2 id="applications-of-ebms-for-continual-learning">Applications of EBMs for Continual Learning</h2>
 
 <ul>
   <li>
-    <p>Cooperative, partially observable Markov game (multi-agent extension of MDP).</p>
+    <p>EBMs can be used for class-incremental learning without requiring a replay-buffer or generative model for replay.</p>
   </li>
   <li>
-    <p>All agents have identical action and observation spaces, use the same policy and receive a shared reward.</p>
+    <p>EBMs can be used for continual learning in setups without task boundaries, i.e., setups where the data distribution can change without a clear separation between tasks.</p>
   </li>
 </ul>
 
-<h3 id="grounded-communication-environment">Grounded Communication Environment</h3>
+<h2 id="ebms">EBMs</h2>
 
 <ul>
   <li>
-    <p>Physically simulated 2-D environment in continuous space and discrete time with N agents and M landmarks.</p>
+    <p>Boltzman distribution is used to define the conditional likelihood of label $y$, given an input $x$. ie, \(p(y\|x) = \frac{exp(E(x, y))}{Z(x)}\) where \(Z(x) = \sum_{y \in Y}(-E(x, y))$. Here\)E$$ is the learnt energy function that maps an input-label pair to a scalar energy value.</p>
   </li>
   <li>
-    <p>The agents and the landmarks would occupy some location and would have some attributes (colour, shape).</p>
+    <p>During training, the contrastive divergence loss is used.</p>
   </li>
   <li>
-    <p>Within the environment, the agents can <em>go to</em> a location, <em>look</em> at a location or <em>do nothing</em>. Additionally, they can utter communication symbols c (from a shared vocabulary C). Agents themselves learn to assign a meaning to the symbols.</p>
-  </li>
-  <li>
-    <p>Each agent has an internal goal (which could require interaction with other agents to complete) which the other agents cannot see.</p>
-  </li>
-  <li>
-    <p>Goal for agent <em>i</em> consists of an action to perform, a landmark location where to perform the action and another agent who should be performing the action.</p>
-  </li>
-  <li>
-    <p>Since the agent is continuously emitting symbols, a memory module is provided and simple additive memory updates are done.</p>
-  </li>
-  <li>
-    <p>For interaction, the agents could use verbal utterances, non-verbal signals (gaze) or non-communicative strategies (pushing other agents).</p>
+    <p>During inference, the class, for which the input-class pair has the least energy, is selected as the predicted class.</p>
   </li>
 </ul>
 
-<h2 id="approach">Approach</h2>
+<h2 id="ebms-for-continual-learning">EBMs for Continual Learning</h2>
+
+<h3 id="selection-of-negative-samples">Selection of Negative Samples</h3>
 
 <ul>
   <li>
-    <p>A model of all agent and environment state dynamics is created over time and the return gradient is computed.</p>
+    <p>The paper considers several strategies for the selection of negative samples:</p>
+
+    <ul>
+      <li>
+        <p>one negative class per sample. The negative class is sampled from the current batch of data. This selection approach performs best.</p>
+      </li>
+      <li>
+        <p>all the negative classes in a batch are used for creating the negative samples.</p>
+      </li>
+      <li>
+        <p>all the classes seen so far in training are used as the negative samples. This approach works the worst in practice.</p>
+      </li>
+    </ul>
   </li>
   <li>
-    <p>Gumbel-Softmax distribution is used to obtain categorical word emission c.</p>
-  </li>
-  <li>
-    <p>A multi-layer perceptron is used to model the policy which returns action, communication symbol and the memory update for each agent.</p>
-  </li>
-  <li>
-    <p>Since the number of agents (and hence the number of communication streams etc) can vary across instantiations, an identical model is instantiated per agent and per communication stream.</p>
-  </li>
-  <li>
-    <p>The output of individual processing modules are pooled into feature vectors corresponding to communication and physical observations. These pooled features and the goal vectors are fed to the final processing module from which actions and categorical symbols are sampled.</p>
-  </li>
-  <li>
-    <p>In practice, using an additional task (each agent predicts the goal for another agent) encouraged more meaningful communication utterances.</p>
+    <p>Given the flexibility of sampling the negative classes, EBMs can be used in the boundary-agnostic setups (where the data distribution can change smoothly without an explicit task boundary).</p>
   </li>
 </ul>
 
-<h3 id="compositionality-and-vocabulary-size">Compositionality and Vocabulary Size</h3>
+<h3 id="energy-network">Energy Network</h3>
 
 <ul>
   <li>
-    <p>Authors recommend using a large vocabulary with a soft penalty that discourages use of too many words. This leads to use of a large vocabulary in the intermediate state which converges to a small vocabulary.</p>
+    <p>EBMs take both the sample and the class as the input. The class can be treated as an attention filter to select the most relevant information between the sample and the class.</p>
   </li>
   <li>
-    <p>Along the lines of rich gets richer dynamics, the communication symbol c’s are modelled as being generated by a Dirichlet process. The resulting reward across all agents is the log-likelihood of all communication utterances to have been generated by a Dirichlet process.</p>
-  </li>
-  <li>
-    <p>Since the agents can only communicate in discrete symbols and do not have a global positioning reference, they need to unambiguously communicate landmark references to other agents.</p>
+    <p>In theory, EBMs can train for any number of classes without knowing the number of classes beforehand. This is an advantage over the softmax-based approaches, where adding new classes requires changing the size of the softmax output layer.</p>
   </li>
 </ul>
 
-<h2 id="case-i---agents-can-not-see-each-other">Case I - Agents can not see each other</h2>
+<h3 id="inference">Inference</h3>
+
+<ul>
+  <li>During inference, all the classes seen so far are evaluated via the energy function. The class, which corresponds to the least energy sample-class pair, is returned as the selected class.</li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<h3 id="datasets">Datasets</h3>
 
 <ul>
   <li>
-    <p>Non-verbal communication is not possible.</p>
+    <p>Split MNIST</p>
   </li>
   <li>
-    <p>When trained with just 2 agents, symbols are assigned for each landmark and action.</p>
+    <p>Permuted MNIST</p>
   </li>
   <li>
-    <p>As the number of agents is increased, additional symbols are used to refer to agents.</p>
+    <p>CIFAR-10</p>
   </li>
   <li>
-    <p>If the agents of the same colour are asked to perform conflicting tasks, they perform the average of conflicting tasks. If distractor locations are added, the agents learn to ignore them.</p>
+    <p>CIFAR-100</p>
   </li>
 </ul>
 
-<h2 id="non-verbal-communication">Non-verbal communication</h2>
+<h3 id="results-in-boundary-aware-setting">Results in Boundary-Aware Setting</h3>
 
 <ul>
   <li>
-    <p>Agents are allowed to observe other agents’ position, gaze etc.</p>
+    <p>The paper outperforms the standard continual learning approaches that neither uses a replay-buffer nor a generative model.</p>
   </li>
   <li>
-    <p>Now the location can be pointed to using gaze.</p>
+    <p>Additionally, the paper shows that for the same number of parameters, the effective capacity of EMB models is higher than the effective capacity of standard classification models.</p>
   </li>
   <li>
-    <p>If gaze is disabled, the agent could indicate the goal landmark by moving to it.</p>
+    <p>The paper also shows that standard classification models tend to assign a high probability to new classes for both old and new data. EBMs assign the probability more uniformly (and correctly) across the classes.</p>
   </li>
   <li>
-    <p>Basically even when the communication is disabled the agents can come up with strategies to complete the task.</p>
+    <p>In an ablation study, the paper shows that both label conditioning and contrastive divergence loss help in improving the performance of EBMs.</p>
   </li>
+</ul>
+
+<h3 id="results-in-boundary-agnostic-setting">Results in Boundary-Agnostic Setting</h3>
+
+<ul>
+  <li>The performance gains in the boundary-agnostic setting are even more significant than the improvements in the boundary-aware setting.</li>
 </ul>
 
 </div>
@@ -305,15 +318,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Energy-based-Models-for-Continual-Learning">
-            Energy-based Models for Continual Learning
-            <small>18 Jan 2021</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -329,6 +333,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Compositional-Explanations-of-Neurons">
             Compositional Explanations of Neurons
             <small>04 Jan 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Design-patterns-for-container-based-distributed-systems">
+            Design patterns for container-based distributed systems
+            <small>21 Dec 2020</small>
           </a>
         </h3>
       </li>
@@ -349,8 +362,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Energy-based-Models-for-Continual-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Energy-based-Models-for-Continual-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

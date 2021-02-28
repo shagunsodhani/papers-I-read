@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Net2Net-Accelerating Learning via Knowledge Transfer &middot; Papers I Read
+      GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism &middot; Papers I Read
     
   </title>
 
@@ -175,77 +175,78 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Net2Net-Accelerating Learning via Knowledge Transfer</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2016" title="Pages tagged ICLR 2016" rel="tag">ICLR 2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Knowledge+Transfer" title="Pages tagged Knowledge Transfer" rel="tag">Knowledge Transfer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a></p>
-  <span class="post-date">21 May 2018</span>
-  <h2 id="notes">Notes</h2>
+  <h1 class="post-title">GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Computing" title="Pages tagged Distributed Computing" rel="tag">Distributed Computing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model+Parallelism" title="Pages tagged Model Parallelism" rel="tag">Model Parallelism</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS+2019" title="Pages tagged NeurIPS 2019" rel="tag">NeurIPS 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS" title="Pages tagged NeurIPS" rel="tag">NeurIPS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">11 Jan 2021</span>
+  <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper presents a simple yet effective approach for transferring knowledge from a trained neural network (referred to as the teacher network) to a large, untrained neural network (referred to as the student network).</p>
+    <p>The paper introduces GPipe, a pipeline parallelism library for scaling networks that can be expressed as a sequence of layers.</p>
   </li>
   <li>
-    <p>The key idea is to use a function-preserving transformation that guarantees that for any given input, the output from the teacher network and the newly created student network would be the same.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1511.05641">Link to the paper</a></p>
-  </li>
-  <li>
-    <p><a href="https://github.com/paengs/Net2Net">Link to an implementation</a></p>
-  </li>
-  <li>
-    <p>The approach works as follows - Let us say that the teacher network was represented by the transformation <em>y = f(x, θ)</em> where <em>θ</em> refer to the parameters of the network. The task is to choose a new set of parameters <em>θ’</em> for the student network <em>g(x, θ’)</em> such that for all <em>x, f(x, θ) = g(x, θ’)</em></p>
-  </li>
-  <li>
-    <p>To start, we can assume that <em>f</em> and <em>g</em> are composed of standard linear layers. Layer <em>i</em> and <em>i+1</em> are represented by weights <em>W<sub>mxn</sub><sup>i</sup></em> and <em>W<sub>nxp</sub><sup>i+1</sup></em></p>
-  </li>
-  <li>
-    <p>We want to grow layer <em>i</em> to have <em>q</em> output units (where <em>q</em> &gt; <em>n</em>) and layer <em>i+1</em> to have <em>q</em> input units. The new weight matrix would be <em>U<sub>mxq</sub><sup>i</sup></em> and <em>U<sub>qxp</sub><sup>i+1</sup></em></p>
-  </li>
-  <li>
-    <p>The first <em>q</em> columns (rows) of <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>) would be copied as it is into <em>U<sup>i</sup></em>(<em>U<sup>i+1</sup></em>).</p>
-  </li>
-  <li>
-    <p>For filling the remaining <em>n-q</em> slots, columns (rows) would be sampled randomly from <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>).</p>
-  </li>
-  <li>
-    <p>Finally, each layer in <em>U<sup>i</sup></em> is scaled by dividing by the corresponding replication factor to ensure that the output value of function remains unchanged by the operation.</p>
-  </li>
-  <li>
-    <p>Since convolutions can be seen as multiplication by a double block circulant matrix, the approach can be readily extended for convolutional networks.</p>
-  </li>
-  <li>
-    <p>The benefits of using this approach are the following:</p>
-
-    <ul>
-      <li>The newly created student network performs at least as good as the teacher network.</li>
-      <li>Any changes to the network are guaranteed to be an improvement.</li>
-      <li>It is safe to optimize all the parameters in the network.</li>
-    </ul>
-  </li>
-  <li>
-    <p>The variant discussed above is called the <strong>Net2WiderNet</strong> variant. There is another variant called<strong>Net2DeeperNet</strong> that enables the network to grow in depth.</p>
-  </li>
-  <li>
-    <p>In that case, a new matrix, <em>U</em>, initialized as the identity matrix, is added to the network. Note that unlike the <strong>Net2WiderNet</strong>, this approach would not work with arbitrary activation function between the layers.</p>
+    <p><a href="https://arxiv.org/abs/1811.06965">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="strengths">Strengths</h2>
+<h2 id="design">Design</h2>
 
 <ul>
   <li>
-    <p>The model can accelerate the training of neural networks, especially during development cycle when the designers try out different models.</p>
+    <p>Consider training a deep neural network with <em>L</em> layers using <em>K</em> accelerators (say GPUs).</p>
   </li>
   <li>
-    <p>The approach could potentially be used in life-long learning systems where the model is trained over a stream of data and needs to grow over time.</p>
+    <p>Each of the <em>i<sup>th</sup></em> layer has its <em>forward</em> function <em>f<sub>i</sub></em>, <em>backward</em> function <em>b<sub>i</sub></em>, weights <em>w<sub>i</sub></em> and a cost <em>c<sub>i</sub></em> (say the memory footprint or computational time).</p>
+  </li>
+  <li>
+    <p>GPipe partitions this network into <em>K</em> cells and places the <em>i<sup>th</sup></em> cell on the <em>i<sup>th</sup></em> accelerator. Output from the <em>i<sup>th</sup></em> accelerator is passed to the <em>i+1<sup>th</sup></em> accelerator as input.</p>
+  </li>
+  <li>
+    <p>During the forward pass, the input batch (of size <em>N</em>) is divided into <em>M</em> equal micro-batches. These micro-batches are pipelined through the <em>K</em> accelerators one after another.</p>
+  </li>
+  <li>
+    <p>During the backward pass, gradients are computed for each micro-batch. The gradients are accumulated and applied at the end of each minibatch.</p>
+  </li>
+  <li>
+    <p>In batch normalization, the statistics are computed over each micro-batch (used during training) and mini-batch (used during evaluation).</p>
+  </li>
+  <li>
+    <p>Micro-batching improves over the naive mode parallelism approach by reducing the underutilization of resources (due to the network’s sequential dependencies).</p>
   </li>
 </ul>
 
-<h2 id="limitations">Limitations</h2>
+<h2 id="performance-optimization">Performance Optimization</h2>
 
 <ul>
-  <li>The function preserving transformations need to be worked out manually. Extra care needs to be taken when operations like concatenation or batch norm are present.</li>
+  <li>
+    <p>GPipe supports re-materialization (or checkpointing), i.e., during the forward pass, only the output activations (at partition boundaries) are stored.</p>
+  </li>
+  <li>
+    <p>During backward pass, the forward function is recomputed at each accelerator. This trades off the memory requirement with increased time.</p>
+  </li>
+  <li>
+    <p>One potential downside is that partitioning can introduce some idle time per accelerator (referred to as the bubble overhead). However, with a sufficiently large number of micro-batches ( more than 4 times the number of partitions), the bubble overhead is negligible.</p>
+  </li>
+</ul>
+
+<h2 id="performance-analysis">Performance Analysis</h2>
+
+<ul>
+  <li>
+    <p>Two different types of model architectures are compared: AmoebaNet convolutional model and Transformer sequence-to-sequence model.</p>
+  </li>
+  <li>
+    <p>For AmoebaNet, the size of the largest trainable model (on a single 8GB Cloud TPU v2) increases from 82M to 318M. Further, a 1.8 billion parameter model can be trained on 8 accelerators (25x improvement in size using GPipe).</p>
+  </li>
+  <li>
+    <p>For transformers, GPipe scales the model size to 83.9 B parameters with 128 partitions (298x improvement in size compared to a single accelerator).</p>
+  </li>
+  <li>
+    <p>Since the computation is evenly distributed across transformer layers, the training throughput scales almost linearly with the number of devices.</p>
+  </li>
+  <li>
+    <p>Quantitative experiments on ImageNet and multilingual machine translation show that models can be effectively trained using GPipe.</p>
+  </li>
 </ul>
 
 </div>
@@ -265,18 +266,18 @@ MathJax.Hub.Config({
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism">
-            GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism
-            <small>11 Jan 2021</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Compositional-Explanations-of-Neurons">
+            Compositional Explanations of Neurons
+            <small>04 Jan 2021</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Compositional-Explanations-of-Neurons">
-            Compositional Explanations of Neurons
-            <small>04 Jan 2021</small>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Design-patterns-for-container-based-distributed-systems">
+            Design patterns for container-based distributed systems
+            <small>21 Dec 2020</small>
           </a>
         </h3>
       </li>
@@ -297,8 +298,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
