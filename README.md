@@ -4,6 +4,11 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Zero-shot Learning by Generating Task-specific Adapters](https://shagunsodhani.com/papers-I-read/Zero-shot-Learning-by-Generating-Task-specific-Adapters)
+* [HyperNetworks](https://shagunsodhani.com/papers-I-read/HyperNetworks)
+* [Energy-based Models for Continual Learning](https://shagunsodhani.com/papers-I-read/Energy-based-Models-for-Continual-Learning)
+* [GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism](https://shagunsodhani.com/papers-I-read/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism)
+* [Compositional Explanations of Neurons](https://shagunsodhani.com/papers-I-read/Compositional-Explanations-of-Neurons)
 * [Design patterns for container-based distributed systems](https://shagunsodhani.com/papers-I-read/Design-patterns-for-container-based-distributed-systems)
 * [Cassandra - a decentralized structured storage system](https://shagunsodhani.com/papers-I-read/Cassandra-a-decentralized-structured-storage-system)
 * [CAP twelve years later - How the rules have changed](https://shagunsodhani.com/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed)

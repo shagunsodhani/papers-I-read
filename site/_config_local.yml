@@ -1,0 +1,27 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           '/:title'
+# relative_permalinks: true
+
+# Setup
+title:               'Papers I Read'
+tagline:             'Notes and Summaries'
+description:         'I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.'
+# url:                 'https://shagunsodhani.in/test'
+baseurl:             ''
+paginate:            5
+gems:                [jekyll-paginate]
+
+# About/contact
+author:
+  name:              Shagun Sodhani
+  url:               https://shagunsodhani.in
+  email:             sshagunsodhani@gmail.com
+
+# Custom vars
+version:             1.0.0
+str_continue_reading: " Continue reading"
+
+github:
+  repo: https://github.com/shagunsodhani/papers-I-read
