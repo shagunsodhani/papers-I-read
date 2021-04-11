@@ -4,6 +4,8 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [When Do Curricula Work?](https://shagunsodhani.com/papers-I-read/When-Do-Curricula-Work)
+* [Continual learning with hypernetworks](https://shagunsodhani.com/papers-I-read/Continual-learning-with-hypernetworks)
 * [Zero-shot Learning by Generating Task-specific Adapters](https://shagunsodhani.com/papers-I-read/Zero-shot-Learning-by-Generating-Task-specific-Adapters)
 * [HyperNetworks](https://shagunsodhani.com/papers-I-read/HyperNetworks)
 * [Energy-based Models for Continual Learning](https://shagunsodhani.com/papers-I-read/Energy-based-Models-for-Continual-Learning)
