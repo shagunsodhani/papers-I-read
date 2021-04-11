@@ -4,13 +4,141 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-04-11T10:00:52-04:00</updated>
+ <updated>2021-04-11T11:09:37-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Continual learning with hypernetworks</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Continual-learning-with-hypernetworks"/>
+   <updated>2021-02-08T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Continual learning with hypernetworks</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper proposes the use of task-conditioned &lt;a href=&quot;https://shagunsodhani.com/papers-I-read/HyperNetworks&quot;&gt;HyperNetworks&lt;/a&gt; for lifelong learning / continual learning setups.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The idea is, the HyperNetwork would only need to remember the task-conditioned weights and not the input-output mapping for all the data points.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1906.00695&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/chrhenning/hypercl&quot;&gt;Author’s Implementation&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;terminology&quot;&gt;Terminology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;$f$ denotes the network for the given $t^{th}$ task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$h$ denotes the HyperNetwork that generates the weights for $f$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\Theta_{h}$ denotes the parameters of $h$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$e^{t}$ denotes the input task-embedding for the $t^{th}$ task.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When training on the $t^{th}$ task, the HyperNetworks generates the weights for the network $f$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The current task loss is computed using the generated weights, and the candidate weight update ($\Delta \Theta_{h}$) is computed for $h$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The actual parameter change is computed by the following expression:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$L_{total} = L{task}(\Theta_{h}, e^{T}, X^{T}, Y^{T}) + \frac{\beta_{output}}{T-1} \sum_{t=1}^{T-1} | f_{h}(e^{t}, \Theta_{h}^*) - f_{h}(e^{(t)}, \Theta_{h} + \Delta \Theta_{h} ))|^2$&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;$L_{task}$ is the loss for the current task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$(X^{T}, Y^{T})$ denotes the training datapoints for the $T^{th}$ task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\beta_{output}}$ is a hyperparameter.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\Theta_{h}^*$ denotes the optimal parameters after training on the $T-1$ tasks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$\Theta_{h} + \Delta \Theta_{h}$ denotes the one-step update on the current $h$ model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, the task encoding $e^{t}$ is chunked into smaller vectors, and these vectors are fed as input to the HyperNetwork.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This enables the HyperNetwork to produce weights iteratively, instead of all at once, thus helping to scale to larger models.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper also considers the problem of inferring the task embedding from a given input pattern.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Specifically, the paper uses task-dependent uncertainty, where the task embedding with the least predictive uncertainty is chosen as the task embedding for the given unknown task. This approach is referred to as HNET+ENT.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper also considers using HyperNetworks to learn the weights for a task-specific generative model. This generative model will be used to generate pseudo samples for rehearsal-based approaches. The paper considers two cases:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;HNET+R where the replay model (i.e., the generative model) is parameterized using a HyperNetwork.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;HNET+TIR, where an auxiliary task inference classifier is used to predict the task identity.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three setups are considered&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;CL1 - Task identity is given to the model.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;CL2 - Task identity is not given, but task-specific heads are used.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;CL3 - Task identity needs to be explicitly inferred.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On the permuted MNIST task, the proposed approach outperforms baselines like Synaptic Intelligence and Online EWC, and the performance gap is more significant for larger task sequences.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Forward knowledge transfer is observed with the CIFAR datasets.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One potential limitation (which is more of a limitation of HyperNetworks) is that HyperNetworks may be harder to scale for larger models like ResNet50 or transformers, thus limiting their usefulness for lifelong learning use cases.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Zero-shot Learning by Generating Task-specific Adapters</title>
@@ -132,7 +260,7 @@
 &lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;While the idea is very promising and interesting, the evaluation felt quite limited. It uses just two datasets (&lt;a href=&quot;https://leaderboard.allenai.org/zest/submissions/public&quot;&gt;Zero-shot learning from Task Descriptions&lt;/a&gt; and &lt;a href=&quot;https://eval.ai/web/challenges/challenge-page/689/overview&quot;&gt;Zero-shot Relation Extraction&lt;/a&gt; and shows some improvements over the baseline of directly finetuning with task descriptions as the prompt.&lt;/li&gt;
+  &lt;li&gt;While the idea is very promising and interesting, the evaluation felt quite limited. It uses just two datasets &lt;a href=&quot;https://leaderboard.allenai.org/zest/submissions/public&quot;&gt;Zero-shot learning from Task Descriptions&lt;/a&gt; and &lt;a href=&quot;https://eval.ai/web/challenges/challenge-page/689/overview&quot;&gt;Zero-shot Relation Extraction&lt;/a&gt; and shows some improvements over the baseline of directly finetuning with task descriptions as the prompt.&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>

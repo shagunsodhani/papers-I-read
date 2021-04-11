@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks &middot; Papers I Read
+      Continual learning with hypernetworks &middot; Papers I Read
     
   </title>
 
@@ -175,104 +175,127 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">PTE - Predictive Text Embedding through Large-scale Heterogeneous Text Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD+2015" title="Pages tagged KDD 2015" rel="tag">KDD 2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Network+Embedding" title="Pages tagged Network Embedding" rel="tag">Network Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Embedding" title="Pages tagged Embedding" rel="tag">Embedding</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD" title="Pages tagged KDD" rel="tag">KDD</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Network" title="Pages tagged Network" rel="tag">Network</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
-  <span class="post-date">24 Dec 2017</span>
-  <h1 id="introduction">Introduction</h1>
+  <h1 class="post-title">Continual learning with hypernetworks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2020" title="Pages tagged ICLR 2020" rel="tag">ICLR 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#HyperNetworks" title="Pages tagged HyperNetworks" rel="tag">HyperNetworks</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#LL" title="Pages tagged LL" rel="tag">LL</a></p>
+  <span class="post-date">08 Feb 2021</span>
+  <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>Unsupervised text embeddings can be generalized for different tasks but they have weaker predictive powers (as compared to end-to-end trained deep learning methods) for any particular task. But the deep learning techniques are expensive and need a large amount of supervised data and a large number of parameters to tune.</p>
+    <p>The paper proposes the use of task-conditioned <a href="https://shagunsodhani.com/papers-I-read/HyperNetworks">HyperNetworks</a> for lifelong learning / continual learning setups.</p>
   </li>
   <li>
-    <p>The paper introduces Predictive Text Embedding (PTE) - a semi-supervised approach which learns an effective low dimensional representation using a large amount of unsupervised data and a small amount of supervised data.</p>
+    <p>The idea is, the HyperNetwork would only need to remember the task-conditioned weights and not the input-output mapping for all the data points.</p>
   </li>
   <li>
-    <p>The work can be extended to general information networks as well as classic techniques like MDS, Iso-map, Laplacian EigenMaps etc do not scale well for large graphs.</p>
+    <p><a href="https://arxiv.org/abs/1906.00695">Link to the paper</a></p>
   </li>
   <li>
-    <p>Further, this model can be applied to heterogeneous networks as well unlike the previous works <a href="https://arxiv.org/abs/1503.03578">LINE</a> and <a href="https://arxiv.org/abs/1403.6652">DeepWalk</a> which work on homogeneous networks only.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1508.00200">Link to the paper</a></p>
+    <p><a href="https://github.com/chrhenning/hypercl">Author’s Implementation</a></p>
   </li>
 </ul>
 
-<h1 id="approach">Approach</h1>
+<h2 id="terminology">Terminology</h2>
 
 <ul>
   <li>
-    <p>The paper proposes 3 different kinds of networks:</p>
-
-    <ul>
-      <li><strong>Word-Word Network</strong> which captures the word co-occurrence information (local level).</li>
-      <li><strong>Word-Document Network</strong> which captures the word-document co-occurrence information (local + document level).</li>
-      <li><strong>Word-Label Network</strong> which captures the word-label co-occurrence information (bipartite graph).</li>
-    </ul>
+    <p>$f$ denotes the network for the given $t^{th}$ task.</p>
   </li>
   <li>
-    <p>All 3 graphs are integrated into one heterogeneous text network.</p>
+    <p>$h$ denotes the HyperNetwork that generates the weights for $f$.</p>
   </li>
   <li>
-    <p>First, the authors extend their previous work, LINE, for heterogenous bipartite text networks as explained:</p>
-
-    <ul>
-      <li>
-        <p>Given a bipartite graph <em>G = (V<sub>A</sub> \bigcup V<sub>B</sub>, E)</em> , where <em>V<sub>A</sub> and V<sub>B</sub></em> are disjoint set of vertices, the conditional probability of <em>v<sub>a</sub></em> (in set <em>V<sub>A</sub></em>) being generated by <em>v<sub>b</sub></em> (in set <em>V<sub>B</sub></em>) is given as the softmax score between embeddings of <em>v<sub>a</sub></em> and <em>v<sub>b</sub></em> and normalised by the sum of exponentials of dot products between <em>v<sub>b</sub></em>  and all nodes in <em>V<sub>A</sub></em>.</p>
-      </li>
-      <li>
-        <table>
-          <tbody>
-            <tr>
-              <td>The second order proximity can be determined by the conditional distributions *p(.</td>
-              <td>v<sub>j</sub>)*p(.</td>
-              <td>v<sub>j</sub>)*.</td>
-            </tr>
-          </tbody>
-        </table>
-      </li>
-      <li>
-        <p>The objective to be minimised the KL divergence between the conditional distribution <em>p(.\v<sub>j</sub>)</em> and the emperical distribution <em>p<sup>^</sup>(.\v<sub>j</sub>)</em> (given as w<sub>i, j</sub>/deg<sub>j</sub>).</p>
-      </li>
-      <li>The objective can be further simplified and optimised using SGD with edge sampling and negative sampling.</li>
-    </ul>
+    <p>$\Theta_{h}$ denotes the parameters of $h$.</p>
   </li>
   <li>
-    <p>Now, the 3 individual networks can all be interpreted as bipartite networks. So node representation of all the 3 individual networks is obtained as described above.</p>
-  </li>
-  <li>
-    <p>For the word-label network, since the training data is sparse, one could either train the unlabelled networks first and then the labelled network or they all could be trained jointly.</p>
-  </li>
-  <li>
-    <p>For the case of joint training, the edges are sampled from the 3 networks alternatively.</p>
-  </li>
-  <li>
-    <p>For the fine-tuning case, the edges are first sampled from the unlabelled network and then from the labelled network.</p>
-  </li>
-  <li>
-    <p>Once the word embeddings are obtained, the text embeddings may be obtained by simply averaging the word embeddings.</p>
+    <p>$e^{t}$ denotes the input task-embedding for the $t^{th}$ task.</p>
   </li>
 </ul>
 
-<h1 id="evaluation">Evaluation</h1>
+<h2 id="approach">Approach</h2>
 
 <ul>
   <li>
-    <p><strong>Baseline Models</strong></p>
+    <p>When training on the $t^{th}$ task, the HyperNetworks generates the weights for the network $f$.</p>
+  </li>
+  <li>
+    <p>The current task loss is computed using the generated weights, and the candidate weight update ($\Delta \Theta_{h}$) is computed for $h$.</p>
+  </li>
+  <li>
+    <p>The actual parameter change is computed by the following expression:</p>
+  </li>
+</ul>
+
+<p>$L_{total} = L{task}(\Theta_{h}, e^{T}, X^{T}, Y^{T}) + \frac{\beta_{output}}{T-1} \sum_{t=1}^{T-1} | f_{h}(e^{t}, \Theta_{h}^*) - f_{h}(e^{(t)}, \Theta_{h} + \Delta \Theta_{h} ))|^2$</p>
+
+<ul>
+  <li>
+    <p>$L_{task}$ is the loss for the current task.</p>
+  </li>
+  <li>
+    <p>$(X^{T}, Y^{T})$ denotes the training datapoints for the $T^{th}$ task.</p>
+  </li>
+  <li>
+    <p>$\beta_{output}}$ is a hyperparameter.</p>
+  </li>
+  <li>
+    <p>$\Theta_{h}^*$ denotes the optimal parameters after training on the $T-1$ tasks.</p>
+  </li>
+  <li>
+    <p>$\Theta_{h} + \Delta \Theta_{h}$ denotes the one-step update on the current $h$ model.</p>
+  </li>
+  <li>
+    <p>In practice, the task encoding $e^{t}$ is chunked into smaller vectors, and these vectors are fed as input to the HyperNetwork.</p>
+  </li>
+  <li>
+    <p>This enables the HyperNetwork to produce weights iteratively, instead of all at once, thus helping to scale to larger models.</p>
+  </li>
+  <li>
+    <p>The paper also considers the problem of inferring the task embedding from a given input pattern.</p>
+  </li>
+  <li>
+    <p>Specifically, the paper uses task-dependent uncertainty, where the task embedding with the least predictive uncertainty is chosen as the task embedding for the given unknown task. This approach is referred to as HNET+ENT.</p>
+  </li>
+  <li>
+    <p>The paper also considers using HyperNetworks to learn the weights for a task-specific generative model. This generative model will be used to generate pseudo samples for rehearsal-based approaches. The paper considers two cases:</p>
 
     <ul>
-      <li>Local word co-occurence based methods - SkipGram, LINE(Gww)</li>
-      <li>Document word co-occurence based methods - LINE(Gwd), PV-DBOW</li>
-      <li>Combined method - LINE (Gww + Gwd)</li>
-      <li>CNN</li>
-      <li>PTE</li>
+      <li>
+        <p>HNET+R where the replay model (i.e., the generative model) is parameterized using a HyperNetwork.</p>
+      </li>
+      <li>
+        <p>HNET+TIR, where an auxiliary task inference classifier is used to predict the task identity.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Three setups are considered</p>
+
+    <ul>
+      <li>
+        <p>CL1 - Task identity is given to the model.</p>
+      </li>
+      <li>
+        <p>CL2 - Task identity is not given, but task-specific heads are used.</p>
+      </li>
+      <li>
+        <p>CL3 - Task identity needs to be explicitly inferred.</p>
+      </li>
     </ul>
   </li>
   <li>
-    <p>For long documents, PTE (joint) outperforms CNN and other PTE variants and is around 10 times faster than CNN model.</p>
+    <p>On the permuted MNIST task, the proposed approach outperforms baselines like Synaptic Intelligence and Online EWC, and the performance gap is more significant for larger task sequences.</p>
   </li>
   <li>
-    <p>For short documents, PTE (joint) does not always outperform CNN model probably because the word sense ambiguity is more relevant in the short documents.</p>
+    <p>Forward knowledge transfer is observed with the CIFAR datasets.</p>
+  </li>
+  <li>
+    <p>One potential limitation (which is more of a limitation of HyperNetworks) is that HyperNetworks may be harder to scale for larger models like ResNet50 or transformers, thus limiting their usefulness for lifelong learning use cases.</p>
   </li>
 </ul>
 
@@ -281,15 +304,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Continual-learning-with-hypernetworks">
-            Continual learning with hypernetworks
-            <small>08 Feb 2021</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -305,6 +319,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/HyperNetworks">
             HyperNetworks
             <small>25 Jan 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Energy-based-Models-for-Continual-Learning">
+            Energy-based Models for Continual Learning
+            <small>18 Jan 2021</small>
           </a>
         </h3>
       </li>
@@ -325,8 +348,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/PTE-Predictive-Text-Embedding-through-Large-scale-Heterogeneous-Text-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Continual-learning-with-hypernetworks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Continual-learning-with-hypernetworks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
