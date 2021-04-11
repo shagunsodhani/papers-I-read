@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      How to train your MAML &middot; Papers I Read
+      When Do Curricula Work? &middot; Papers I Read
     
   </title>
 
@@ -175,115 +175,129 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">How to train your MAML</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical+Advice" title="Pages tagged Empirical Advice" rel="tag">Empirical Advice</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MAML" title="Pages tagged MAML" rel="tag">MAML</a></p>
-  <span class="post-date">05 Sep 2019</span>
+  <h1 class="post-title">When Do Curricula Work?</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Curriculum+Learning" title="Pages tagged Curriculum Learning" rel="tag">Curriculum Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2021" title="Pages tagged ICLR 2021" rel="tag">ICLR 2021</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical" title="Pages tagged Empirical" rel="tag">Empirical</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a></p>
+  <span class="post-date">15 Feb 2021</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>The paper proposes MAML++ - a modification of MAML algorithm that stabilizes its training improves generalization performance and reduces the computational overhead.</p>
+    <p>The paper systematically investigates when does curriculum learning help.</p>
   </li>
   <li>
-    <p><a href="https://arxiv.org/abs/1810.09502">Link to the paper</a></p>
+    <p><a href="https://arxiv.org/abs/2012.03107">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="notes">Notes</h2>
-
-<h3 id="unstable-training">Unstable Training</h3>
+<h2 id="implicit-curricula">Implicit Curricula</h2>
 
 <ul>
   <li>
-    <p>Training the outer loop requires unfolding the inner loop multiple times.</p>
+    <p>Implicit curricula refers to the order in which a network learns data points when trained using stochastic gradient descent, with iid sampling of data.</p>
   </li>
   <li>
-    <p>In absence of skip connections, the gradient is multiplied by the same parameter multiple times.</p>
+    <p>When training, let us say that the model makes a correct prediction for a given datapoint in the $i^{th}$ epoch (and correct prediction in all the subsequent epochs). The $i^{th}$ epoch is referred to as the <em>learned iteration</em> of the datapoint  (iteration in which the datapoint was learned).</p>
   </li>
   <li>
-    <p>Large depth and absent skip connections could lead to exploding and vanishing gradients respectively.</p>
+    <p>The paper studied multiple models (VGG, ResNet, WideResNet, DenseNet, and EfficientNet) with different optimizers (Adam and SGD with momentum).</p>
   </li>
   <li>
-    <p>The paper proposes to stabilize the gradient propagation by minimizing the target set loss computed by the base-network after every step towards a support set task.</p>
-  </li>
-  <li>
-    <p>It is important to anneal the contribution of earlier steps and increase the contribution of later steps over time.</p>
+    <p>The resulting implicit curricula are broadly consistent within the model families, making the following discussion less dependent on the model architecture.</p>
   </li>
 </ul>
 
-<h3 id="second-order-derivatives-are-expensive-to-compute">Second Order derivatives are expensive to compute</h3>
+<h2 id="explicit-curricula">Explicit Curricula</h2>
+
+<ul>
+  <li>When defining an explicit curriculum, three important components stand out.</li>
+</ul>
+
+<h3 id="scoring-function">Scoring Function</h3>
 
 <ul>
   <li>
-    <p>While the first-order MAML is faster, the resulting model may not have as good a generalization error as the second-order MAML.</p>
+    <p>Maps a data point to a numerical score of <em>difficulty</em>.</p>
   </li>
   <li>
-    <p>The paper proposes to use derivative order annealing where the first order gradients are used for the first 50 epochs and the network uses second-order gradients from thereon.</p>
+    <p>Choices:</p>
+
+    <ul>
+      <li>
+        <p>Loss function for a model</p>
+      </li>
+      <li>
+        <p><em>learned iteration</em></p>
+      </li>
+      <li>
+        <p>Estimated c-score - It captures a given model’s consistency to correctly predict a given datapoint’s label when trained on an iid dataset (not containing the datapoint).</p>
+      </li>
+    </ul>
   </li>
   <li>
-    <p>This derivative order annealing appears to be more stable than models that use second-order derivatives only.</p>
+    <p>The three scoring functions are computed for two models on the CIFAR dataset.</p>
+  </li>
+  <li>
+    <p>The resulting six scores have a high Spearman Rank correlation. Hence for the rest of the discussion, only the c-score is used.</p>
   </li>
 </ul>
 
-<h3 id="batch-normalization">Batch Normalization</h3>
+<h3 id="pacing-function">Pacing Function</h3>
 
 <ul>
   <li>
-    <p>In MAML, the statistics of the current batch are used for normalization instead of accumulating the running statistics.</p>
+    <p>This function, denoted by $g(t)$, controls the size of the training dataset at step $t$.</p>
   </li>
   <li>
-    <p>The paper proposes to collect the statistics per step which can increase the convergence speed, stability, and generalization performance.</p>
+    <p>At step $t$, the model would be trained on the first $g(t)$ examples (as per the ordering).</p>
   </li>
   <li>
-    <p>In MAML, the batch normalization biases are not updated in the inner-loop which can adversely impact the performance.</p>
-  </li>
-  <li>
-    <p>The paper proposes to learn a set of biases (per step) within the inner loop update.</p>
+    <p>Choices: logarithmic, exponential, step, linear, quadratic, and root.</p>
   </li>
 </ul>
 
-<h3 id="fixed-learning-rate">Fixed Learning Rate</h3>
+<h3 id="order">Order</h3>
 
 <ul>
   <li>
-    <p>MAML uses a single learning rate across all the steps and all the parameters. This means there is one single learning rate that needs to be hyperparameter to work well for all the layers and steps.</p>
-  </li>
-  <li>
-    <p>An alternate solution would be to learn a separate learning rate per parameter but this can be impractical as it doubles the number of parameters to be learned.</p>
-  </li>
-  <li>
-    <p>The paper proposes to learn a learning rate and direction for each layer in the network, for each step it takes in the inner loop.</p>
-  </li>
-  <li>
-    <p>The paper also proposed to anneal the learning rate of the outer loop (using cosine annealing) as it helps to achieve better generalization.</p>
+    <p>Order in which the data points are picked:</p>
+
+    <ul>
+      <li>
+        <p><em>Curriculum</em> - Ordering points from lowest score to highest and training on the easiest data points first.</p>
+      </li>
+      <li>
+        <p><em>Anti Curriculum</em> - Ordering points from highest score to lowest and training on the hardest data points first.</p>
+      </li>
+      <li>
+        <p><em>Random</em> - Randomly selecting the data points to train on.</p>
+      </li>
+    </ul>
   </li>
 </ul>
 
-<h2 id="results">Results</h2>
+<h2 id="observations">Observations</h2>
 
 <ul>
   <li>
-    <p>Using these modifications helps to outperform the MAML model on both Omniglot and MiniImagenet datasets.</p>
+    <p>The paper performed a hyperparameter sweep over 180 pacing functions and three orderings for three random seeds over the CIFAR10 and CIFAR100 datasets. For both the datasets, the best performance is obtained with random ordering, indicating that curricula did not give any benefits.</p>
   </li>
   <li>
-    <p>The biggest benefit comes by learning the per-layer, per-step learning rates and by using the per-step batch normalization.</p>
+    <p>However, the curriculum is useful when the number of training iterations is small.</p>
+  </li>
+  <li>
+    <p>It also helps with noisy data training (which is simulated by randomly permuting the labels).</p>
+  </li>
+  <li>
+    <p>The observations for the smaller CIFAR10/100 dataset generalize to slightly larger datasets like FOOD101 and FOOD101N.</p>
   </li>
 </ul>
+
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/When-Do-Curricula-Work">
-            When Do Curricula Work?
-            <small>15 Feb 2021</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -299,6 +313,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Zero-shot-Learning-by-Generating-Task-specific-Adapters">
             Zero-shot Learning by Generating Task-specific Adapters
             <small>01 Feb 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/HyperNetworks">
+            HyperNetworks
+            <small>25 Jan 2021</small>
           </a>
         </h3>
       </li>
@@ -319,8 +342,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/How-to-train-your-MAML"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/How-to-train-your-MAML"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/When-Do-Curricula-Work"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/When-Do-Curricula-Work"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

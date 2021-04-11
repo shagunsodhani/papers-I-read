@@ -4,13 +4,135 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-04-11T11:09:37-04:00</updated>
+ <updated>2021-04-11T11:45:25-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>When Do Curricula Work?</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/When-Do-Curricula-Work"/>
+   <updated>2021-02-15T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/When Do Curricula Work</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper systematically investigates when does curriculum learning help.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2012.03107&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implicit-curricula&quot;&gt;Implicit Curricula&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Implicit curricula refers to the order in which a network learns data points when trained using stochastic gradient descent, with iid sampling of data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When training, let us say that the model makes a correct prediction for a given datapoint in the $i^{th}$ epoch (and correct prediction in all the subsequent epochs). The $i^{th}$ epoch is referred to as the &lt;em&gt;learned iteration&lt;/em&gt; of the datapoint  (iteration in which the datapoint was learned).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studied multiple models (VGG, ResNet, WideResNet, DenseNet, and EfficientNet) with different optimizers (Adam and SGD with momentum).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting implicit curricula are broadly consistent within the model families, making the following discussion less dependent on the model architecture.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;explicit-curricula&quot;&gt;Explicit Curricula&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When defining an explicit curriculum, three important components stand out.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;scoring-function&quot;&gt;Scoring Function&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Maps a data point to a numerical score of &lt;em&gt;difficulty&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Choices:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Loss function for a model&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;learned iteration&lt;/em&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Estimated c-score - It captures a given model’s consistency to correctly predict a given datapoint’s label when trained on an iid dataset (not containing the datapoint).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The three scoring functions are computed for two models on the CIFAR dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resulting six scores have a high Spearman Rank correlation. Hence for the rest of the discussion, only the c-score is used.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;pacing-function&quot;&gt;Pacing Function&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;This function, denoted by $g(t)$, controls the size of the training dataset at step $t$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At step $t$, the model would be trained on the first $g(t)$ examples (as per the ordering).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Choices: logarithmic, exponential, step, linear, quadratic, and root.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;order&quot;&gt;Order&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Order in which the data points are picked:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Curriculum&lt;/em&gt; - Ordering points from lowest score to highest and training on the easiest data points first.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Anti Curriculum&lt;/em&gt; - Ordering points from highest score to lowest and training on the hardest data points first.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Random&lt;/em&gt; - Randomly selecting the data points to train on.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper performed a hyperparameter sweep over 180 pacing functions and three orderings for three random seeds over the CIFAR10 and CIFAR100 datasets. For both the datasets, the best performance is obtained with random ordering, indicating that curricula did not give any benefits.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;However, the curriculum is useful when the number of training iterations is small.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It also helps with noisy data training (which is simulated by randomly permuting the labels).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The observations for the smaller CIFAR10/100 dataset generalize to slightly larger datasets like FOOD101 and FOOD101N.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Continual learning with hypernetworks</title>
@@ -75,7 +197,7 @@
     &lt;p&gt;$(X^{T}, Y^{T})$ denotes the training datapoints for the $T^{th}$ task.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;$\beta_{output}}$ is a hyperparameter.&lt;/p&gt;
+    &lt;p&gt;$\beta_{output}$ is a hyperparameter to control the regularizer’s strength.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;$\Theta_{h}^*$ denotes the optimal parameters after training on the $T-1$ tasks.&lt;/p&gt;
