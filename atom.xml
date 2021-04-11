@@ -4,13 +4,138 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-04-11T09:54:05-04:00</updated>
+ <updated>2021-04-11T10:00:52-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Zero-shot Learning by Generating Task-specific Adapters</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Zero-shot-Learning-by-Generating-Task-specific-Adapters"/>
+   <updated>2021-02-01T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Zero-shot Learning by Generating Task-specific Adapters</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper introduces HYPTER - a framework for zero-shot learning (ZSL) in text-to-text transformer models by training a &lt;a href=&quot;https://shagunsodhani.com/papers-I-read/HyperNetworks&quot;&gt;&lt;strong&gt;Hyp&lt;/strong&gt;erNetwork&lt;/a&gt; to generate task-specific &lt;a href=&quot;https://arxiv.org/abs/1902.00751&quot;&gt;adap&lt;strong&gt;ter&lt;/strong&gt;s&lt;/a&gt; from task descriptions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The focus is on &lt;em&gt;in-task&lt;/em&gt; zero-shot learning (e.g., learning to predict an unseen class or relation) and not on &lt;em&gt;cross-task&lt;/em&gt; learning (e.g., training on sentiment analysis and evaluating on question-answering task).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2101.00420&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;terminology&quot;&gt;Terminology&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Task&lt;/em&gt; - a NLP task, like classification or question answering.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Sub-task&lt;/em&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;A class/relation/question within a task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Denotes by a tuple $(d, D)$ where $d$ is the language description while $D$ represents the subtask’s dataset.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Develop ZSL approach for transfer to new subtasks within a task, using the task description available for each subtask.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;HYPTER has two main parts:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Main network&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;A pretrained text-to-text network&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Instantiated as a BERT-Base/Large&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;HyperNetwork&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Generates the weights for adapter networks that will be plugged into the main network.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;HyperNetwork has two parts:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Encoder&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Encodes the task description&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Instantiated as a RoBERTa-Base model&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Decoder&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Decodes the encoding into weights for multiple adapters (in parallel)&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Instantiated as a Feedforward Network&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model trains in two phases:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Main network is trained on all the data by concatenating the task description with the input.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Adapters are trained by sampling a task from the train set while keeping the main network frozen.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;While the idea is very promising and interesting, the evaluation felt quite limited. It uses just two datasets (&lt;a href=&quot;https://leaderboard.allenai.org/zest/submissions/public&quot;&gt;Zero-shot learning from Task Descriptions&lt;/a&gt; and &lt;a href=&quot;https://eval.ai/web/challenges/challenge-page/689/overview&quot;&gt;Zero-shot Relation Extraction&lt;/a&gt; and shows some improvements over the baseline of directly finetuning with task descriptions as the prompt.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>HyperNetworks</title>
@@ -46,7 +171,7 @@
     &lt;p&gt;The first layer (of the HyperNetwork) maps the input to $N_{in}$ different outputs using $N_{in}$ weight matrices.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The second layer maps the different $N_{in}$ inputs to $K_{i}$ using a shared matrix. The result $N_{in}$ $K_{i}$ matrices are concatenated to obtain $K^j$.&lt;/p&gt;
+    &lt;p&gt;The second layer maps the different $N_{in}$ inputs to $K_{i}$ using a shared matrix. The resulting $N_{in}$ (number of) $K_{i}$ matrices are concatenated to obtain $K^j$.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;As a side note, HyperNetworks have much fewer params than the network for which it produces weights.&lt;/p&gt;
@@ -90,7 +215,7 @@
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;HyperLSTMs are also evaluated for handwriting sequence generation by training in the IAM d=online handwriting dataset.&lt;/p&gt;
+    &lt;p&gt;HyperLSTMs are also evaluated for handwriting sequence generation by training in the IAM online handwriting dataset.&lt;/p&gt;
 
     &lt;ul&gt;
       &lt;li&gt;While HyperLSTMs are quite effective on this task, combining them with layer-norm degrades the performance.&lt;/li&gt;
