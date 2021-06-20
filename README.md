@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Anatomy of Catastrophic Forgetting - Hidden Representations and Task Semantics](https://shagunsodhani.com/papers-I-read/Anatomy-of-Catastrophic-Forgetting-Hidden-Representations-and-Task-Semantics)
 * [When Do Curricula Work?](https://shagunsodhani.com/papers-I-read/When-Do-Curricula-Work)
 * [Continual learning with hypernetworks](https://shagunsodhani.com/papers-I-read/Continual-learning-with-hypernetworks)
 * [Zero-shot Learning by Generating Task-specific Adapters](https://shagunsodhani.com/papers-I-read/Zero-shot-Learning-by-Generating-Task-specific-Adapters)
