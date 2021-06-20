@@ -4,13 +4,203 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-04-11T11:45:25-04:00</updated>
+ <updated>2021-06-19T20:51:38-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Anatomy of Catastrophic Forgetting - Hidden Representations and Task Semantics</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Anatomy-of-Catastrophic-Forgetting-Hidden-Representations-and-Task-Semantics"/>
+   <updated>2021-02-22T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Anatomy of Catastrophic Forgetting - Hidden Representations and Task Semantics</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studies the effect of catastrophic forgetting on representations in neural networks.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2007.07400&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Techniques:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Representational Similarity Measures&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Layer Freezing&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Layer Reset&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Datasets&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Split CIFAR-10&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;CIFAR-10 dataset is split into &lt;em&gt;m&lt;/em&gt; (=2) tasks, where each task is a &lt;em&gt;n&lt;/em&gt; way classification task.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The underlying network has a shared trunk with &lt;em&gt;m&lt;/em&gt; heads, one head per task.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Split CIFAR-100 Distribution Shift&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Each task requires distinguishing between &lt;em&gt;n&lt;/em&gt; CIFAR-100 &lt;em&gt;superclasses&lt;/em&gt; with training/test data corresponding to a &lt;em&gt;subset&lt;/em&gt; of constituent classes.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Network Architecture&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;VGG, ResNet and DenseNet&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;questions&quot;&gt;Questions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Are all representations (throughout the network) equally responsible for forgetting?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;Higher&lt;/em&gt; layer (layers closer to the output) are the primary source of catastrophic forgetting.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1905.00414&quot;&gt;Central Kernel Alignment (CKA)&lt;/a&gt; technique is used to compare the similarity between the layer representations, before and after training on the second task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Higher layer representations change significantly when training over two tasks while the lower layer representations remain stable.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;When finetuning on the second task, freezing the lower layers has only a minor effect on the accuracy of the second task.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In &lt;em&gt;layer reset&lt;/em&gt; experiments, after training on the second task, the weights of some of the layers are reset to their values after training on the first task.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Resetting the weights of higher layers leads to significant improvement in the performance on the first task.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Do common approaches for countering catastrophic forgetting work by stabilizing the higher layers?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Yes - both &lt;a href=&quot;https://arxiv.org/abs/1612.00796&quot;&gt;EWC&lt;/a&gt; and replay-based approaches counter catastrophic forgetting work by stabilizing the higher layers.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This is demonstrated by showing that as the quadratic penalty for EWC (or fraction of data from replay buffer) increases (to reduce catastrophic forgetting), the representations for higher layers change less during the second task.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When training over a sequence of tasks, are similar tasks more likely to be forgotten than different tasks?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Setup I&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Training over a sequence of two binary classification tasks.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task 1: Two related classes (say &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ship&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;truck&lt;/code&gt;)&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task 2: Two related classes, which may or may not be related to the classes for Task 1. For example, the classes could be&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;horse&lt;/code&gt; (not related to classes of the first task)&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plane&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;car&lt;/code&gt; (related to the classes of the first task)&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Training over semantically similar tasks (here &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plane&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;car&lt;/code&gt;) leads to less forgetting.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Setup II&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Training over a sequence of two classification tasks.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task 1: Four classes where the classes can be grouped into two groups (say &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deer&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dog&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ship&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;truck&lt;/code&gt;)&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task 2: Two related classes, which may be related to group 1 or group 2. For example, the classes could be two animals or two objects.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;After training on the second task, classes (from Task 1), which are in the different group as classes from Task 2, are forgotten less.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Conclusion&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task representational similarity is a function of both underlying data and optimization procedure.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Forgetting is most severe for task representations of intermediate similarity.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Representational similarity is necessary but not a sufficient condition for forgetting.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How does catastrophic forgetting change as the task similarity changes?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;If the model learns different representations for dissimilar tasks, increasing dissimilarity can help to avoid forgetting.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;When training the two-task, two-class (per task) CIFAR-10 setup with an “others” class (classes not already used in the setup), the forgetting is reduced.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>When Do Curricula Work?</title>
