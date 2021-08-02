@@ -4,6 +4,10 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Deep Neural Networks for YouTube Recommendations](https://shagunsodhani.com/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations)
+* [The Tail at Scale](https://shagunsodhani.com/papers-I-read/The-Tail-at-Scale)
+* [Practical Lessons from Predicting Clicks on Ads at Facebook](https://shagunsodhani.com/papers-I-read/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook)
+* [Ad Click Prediction - a View from the Trenches](https://shagunsodhani.com/papers-I-read/Ad-Click-Prediction-a-View-from-the-Trenches)
 * [Anatomy of Catastrophic Forgetting - Hidden Representations and Task Semantics](https://shagunsodhani.com/papers-I-read/Anatomy-of-Catastrophic-Forgetting-Hidden-Representations-and-Task-Semantics)
 * [When Do Curricula Work?](https://shagunsodhani.com/papers-I-read/When-Do-Curricula-Work)
 * [Continual learning with hypernetworks](https://shagunsodhani.com/papers-I-read/Continual-learning-with-hypernetworks)
