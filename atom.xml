@@ -4,13 +4,704 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-06-19T20:51:38-04:00</updated>
+ <updated>2021-08-02T09:20:29-04:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Deep Neural Networks for YouTube Recommendations</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations"/>
+   <updated>2021-03-22T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Deep Neural Networks for YouTube Recommendations</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes YouTube’s deep learning-based recommendation system.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://research.google/pubs/pub45530/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;challenges&quot;&gt;Challenges&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scale - Very large number of users and videos.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Freshness - Very large number of videos uploaded every hour. The recommendation system should take these new videos into account as well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Noise - User satisfaction needs to be modeled from noisy implicit feedback signal as the explicit signal is very sparse.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;system-overview&quot;&gt;System Overview&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two neural networks: one for candidate generation and another one for ranking.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Offline metrics like precision, recall, ranking loss&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;A/B testing via live experiments&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;candidate-generation&quot;&gt;Candidate Generation&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Input: events from a user’s YouTube activity history.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output: small subset (hundreds) of videos.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Approach:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Recommendation is modeled as extreme multiclass classification.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Predict the video (from a corpus) that a user will watch at a given time.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The neural network’s task is to learn useful user embeddings, given the user’s context and history.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For each positive class (relevant video), negative classes (non-relevant videos) are sampled from the video corpus.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model Architecture&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;A feedforward network with input as user embeddings and context embeddings (watch history).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Watch history is a variable-length sequence of video ids, where each video id is mapped to an embedding.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The sequence of video ids is mapped to a sequence of embeddings, and this sequence is averaged to obtain fixed-sized embedding.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Additional signals like demographic features and search query embeddings can be added along with the context embeddings.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The age of a video is also used as a feature during training to account for the freshness of the content. This feature is set to zero (or slightly negative) during inference.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Other Insights&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Training examples are generated from all YouTube watches, including the watches from the videos embedded on other sites, to surface new content.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Generating the same number of training examples per user is important to avoid a small set of active users from dominating the model training.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Predicting a user’s next watch leads to better results than predicting a randomly held-out watch. This can be attributed to the general consumption pattern of videos (e.g., episodes are usually watched in order).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ranking&quot;&gt;Ranking&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Input: list of candidate videos to rank from.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Output: score for each video.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Approach&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;A feedforward network (similar to candidate generation model) trained using logistic regression loss.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Feature representation&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Different types of features: categorical vs. continuous, univalent vs. multivalent, describes video vs. describes user or context.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Important signals include user’s interaction with the video (or similar videos), which source/channel added the video to the candidate set.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Embeddings are shared across features. For example, the representation for a video id remains the same, irrespective of whether it is being used for representing the “video to recommend” or the “last seen video.”&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Feature normalization and transformations like exponents (square or square root) for continuous variables improve the performance.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To model the expected watch time, the logistic regression loss is weighted by the observed watch time. For example, if a video was watched, its weight is given by the observed watch time, and if the video was not watched, its weight is set to 1.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In practice, this means that the logistic regression model learns odds that approximate the expected watch time of the video.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Tail at Scale</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/The-Tail-at-Scale"/>
+   <updated>2021-03-15T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/The Tail at Scale</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents some causes for (temporary) high-latency episodes in large-scale online systems and techniques to mitigate their impact so that the tail of latency distribution remains short.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://research.google/pubs/pub40801/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;why-does-variability-in-response-time-exist&quot;&gt;Why does variability in response time exist&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Shared resources between processes on the same node&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Background processes (daemons) could use cause a momentary spike in resource usage.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Processes running on different nodes may contend for global resources like shared file systems.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Maintenance activities like disk compaction or garbage collection.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Others like queueing, power limits, or energy management.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the case of large-scale systems, the component-level variability is further amplified.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reducing-component-variability&quot;&gt;Reducing Component Variability&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use differentiated service classes to prioritize user requests over non-interactive requests.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reduce head-of-line blocking by breaking long-running requests into smaller requests.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Synchronize maintenance jobs across nodes to minimize the window for high latency.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Caching generally does not help to address tail latency.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;adapting-to-latency-variability&quot;&gt;Adapting to Latency Variability&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Two categories of adaptation approaches&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Within Request Short-Term Adaptations&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;These approaches are more relevant for services that perform many read queries on loosely consistent datasets.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Hedged Request&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;Send the request to multiple replicas, and once one of the replicas returns the result, cancel the other requests.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;In practice, start by sending the request to only one replica. Send the secondary requests if the first request is outstanding for more than $95^{th}$ percentile of expected latency.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;This introduces an additional $5\%$ load while substantially shortening the latency tail.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;This approach work because often, the cause of latency is not the query itself but other factors like overloaded nodes.&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Tied Request&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;Hedged request approach makes a tradeoff regarding how long to wait before initiating requests to other replicas. The sooner the request is made, the lower should be the latency in serving the request, but more will be the overall load in the system.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;The load in the system can be reduced by “tieing” requests (sent to different replicas) so that as soon as one replica starts processing the request, it can notify the other replicas, which could drop the request or deprioritize it.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;In practice, “tieing” requests means that each replica has the identity of other replicas which may execute the request.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;Note that there is a short window (of the average network message delay) when multiple replicas could start executing the request. This can be mitigated if the client (issuing the requests) introduces a delay to twice the average network message delay.&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Submit the request to the least loaded replica&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;This is less effective for reasons like the load on a replica can change after the request is made but before it is executed.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Cross-Request Long-Term Adaptations&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;These approaches are more relevant for situations where different services have different throughput.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Micro-partitions&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;Generate more paritions than the number of nodes.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;The partitions can be dynamically assigned to machines to ensure proper load balancing.&lt;/p&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;p&gt;In case of machine failure, many nodes can be used to quickly re-create the micro-partitions instead of waiting on one machine to read one single large partition.&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Selective Replication&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;With micro-partitioning, replicas for micro-partitions can be created ahead of time to achieve good load balancing.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Latency induced probation&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;In some cases, removing a slow node can improve the overall latency of the system. The probated node can be re-incorporated when its latency improves.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Large Information Retrieval Systems&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In such systems, speed can be more critical than the quality of the result.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The system should return a “good enough” result that is available with low latency instead of waiting for the “best result” that is available with high latency.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In some cases, a request could trigger an unexpected code path or cause some other exception that could slow down the entire system.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In such cases, the &lt;em&gt;canary request&lt;/em&gt; technique can be used where the system sends the request initially to only 1 or 2 nodes. The request is sent over to the other nodes only after receiving a successful response from the initial nodes.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Requests that update state are easier to handle for several reasons:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The scale of latency-critical modifications is generally small.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The update can be performed asynchronously after responding to the user.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Quorum-based approaches (often used for ensuring consistent updates) are inherently tail-tolerant.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Practical Lessons from Predicting Clicks on Ads at Facebook</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook"/>
+   <updated>2021-03-08T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Practical Lessons from Predicting Clicks on Ads at Facebook</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper describes several design choices for developing a model for predicting user response (clicks) on ads.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://research.fb.com/publications/practical-lessons-from-predicting-clicks-on-ads-at-facebook/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experimental-setup&quot;&gt;Experimental Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The model is trained/evaluated on offline data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation metrics:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Normalized Cross-Entropy (or Normalized Entropy, NE)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Defined as the predictive log-loss per impression, divided by the entropy of the background CTR (click-through rate).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Background CTR is the average empirical CTR of the training data.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Lower normalized cross-entropy is better.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The normalization term is important to make the metric insensitive to the background CTR. Otherwise, the log loss can easily be made low when background CTR is close to 0 or 1.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;NE can also be written as $RIG - 1$, where $RIG$ is the Relative Information Gain.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Calibration&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Ratio of average estimated CTR and empirical CTR.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Area-Under-ROC (AUC) is a good metric for measuring ranking quality (among ads). However, it is &lt;strong&gt;not used&lt;/strong&gt; as a metric to avoid over-delivery or under-delivery of ads.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;implementation-details&quot;&gt;Implementation Details&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Feature Transformation&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;A given add impression, $e$, is transformed into a $n-$dimensional vector, $x$, where the $i^{th}$ index denotes the value of the $i^{th}$ categorical feature.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Continous features are binned, and the bin index is used as a categorical feature, thus applying a non-linear transformation to the features.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Categorical features that are tuple-like (i.e., have a tuple of values) can be converted into new categorical features by taking a cartesian product.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Boosted decision trees can be used to implement the previous two transformations in one go.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Each tree is used as a categorical feature that takes the value of the index of the leaf node than an ad maps to.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The paper used the Gradient Boosting Machine with the $L_2-$TreeBoost algorithm.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Using the tree feature transformation improves the Normalized Cross-Entropy by $3.4\%$.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Model&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Logistic Regression (LR) or Bayesian online learning scheme for probit regression (BOPR) algorithms are used for training a linear classifier model.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;While both LR and BOPR models provide similar performance, the LR model is half the BOPR model’s size and faster for performing training/inference.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;role-of-data-freshness&quot;&gt;Role of Data Freshness&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When a model is trained on the data from a particular day and evaluated on data from the subsequent days, the model’s performance degrades as the delay between training and test set increases.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This highlights the importance of the freshness of the training data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One straightforward approach can be to train the model every day.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Alternatively, the linear classifier can be trained using online learning, while the boosted decision tree can still be trained daily.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Different choices for setting the learning rate (for online training of linear classifier) are compared, and the &lt;a href=&quot;https://research.google/pubs/pub41159/&quot;&gt;per-coordinate learning rate&lt;/a&gt; is found to perform best in practice.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;generating-real-time-training-data&quot;&gt;Generating Real-Time Training Data&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;An “online joiner” system is used to generate real-time training data for the linear classifier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The challenging part is, while there are data points with a “positive” label (i.e., the user clicked on the ad), there are no datapoints with a “negative” label (since there is no “no-click” button that the user can click).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An impression is considered to have the “no-click” label if the user does not click on the ad within a (long) time window of seeing the ad.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Too short a time window could mislabel some impressions, while too long a time window will delay the real-time training data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The online joiner performs a distributed stream-to-stream join on the stream of ad impressions and stream of ad clicks using a HashQueue.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A HashQueue:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;comprises of a First-In-First-Out queue as a buffer window and a hash map for fast random access to label impressions.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;supports three operations on key-value pairs: enqueue, dequeue, and lookup.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;memory-and-latency&quot;&gt;Memory and Latency&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Increasing the number of boosting trees shows diminishing returns, and most of the improvements come from the first 500 trees.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Top 10 features account for half of the total feature importance, while the last 300 features add less than 1% feature importance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Features in the boosting model can be broadly classified as contextual or historical.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Historical feature provides much more explanatory power than the contextual features through contextual features are helpful to handle the cold start problem.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Models trained with just the contextual features rely more heavily on data freshness than models trained with just the historical features.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Uniform subsampling and negative downsampling techniques are used to limit the amount of training data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the case of negative downsampling, the model needs to be re-calibrated as well.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Ad Click Prediction - a View from the Trenches</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Ad-Click-Prediction-a-View-from-the-Trenches"/>
+   <updated>2021-03-01T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Ad Click Prediction - a View from the Trenches</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper presents case studies from the experience of deploying an ad click-through rate (CTR) prediction model at Google.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper focuses on themes related to memory footprint, performance analysis, calibration, confidence in the predictions, and feature engineering.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://research.google/pubs/pub41159/&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;system-overview&quot;&gt;System Overview&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Features (corresponding to a given ad) include search query and the metadata in the ad. The features are very sparse.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Single layer, regularized Logistic Regression model is trained with Online Gradient Descent (same as Stochastic Gradient Descent, but in the online setting).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;From a memory perspective, it is important to minimize the size of the final model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Adding just the L1 penalty is not sufficient to produce weights that are precisely equal to 0.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://proceedings.mlr.press/v15/mcmahan11b.html&quot;&gt;“Follow The (Proximally) Regularized Leader” algorithm or FTRL-Proximal algorithm&lt;/a&gt; is used to learn sparse models without losing on the accuracy.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using per-coordinate learning rates improves the performance at the cost of memory as both the sum of gradients and the sum of the square of gradients are tracked for each feature.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In practice, some of the cost can be alleviated by approximating that all the events containing a given feature have the same probability.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In such a case, the sum of the square of gradients can be approximated using the counts of positive and negative events alone.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some memory overhead can be reduced based on the following observation: the vast majority of features are extremely rare. Hence, it is not necessary to track the statistics for such rare features.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;However, in an online setting, it is not known upfront as to which features will be sparse.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The paper proposes to use probabilistic feature inclusion - a feature is added to the model with probability $p$. Once it is added, the feature is not removed.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;An alternative approach is to use a rolling set of counting Bloom filters to check if a feature has appeared at least $n$ times in training. Bloom filters are probabilistic data structures and can return false positives.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Memory can also be saved by using fewer bits for encoding weights.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Most of the weight coefficients lie in the range $(-2, 2)$, and a $16-$ bit encoding is used in place of $32$ or $64$ bit encoding.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;This quantization approach needs to account for roundoff problems. The fix is easy to implement.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When training many models with similar hyperparameters, per-model learning rate counters can be replaced by statistics shared by all the models, thus reducing memory footprint.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A Single Value Structure is used to reduce the memory footprint when evaluating a very large set of model variants that differ only in addition/removal of a small subset of features.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;All the models, that use a feature, share a single value structure corresponding to the feature. This reduces the memory overhead by order of magnitude.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;During the update, each model computes the weight updates corresponding to all the features that it is using. The updated weight is averaged across all the models and used to update the single value structure.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since CTR datasets are generally highly imbalanced, the training data (for the negative class) can be subsampled to reduce the amount of data to train over. The loss component (corresponding to negative class) can be appropriately scaled up.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Metrics&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Offline metrics like AucLoss (1 - AUC), Log Loss, Squared Error&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Online loss is computed on the new training data (new incoming traffic)	before training on it.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The confidence in the model’s prediction is estimated using a heuristic called &lt;em&gt;uncertainty score&lt;/em&gt;. It can be measured using the dot product of the feature and the vector of learning rates.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The idea is that the learning rates already maintain a notion of uncertainty.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Features for which the learning rate is high are the features for which uncertainty is also high.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Calibrating Predictions&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The calibration can be improved by applying correction functions $\tau_d(p)$ where $p$ is the predicted CTR, and $d$ is an element of a partition of the training data.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;$\tau$ can be modeled as $\gammap^{\kappa}$ where $\gamma$ and $\kappa$ are learned using Poisson regression.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unsuccessful Experiments&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Aggressive feature hashing was tried to reduce the memory overhead. However, it leads to a significant loss in performance.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Using dropout did not help, probably because the features are sparse.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Using feature bagging hurt the AucLoss.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Feature vector normalization did not improve performance, probably because of per-coordinate learning rates and regularization.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Anatomy of Catastrophic Forgetting - Hidden Representations and Task Semantics</title>

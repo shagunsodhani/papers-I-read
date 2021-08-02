@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Practical Lessons from Predicting Clicks on Ads at Facebook &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2021. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Practical Lessons from Predicting Clicks on Ads at Facebook</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2014" title="Pages tagged 2014" rel="tag">2014</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Click-Through+Rate" title="Pages tagged Click-Through Rate" rel="tag">Click-Through Rate</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data+Mining" title="Pages tagged Data Mining" rel="tag">Data Mining</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Empirical+Advice" title="Pages tagged Empirical Advice" rel="tag">Empirical Advice</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD+2014" title="Pages tagged KDD 2014" rel="tag">KDD 2014</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Machine+Learning" title="Pages tagged Machine Learning" rel="tag">Machine Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Ads" title="Pages tagged Ads" rel="tag">Ads</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CTR" title="Pages tagged CTR" rel="tag">CTR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD" title="Pages tagged KDD" rel="tag">KDD</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ML" title="Pages tagged ML" rel="tag">ML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">08 Mar 2021</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes several design choices for developing a model for predicting user response (clicks) on ads.</p>
+  </li>
+  <li>
+    <p><a href="https://research.fb.com/publications/practical-lessons-from-predicting-clicks-on-ads-at-facebook/">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="experimental-setup">Experimental Setup</h2>
+
+<ul>
+  <li>
+    <p>The model is trained/evaluated on offline data.</p>
+  </li>
+  <li>
+    <p>Evaluation metrics:</p>
+
+    <ul>
+      <li>
+        <p>Normalized Cross-Entropy (or Normalized Entropy, NE)</p>
+
+        <ul>
+          <li>
+            <p>Defined as the predictive log-loss per impression, divided by the entropy of the background CTR (click-through rate).</p>
+          </li>
+          <li>
+            <p>Background CTR is the average empirical CTR of the training data.</p>
+          </li>
+          <li>
+            <p>Lower normalized cross-entropy is better.</p>
+          </li>
+          <li>
+            <p>The normalization term is important to make the metric insensitive to the background CTR. Otherwise, the log loss can easily be made low when background CTR is close to 0 or 1.</p>
+          </li>
+          <li>
+            <p>NE can also be written as $RIG - 1$, where $RIG$ is the Relative Information Gain.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Calibration</p>
+
+        <ul>
+          <li>Ratio of average estimated CTR and empirical CTR.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Area-Under-ROC (AUC) is a good metric for measuring ranking quality (among ads). However, it is <strong>not used</strong> as a metric to avoid over-delivery or under-delivery of ads.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="implementation-details">Implementation Details</h2>
+
+<ul>
+  <li>
+    <p>Feature Transformation</p>
+
+    <ul>
+      <li>
+        <p>A given add impression, $e$, is transformed into a $n-$dimensional vector, $x$, where the $i^{th}$ index denotes the value of the $i^{th}$ categorical feature.</p>
+      </li>
+      <li>
+        <p>Continous features are binned, and the bin index is used as a categorical feature, thus applying a non-linear transformation to the features.</p>
+      </li>
+      <li>
+        <p>Categorical features that are tuple-like (i.e., have a tuple of values) can be converted into new categorical features by taking a cartesian product.</p>
+      </li>
+      <li>
+        <p>Boosted decision trees can be used to implement the previous two transformations in one go.</p>
+
+        <ul>
+          <li>
+            <p>Each tree is used as a categorical feature that takes the value of the index of the leaf node than an ad maps to.</p>
+          </li>
+          <li>
+            <p>The paper used the Gradient Boosting Machine with the $L_2-$TreeBoost algorithm.</p>
+          </li>
+          <li>
+            <p>Using the tree feature transformation improves the Normalized Cross-Entropy by $3.4\%$.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Model</p>
+
+    <ul>
+      <li>
+        <p>Logistic Regression (LR) or Bayesian online learning scheme for probit regression (BOPR) algorithms are used for training a linear classifier model.</p>
+      </li>
+      <li>
+        <p>While both LR and BOPR models provide similar performance, the LR model is half the BOPR model’s size and faster for performing training/inference.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="role-of-data-freshness">Role of Data Freshness</h2>
+
+<ul>
+  <li>
+    <p>When a model is trained on the data from a particular day and evaluated on data from the subsequent days, the model’s performance degrades as the delay between training and test set increases.</p>
+  </li>
+  <li>
+    <p>This highlights the importance of the freshness of the training data.</p>
+  </li>
+  <li>
+    <p>One straightforward approach can be to train the model every day.</p>
+  </li>
+  <li>
+    <p>Alternatively, the linear classifier can be trained using online learning, while the boosted decision tree can still be trained daily.</p>
+  </li>
+  <li>
+    <p>Different choices for setting the learning rate (for online training of linear classifier) are compared, and the <a href="https://research.google/pubs/pub41159/">per-coordinate learning rate</a> is found to perform best in practice.</p>
+  </li>
+</ul>
+
+<h2 id="generating-real-time-training-data">Generating Real-Time Training Data</h2>
+
+<ul>
+  <li>
+    <p>An “online joiner” system is used to generate real-time training data for the linear classifier.</p>
+  </li>
+  <li>
+    <p>The challenging part is, while there are data points with a “positive” label (i.e., the user clicked on the ad), there are no datapoints with a “negative” label (since there is no “no-click” button that the user can click).</p>
+  </li>
+  <li>
+    <p>An impression is considered to have the “no-click” label if the user does not click on the ad within a (long) time window of seeing the ad.</p>
+  </li>
+  <li>
+    <p>Too short a time window could mislabel some impressions, while too long a time window will delay the real-time training data.</p>
+  </li>
+  <li>
+    <p>The online joiner performs a distributed stream-to-stream join on the stream of ad impressions and stream of ad clicks using a HashQueue.</p>
+  </li>
+  <li>
+    <p>A HashQueue:</p>
+
+    <ul>
+      <li>
+        <p>comprises of a First-In-First-Out queue as a buffer window and a hash map for fast random access to label impressions.</p>
+      </li>
+      <li>
+        <p>supports three operations on key-value pairs: enqueue, dequeue, and lookup.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="memory-and-latency">Memory and Latency</h2>
+
+<ul>
+  <li>
+    <p>Increasing the number of boosting trees shows diminishing returns, and most of the improvements come from the first 500 trees.</p>
+  </li>
+  <li>
+    <p>Top 10 features account for half of the total feature importance, while the last 300 features add less than 1% feature importance.</p>
+  </li>
+  <li>
+    <p>Features in the boosting model can be broadly classified as contextual or historical.</p>
+  </li>
+  <li>
+    <p>Historical feature provides much more explanatory power than the contextual features through contextual features are helpful to handle the cold start problem.</p>
+  </li>
+  <li>
+    <p>Models trained with just the contextual features rely more heavily on data freshness than models trained with just the historical features.</p>
+  </li>
+  <li>
+    <p>Uniform subsampling and negative downsampling techniques are used to limit the amount of training data.</p>
+  </li>
+  <li>
+    <p>In the case of negative downsampling, the model needs to be re-calibrated as well.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/The-Tail-at-Scale">
+            The Tail at Scale
+            <small>15 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Ad-Click-Prediction-a-View-from-the-Trenches">
+            Ad Click Prediction - a View from the Trenches
+            <small>01 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

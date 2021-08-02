@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      ReasoNet - Learning to Stop Reading in Machine Comprehension &middot; Papers I Read
+      Deep Neural Networks for YouTube Recommendations &middot; Papers I Read
     
   </title>
 
@@ -179,136 +179,158 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">ReasoNet - Learning to Stop Reading in Machine Comprehension</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD+2017" title="Pages tagged KDD 2017" rel="tag">KDD 2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KDD" title="Pages tagged KDD" rel="tag">KDD</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Machine+Comprehension" title="Pages tagged Machine Comprehension" rel="tag">Machine Comprehension</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#QA" title="Pages tagged QA" rel="tag">QA</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
-  <span class="post-date">24 Jul 2017</span>
+  <h1 class="post-title">Deep Neural Networks for YouTube Recommendations</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Machine+Learning" title="Pages tagged Machine Learning" rel="tag">Machine Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Recommender+Systems" title="Pages tagged Recommender Systems" rel="tag">Recommender Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACM" title="Pages tagged ACM" rel="tag">ACM</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Latency" title="Pages tagged Latency" rel="tag">Latency</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ML" title="Pages tagged ML" rel="tag">ML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Ranking" title="Pages tagged Ranking" rel="tag">Ranking</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Recommender" title="Pages tagged Recommender" rel="tag">Recommender</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">22 Mar 2021</span>
   <h2 id="introduction">Introduction</h2>
 
 <ul>
   <li>
-    <p>In the domain of machine comprehension, making multiple passes over the given document is an effective technique to extract the relation between the given passage, question and answer.</p>
+    <p>The paper describes YouTube’s deep learning-based recommendation system.</p>
   </li>
   <li>
-    <p>Unlike previous approaches, which perform a fixed number of passes over the passage, Reasoning Network (ReasoNet) uses reinforcement learning (RL) to decide how many times a document should be read.</p>
-  </li>
-  <li>
-    <p>Every time the document is read, ReasoNet determines whether the document should be read again or has the termination state been reached. If termination state is reached, the answer module is triggered to generate the answer.</p>
-  </li>
-  <li>
-    <p>Since the termination state is discrete and not connected to the final output, RL approach is used.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1609.05284">Link to the paper</a></p>
+    <p><a href="https://research.google/pubs/pub45530/">Link to the paper</a></p>
   </li>
 </ul>
 
-<h2 id="datasets">Datasets</h2>
+<h2 id="challenges">Challenges</h2>
 
 <ul>
   <li>
-    <p>CNN, DailyMail Dataset</p>
+    <p>Scale - Very large number of users and videos.</p>
   </li>
   <li>
-    <p>SQuAD</p>
+    <p>Freshness - Very large number of videos uploaded every hour. The recommendation system should take these new videos into account as well.</p>
   </li>
   <li>
-    <p>Graph Reachability Dataset</p>
+    <p>Noise - User satisfaction needs to be modeled from noisy implicit feedback signal as the explicit signal is very sparse.</p>
+  </li>
+</ul>
+
+<h2 id="system-overview">System Overview</h2>
+
+<ul>
+  <li>
+    <p>Two neural networks: one for candidate generation and another one for ranking.</p>
+  </li>
+  <li>
+    <p>Metrics</p>
+
     <ul>
-      <li>2 synthetic datasets to test if the network can answer questions like “Is node_1 connected to node_12”?</li>
+      <li>
+        <p>Offline metrics like precision, recall, ranking loss</p>
+      </li>
+      <li>
+        <p>A/B testing via live experiments</p>
+      </li>
     </ul>
   </li>
 </ul>
 
-<h2 id="architecture">Architecture</h2>
+<h3 id="candidate-generation">Candidate Generation</h3>
 
 <ul>
   <li>
-    <p><strong>Memory (M)</strong> - Comprises of the vector representation of the document and the question (encoded using GRU or other RNNs).</p>
+    <p>Input: events from a user’s YouTube activity history.</p>
   </li>
   <li>
-    <p><strong>Attention</strong> - Attention vector (<strong>x<sub>t</sub></strong>) is a function of current internal state <strong>s<sub>t</sub></strong> and external memory <strong>M</strong>. The state and memory are passed through FCs and fed to a similarity function.</p>
+    <p>Output: small subset (hundreds) of videos.</p>
   </li>
   <li>
-    <p><strong>Internal State (s<sub>t</sub>)</strong> - Vector representation of the question state computed by a RNN using the previous internal state and the attention vector <strong>x<sub>t</sub></strong></p>
-  </li>
-  <li>
-    <p><strong>Termination Gate (T<sub>t</sub>)</strong> - Uses a logistic regression model to generate a random binary variable using the current internal state <strong>s<sub>t</sub></strong>.</p>
-  </li>
-  <li><strong>Answer</strong> - Answer module is triggered when <strong>T<sub>t</sub> = 1</strong>.
-    <ul>
-      <li>For CNN and DailyMail, a linear projection of GRU outputs is used to predict the answer from candidate entities.</li>
-      <li>For SQuAD, the position of the first and the last word from the answer span are predicted.</li>
-      <li>For Graph Reachability, a logistic regression module is used to predict yes/no as the answer.</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Reinforcement Learning</strong> - For the RL setting, reward at time <strong>t</strong>, <strong>r<sub>t</sub></strong> = 1 if <strong>T<sub>t</sub></strong> = 1 and answer is correct. Otherwise <strong>r<sub>t</sub> = 0</strong></p>
-  </li>
-  <li>
-    <p><strong>Workflow</strong> - Given a passage p, query q and answer a:</p>
+    <p>Approach:</p>
 
     <ul>
       <li>
-        <p>Extract memory using p</p>
+        <p>Recommendation is modeled as extreme multiclass classification.</p>
       </li>
       <li>
-        <p>Extract initial hidden state using q</p>
+        <p>Predict the video (from a corpus) that a user will watch at a given time.</p>
       </li>
       <li>
-        <p>ReasoNet executes all possible episodes that can be enumerated by setting an upper limit on the number of passes.</p>
+        <p>The neural network’s task is to learn useful user embeddings, given the user’s context and history.</p>
       </li>
       <li>
-        <p>These episodes generate actions and answers that are used to train the ReasoNet.</p>
+        <p>For each positive class (relevant video), negative classes (non-relevant videos) are sampled from the video corpus.</p>
       </li>
     </ul>
   </li>
   <li>
-    <p><strong>Result</strong></p>
+    <p>Model Architecture</p>
 
     <ul>
       <li>
-        <p>CNN, DailyMail Corpus</p>
-
-        <ul>
-          <li>ReasoNet outperforms all the baselines which use fixed number of reasoning steps and could benefit by capturing the word alignment signals between query and passage.</li>
-        </ul>
+        <p>A feedforward network with input as user embeddings and context embeddings (watch history).</p>
       </li>
       <li>
-        <p>SQuAD</p>
-
-        <ul>
-          <li>At the time of submission, ReasoNet was ranked 2nd on the <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD leaderboard</a> and as of 9th July 2017, it is ranked 4th.</li>
-        </ul>
+        <p>Watch history is a variable-length sequence of video ids, where each video id is mapped to an embedding.</p>
       </li>
       <li>
-        <p>Graph Reachability Dataset</p>
-
-        <ul>
-          <li>
-            <p>ReasoNet - Standard ReasoNet as described above.</p>
-          </li>
-          <li>
-            <p>ReasoNet-Last - Use the prediction from the <strong>T<sub>max</sub></strong></p>
-          </li>
-          <li>
-            <p>ReasoNet &gt; ReasoNet-Last &gt; Deep LSTM Reader</p>
-          </li>
-          <li>
-            <p>ReasoNet converges faster than ReasoNet-Last indicating that the terminate gate is useful.</p>
-          </li>
-        </ul>
+        <p>The sequence of video ids is mapped to a sequence of embeddings, and this sequence is averaged to obtain fixed-sized embedding.</p>
+      </li>
+      <li>
+        <p>Additional signals like demographic features and search query embeddings can be added along with the context embeddings.</p>
+      </li>
+      <li>
+        <p>The age of a video is also used as a feature during training to account for the freshness of the content. This feature is set to zero (or slightly negative) during inference.</p>
       </li>
     </ul>
   </li>
   <li>
-    <p><strong>Notes</strong></p>
+    <p>Other Insights</p>
 
     <ul>
-      <li>As such there is nothing discouraging the ReasoNet to make unnecessary passes over the passage.</li>
-      <li>In fact, the modal value of the number of passes = upper bound on the number of passes.</li>
-      <li>This effect is more prominent for large graph indicating that the ReasoNet may try to play safe by performing extra passes.</li>
-      <li>It would be interesting to see if the network can be discouraged from making unnecessary passed by awarding a small negative reward for each pass.</li>
+      <li>
+        <p>Training examples are generated from all YouTube watches, including the watches from the videos embedded on other sites, to surface new content.</p>
+      </li>
+      <li>
+        <p>Generating the same number of training examples per user is important to avoid a small set of active users from dominating the model training.</p>
+      </li>
+      <li>
+        <p>Predicting a user’s next watch leads to better results than predicting a randomly held-out watch. This can be attributed to the general consumption pattern of videos (e.g., episodes are usually watched in order).</p>
+      </li>
     </ul>
+  </li>
+</ul>
+
+<h3 id="ranking">Ranking</h3>
+
+<ul>
+  <li>
+    <p>Input: list of candidate videos to rank from.</p>
+  </li>
+  <li>
+    <p>Output: score for each video.</p>
+  </li>
+  <li>
+    <p>Approach</p>
+
+    <ul>
+      <li>A feedforward network (similar to candidate generation model) trained using logistic regression loss.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Feature representation</p>
+
+    <ul>
+      <li>
+        <p>Different types of features: categorical vs. continuous, univalent vs. multivalent, describes video vs. describes user or context.</p>
+      </li>
+      <li>
+        <p>Important signals include user’s interaction with the video (or similar videos), which source/channel added the video to the candidate set.</p>
+      </li>
+      <li>
+        <p>Embeddings are shared across features. For example, the representation for a video id remains the same, irrespective of whether it is being used for representing the “video to recommend” or the “last seen video.”</p>
+      </li>
+      <li>
+        <p>Feature normalization and transformations like exponents (square or square root) for continuous variables improve the performance.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>To model the expected watch time, the logistic regression loss is weighted by the observed watch time. For example, if a video was watched, its weight is given by the observed watch time, and if the video was not watched, its weight is set to 1.</p>
+  </li>
+  <li>
+    <p>In practice, this means that the logistic regression model learns odds that approximate the expected watch time of the video.</p>
   </li>
 </ul>
 
@@ -317,15 +339,6 @@ MathJax.Hub.Config({
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
-            Deep Neural Networks for YouTube Recommendations
-            <small>22 Mar 2021</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -341,6 +354,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook">
             Practical Lessons from Predicting Clicks on Ads at Facebook
             <small>08 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Ad-Click-Prediction-a-View-from-the-Trenches">
+            Ad Click Prediction - a View from the Trenches
+            <small>01 Mar 2021</small>
           </a>
         </h3>
       </li>
@@ -361,8 +383,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/ReasoNet-Learning-to-Stop-Reading-in-Machine-Comprehension"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Deep-Neural-Networks-for-YouTube-Recommendations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE
