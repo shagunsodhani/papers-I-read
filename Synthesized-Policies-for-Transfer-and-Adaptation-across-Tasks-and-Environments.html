@@ -241,14 +241,7 @@ MathJax.Hub.Config({
 
 <ul>
   <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Given an (environment, task) pair $z = (\epsilon, \tau)$, the policy is given as $\pi_z(a</td>
-          <td>s) \propto exp(\psi_s^TU(e_{\epsilon}, e_{\tau})\phi_{a} + b_{\pi} )) $.</td>
-        </tr>
-      </tbody>
-    </table>
+    <p>Given an (environment, task) pair $z = (\epsilon, \tau)$, the policy is given as $\pi_z(a|s) \propto exp(\psi_s^TU(e_{\epsilon}, e_{\tau})\phi_{a} + b_{\pi} )) $.</p>
   </li>
   <li>
     <p>Here $b_{\pi}$ is a scalar bias, $\psi_{s}$ and $\phi_{a}$ are state and action representations, $U$ is parameterized as the linear comination of $K$ basis matrices $\Theta_k$</p>
@@ -259,7 +252,9 @@ MathJax.Hub.Config({
   <li>
     <p>The basis matrices (denoted by $\Theta_k$) are shared across tasks while the coefficients ($\alpha_k$) are specific to the (environment, task) pair.</p>
   </li>
-  <li>During training, the agent also predicts rewards using the same set of basis but different coefficients.</li>
+  <li>
+    <p>During training, the agent also predicts rewards using the same set of basis but different coefficients.</p>
+  </li>
 </ul>
 
 <h3 id="disentangling-environment-and-task-embeddings">Disentangling environment and task embeddings</h3>

@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-11-13T22:09:53-05:00</updated>
+ <updated>2021-11-13T22:12:55-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -76,14 +76,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Given an (environment, task) pair $z = (\epsilon, \tau)$, the policy is given as $\pi_z(a&lt;/td&gt;
-          &lt;td&gt;s) \propto exp(\psi_s^TU(e_{\epsilon}, e_{\tau})\phi_{a} + b_{\pi} )) $.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;p&gt;Given an (environment, task) pair $z = (\epsilon, \tau)$, the policy is given as $\pi_z(a|s) \propto exp(\psi_s^TU(e_{\epsilon}, e_{\tau})\phi_{a} + b_{\pi} )) $.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Here $b_{\pi}$ is a scalar bias, $\psi_{s}$ and $\phi_{a}$ are state and action representations, $U$ is parameterized as the linear comination of $K$ basis matrices $\Theta_k$&lt;/p&gt;
@@ -94,7 +87,9 @@
   &lt;li&gt;
     &lt;p&gt;The basis matrices (denoted by $\Theta_k$) are shared across tasks while the coefficients ($\alpha_k$) are specific to the (environment, task) pair.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;During training, the agent also predicts rewards using the same set of basis but different coefficients.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During training, the agent also predicts rewards using the same set of basis but different coefficients.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;disentangling-environment-and-task-embeddings&quot;&gt;Disentangling environment and task embeddings&lt;/h3&gt;
