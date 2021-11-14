@@ -4,6 +4,7 @@ I am trying a new initiative - a-paper-a-week. This repository will hold all tho
 
 ## List of papers
 
+* [Synthesized Policies for Transfer and Adaptation across Tasks and Environments](https://shagunsodhani.com/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments)
 * [Deep Neural Networks for YouTube Recommendations](https://shagunsodhani.com/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations)
 * [The Tail at Scale](https://shagunsodhani.com/papers-I-read/The-Tail-at-Scale)
 * [Practical Lessons from Predicting Clicks on Ads at Facebook](https://shagunsodhani.com/papers-I-read/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook)
