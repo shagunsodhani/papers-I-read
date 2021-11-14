@@ -4,13 +4,218 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-08-02T09:24:14-04:00</updated>
+ <updated>2021-11-13T22:09:53-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Synthesized Policies for Transfer and Adaptation across Tasks and Environments</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments"/>
+   <updated>2021-03-29T00:00:00-04:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Synthesized Policies for Transfer and Adaptation across Tasks and Environments</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper studies transfer learning in RL, focusing on simultaneous transfer across both tasks and environments.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key idea is to learn task and environment embeddings and compose them using a meta-rule, and the proposed approach is called SYNPO (Synthesized Policies).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1904.03276&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Three settings considered:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;S1&lt;/em&gt;: Transfer to a new (environment, task) pair when the agent has been trained on the environment and the task before (but not simultaneously).&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;S2&lt;/em&gt;: Transfer to a new (environment, task) pair where either the environment or the task is not seen previously.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;S3&lt;/em&gt;: Transfer to a new (environment, task) pair where neither the environment nor the task is seen previously.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the second and third settings, the agent is allowed to collect some data in the new environment or task.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The (environment, task) combinations that the agent has seen during training are referred to as &lt;em&gt;seen&lt;/em&gt; combinations, while the remaining combinations are referred to as the &lt;em&gt;unseen&lt;/em&gt; combinations.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The key idea is to:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;learn embeddings of environments and tasks&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;use these embeddings to compose a policy (parameterized as the linear combination of the policy basis).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A disentanglement objective is used to decouple the task and environment embedding.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;policy-composition&quot;&gt;Policy Composition&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;table&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Given an (environment, task) pair $z = (\epsilon, \tau)$, the policy is given as $\pi_z(a&lt;/td&gt;
+          &lt;td&gt;s) \propto exp(\psi_s^TU(e_{\epsilon}, e_{\tau})\phi_{a} + b_{\pi} )) $.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here $b_{\pi}$ is a scalar bias, $\psi_{s}$ and $\phi_{a}$ are state and action representations, $U$ is parameterized as the linear comination of $K$ basis matrices $\Theta_k$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;$U(e_{\epsilon}, e_{\tau}) = \sum_{k=1}^{K}\alpha_k(e_{\epsilon}, e_{\tau})\Theta_k$.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The basis matrices (denoted by $\Theta_k$) are shared across tasks while the coefficients ($\alpha_k$) are specific to the (environment, task) pair.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;During training, the agent also predicts rewards using the same set of basis but different coefficients.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;disentangling-environment-and-task-embeddings&quot;&gt;Disentangling environment and task embeddings&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Given an (environment, task) pair, the agent is trained to decode the environment (and task) given the agent’s trajectory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The sequence of state-action pairs (in the trajectory) is mapped to a sequence of state-action representations, given by $\psi_s^T\Theta_k\phi_{a}$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiment-setup&quot;&gt;Experiment Setup&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The agent is trained (and evaluated) on imitation learning (mostly) and reinforcement learning setup.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;environments&quot;&gt;Environments&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GRIDWORLD&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Twenty $16 \times 16$ gird-aligned mazes that are similar in appearance but differ in topology.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The task is to collect colored blocks in a given order. In each task, the starting position of the agent and the position of the blocks is randomized.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Each environment has 20 tasks, leading to a total of 400 (environment, task) combinations.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1712.05474&quot;&gt;THOR&lt;/a&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;This is a 3D simulator where the agent is placed in indoor photo-realistic scenes.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The task is the search for objects and perform actions like “put cabbage on the fridge.”&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The setup uses 19 scenes (environments), with each environment comprising of 21 tasks.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;baselines&quot;&gt;Baselines&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;MLPs that concatenate state, environment embeddings, and task embedding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1606.05312&quot;&gt;Successor feature model&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1609.07088&quot;&gt;Module Network&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Multi-task Learning where the distinction between the environments is ignored.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;GRIDWORLD&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;In the first setting (&lt;em&gt;S1&lt;/em&gt;)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;SYNPO outperforms all the baselines.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;As the agent is trained on more (environment, task) combinations, its performance on the unseen combinations improves. This trend saturates when the &lt;em&gt;seem/total&lt;/em&gt; ratio reaches about 0.4 (i.e., training on 40% of all the combinations).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Task disentanglement is more important than environment disentanglement.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;In the second and third setting (&lt;em&gt;S2&lt;/em&gt; and &lt;em&gt;S3&lt;/em&gt;)&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;The agent uses one demonstration from each test pair to finetune the embeddings.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;&lt;em&gt;S2&lt;/em&gt; is an easier setting than &lt;em&gt;S3&lt;/em&gt;.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Transfer learning across tasks is easier than transfer learning across environments.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;THOR&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;SYNPO outperforms all the baselines on both seen and unseen combinations.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Deep Neural Networks for YouTube Recommendations</title>
