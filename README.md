@@ -3,7 +3,7 @@
 I am trying a new initiative - a-paper-a-week. This repository will hold all those papers and related summaries and notes.
 
 ## List of papers
-
+* [Hints for Computer System Design](https://shagunsodhani.com/papers-I-read/Hints-for-Computer-System-Design)
 * [Synthesized Policies for Transfer and Adaptation across Tasks and Environments](https://shagunsodhani.com/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments)
 * [Deep Neural Networks for YouTube Recommendations](https://shagunsodhani.com/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations)
 * [The Tail at Scale](https://shagunsodhani.com/papers-I-read/The-Tail-at-Scale)
