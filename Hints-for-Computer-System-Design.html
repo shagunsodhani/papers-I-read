@@ -21,7 +21,7 @@ MathJax.Hub.Config({
 
   <title>
     
-      Principled Detection of Out-of-Distribution Examples in Neural Networks &middot; Papers I Read
+      Hints for Computer System Design &middot; Papers I Read
     
   </title>
 
@@ -179,144 +179,139 @@ MathJax.Hub.Config({
 
       <div class="container content">
         <div class="post">
-  <h1 class="post-title">Principled Detection of Out-of-Distribution Examples in Neural Networks</h1>
-  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Out+of+Distribution" title="Pages tagged Out of Distribution" rel="tag">Out of Distribution</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Softmax" title="Pages tagged Softmax" rel="tag">Softmax</a></p>
-  <span class="post-date">17 Jul 2017</span>
-  <h2 id="problem-statement">Problem Statement</h2>
-
-<ul>
+  <h1 class="post-title">Hints for Computer System Design</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#1983" title="Pages tagged 1983" rel="tag">1983</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Design+Pattern" title="Pages tagged Design Pattern" rel="tag">Design Pattern</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Operating+Systems" title="Pages tagged Operating Systems" rel="tag">Operating Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software+Engineering" title="Pages tagged Software Engineering" rel="tag">Software Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software" title="Pages tagged Software" rel="tag">Software</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">07 Jan 2022</span>
+  <ul>
   <li>
-    <p>Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).</p>
+    <p>The paper outlines some general hints for system design.</p>
   </li>
   <li>
-    <p>For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.</p>
+    <p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/acrobat-17.pdf">Link to the paper</a></p>
   </li>
   <li>
-    <p>Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.</p>
-  </li>
-  <li>
-    <p>The paper proposes <em>ODIN</em> which can detect such out-of-distribution examples without changing the pre-trained model itself.</p>
-  </li>
-  <li>
-    <p><a href="https://arxiv.org/abs/1706.02690">Link to the paper</a></p>
-  </li>
-</ul>
-
-<h2 id="odin">ODIN</h2>
-
-<ul>
-  <li>
-    <p>Uses 2 major techniques</p>
+    <p>Interface design</p>
 
     <ul>
-      <li><strong>Temperature Scaling</strong>
-        <ul>
-          <li>
-            <p>Softmax classifier for the classification network can be written as:</p>
-
-            <p><em>p<sub>i</sub>(x, T) = exp(f<sub>i</sub>(x)/T) / sum(exp(f<sub>j</sub>(x)/T))</em></p>
-          </li>
-        </ul>
-
-        <p>where <em>x</em> is the input, <em>p</em> is the softmax probability and <em>T</em> is the temperature scaling parameter.</p>
-
-        <ul>
-          <li>Increasing <em>T</em> (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.</li>
-        </ul>
+      <li>
+        <p>Three conflicting requirements: Interface should be simple, complete, and admit a sufficiently small and fast implementation.</p>
       </li>
-      <li><strong>Input Preprocessing</strong>
-        <ul>
-          <li>
-            <p>Add small perturbations to the input (image) before feeding it into the network.</p>
-          </li>
-          <li>
-            <p><em>x_perturbed = x - ε * sign(-δ<sub>x</sub>log(p<sub>y</sub>(x, T)))</em></p>
-          </li>
-        </ul>
-
-        <p>where ε is the perturbation magnitude</p>
+      <li>
+        <p>Difficulty: Each interface is a small programming language.</p>
+      </li>
+      <li>
+        <p>Hints</p>
 
         <ul>
-          <li>The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.</li>
+          <li>
+            <p>Do one thing at a time and do it well.</p>
+          </li>
+          <li>
+            <p>Interface should not promise more than the implementor knows to deliver.</p>
+          </li>
+          <li>
+            <p>Make the program fast, rather than making it general or powerful.</p>
+          </li>
+          <li>
+            <p>Abstraction should conceal undesirable properties.</p>
+          </li>
+          <li>
+            <p>Keep basic interfaces stable.</p>
+          </li>
         </ul>
       </li>
     </ul>
   </li>
-  <li>Given an input (image), first perturb the input.</li>
-  <li>Feed the perturbed input to the network to get its softmax score.</li>
-  <li>If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.</li>
-  <li>Otherwise, mark the input as out-of-distribution.</li>
-  <li>For detailed mathematical treatment, refer section 6 and appendix in the <a href="https://arxiv.org/abs/1706.02690">paper</a></li>
+  <li>
+    <p>Making implementations work</p>
+
+    <ul>
+      <li>
+        <p>Plan to throw away the first implementation.</p>
+      </li>
+      <li>
+        <p>Divide and conquer - reduce a hard problem to many easy ones.</p>
+      </li>
+      <li>
+        <p>Use a good idea again, instead of generalizing it. Sometimes, using a specialized implementation of the idea may be better than using a general one.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Handling all the cases</p>
+
+    <ul>
+      <li>Handle normal and worst cases separately as their requirements can differ.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Speed</p>
+
+    <ul>
+      <li>
+        <p>Sometimes, it is better to split resources instead of sharing them.</p>
+      </li>
+      <li>
+        <p>Use static analysis.</p>
+      </li>
+      <li>
+        <p>Cache expensive computations.</p>
+      </li>
+      <li>
+        <p>Use “hints” to speed execution. A hint is like a cached value with two differences - the value may be wrong, and it may not be reachable by an associative lookup.</p>
+      </li>
+      <li>
+        <p>When in doubt, use brute force.</p>
+      </li>
+      <li>
+        <p>Whenever possible, compute in the background.</p>
+      </li>
+      <li>
+        <p>Use batch processing.</p>
+      </li>
+      <li>
+        <p>When allocating resources, the first priority should be to avoid overloading the system (and not optimizing it).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Fault tolerance</p>
+
+    <ul>
+      <li>
+        <p>Retrofitting fault tolerance to an existing design is very hard.</p>
+      </li>
+      <li>
+        <p>Log updates to record the state of an object.</p>
+      </li>
+      <li>
+        <p>Each log entry should consist of the name of the update procedure and its arguments.</p>
+      </li>
+      <li>
+        <p>The procedure must be a stateless function, and the argument must be valued and not references to mutable objects.</p>
+      </li>
+      <li>
+        <p>Make actions atomic or restartable</p>
+
+        <ul>
+          <li>
+            <p>Atomic actions are either complete or have no effect. If an atomic action fails, there is no need to deal with the intermediate state/effect of the action.</p>
+          </li>
+          <li>
+            <p>A restartable action can be partially executed many times before a complete execution.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="experiments">Experiments</h2>
-
-<ul>
-  <li>
-    <p>Code available on <a href="https://github.com/ShiyuLiang/odin-pytorch">github</a></p>
-  </li>
-  <li>
-    <p>Models</p>
-
-    <ul>
-      <li>DenseNet with depth L = 100 and growth rate k = 12</li>
-      <li>Wide ResNet with depth = 28 and widen factor = 10</li>
-    </ul>
-  </li>
-  <li>
-    <p>In-Distribution Datasets</p>
-
-    <ul>
-      <li>CIFAR-10</li>
-      <li>CIFAR-100</li>
-    </ul>
-  </li>
-  <li>
-    <p>Out-of-Distribution Datasets</p>
-
-    <ul>
-      <li>TinyImageNet</li>
-      <li>LSUN</li>
-      <li>iSUN</li>
-      <li>Gaussian Noise</li>
-    </ul>
-  </li>
-  <li>
-    <p>Metrics</p>
-
-    <ul>
-      <li>False Positive Rate at 95% True Positive Rate</li>
-      <li>Detection Error - minimum misclassification probability over all thresholds</li>
-      <li>Area Under the Receiver Operating Characteristic Curve</li>
-      <li>Area Under the Precision-Recall Curve</li>
-    </ul>
-  </li>
-  <li>
-    <p>ODIN outperforms the baseline across all datasets and all models by a good margin.</p>
-  </li>
-</ul>
-
-<h2 id="notes">Notes</h2>
-
-<ul>
-  <li>Very simple and straightforward approach with theoretical justification under some conditions.</li>
-  <li>Limited to examples from Vision so can not judge its applicability for NLP tasks.</li>
-</ul>
 
 </div>
 
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="https://shagunsodhani.github.io/papers-I-read/Hints-for-Computer-System-Design">
-            Hints for Computer System Design
-            <small>07 Jan 2022</small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -332,6 +327,15 @@ MathJax.Hub.Config({
           <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
             Deep Neural Networks for YouTube Recommendations
             <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/The-Tail-at-Scale">
+            The Tail at Scale
+            <small>15 Mar 2021</small>
           </a>
         </h3>
       </li>
@@ -352,8 +356,8 @@ MathJax.Hub.Config({
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
 var disqus_config = function () {
-this.page.url = "https://shagunsodhani.github.io/papers-I-read/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "/Principled-Detection-of-Out-of-Distribution-Examples-in-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Hints-for-Computer-System-Design"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Hints-for-Computer-System-Design"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

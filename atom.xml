@@ -4,13 +4,145 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2021-11-13T22:12:55-05:00</updated>
+ <updated>2022-02-01T22:09:12-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
    <email>sshagunsodhani@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Hints for Computer System Design</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Hints-for-Computer-System-Design"/>
+   <updated>2022-01-07T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Hints for Computer System Design</id>
+   <content type="html">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper outlines some general hints for system design.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/acrobat-17.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Interface design&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Three conflicting requirements: Interface should be simple, complete, and admit a sufficiently small and fast implementation.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Difficulty: Each interface is a small programming language.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Hints&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Do one thing at a time and do it well.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Interface should not promise more than the implementor knows to deliver.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Make the program fast, rather than making it general or powerful.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Abstraction should conceal undesirable properties.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Keep basic interfaces stable.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Making implementations work&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Plan to throw away the first implementation.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Divide and conquer - reduce a hard problem to many easy ones.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use a good idea again, instead of generalizing it. Sometimes, using a specialized implementation of the idea may be better than using a general one.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Handling all the cases&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Handle normal and worst cases separately as their requirements can differ.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Speed&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Sometimes, it is better to split resources instead of sharing them.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use static analysis.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Cache expensive computations.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use “hints” to speed execution. A hint is like a cached value with two differences - the value may be wrong, and it may not be reachable by an associative lookup.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;When in doubt, use brute force.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Whenever possible, compute in the background.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Use batch processing.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;When allocating resources, the first priority should be to avoid overloading the system (and not optimizing it).&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fault tolerance&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Retrofitting fault tolerance to an existing design is very hard.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Log updates to record the state of an object.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Each log entry should consist of the name of the update procedure and its arguments.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The procedure must be a stateless function, and the argument must be valued and not references to mutable objects.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Make actions atomic or restartable&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Atomic actions are either complete or have no effect. If an atomic action fails, there is no need to deal with the intermediate state/effect of the action.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;A restartable action can be partially executed many times before a complete execution.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Synthesized Policies for Transfer and Adaptation across Tasks and Environments</title>
@@ -2907,7 +3039,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Given an MDP \(M\) and \(\epsilon&amp;gt;0\), the MDP robustness set is defined as the set of all MDPs \(M'\) where the optimal policy of \(M'\) produces the same trajectory distribution in \(M'\) as \(M\). Moreover, on the training MDP \(M\), the optimal policies (corresponding to \(M\) and \(M'\)) obtain similar returns.&lt;/p&gt;
+    &lt;p&gt;Given an MDP \(M\) and \(\epsilon&amp;gt;0\), the MDP robustness set is defined as the set of all MDPs \(M&apos;\) where the optimal policy of \(M&apos;\) produces the same trajectory distribution in \(M&apos;\) as \(M\). Moreover, on the training MDP \(M\), the optimal policies (corresponding to \(M\) and \(M&apos;\)) obtain similar returns.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The paper shows that SMERL generalizes to MDPs belong to the robustness set.&lt;/p&gt;
@@ -6637,7 +6769,7 @@
         &lt;p&gt;If two states $s_{1}$ and $s_{2}$ have the same abstracted state, then their one-step model is preserved.&lt;/p&gt;
       &lt;/li&gt;
       &lt;li&gt;
-        &lt;p&gt;Consider any action \(a\) and any abstract state \(\widetilde{s}\), if \(\phi_{model}(s_{1} = \phi_{model}(s_{2})\) then \(R(s_1, a) = R(s_2, a)\) and \(\sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_1, s'}^{a} = \sum_{s' \in \phi_{model}^{-1}\widetilde(s)}P_{s_2, s'}^{a}\).&lt;/p&gt;
+        &lt;p&gt;Consider any action \(a\) and any abstract state \(\widetilde{s}\), if \(\phi_{model}(s_{1} = \phi_{model}(s_{2})\) then \(R(s_1, a) = R(s_2, a)\) and \(\sum_{s&apos; \in \phi_{model}^{-1}\widetilde(s)}P_{s_1, s&apos;}^{a} = \sum_{s&apos; \in \phi_{model}^{-1}\widetilde(s)}P_{s_2, s&apos;}^{a}\).&lt;/p&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
