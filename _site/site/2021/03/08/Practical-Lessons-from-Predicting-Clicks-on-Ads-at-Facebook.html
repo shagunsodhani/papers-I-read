@@ -1,0 +1,180 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes several design choices for developing a model for predicting user response (clicks) on ads.</p>
+  </li>
+  <li>
+    <p><a href="https://research.fb.com/publications/practical-lessons-from-predicting-clicks-on-ads-at-facebook/">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="experimental-setup">Experimental Setup</h2>
+
+<ul>
+  <li>
+    <p>The model is trained/evaluated on offline data.</p>
+  </li>
+  <li>
+    <p>Evaluation metrics:</p>
+
+    <ul>
+      <li>
+        <p>Normalized Cross-Entropy (or Normalized Entropy, NE)</p>
+
+        <ul>
+          <li>
+            <p>Defined as the predictive log-loss per impression, divided by the entropy of the background CTR (click-through rate).</p>
+          </li>
+          <li>
+            <p>Background CTR is the average empirical CTR of the training data.</p>
+          </li>
+          <li>
+            <p>Lower normalized cross-entropy is better.</p>
+          </li>
+          <li>
+            <p>The normalization term is important to make the metric insensitive to the background CTR. Otherwise, the log loss can easily be made low when background CTR is close to 0 or 1.</p>
+          </li>
+          <li>
+            <p>NE can also be written as $RIG - 1$, where $RIG$ is the Relative Information Gain.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Calibration</p>
+
+        <ul>
+          <li>Ratio of average estimated CTR and empirical CTR.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Area-Under-ROC (AUC) is a good metric for measuring ranking quality (among ads). However, it is <strong>not used</strong> as a metric to avoid over-delivery or under-delivery of ads.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="implementation-details">Implementation Details</h2>
+
+<ul>
+  <li>
+    <p>Feature Transformation</p>
+
+    <ul>
+      <li>
+        <p>A given add impression, $e$, is transformed into a $n-$dimensional vector, $x$, where the $i^{th}$ index denotes the value of the $i^{th}$ categorical feature.</p>
+      </li>
+      <li>
+        <p>Continous features are binned, and the bin index is used as a categorical feature, thus applying a non-linear transformation to the features.</p>
+      </li>
+      <li>
+        <p>Categorical features that are tuple-like (i.e., have a tuple of values) can be converted into new categorical features by taking a cartesian product.</p>
+      </li>
+      <li>
+        <p>Boosted decision trees can be used to implement the previous two transformations in one go.</p>
+
+        <ul>
+          <li>
+            <p>Each tree is used as a categorical feature that takes the value of the index of the leaf node than an ad maps to.</p>
+          </li>
+          <li>
+            <p>The paper used the Gradient Boosting Machine with the $L_2-$TreeBoost algorithm.</p>
+          </li>
+          <li>
+            <p>Using the tree feature transformation improves the Normalized Cross-Entropy by $3.4\%$.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Model</p>
+
+    <ul>
+      <li>
+        <p>Logistic Regression (LR) or Bayesian online learning scheme for probit regression (BOPR) algorithms are used for training a linear classifier model.</p>
+      </li>
+      <li>
+        <p>While both LR and BOPR models provide similar performance, the LR model is half the BOPR model’s size and faster for performing training/inference.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="role-of-data-freshness">Role of Data Freshness</h2>
+
+<ul>
+  <li>
+    <p>When a model is trained on the data from a particular day and evaluated on data from the subsequent days, the model’s performance degrades as the delay between training and test set increases.</p>
+  </li>
+  <li>
+    <p>This highlights the importance of the freshness of the training data.</p>
+  </li>
+  <li>
+    <p>One straightforward approach can be to train the model every day.</p>
+  </li>
+  <li>
+    <p>Alternatively, the linear classifier can be trained using online learning, while the boosted decision tree can still be trained daily.</p>
+  </li>
+  <li>
+    <p>Different choices for setting the learning rate (for online training of linear classifier) are compared, and the <a href="https://research.google/pubs/pub41159/">per-coordinate learning rate</a> is found to perform best in practice.</p>
+  </li>
+</ul>
+
+<h2 id="generating-real-time-training-data">Generating Real-Time Training Data</h2>
+
+<ul>
+  <li>
+    <p>An “online joiner” system is used to generate real-time training data for the linear classifier.</p>
+  </li>
+  <li>
+    <p>The challenging part is, while there are data points with a “positive” label (i.e., the user clicked on the ad), there are no datapoints with a “negative” label (since there is no “no-click” button that the user can click).</p>
+  </li>
+  <li>
+    <p>An impression is considered to have the “no-click” label if the user does not click on the ad within a (long) time window of seeing the ad.</p>
+  </li>
+  <li>
+    <p>Too short a time window could mislabel some impressions, while too long a time window will delay the real-time training data.</p>
+  </li>
+  <li>
+    <p>The online joiner performs a distributed stream-to-stream join on the stream of ad impressions and stream of ad clicks using a HashQueue.</p>
+  </li>
+  <li>
+    <p>A HashQueue:</p>
+
+    <ul>
+      <li>
+        <p>comprises of a First-In-First-Out queue as a buffer window and a hash map for fast random access to label impressions.</p>
+      </li>
+      <li>
+        <p>supports three operations on key-value pairs: enqueue, dequeue, and lookup.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="memory-and-latency">Memory and Latency</h2>
+
+<ul>
+  <li>
+    <p>Increasing the number of boosting trees shows diminishing returns, and most of the improvements come from the first 500 trees.</p>
+  </li>
+  <li>
+    <p>Top 10 features account for half of the total feature importance, while the last 300 features add less than 1% feature importance.</p>
+  </li>
+  <li>
+    <p>Features in the boosting model can be broadly classified as contextual or historical.</p>
+  </li>
+  <li>
+    <p>Historical feature provides much more explanatory power than the contextual features through contextual features are helpful to handle the cold start problem.</p>
+  </li>
+  <li>
+    <p>Models trained with just the contextual features rely more heavily on data freshness than models trained with just the historical features.</p>
+  </li>
+  <li>
+    <p>Uniform subsampling and negative downsampling techniques are used to limit the amount of training data.</p>
+  </li>
+  <li>
+    <p>In the case of negative downsampling, the model needs to be re-calibrated as well.</p>
+  </li>
+</ul>

@@ -1,0 +1,57 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes a general purpose neural embedding model where different type of entities (described in terms of discrete features) are embedded in a common vector space.</p>
+  </li>
+  <li>
+    <p>A similarity function is learnt to compare these entities in a meaningful way and score their similarity. The definition of the similarity function could depend on the downstream task where the embeddings are used.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1709.03856">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/facebookresearch/StarSpace">Link to the implementation</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>Each entity is described as a set of discrete features. For example, for the recommendation use case, the users may be described as a bag-of-words of movies they have liked. For the search use case, the document may be described as a bag-of-words of words they are made up of.</p>
+  </li>
+  <li>
+    <p>Given a dataset and a task at hand, generate a set of positive samples <em>E = (a, b)</em> such that <em>a</em> is the input to the task (from the dataset) and <em>b</em> is the expected label(answer/entity) for the given task.</p>
+  </li>
+  <li>
+    <p>Similarly, generate another set of negative samples <em>E <sup>-</sup> = (a, b<sub>i</sub><sup>-</sup>)</em> such that <em>b<sub>i</sub><sup>-</sup></em> is one of the incorrect label(answer/entity) for the given task. The incorrect entity can be sampled randomly from the set of candidate entities. Multiple incorrect samples could be generated for each positive example. These incorrect samples are indexed using <em>i</em>.</p>
+  </li>
+  <li>
+    <p>For example, in case of supervised learning problem like document classification, <em>a</em> would be one of the documents (probably described in terms of words), <em>b</em> is the correct label and <em>b<sub>i</sub><sup>-</sup>)</em> is one of the randomly sampled label from set of all the labels (excluding the correct label).</p>
+  </li>
+  <li>
+    <p>In case of collaborative filtering, <em>a</em> would be the user (either described as a discrete entity like a userid or in terms of items purchased so far), <em>b</em> is the next item the user purchases and <em>b<sub>i</sub><sup>-</sup>)</em> is one of the randomly sampled item from the set of all the items.</p>
+  </li>
+  <li>
+    <p>A similarity function is chosen to compare the representation of entities of type <em>a</em> and <em>b</em>. The paper considered cosine similarity and inner product and observed that cosine similarity works better for the case with a large number of entities.</p>
+  </li>
+  <li>
+    <p>A loss function compares the similarity between positive pairs <em>(a, b)</em> and <em>(a, b<sub>i</sub><sup>-</sup>)</em>. The paper considered margin ranking loss and negative log loss of softmax and reported that margin ranking loss works better.</p>
+  </li>
+  <li>
+    <p>The norm of embeddings is capped at 1.</p>
+  </li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>The same model architecture is applied to a variety of tasks including multi-class classification, multi-label classification, collaborative filtering, content-based recommendation, link prediction, information retrieval, word embeddings and sentence embeddings.</p>
+  </li>
+  <li>
+    <p>The model provides a strong baseline on all the tasks and performs at par with much more complicated and task-specific networks.</p>
+  </li>
+</ul>
+

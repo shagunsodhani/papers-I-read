@@ -1,0 +1,107 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes a simple and robust approach for hierarchically training an agent in the sparse reward setup.</p>
+  </li>
+  <li>
+    <p>The broad idea is to train low-level primitives that are sufficiently diverse (so that they can be composed for solving higher level tasks) and to train a high level primitive that learns to combine these primitives for any given downstream task.</p>
+  </li>
+  <li>
+    <p><a href="https://openreview.net/forum?id=SJz1x20cFQ">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>The state can be divided into two components: proprioceptive states s<sup>p</sup> (measurement of agent’s own body that can be directly controlled by the agent) and the external states s<sup>e</sup>/</li>
+</ul>
+
+<h3 id="low-level-policy-training">Low-Level Policy Training</h3>
+
+<ul>
+  <li>
+    <p>Low-level policies should be:</p>
+
+    <ul>
+      <li>Diverse: should cover all the skills that the agent might have to perform.</li>
+      <li>Effective: can make significant changes to the environment.</li>
+      <li>Controllable: easy for high-level policies to use and control</li>
+    </ul>
+  </li>
+  <li>
+    <p>For the low-level policy, the per-time step reward is directly proportional to change in the external state. The same reward is used for all the agents and environments(except regulated with environment specific controls and survival rewards).</p>
+  </li>
+</ul>
+
+<h3 id="phase-conditioned-policies">Phase conditioned policies</h3>
+
+<ul>
+  <li>
+    <p>Good movement policies are expected to be at least roughly periodic and phase input (or time index) is used to achieve periodicity.</p>
+  </li>
+  <li>
+    <p>Phase conditioned policy (=f(s<sup>p</sup>, φ)) where φ = {0, 1, …, k-1} is the phase index.</p>
+  </li>
+  <li>
+    <p>At each timestep <em>t</em>, the model receives observation s<sup>p</sup> and phase index φ = t%k. The phase index is represented by a vector b<sub>φ</sub>.</p>
+  </li>
+  <li>
+    <p>For phase conditioned policies, the agent state and actions are encouraged to be cyclic with the help of a cyclic loss.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Environments: Ant and Humanoid from Mujoco.</p>
+  </li>
+  <li>
+    <p>Low-level control:</p>
+
+    <ul>
+      <li>Using phase-conditioning is helpful when training low-level primitives.</li>
+    </ul>
+  </li>
+  <li>
+    <p>High-level control:</p>
+
+    <ul>
+      <li>
+        <p>Cross Maze Environment with fixed goals</p>
+
+        <ul>
+          <li>
+            <p>3 goals along 3 paths</p>
+          </li>
+          <li>
+            <p>Proposed method converges faster and to a smaller final distance to the goal showing that it is both efficient and consistent (with smaller variance across random seeds).</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Random Goal Maze</p>
+
+        <ul>
+          <li>
+            <p>The goal is randomly drawn from a set of goals.</p>
+          </li>
+          <li>
+            <p>“Cross” (shaped) maze and “skull” (shaped) mazes are considered.</p>
+          </li>
+          <li>
+            <p>Even with velocity rewards and pretraining on low-level objectives (which can be thought of as exploration bonuses), the baseline fails to get close to the goal locations while the proposed model reach the goal most of the times.</p>
+          </li>
+          <li>
+            <p>The main results are reported using PPO though repeating the experiments with A2C and DQN show that the idea is fairly robust.</p>
+          </li>
+          <li>
+            <p>The paper reported that in their experiments, finetuning the lower level primitives did not help much though it might not be the case of other environments.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

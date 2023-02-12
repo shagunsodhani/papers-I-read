@@ -1,0 +1,127 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes the architecture of an erstwhile single-sign-on (SSO) service used by Google, called Google Accounts (2006).</p>
+  </li>
+  <li>
+    <p>Note that some of the metrics and design decisions may be outdated now (the paper was written in 2006). However, the core message is still relevant.</p>
+  </li>
+  <li>
+    <p><a href="https://www.usenix.org/legacy/event/worlds06/tech/prelim_papers/perl/perl.pdf">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="operational-constraints">Operational Constraints</h2>
+
+<ul>
+  <li>
+    <p>SSO’s availability affects the availability of all applications that require user sign-in.</p>
+  </li>
+  <li>
+    <p>Generally, systems can achieve high availability by sacrificing consistency, but given the nature of SSO (matching username/passwords), providing an inconsistent view is not a good option, and single-copy consistency is a usability requirement.</p>
+  </li>
+</ul>
+
+<h2 id="berkeley-db">Berkeley DB</h2>
+
+<ul>
+  <li>
+    <p>Berkeley DB is an embedded, high-performance, scalable, transactional storage system for key-value data and provides both keyed and sequential lookup.</p>
+  </li>
+  <li>
+    <p>It provides a primary copy replication model with a single writer (called master) and multiple read-only replicas.</p>
+  </li>
+  <li>
+    <p>All writes are sent to the master, which first applies the changes and then propagates them to the replicas.</p>
+  </li>
+  <li>
+    <p>The master and the replicas have identical logs, and in case of master failure, a new master is elected from the replicas.</p>
+  </li>
+  <li>
+    <p>Some synchronization may be needed between the replicas in case, e.g., the master dies in between a transaction.</p>
+  </li>
+</ul>
+
+<h2 id="sso-architecture">SSO Architecture</h2>
+
+<ul>
+  <li>
+    <p>SSO service maps usernames to user account data and services to service-specific data.</p>
+  </li>
+  <li>
+    <p>The SSO database is partitioned into shards, where each shard is a replicated Berkeley DB (having 5 to 15 replicas).</p>
+  </li>
+  <li>
+    <p>Each replica stores the data in a B+-link tree data structure.</p>
+  </li>
+  <li>
+    <p>Consistent reads must go to the master, while non-master replicas can serve “ stale” reads.</p>
+  </li>
+  <li>
+    <p>In the case of larger replication groups (say 15 replicas), only a subset of replicas can become master (“electable replicas”).</p>
+  </li>
+  <li>
+    <p>In general, replicas are spread geographically to handle machine-failure, network-failure, and data center-failure.</p>
+  </li>
+  <li>
+    <p>Replicas in a share are kept close to reduce the communication latency, which affects the time to commit a write operation or electing a new master.</p>
+  </li>
+  <li>
+    <p>Some of the shards implement ID-map, i.e., map of username to userid and userid to shards.</p>
+  </li>
+</ul>
+
+<h2 id="database-integration">Database Integration</h2>
+
+<ul>
+  <li>Berkeley DB leaves decisions regarding quorums, leases, etc., up to the application.</li>
+</ul>
+
+<h3 id="quorums">Quorums</h3>
+
+<ul>
+  <li>
+    <p>SSO chooses a quorum protocol that guarantees that updates are never lost.</p>
+  </li>
+  <li>
+    <p>For the write queries, the master waits for a positive acknowledgment from a majority of the replicas, including itself, before marking the query as completed.</p>
+  </li>
+  <li>
+    <p>When selecting a new leader, SSO requires a majority of replicas to agree. Moreover, Berkeley DB elections always choose a replica with the latest log entry during an election, thus guaranteeing that the new master’s log will include all the previous master’s updates.</p>
+  </li>
+</ul>
+
+<h3 id="leases">Leases</h3>
+
+<ul>
+  <li>
+    <p>The master holds a <em>master lease</em> when responding to read queries and refreshes this lease periodically by communicating with a majority of replicas.</p>
+  </li>
+  <li>
+    <p>The lease guarantees that the master is not returning stale data if a partition or failure causes the master to lose its mastership, i.e., holding the lease guarantees that the master is still the master.</p>
+  </li>
+  <li>
+    <p>Moreover, elections can not be completed within the lease timeout interval.</p>
+  </li>
+</ul>
+
+<h3 id="replica-group-membership">Replica Group Membership</h3>
+
+<ul>
+  <li>
+    <p>SSO maintains a replica configuration containing the logical (DNS) name and IP address of each replica.</p>
+  </li>
+  <li>
+    <p>In case of any changes to the configuration, the changes are specified in a file that the master reads periodically.</p>
+  </li>
+  <li>
+    <p>If the configuration changes, the master initiates a configuration change and update the database.</p>
+  </li>
+  <li>
+    <p>Non-master replicas can get the new configuration from the database.</p>
+  </li>
+  <li>
+    <p>A new replica or a replica that lost state (say due to a failure) starts as a non-voting replica and can not participate in an election till it has caught up with the master as of the time the replica joined (again).</p>
+  </li>
+</ul>

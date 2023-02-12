@@ -1,0 +1,182 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper studies the effect of catastrophic forgetting on representations in neural networks.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2007.07400">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Techniques:</p>
+
+    <ul>
+      <li>
+        <p>Representational Similarity Measures</p>
+      </li>
+      <li>
+        <p>Layer Freezing</p>
+      </li>
+      <li>
+        <p>Layer Reset</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>
+        <p>Split CIFAR-10</p>
+
+        <ul>
+          <li>
+            <p>CIFAR-10 dataset is split into <em>m</em> (=2) tasks, where each task is a <em>n</em> way classification task.</p>
+          </li>
+          <li>
+            <p>The underlying network has a shared trunk with <em>m</em> heads, one head per task.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Split CIFAR-100 Distribution Shift</p>
+
+        <ul>
+          <li>Each task requires distinguishing between <em>n</em> CIFAR-100 <em>superclasses</em> with training/test data corresponding to a <em>subset</em> of constituent classes.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Network Architecture</p>
+
+    <ul>
+      <li>VGG, ResNet and DenseNet</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="questions">Questions</h2>
+
+<ul>
+  <li>
+    <p>Are all representations (throughout the network) equally responsible for forgetting?</p>
+
+    <ul>
+      <li>
+        <p><em>Higher</em> layer (layers closer to the output) are the primary source of catastrophic forgetting.</p>
+      </li>
+      <li>
+        <p><a href="https://arxiv.org/abs/1905.00414">Central Kernel Alignment (CKA)</a> technique is used to compare the similarity between the layer representations, before and after training on the second task.</p>
+      </li>
+      <li>
+        <p>Higher layer representations change significantly when training over two tasks while the lower layer representations remain stable.</p>
+      </li>
+      <li>
+        <p>When finetuning on the second task, freezing the lower layers has only a minor effect on the accuracy of the second task.</p>
+      </li>
+      <li>
+        <p>In <em>layer reset</em> experiments, after training on the second task, the weights of some of the layers are reset to their values after training on the first task.</p>
+
+        <ul>
+          <li>Resetting the weights of higher layers leads to significant improvement in the performance on the first task.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Do common approaches for countering catastrophic forgetting work by stabilizing the higher layers?</p>
+
+    <ul>
+      <li>
+        <p>Yes - both <a href="https://arxiv.org/abs/1612.00796">EWC</a> and replay-based approaches counter catastrophic forgetting work by stabilizing the higher layers.</p>
+      </li>
+      <li>
+        <p>This is demonstrated by showing that as the quadratic penalty for EWC (or fraction of data from replay buffer) increases (to reduce catastrophic forgetting), the representations for higher layers change less during the second task.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>When training over a sequence of tasks, are similar tasks more likely to be forgotten than different tasks?</p>
+
+    <ul>
+      <li>
+        <p>Setup I</p>
+
+        <ul>
+          <li>
+            <p>Training over a sequence of two binary classification tasks.</p>
+          </li>
+          <li>
+            <p>Task 1: Two related classes (say <code class="language-plaintext highlighter-rouge">ship</code> and <code class="language-plaintext highlighter-rouge">truck</code>)</p>
+          </li>
+          <li>
+            <p>Task 2: Two related classes, which may or may not be related to the classes for Task 1. For example, the classes could be</p>
+
+            <ul>
+              <li>
+                <p><code class="language-plaintext highlighter-rouge">cat</code> and <code class="language-plaintext highlighter-rouge">horse</code> (not related to classes of the first task)</p>
+              </li>
+              <li>
+                <p><code class="language-plaintext highlighter-rouge">plane</code> and <code class="language-plaintext highlighter-rouge">car</code> (related to the classes of the first task)</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>Training over semantically similar tasks (here <code class="language-plaintext highlighter-rouge">plane</code> and <code class="language-plaintext highlighter-rouge">car</code>) leads to less forgetting.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Setup II</p>
+
+        <ul>
+          <li>
+            <p>Training over a sequence of two classification tasks.</p>
+          </li>
+          <li>
+            <p>Task 1: Four classes where the classes can be grouped into two groups (say <code class="language-plaintext highlighter-rouge">deer</code>, <code class="language-plaintext highlighter-rouge">dog</code>, <code class="language-plaintext highlighter-rouge">ship</code> and <code class="language-plaintext highlighter-rouge">truck</code>)</p>
+          </li>
+          <li>
+            <p>Task 2: Two related classes, which may be related to group 1 or group 2. For example, the classes could be two animals or two objects.</p>
+          </li>
+          <li>
+            <p>After training on the second task, classes (from Task 1), which are in the different group as classes from Task 2, are forgotten less.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Conclusion</p>
+
+        <ul>
+          <li>
+            <p>Task representational similarity is a function of both underlying data and optimization procedure.</p>
+          </li>
+          <li>
+            <p>Forgetting is most severe for task representations of intermediate similarity.</p>
+          </li>
+          <li>
+            <p>Representational similarity is necessary but not a sufficient condition for forgetting.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>How does catastrophic forgetting change as the task similarity changes?</p>
+
+    <ul>
+      <li>
+        <p>If the model learns different representations for dissimilar tasks, increasing dissimilarity can help to avoid forgetting.</p>
+      </li>
+      <li>
+        <p>When training the two-task, two-class (per task) CIFAR-10 setup with an “others” class (classes not already used in the setup), the forgetting is reduced.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

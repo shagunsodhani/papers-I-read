@@ -1,0 +1,107 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Training models with large minibatches (using distributed synchronous SGD) can lead to optimization issues.</p>
+  </li>
+  <li>
+    <p>The paper presents techniques for training models with large batch size while matching the accuracy of small minibatch setups.</p>
+  </li>
+  <li>
+    <p>The paper focuses on the ImageNet dataset, but many of the proposed ideas are applicable broadly.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1706.02677">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="linear-scaling-rule">Linear Scaling Rule</h2>
+
+<ul>
+  <li>
+    <p>When the minibatch size increases by a factor of <em>k</em>, the learning rate should also be increased by a factor of <em>k</em> (while keeping all other hyperparameters like weight decay fixed).</p>
+  </li>
+  <li>
+    <p>Note that this is an empirical rule and is not expected to hold under all conditions.</p>
+  </li>
+  <li>
+    <p>One such condition is when the model is changing rapidly during the first few epochs. In this case, a warmup phase is introduced to stabilize the model.</p>
+  </li>
+  <li>
+    <p>The paper verifies that the scaling rule is applicable to batch sizes as large as 8K.</p>
+  </li>
+</ul>
+
+<h2 id="warmup">Warmup</h2>
+
+<ul>
+  <li>The learning rate should be gradually ramped up from a small value to a large value to allow convergence.</li>
+</ul>
+
+<h2 id="batch-normalization">Batch Normalization</h2>
+
+<ul>
+  <li>
+    <p>Batch normalization uses batch statistics to normalize the data. Hence, the loss corresponding to each data point (in the batch) is not independent. Thus, changing the batch size could change the underlying function being optimized.</p>
+  </li>
+  <li>
+    <p>In the distributed SGD setup, the per-GPU (or per-worker) batch size should be kept constant, and only one worker should compute the batch norm statistics.</p>
+  </li>
+</ul>
+
+<h2 id="pitfalls-when-using-distributed-sgd">Pitfalls when using distributed SGD</h2>
+
+<ul>
+  <li>
+    <p>When using weight decay, scaling the cross-entropy loss is not the same as scaling the learning rate.</p>
+  </li>
+  <li>
+    <p>When using momentum, changing the learning rate could require “momentum correction.”</p>
+  </li>
+  <li>
+    <p>Ensure that the per-worker loss is normalized by the size of the total minibatch and not just by the size of minibatch that each worker sees.</p>
+  </li>
+  <li>
+    <p>For each epoch, uses a single random shuffling of the training data (before dividing between the workers).</p>
+  </li>
+</ul>
+
+<h2 id="communication">Communication</h2>
+
+<ul>
+  <li>
+    <p>The paper describes various techniques to speed up the training pipeline by reducing the communication overhead between nodes. (Each node can have one or more GPUs).</p>
+  </li>
+  <li>
+    <p>First, a node sums the gradient from all the GPUs it has.</p>
+  </li>
+  <li>
+    <p>The gradients are shared and summed across all the nodes.</p>
+  </li>
+  <li>
+    <p>Each node broadcasts the resulting gradient to all the GPUs it has.</p>
+  </li>
+  <li>
+    <p>Gradient Aggregation is performed in parallel with the backpropagation operator. While aggregating the gradient for one layer, the system starts computing the gradient of the next layer.</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>Using these approaches, a Resnet50 model can be trained on the ImageNet dataset in an hour (using 256 workers).</p>
+  </li>
+  <li>
+    <p>When an appropriate warmup strategy is used, the training and the validation curves (for the large batch size setup) matches the corresponding curves for the small batch size setup.</p>
+  </li>
+  <li>
+    <p>The best performing warmup strategy is the one where training starts at a learning rate of 0.1 and linearly increases to 3.2 over five epochs.</p>
+  </li>
+  <li>
+    <p>The paper shows that the results are not specific to the Resnet50 model (experiments with Resnet101 model) or the use case (experiments with object detection and instance segmentation using Mask R-CNN).</p>
+  </li>
+  <li>
+    <p>Along with providing the empirical validation of the proposed ideas, the paper describes all the hyperparameters. It also includes the training and validation curves with the different configurations which enable others to replicate and build on this work.</p>
+  </li>
+</ul>

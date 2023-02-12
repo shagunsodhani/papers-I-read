@@ -1,0 +1,144 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents case studies from the experience of deploying an ad click-through rate (CTR) prediction model at Google.</p>
+  </li>
+  <li>
+    <p>The paper focuses on themes related to memory footprint, performance analysis, calibration, confidence in the predictions, and feature engineering.</p>
+  </li>
+  <li>
+    <p><a href="https://research.google/pubs/pub41159/">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="system-overview">System Overview</h2>
+
+<ul>
+  <li>
+    <p>Features (corresponding to a given ad) include search query and the metadata in the ad. The features are very sparse.</p>
+  </li>
+  <li>
+    <p>Single layer, regularized Logistic Regression model is trained with Online Gradient Descent (same as Stochastic Gradient Descent, but in the online setting).</p>
+  </li>
+  <li>
+    <p>From a memory perspective, it is important to minimize the size of the final model.</p>
+  </li>
+  <li>
+    <p>Adding just the L1 penalty is not sufficient to produce weights that are precisely equal to 0.</p>
+  </li>
+  <li>
+    <p><a href="http://proceedings.mlr.press/v15/mcmahan11b.html">“Follow The (Proximally) Regularized Leader” algorithm or FTRL-Proximal algorithm</a> is used to learn sparse models without losing on the accuracy.</p>
+  </li>
+  <li>
+    <p>Using per-coordinate learning rates improves the performance at the cost of memory as both the sum of gradients and the sum of the square of gradients are tracked for each feature.</p>
+
+    <ul>
+      <li>
+        <p>In practice, some of the cost can be alleviated by approximating that all the events containing a given feature have the same probability.</p>
+      </li>
+      <li>
+        <p>In such a case, the sum of the square of gradients can be approximated using the counts of positive and negative events alone.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Some memory overhead can be reduced based on the following observation: the vast majority of features are extremely rare. Hence, it is not necessary to track the statistics for such rare features.</p>
+
+    <ul>
+      <li>
+        <p>However, in an online setting, it is not known upfront as to which features will be sparse.</p>
+      </li>
+      <li>
+        <p>The paper proposes to use probabilistic feature inclusion - a feature is added to the model with probability $p$. Once it is added, the feature is not removed.</p>
+      </li>
+      <li>
+        <p>An alternative approach is to use a rolling set of counting Bloom filters to check if a feature has appeared at least $n$ times in training. Bloom filters are probabilistic data structures and can return false positives.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Memory can also be saved by using fewer bits for encoding weights.</p>
+
+    <ul>
+      <li>
+        <p>Most of the weight coefficients lie in the range $(-2, 2)$, and a $16-$ bit encoding is used in place of $32$ or $64$ bit encoding.</p>
+      </li>
+      <li>
+        <p>This quantization approach needs to account for roundoff problems. The fix is easy to implement.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>When training many models with similar hyperparameters, per-model learning rate counters can be replaced by statistics shared by all the models, thus reducing memory footprint.</p>
+  </li>
+  <li>
+    <p>A Single Value Structure is used to reduce the memory footprint when evaluating a very large set of model variants that differ only in addition/removal of a small subset of features.</p>
+
+    <ul>
+      <li>
+        <p>All the models, that use a feature, share a single value structure corresponding to the feature. This reduces the memory overhead by order of magnitude.</p>
+      </li>
+      <li>
+        <p>During the update, each model computes the weight updates corresponding to all the features that it is using. The updated weight is averaged across all the models and used to update the single value structure.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Since CTR datasets are generally highly imbalanced, the training data (for the negative class) can be subsampled to reduce the amount of data to train over. The loss component (corresponding to negative class) can be appropriately scaled up.</p>
+  </li>
+  <li>
+    <p>Metrics</p>
+
+    <ul>
+      <li>
+        <p>Offline metrics like AucLoss (1 - AUC), Log Loss, Squared Error</p>
+      </li>
+      <li>
+        <p>Online loss is computed on the new training data (new incoming traffic)	before training on it.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The confidence in the model’s prediction is estimated using a heuristic called <em>uncertainty score</em>. It can be measured using the dot product of the feature and the vector of learning rates.</p>
+
+    <ul>
+      <li>
+        <p>The idea is that the learning rates already maintain a notion of uncertainty.</p>
+      </li>
+      <li>
+        <p>Features for which the learning rate is high are the features for which uncertainty is also high.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Calibrating Predictions</p>
+
+    <ul>
+      <li>
+        <p>The calibration can be improved by applying correction functions $\tau_d(p)$ where $p$ is the predicted CTR, and $d$ is an element of a partition of the training data.</p>
+      </li>
+      <li>
+        <p>$\tau$ can be modeled as $\gamma^{\kappa}$ where $\gamma$ and $\kappa$ are learned using Poisson regression.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Unsuccessful Experiments</p>
+
+    <ul>
+      <li>
+        <p>Aggressive feature hashing was tried to reduce the memory overhead. However, it leads to a significant loss in performance.</p>
+      </li>
+      <li>
+        <p>Using dropout did not help, probably because the features are sparse.</p>
+      </li>
+      <li>
+        <p>Using feature bagging hurt the AucLoss.</p>
+      </li>
+      <li>
+        <p>Feature vector normalization did not improve performance, probably because of per-coordinate learning rates and regularization.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

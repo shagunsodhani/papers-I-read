@@ -1,0 +1,120 @@
+<h2 id="problem-statement">Problem Statement</h2>
+
+<ul>
+  <li>
+    <p>Given a pre-trained neural network, which is trained using data from some distribution P (referred to as in-distribution data), the task is to detect the examples coming from a distribution Q which is different from P (referred to as out-of-distribution data).</p>
+  </li>
+  <li>
+    <p>For example, if a digit recognizer neural network is trained using MNIST images, an out-of-distribution example would be images of animals.</p>
+  </li>
+  <li>
+    <p>Neural Networks can make high confidence predictions even in such cases where the input is unrecognisable or irrelevant.</p>
+  </li>
+  <li>
+    <p>The paper proposes <em>ODIN</em> which can detect such out-of-distribution examples without changing the pre-trained model itself.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1706.02690">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="odin">ODIN</h2>
+
+<ul>
+  <li>
+    <p>Uses 2 major techniques</p>
+
+    <ul>
+      <li><strong>Temperature Scaling</strong>
+        <ul>
+          <li>
+            <p>Softmax classifier for the classification network can be written as:</p>
+
+            <p><em>p<sub>i</sub>(x, T) = exp(f<sub>i</sub>(x)/T) / sum(exp(f<sub>j</sub>(x)/T))</em></p>
+          </li>
+        </ul>
+
+        <p>where <em>x</em> is the input, <em>p</em> is the softmax probability and <em>T</em> is the temperature scaling parameter.</p>
+
+        <ul>
+          <li>Increasing <em>T</em> (up to some extent) boosts the performance in distinguishing in-distribution and out-of-distribution examples.</li>
+        </ul>
+      </li>
+      <li><strong>Input Preprocessing</strong>
+        <ul>
+          <li>
+            <p>Add small perturbations to the input (image) before feeding it into the network.</p>
+          </li>
+          <li>
+            <p><em>x_perturbed = x - ε * sign(-δ<sub>x</sub>log(p<sub>y</sub>(x, T)))</em></p>
+          </li>
+        </ul>
+
+        <p>where ε is the perturbation magnitude</p>
+
+        <ul>
+          <li>The perturbations are such that softmax scores between in-distribution and out-of-distribution samples become separable.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Given an input (image), first perturb the input.</li>
+  <li>Feed the perturbed input to the network to get its softmax score.</li>
+  <li>If the softmax score is greater than some threshold, mark the input as in-distribution and feed in the unperturbed version of the input to the network for classification.</li>
+  <li>Otherwise, mark the input as out-of-distribution.</li>
+  <li>For detailed mathematical treatment, refer section 6 and appendix in the <a href="https://arxiv.org/abs/1706.02690">paper</a></li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Code available on <a href="https://github.com/ShiyuLiang/odin-pytorch">github</a></p>
+  </li>
+  <li>
+    <p>Models</p>
+
+    <ul>
+      <li>DenseNet with depth L = 100 and growth rate k = 12</li>
+      <li>Wide ResNet with depth = 28 and widen factor = 10</li>
+    </ul>
+  </li>
+  <li>
+    <p>In-Distribution Datasets</p>
+
+    <ul>
+      <li>CIFAR-10</li>
+      <li>CIFAR-100</li>
+    </ul>
+  </li>
+  <li>
+    <p>Out-of-Distribution Datasets</p>
+
+    <ul>
+      <li>TinyImageNet</li>
+      <li>LSUN</li>
+      <li>iSUN</li>
+      <li>Gaussian Noise</li>
+    </ul>
+  </li>
+  <li>
+    <p>Metrics</p>
+
+    <ul>
+      <li>False Positive Rate at 95% True Positive Rate</li>
+      <li>Detection Error - minimum misclassification probability over all thresholds</li>
+      <li>Area Under the Receiver Operating Characteristic Curve</li>
+      <li>Area Under the Precision-Recall Curve</li>
+    </ul>
+  </li>
+  <li>
+    <p>ODIN outperforms the baseline across all datasets and all models by a good margin.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+  <li>Very simple and straightforward approach with theoretical justification under some conditions.</li>
+  <li>Limited to examples from Vision so can not judge its applicability for NLP tasks.</li>
+</ul>

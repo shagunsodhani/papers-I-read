@@ -1,0 +1,72 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Empirical evidence indicates that at training time, the neural networks need to be of significantly larger size than necessary.</p>
+  </li>
+  <li>
+    <p>The paper purposes a hypothesis called the <em>lottery ticket hypothesis</em> to explain this behaviour.</p>
+  </li>
+  <li>
+    <p>The idea is the following - Successful training of a neural network depends on a <em>lucky</em> random initialization of a subcomponent of the network. Such components are referred to as <em>lottery tickets</em>.</p>
+  </li>
+  <li>
+    <p>Larger networks are more likely to have these <em>lottery tickets</em> and hence are easier to train.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1803.03635">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="methodology">Methodology</h2>
+
+<ul>
+  <li>
+    <p>Various aspects of the hypothesis are explored empirically.</p>
+  </li>
+  <li>
+    <p>Two tasks are considered - MNIST and XOR.</p>
+  </li>
+  <li>
+    <p>For each task, the paper considers networks of different sizes and empirically shows that larger networks are more likely to converge (or have better performance) for a fixed number of epochs as compared to the smaller networks.</p>
+  </li>
+  <li>
+    <p>Given a large, trained network, some weights (or units) of the network are pruned and the resulting network is reset to its initial random weights.</p>
+  </li>
+  <li>
+    <p>The resulting network is the <em>lottery-ticket</em> in the sense that when the pruned network is trained, it is more likely to converge than an otherwise randomly initialised network of the same size. Further, it is more likely to match the original, larger network in terms of performance.</p>
+  </li>
+  <li>
+    <p>The paper explores different aspects of this experiment:</p>
+
+    <ul>
+      <li>Pruning Strategies:
+        <ul>
+          <li>One-shot strategy prunes the network in one-go while the iterative strategy prunes the network iteratively.</li>
+          <li>Though the latter is computationally more intensive, it is more likely to find a lottery ticket.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Size of the pruned network affects the speed of convergence when training the <em>lottery ticket</em>.</p>
+      </li>
+      <li>
+        <p>If only the architecture or only the initial weights of the <em>lottery ticket</em> are used, the resulting network tends to converge more slowly and achieves a lower level of performance.</p>
+      </li>
+      <li>This indicates that the lottery ticket depends on both the network architecture and the weight initialization.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="discussion">Discussion</h2>
+
+<ul>
+  <li>
+    <p>The paper includes some more interesting experiments. For instance, the distribution of the initialization in the weights that survived the pruning suggests that small weights from before training tend to remain small after training.</p>
+  </li>
+  <li>
+    <p>One interesting experiment would be to show the performance of the pruned network before resetting its weights and retraining again. This performance should be compared with the performance of the initial large network and the performance of the <em>lottery ticket</em> after training.</p>
+  </li>
+  <li>
+    <p>Overall, the experiments are not sufficient to conclude anything about the correctness of the hypothesis. The proposition itself is very interesting and could enhance our understanding of how the neural networks work.</p>
+  </li>
+</ul>

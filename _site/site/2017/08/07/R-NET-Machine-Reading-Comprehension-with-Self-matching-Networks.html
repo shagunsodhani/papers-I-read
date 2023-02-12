@@ -1,0 +1,90 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>R-NET is an end-to-end trained neural network model for machine comprehension.</p>
+  </li>
+  <li>
+    <p>It starts by matching the question and the given passage (using gated attention based RNN) to obtain question-aware passage representation.</p>
+  </li>
+  <li>
+    <p>Next, it uses a self-matching attention mechanism to refine the passage representation by matching the passage against itself.</p>
+  </li>
+  <li>
+    <p>Lastly, it uses pointer networks to determine the position of the answer in the passage.</p>
+  </li>
+  <li>
+    <p><a href="https://www.microsoft.com/en-us/research/publication/mrc/">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>
+    <p>SQuAD</p>
+  </li>
+  <li>
+    <p>MS-MARCO</p>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p>Question / Passage Encoder</p>
+
+    <ul>
+      <li>Concatenate the word level and character level embeddings for each word and feed into a bidirectional GRU to obtain question and passage representation.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Gated Attention based RNN</p>
+
+    <ul>
+      <li>
+        <p>Given question and passage representation, sentence pair representation is generated via soft-alignment of the words in the question and in the passage.</p>
+      </li>
+      <li>
+        <p>The newly added gate captures the relation between the question and the current passage word as only some parts of the passage are relevant for answering the given question.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Self Matching Attention</p>
+
+    <ul>
+      <li>
+        <p>The passage representation obtained so far would not capture most of the context.</p>
+      </li>
+      <li>
+        <p>So the current representation is matched against itself so as to collect evidence from the entire passage and encode the evidence relevant to the current passage word and question.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Output Layer</p>
+
+    <ul>
+      <li>
+        <p>Use pointer network (initialized using attention pooling over answer representation) to predict the position of the answer.</p>
+      </li>
+      <li>
+        <p>Loss function is the sum of negative log probabilities of start and end positions.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>
+        <p>R-NET is ranked second on <a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD Leaderboard</a> as of 7th August, 2017 and achieves best-published results on MS-MARCO dataset.</p>
+      </li>
+      <li>
+        <p>Using ideas like sentence ranking, using syntax information performing multihop inference and augmenting question dataset (using seqToseq network) do not help in improving the performance.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

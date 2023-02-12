@@ -1,0 +1,64 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper introduces a novel architecture that generates an output sequence such that the elements of the output sequence are discrete tokens corresponding to positions in the input sequence.</p>
+  </li>
+  <li>
+    <p>Such a problem can not be solved using <a href="https://gist.github.com/shagunsodhani/a2915921d7d0ac5cfd0e379025acfb9f">Seq2Seq</a> or Neural Turing Machines as the size of the output softmax is variable (as it depends on the size of the input sequence).</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1506.03134">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p>Traditional attention-base sequence-to-sequence models compute an attention vector for each step of the output decoder and use that to blend the individual context vectors of the input into a single, consolidated attention vector. This attention vector is used to compute a fixed size softmax.</p>
+  </li>
+  <li>
+    <p>In Pointer Nets, the normalized attention vector (over all the tokens in the input sequence) is normalized and treated as the softmax output over the input tokens.</p>
+  </li>
+  <li>
+    <p>So Pointer Net is a very simple modification of the attention model.</p>
+  </li>
+</ul>
+
+<h2 id="application">Application</h2>
+
+<ul>
+  <li>
+    <p>Any problem where the size of the output depends on the size of the input because of which fixed length softmax is ruled out.</p>
+  </li>
+  <li>
+    <p>eg combinatorial problems such as planar convex hull where the size of the output would depend on the size of the input.</p>
+  </li>
+</ul>
+
+<h2 id="evaluation">Evaluation</h2>
+
+<ul>
+  <li>
+    <p>The paper considers the following 3 problems:</p>
+
+    <ul>
+      <li>Convex Hull</li>
+      <li>Delaunay triangulations</li>
+      <li>Travelling Salesman Problem (TSP)</li>
+    </ul>
+  </li>
+  <li>
+    <p>Since some of the problems are NP hard, the paper considers approximate solutions whereever the exact solutions are not feasible to compute.</p>
+  </li>
+  <li>
+    <p>The authors used the exact same architecture and model parameters of all the instances of the 3 problems to show the generality of the model.</p>
+  </li>
+  <li>
+    <p>The proosed Pointer Nets outperforms LSTMs and LSTMs with attention and can generalise quite well for much larger sequences.</p>
+  </li>
+  <li>
+    <p>Interestingly, the order in which the inputs are fed to the system affects its performance. The authors discussed this apsect in their subsequent paper titled <a href="https://arxiv.org/pdf/1511.06391v4.pdf">Order Matters: Sequence To Sequence for Sets</a></p>
+  </li>
+</ul>
