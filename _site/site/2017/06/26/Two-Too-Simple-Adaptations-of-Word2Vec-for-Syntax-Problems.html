@@ -1,9 +1,0 @@
-<ul>
-  <li>The paper proposes two variants of Word2Vec model so that it may account for syntactic properties of words and perform better on syntactic tasks like POS tagging and dependency parsing.</li>
-  <li><a href="http://www.cs.cmu.edu/~lingwang/papers/naacl2015.pdf">Link to the paper</a></li>
-  <li>In the original Skip-Gram setting, the model predicts the <em>2c</em> words in the context window (<em>c</em> is the size of the context window). But it uses the same set of parameters whether predicting the word next to the centre word or the word farthest away, thus losing all information about the word order.</li>
-  <li>Similarly, the CBOW (Continuous Bas Of Words) model just adds the embedding of all the surrounding words thereby losing the word order information.</li>
-  <li>The paper proposes to use a set of <em>2c</em> matrices each for a different word in the context window for both Skip-Gram and CBOW models.</li>
-  <li>This simple trick allows for accounting of syntactic properties in the word vectors and improves the performance of dependency parsing task and POS tagging.</li>
-  <li>The downside of using this is that now the model has far more parameters than before which increases the training time and needs a large enough corpus to avoid sparse representation.</li>
-</ul>

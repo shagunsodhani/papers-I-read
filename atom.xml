@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2023-02-12T13:51:43-05:00</updated>
+ <updated>2023-02-12T14:01:15-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -35,7 +35,7 @@
     &lt;p&gt;Starting with a language model, M, the goal is to enable the language model to use tools by invoking API calls.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;An API call is denoted by the tuple $c = (api_name, api_input)$. It can be linearized as $e(c) = [api_name(api_input)]$ or as $e(c, r) = [api_name(api_input) -&amp;gt; r]$ where $r$ denotes the result of the API.&lt;/p&gt;
+    &lt;p&gt;An API call is denoted by the tuple $c = (api-name, api-input)$. It can be linearized as $e(c) = [api-name(api-input)]$ or as $e(c, r) = [api-name(api-input) -&amp;gt; r]$ where $r$ denotes the result of the API.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The given dataset of plain text, $C$, is converted into a dataset $C*$ augmented with the API calls using a three-step process.&lt;/p&gt;
