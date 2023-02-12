@@ -4,7 +4,7 @@
  <title>Papers I Read</title>
  <link href="https://shagunsodhani.github.io/papers-I-read/atom.xml" rel="self"/>
  <link href="https://shagunsodhani.github.io/papers-I-read/"/>
- <updated>2022-02-01T22:09:12-05:00</updated>
+ <updated>2023-02-12T13:51:43-05:00</updated>
  <id>https://shagunsodhani.github.io/papers-I-read</id>
  <author>
    <name>Shagun Sodhani</name>
@@ -13,134 +13,230 @@
 
  
  <entry>
-   <title>Hints for Computer System Design</title>
-   <link href="https://shagunsodhani.github.io/papers-I-read/Hints-for-Computer-System-Design"/>
-   <updated>2022-01-07T00:00:00-05:00</updated>
-   <id>https://shagunsodhani.github.io/papers-I-read/Hints for Computer System Design</id>
-   <content type="html">&lt;ul&gt;
+   <title>Toolformer - Language Models Can Teach Themselves to Use Tools</title>
+   <link href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools"/>
+   <updated>2023-02-10T00:00:00-05:00</updated>
+   <id>https://shagunsodhani.github.io/papers-I-read/Toolformer - Language Models Can Teach Themselves to Use Tools</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The paper outlines some general hints for system design.&lt;/p&gt;
+    &lt;p&gt;The paper presents Toolformer, a language model that uses simple APIs to use external tools (calculator, QA system, search engine, translation system, and calendar).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/acrobat-17.pdf&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Interface design&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Three conflicting requirements: Interface should be simple, complete, and admit a sufficiently small and fast implementation.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Difficulty: Each interface is a small programming language.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Hints&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;Do one thing at a time and do it well.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;Interface should not promise more than the implementor knows to deliver.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;Make the program fast, rather than making it general or powerful.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;Abstraction should conceal undesirable properties.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;Keep basic interfaces stable.&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Making implementations work&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Plan to throw away the first implementation.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Divide and conquer - reduce a hard problem to many easy ones.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Use a good idea again, instead of generalizing it. Sometimes, using a specialized implementation of the idea may be better than using a general one.&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Handling all the cases&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;Handle normal and worst cases separately as their requirements can differ.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Speed&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Sometimes, it is better to split resources instead of sharing them.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Use static analysis.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Cache expensive computations.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Use “hints” to speed execution. A hint is like a cached value with two differences - the value may be wrong, and it may not be reachable by an associative lookup.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;When in doubt, use brute force.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Whenever possible, compute in the background.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Use batch processing.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;When allocating resources, the first priority should be to avoid overloading the system (and not optimizing it).&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Fault tolerance&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Retrofitting fault tolerance to an existing design is very hard.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Log updates to record the state of an object.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Each log entry should consist of the name of the update procedure and its arguments.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;The procedure must be a stateless function, and the argument must be valued and not references to mutable objects.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Make actions atomic or restartable&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;
-            &lt;p&gt;Atomic actions are either complete or have no effect. If an atomic action fails, there is no need to deal with the intermediate state/effect of the action.&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;A restartable action can be partially executed many times before a complete execution.&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2302.04761&quot;&gt;Link to the paper&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Starting with a language model, M, the goal is to enable the language model to use tools by invoking API calls.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An API call is denoted by the tuple $c = (api_name, api_input)$. It can be linearized as $e(c) = [api_name(api_input)]$ or as $e(c, r) = [api_name(api_input) -&amp;gt; r]$ where $r$ denotes the result of the API.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The given dataset of plain text, $C$, is converted into a dataset $C*$ augmented with the API calls using a three-step process.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the first step, a position ($i$) and API call candidates (for the position $i$) are sampled.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Positions are sampled by (i) computing the probability that M assigns to starting an API call for each position and (ii) retaining the top-$k$ positions with a probability greater than a threshold value.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;For each of the sampled positions (say $i$), API calls are sampled by concatenating a prompt to the tokens till index $i$ and sampling from the model M. Examples that do not generate the “end of the API” token (i.e.,”]”) are discarded.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the second step, the API calls are executed to obtain response $r$ (text sequence).&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;API calls are filtered using the following criteria: if providing M with both the input and the output of the API makes it easier for M to predict the future token, compared to not using the API call at all or just using the input to the API, then the API call is helpful for M, and the example should be retained.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the last step, the remaining API calls are merged to obtain the augmented dataset $C*$ that is used for finetuning M.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Note that $C*$ contains $C$, so M is finetuned on the original dataset and examples where a tool is helpful.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;During inference, the model is used for decoding in the usual way. Decoding is stopped when it produces the “-&amp;gt;” token, and the corresponding API is used to generate the response. The decoding process (using the model) resumes with the API output appended to the decoded text.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tools&quot;&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;There are two constraints on the tools: (i) their input and output should be expressible as text, and (ii) few demonstrations can be obtained from the tools. The second constraint means that the tool should be useable or accessible.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The paper considered the following tools: a question-answering system, a Wikipedia search engine, a calculator, a calendar, and a machine translation system. Of these, only the calculator and calendar are non-neural network tools.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;experiments&quot;&gt;Experiments&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Subset of CCNet is used as the language modeling dataset.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;GPT-J is used as the language model.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For finetuning, the batch size is 128, the learning rate is 1e-5, and a linear warmup for the first 10% of training is used.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Following models are compared:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;GPT-J: Regular GPT-J model without any finetuning.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;GPT-J + CC: GPT-J finetuned on $C$ without any API calls.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Toolformer, i.e. GPT-J finetuned on $C*$.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Toolformer with API calls disabled during training.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;OPT 66B&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;GPT-3&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The models are evaluated in the prompted zero-shot setup, where models are instructed to solve a task without any in-context examples.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One difference from the standard greedy decoding is that the API call is used whenever it is one of the top-10 most likely next tokens. This is done to increase the use of API calls.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Evaluation Tasks&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;SQuAD, GoogleRE, and T-REx subsets of the LAMA benchmark where the model has to complete a short statement with a missing fact.&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Since LAMA questions are based on Wikipedia, Toolformer isn’t allowed to use Wikipedia search.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The evaluation criteria is to check if the correct word is among the first five words predicted by the model.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Toolformer uses the question-answering tool for most cases, outperforming all the baselines.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Math Dataset&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;eSDiv, SVAMP, and MAWPS benchmarks.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The first number predicted by the model is considered to be the output.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Toolformer uses the calculator tool for most cases, thereby outperforming all the baselines.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Question Answering&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;Web Questions, Natural Questions, and TriviaQA datasets.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The evaluation criteria is to check if the correct word is among the first 20 words predicted by the model.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Question Answering tool is disabled for this setup.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Toolformer uses the Wikipedia tool for most cases, thereby outperforming all the baselines other than the much larger GPT-3 model.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Multilingual Question Answering&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;MLQA benchmark.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;The evaluation criteria is to check if the correct word is among the first ten words predicted by the model.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Toolformer uses the translation tool for most of the questions, with questions in Hindi being an exception.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;However, Toolformer does not consistently outperform the GPT-J baseline, likely because, for some languages, finetuning on CCNet could hurt performance.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Temporal Datasets&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;TEMPLAMA (cloze style queries where the answer changes with time) and DATESET (dataset generated through a series of templates and populated with random dates/durations).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;While Toolformer outperforms the baselines for both datasets, it relies on the Wikipedia search and Question Answering tools (and not the calendar tool) for the LAMA dataset. On the DATESET dataset, it uses the calendar tool in the majority.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Language Modeling&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;WikiText and a subset of 10,000 randomly selected documents from CCNet (not used during training of M).&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;Training on $C*$ does not increase perplexity (compared to training on C). In this experiment, the API calls are disabled during inference.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Varying the size of the underlying models show that the ability to use tools emerges only around 755M parameters.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;future-work&quot;&gt;Future Work&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Extending Toolformer to chain the use of tools and use tools interactively.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In some cases, the use of tools is very sample-inefficient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Decision to use a tool does not account for the cost of using the tool.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </content>
  </entry>
  
