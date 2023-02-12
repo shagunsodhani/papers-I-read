@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">GPipe - Easy Scaling with Micro-Batch Pipeline Parallelism</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Computing" title="Pages tagged Distributed Computing" rel="tag">Distributed Computing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Model+Parallelism" title="Pages tagged Model Parallelism" rel="tag">Model Parallelism</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS+2019" title="Pages tagged NeurIPS 2019" rel="tag">NeurIPS 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NeurIPS" title="Pages tagged NeurIPS" rel="tag">NeurIPS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">11 Jan 2021</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper introduces GPipe, a pipeline parallelism library for scaling networks that can be expressed as a sequence of layers.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1811.06965">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="design">Design</h2>
+
+<ul>
+  <li>
+    <p>Consider training a deep neural network with <em>L</em> layers using <em>K</em> accelerators (say GPUs).</p>
+  </li>
+  <li>
+    <p>Each of the <em>i<sup>th</sup></em> layer has its <em>forward</em> function <em>f<sub>i</sub></em>, <em>backward</em> function <em>b<sub>i</sub></em>, weights <em>w<sub>i</sub></em> and a cost <em>c<sub>i</sub></em> (say the memory footprint or computational time).</p>
+  </li>
+  <li>
+    <p>GPipe partitions this network into <em>K</em> cells and places the <em>i<sup>th</sup></em> cell on the <em>i<sup>th</sup></em> accelerator. Output from the <em>i<sup>th</sup></em> accelerator is passed to the <em>i+1<sup>th</sup></em> accelerator as input.</p>
+  </li>
+  <li>
+    <p>During the forward pass, the input batch (of size <em>N</em>) is divided into <em>M</em> equal micro-batches. These micro-batches are pipelined through the <em>K</em> accelerators one after another.</p>
+  </li>
+  <li>
+    <p>During the backward pass, gradients are computed for each micro-batch. The gradients are accumulated and applied at the end of each minibatch.</p>
+  </li>
+  <li>
+    <p>In batch normalization, the statistics are computed over each micro-batch (used during training) and mini-batch (used during evaluation).</p>
+  </li>
+  <li>
+    <p>Micro-batching improves over the naive mode parallelism approach by reducing the underutilization of resources (due to the network’s sequential dependencies).</p>
+  </li>
+</ul>
+
+<h2 id="performance-optimization">Performance Optimization</h2>
+
+<ul>
+  <li>
+    <p>GPipe supports re-materialization (or checkpointing), i.e., during the forward pass, only the output activations (at partition boundaries) are stored.</p>
+  </li>
+  <li>
+    <p>During backward pass, the forward function is recomputed at each accelerator. This trades off the memory requirement with increased time.</p>
+  </li>
+  <li>
+    <p>One potential downside is that partitioning can introduce some idle time per accelerator (referred to as the bubble overhead). However, with a sufficiently large number of micro-batches ( more than 4 times the number of partitions), the bubble overhead is negligible.</p>
+  </li>
+</ul>
+
+<h2 id="performance-analysis">Performance Analysis</h2>
+
+<ul>
+  <li>
+    <p>Two different types of model architectures are compared: AmoebaNet convolutional model and Transformer sequence-to-sequence model.</p>
+  </li>
+  <li>
+    <p>For AmoebaNet, the size of the largest trainable model (on a single 8GB Cloud TPU v2) increases from 82M to 318M. Further, a 1.8 billion parameter model can be trained on 8 accelerators (25x improvement in size using GPipe).</p>
+  </li>
+  <li>
+    <p>For transformers, GPipe scales the model size to 83.9 B parameters with 128 partitions (298x improvement in size compared to a single accelerator).</p>
+  </li>
+  <li>
+    <p>Since the computation is evenly distributed across transformer layers, the training throughput scales almost linearly with the number of devices.</p>
+  </li>
+  <li>
+    <p>Quantitative experiments on ImageNet and multilingual machine translation show that models can be effectively trained using GPipe.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/GPipe-Easy-Scaling-with-Micro-Batch-Pipeline-Parallelism"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

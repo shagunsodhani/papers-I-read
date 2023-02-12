@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      ALBERT - A Lite BERT for Self-supervised Learning of Language Representations &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">ALBERT - A Lite BERT for Self-supervised Learning of Language Representations</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2019" title="Pages tagged ICLR 2019" rel="tag">ICLR 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Representation+Learning" title="Pages tagged Representation Learning" rel="tag">Representation Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Attention" title="Pages tagged Attention" rel="tag">Attention</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Transformer" title="Pages tagged Transformer" rel="tag">Transformer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SOTA" title="Pages tagged SOTA" rel="tag">SOTA</a></p>
+  <span class="post-date">19 Dec 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes parameter-reduction techniques to lower the memory consumption (and improve training speed) of BERT.</p>
+  </li>
+  <li>
+    <p>It also proposes to use a self-supervised loss (based on inter-sentence coherence) and argues that this loss is better than the NSP loss used by BERT.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1909.11942">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p>ALBERT architecture is similar to that of BERT with three major differences.</p>
+  </li>
+  <li>
+    <p>Factorized Embedding Parameterization</p>
+
+    <ul>
+      <li>
+        <p>In BERT and followup works, the embedding size was tied to the size of the context vector.</p>
+      </li>
+      <li>
+        <p>Since context vector is expected to encoder the entire context, it needs to have a large dimensionality.</p>
+      </li>
+      <li>
+        <p>One consequence of this choice is that even the embedding layer (which encodes the representation for each token) has a large size. This increases the overall memory footprint of the model.</p>
+      </li>
+      <li>
+        <p>The paper proposed to factorize the embedding parameters into two smaller matrics.</p>
+      </li>
+      <li>
+        <p>The embedding layer learns a low dimensional representation of the tokens and this representation is projected into a high dimensional space.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Cross-layer parameter sharing</p>
+
+    <ul>
+      <li>ALBERT shares all the parameters across the layers.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Inter-sentence coherence loss</p>
+
+    <ul>
+      <li>
+        <p>BERT uses two losses - Masked Language Modeling loss (MLM) and Next Sentence Prediction (NSP).</p>
+      </li>
+      <li>
+        <p>In the NSP task, the model is provided a pair of sentences and it has to predict if the two sentences appear consecutively in the same document or not. Negative samples are created by sampling sentences from different documents.</p>
+      </li>
+      <li>
+        <p>The paper argues that NSP is not effective as a loss function as it merges topic prediction and coherence prediction into one task (as the two sentences come from different documents). The topic prediction is an easier task as compared to coherence prediction.</p>
+      </li>
+      <li>
+        <p>Hence the paper proposes to use the Sentence Order Prediction task where the model has to predict which of the two sentences comes first in a document. The negative samples are created by simply swapping the order in the positive samples. Hence both the sentences come from the same document and topic prediction alone can not be used to solve the task.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Different variants (in terms of size) of ALBERT and BERT models are compared (eg ALBERT, ALBERT-x, BERT-x, etc).</p>
+  </li>
+  <li>
+    <p>In general, ALBERT models have many-times fewer parameters as compared to the BERT models.</p>
+  </li>
+  <li>
+    <p>Datasets - BookCorpus, English Wikipedia.</p>
+  </li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>ALBERT-xxlarge significantly outperforms the BERT-large model even though it has around 70% parameters as the BERT-large model.</p>
+  </li>
+  <li>
+    <p>BERT-xlarge performs worse than BERT-base hinting that it is difficult to train such large models.</p>
+  </li>
+  <li>
+    <p>ALBERT models also have better data throughput as compared to BERT models.</p>
+  </li>
+  <li>
+    <p>For the ALBERT models, an embedding size of 128 performs the best.</p>
+  </li>
+  <li>
+    <p>As the hidden dimension is increased, the model obtains better performance, but with diminishing returns.</p>
+  </li>
+  <li>
+    <p>Very wide ALBERT models (say with a context size of 1024) do not benefit much from depth.</p>
+  </li>
+  <li>
+    <p>Using additional training data boosts the performance for most of the downstream tasks.</p>
+  </li>
+  <li>
+    <p>The paper empirically shows that using dropout could hurt the performance of the ALBERT models. This observation may not hold for BERT as it does not share parameters across layers and hence may need regularization via dropout.</p>
+  </li>
+  <li>
+    <p>ALBERT also improves the state of the art performance on GLUE, SQuAD and RACE benchmarks, for both single-model and ensemble setup.</p>
+  </li>
+</ul>
+
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/ALBERT-A-Lite-BERT-for-Self-supervised-Learning-of-Language-Representations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

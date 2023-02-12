@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Everything Happens for a Reason - Discovering the Purpose of Actions in Procedural Text</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP+2019" title="Pages tagged EMNLP 2019" rel="tag">EMNLP 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Procedural+Text" title="Pages tagged Procedural Text" rel="tag">Procedural Text</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Relation+Learning" title="Pages tagged Relation Learning" rel="tag">Relation Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Relational+Learning" title="Pages tagged Relational Learning" rel="tag">Relational Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP" title="Pages tagged EMNLP" rel="tag">EMNLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Graph" title="Pages tagged Graph" rel="tag">Graph</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reasoning" title="Pages tagged Reasoning" rel="tag">Reasoning</a></p>
+  <span class="post-date">12 Dec 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Procedural text comprehension tasks focus on modeling the effect of actions and predicting what happens next.</p>
+  </li>
+  <li>
+    <p>But they do not consider <em>why</em> some actions need to happen before other actions.</p>
+  </li>
+  <li>
+    <p>The paper proposes a new model called XPAD (eXPlainable Action Dependency) that considers the <em>purpose</em> of actions while predicting their effect.</p>
+  </li>
+  <li>
+    <p>The model favors <em>effects</em> that:</p>
+
+    <ul>
+      <li>
+        <p>explain more of actions in the text.</p>
+      </li>
+      <li>
+        <p>are more plausible given the context.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>An existing procedural text benchmark dataset (Propara) is expanded by adding the task of explaining actions by predicting their dependencies.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1909.04745">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="http://data.allenai.org/propara/">Link to the dataset</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Input</p>
+
+    <ul>
+      <li>
+        <p>Procedural (chronologically ordered text) sequence of <em>T</em> sentences.</p>
+      </li>
+      <li>
+        <p>List of <em>N</em> participant entities, whose state changes at some step.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Output</p>
+
+    <ul>
+      <li>
+        <p>State change matrix $\pi(T \times N)$ with four possible states - move, create destroy, none.</p>
+      </li>
+      <li>
+        <p>This matrix tracks how property changes after each step.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Dependency Explanation Graph</p>
+
+    <ul>
+      <li>
+        <p>Identify what steps are necessary to execute a given step (say <em>s<sub>i</sub></em>) and represent this dependency in the form of a dependency explanation graph <em>G = &lt;S, E&gt;</em>.</p>
+      </li>
+      <li>
+        <p>In this graph, each node is a step and the direction of edge describes the order of dependency.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dependency-graph-dataset">Dependency Graph Dataset</h2>
+
+<ul>
+  <li>
+    <p><a href="https://arxiv.org/abs/1805.06975">Propara dataset</a> is expanded to extract the dependency graph using both heuristic and automated methods.</p>
+  </li>
+  <li>
+    <p>The automated method is based on the coherence assumption that if step <em>s<sub>j</sub></em> changes state of entity <em>e<sub>k</sub></em> then <em>s<sub>j</sub></em> is a precondition for the first subsequent step that changes the state of <em>e<sub>k</sub></em>.</p>
+  </li>
+</ul>
+
+<h2 id="xpad-model">XPAD Model</h2>
+
+<ul>
+  <li>
+    <p>The model is based on the ProStruct system and uses an encoder-decoder based architecture.</p>
+  </li>
+  <li>
+    <p>Encoder</p>
+
+    <ul>
+      <li>
+        <p>Input: Sentence <em>s<sub>t</sub></em> and entity <em>e<sub>j</sub></em>.</p>
+      </li>
+      <li>
+        <p>Sentence is encoded using the GloVe vectors and a BiLSTM model and the entity is encoded as an indicator variable.</p>
+      </li>
+      <li>
+        <p>The combined representation is denoted as <em>c<sub>tj</sub></em>.</p>
+      </li>
+      <li>
+        <p>This representation is passed through an MLP to generate <em>k</em> logits that encode the probability of each entity <em>j</em> undergoing a state change at step <em>t</em>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Decoder</p>
+
+    <ul>
+      <li>
+        <p>Beam search is performed to decode the encoder representation into the state change matrix and dependency graph using a score function that ensures global consistency.</p>
+      </li>
+      <li>
+        <p>Score function has two components:</p>
+
+        <ul>
+          <li>
+            <p>State change score - depends on the likelihood that the selected state changes at step <em>t</em> given the text and state change history from steps <em>s<sub>1</sub></em> to <em>s<sub>t-1</sub></em>.</p>
+          </li>
+          <li>
+            <p>Dependency graph score</p>
+
+            <ul>
+              <li>
+                <p>This is based on the connectivity and likelihood of the resulting dependency explanation graph.</p>
+              </li>
+              <li>
+                <p>This score is used to bias the graph search towards:</p>
+
+                <ul>
+                  <li>
+                    <p>predictions that have an identifiable purpose ie checking if a particular state change prediction leads to a connection in the dependency explanation graph.</p>
+                  </li>
+                  <li>
+                    <p>graphs that are more likely according to the background knowledge to distinguish likely dependency links from the unlikely ones.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>During training, XPAD has access to the correct path (in the search space) and learns to minimize the joint loss corresponding to predicting the state change and the dependency explanation graph.</p>
+  </li>
+  <li>
+    <p>During testing, XPAD performs beam search to predict the most likely state change and dependency explanation graph.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Tasks:</p>
+
+    <ul>
+      <li>
+        <p>State change prediction</p>
+      </li>
+      <li>
+        <p>Dependency explanation prediction</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Baselines:</p>
+
+    <ul>
+      <li>
+        <p><a href="https://arxiv.org/abs/1612.03969">Recurrent Entity Networks</a></p>
+      </li>
+      <li>
+        <p><a href="https://arxiv.org/abs/1606.04582">Query-Reduction Networks</a></p>
+      </li>
+      <li>
+        <p><a href="https://arxiv.org/abs/1805.06975">ProLocal and ProGlobal</a></p>
+      </li>
+      <li>
+        <p><a href="https://arxiv.org/abs/1808.10012">ProStruct</a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>XPAD significantly outperforms all the baseline models on the dependency explanation task.</p>
+  </li>
+  <li>
+    <p>Improvements on the state change prediction task are less significant.</p>
+  </li>
+  <li>
+    <p>Removing dependency graph scores from XPAD leads to a drop in the F1 score.</p>
+  </li>
+  <li>
+    <p>The paper provides an elaborate discussion on the different types of errors that the XPAD system makes.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Everything-Happens-for-a-Reason-Discovering-the-Purpose-of-Actions-in-Procedural-Text"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Everything-Happens-for-a-Reason-Discovering-the-Purpose-of-Actions-in-Procedural-Text"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

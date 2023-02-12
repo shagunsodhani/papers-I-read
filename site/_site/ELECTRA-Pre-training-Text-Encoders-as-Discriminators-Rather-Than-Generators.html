@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      ELECTRA - Pre-training Text Encoders as Discriminators Rather Than Generators &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">ELECTRA - Pre-training Text Encoders as Discriminators Rather Than Generators</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2020" title="Pages tagged ICLR 2020" rel="tag">ICLR 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Attention" title="Pages tagged Attention" rel="tag">Attention</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Finetuning" title="Pages tagged Finetuning" rel="tag">Finetuning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Pretraining" title="Pages tagged Pretraining" rel="tag">Pretraining</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Transformer" title="Pages tagged Transformer" rel="tag">Transformer</a></p>
+  <span class="post-date">20 Feb 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Masked Language Modeling (MLM) is a common technique for pre-training language-based models. The idea is to “corrupt” some tokens in the input text (around 15%) by replacing them with the [MASK] token and then training the network to reconstruct (or predict) the corrupted tokens.</p>
+  </li>
+  <li>
+    <p>Since the network learns from only about 15% of the tokens, the computational cost of training using MLM can be quite high.</p>
+  </li>
+  <li>
+    <p>The paper proposes to use a “replaced token detection” task where some tokens in the input text are replaced by other plausible tokens.</p>
+  </li>
+  <li>
+    <p>For each token in the modified text, the network has to predict if the token has been replaced or not.</p>
+  </li>
+  <li>
+    <p>The alternative token is generated using a small generator network.</p>
+  </li>
+  <li>
+    <p>Unlike the previous MLM setup, the proposed task is defined for all the input tokens, thus utilizing the training data more efficiently.</p>
+  </li>
+  <li>
+    <p><a href="https://openreview.net/forum?id=r1xMH1BtvB">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>The proposed approach is called ELECTRA (Efficiently Learning an Encoder that Classifies Token Replacements Accurately)</p>
+  </li>
+  <li>
+    <p>Two neural networks - Generator (G) and Discriminator (D) are trained.</p>
+  </li>
+  <li>
+    <p>Each network has a Transformer-based text encoder that maps a sequence of words into a sequence of vectors.</p>
+  </li>
+  <li>
+    <p>Given an input sequence x (of length N), k indices are chosen for replacing the tokens.</p>
+  </li>
+  <li>
+    <p>For each index, the generator produces a distribution over tokens. A token is sampled to replace in the original sequence. The resulting sequence is referred to as the corrupted sequence.</p>
+  </li>
+  <li>
+    <p>Given the corrupted sequence, the Discriminator predicts which token comes from the data distribution and which comes from the generator.</p>
+  </li>
+  <li>
+    <p>The generator is trained using the MLM setup, and the Discriminator is trained using the discriminative loss.</p>
+  </li>
+  <li>
+    <p>After pre-training, only the Discriminator is finetuned on the downstream tasks.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>
+        <p>GLUE Benchmark</p>
+      </li>
+      <li>
+        <p>Stanford QA dataset</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Architecture Choices</p>
+
+    <ul>
+      <li>
+        <p>Sharing word embeddings between generator and Discriminator helps.</p>
+      </li>
+      <li>
+        <p>Tying all the encoder weights leads to marginal improvement but forces the generator and the Discriminator to be of the same size. Hence only embeddings are shared.</p>
+      </li>
+      <li>
+        <p>Generator model is kept smaller than the discriminator model as a strong generator can make the training difficult for the Discriminator.</p>
+      </li>
+      <li>
+        <p>A two-stage training procedure was explored where only the generator is trained for n steps. Then the weights of the generator are used to initialize the Discriminator. The Discriminator is then trained for n steps while keeping the generator fixed.</p>
+      </li>
+      <li>
+        <p>This two-stage setup provides a nice curriculum for the Discriminator but does not outperform the joint training based setup.</p>
+      </li>
+      <li>
+        <p>An adversarial loss based setup is also explored but it does not work well probably because of the following reasons:</p>
+
+        <ul>
+          <li>
+            <p>Adverserially trained generator is not as good as the MLM generator.</p>
+          </li>
+          <li>
+            <p>Adverserially trained generator produces a low entropy output distribution.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>Both small and large ELECTRA models outperform baselines models like <a href="https://arxiv.org/abs/1810.04805">BERT</a>, <a href="https://arxiv.org/abs/1907.11692">RoBERTa</a>, <a href="https://arxiv.org/abs/1802.05365">ELMo</a> and <a href="https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf">GPT</a>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Ablations</p>
+
+    <ul>
+      <li>
+        <p>ELECTRA-15 is a variant of ELECTRA where the Discriminator is trained on only 15% of the tokens (similar to the MLM setup). This reduces performance significantly.</p>
+      </li>
+      <li>
+        <p>Replace MLM setup</p>
+
+        <ul>
+          <li>
+            <p>Perform MLM training, but instead of using [MASK], use a toke sampled from the generator.</p>
+          </li>
+          <li>
+            <p>This improves the performance marginally.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>All-token MLM</p>
+
+        <ul>
+          <li>
+            <p>In the MLM setup, replace the [MASK] token by the sampled tokens and train the MLM model to generate all the words.</p>
+          </li>
+          <li>
+            <p>In practice, the MLM model can either generate a word or copy the existing word.</p>
+          </li>
+          <li>
+            <p>This approach closes much of the gap between BERT and ELECTRA.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Interestingly, ELECTRA outperforms All-token MLM BERT suggesting the ELECTRA may be benefitting from parameter efficiency since it does not have to learn a distribution over all the words.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/ELECTRA-Pre-training-Text-Encoders-as-Discriminators-Rather-Than-Generators"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/ELECTRA-Pre-training-Text-Encoders-as-Discriminators-Rather-Than-Generators"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

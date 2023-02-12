@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Emotional Chatting Machine - Emotional Conversation Generation with Internal and External Memory</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2017" title="Pages tagged 2017" rel="tag">2017</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Conversational+Agent" title="Pages tagged Conversational Agent" rel="tag">Conversational Agent</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">22 Jan 2018</span>
+  <ul>
+  <li>
+    <p>The paper proposes ECM (Emotional Chatting Machine) which can generate both semantically and emotionally appropriate responses in a dialogue setting.</p>
+  </li>
+  <li>
+    <p>More specifically, given an input utterance or dialogue and the desired emotional category of the response, ECM is to generate an appropriate response that conforms to the given emotional category.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1704.01074">Link to the paper</a></p>
+  </li>
+  <li>
+    <p>Much of the recent, deep learning based work on conversational agents has focused on the use of encoder-decoder framework where the input utterance (given sequence of words) is mapped to a response utterance (target sequence of words). This is the so-called seq2seq family of models.</p>
+  </li>
+  <li>
+    <p>ECM model can sit within this framework and introduces 3 new components:</p>
+
+    <ul>
+      <li><strong>Emotion Category Embedding</strong>
+        <ul>
+          <li>Embed the emotion categories into a real-valued, low-dimensional vector space.</li>
+          <li>These embeddings are used as input to the decoder and are learnt along with rest of the model.</li>
+        </ul>
+      </li>
+      <li><strong>Internal Memory</strong>
+        <ul>
+          <li>Physiological, emotional responses are relatively short-lived and involve changes.</li>
+          <li>ECM accounts for this effect by adding an Internal Memory which captures this dynamics of emotions during decoding.</li>
+          <li>It starts with “full” emotions in the beginning and keeps decaying the emotion value over time.</li>
+          <li>How much of the emotion value is to be decayed is determined by a sigmoid gate.</li>
+          <li>By the time the sentence is decoded, the value becomes zero, signifying that the emotion has been completely expressed.</li>
+        </ul>
+      </li>
+      <li><strong>External Memory</strong>
+        <ul>
+          <li>Emotional responses are expected to carry emotionally strong words along with generic, neutral words.</li>
+          <li>An external memory is used to include the emotionally strong words explicitly by using 2 non-overlapping vocabularies - <em>generic</em> vocabulary and the <em>emotion</em> vocabulary (read from the external memory).</li>
+          <li>Both these vocabularies are assigned different generation probabilities and an output gate controls the weights of <em>generic</em> and <em>emotion</em> words.</li>
+          <li>This way the <em>emotion</em> words are included in an otherwise neutral response.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Loss function</strong></p>
+
+    <ul>
+      <li>The first component is the cross-entropy loss between predicted and target token distribution.</li>
+      <li>A regularization term on internal memory to make sure the emotional state decays to 0 at the end of the decoding process.</li>
+      <li>Another regularization term on external memory to supervise the probability of selection of a <em>generic</em> vs <em>emotion</em> word.</li>
+    </ul>
+  </li>
+  <li><em>*Dataset</em>
+    <ul>
+      <li>STC Dataset (~220K posts and ~4300K responses) annotated by the emotional classifier. Any error on the part of the classifier degrades the quality of the training dataset.</li>
+      <li>NLPCC Dataset - Emotion classification dataset with 23105 sentences.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Metric</strong></p>
+
+    <ul>
+      <li>Perplexity to evaluate the model at the content level.</li>
+      <li>Emotion accuracy to evaluate the model at the emotional level.</li>
+    </ul>
+  </li>
+  <li>
+    <p>ECM achieves a perplexity of 65.9 and emotional accuracy of 0.773.</p>
+  </li>
+  <li>
+    <p>Based on human evaluations, ECM statistically outperforms the seq2seq baselines on both naturalness (likeliness of response being generated by a human) and emotion accuracy.</p>
+  </li>
+  <li>
+    <p>Notes</p>
+
+    <ul>
+      <li>It is an interesting idea to let the sigmoid gate decide how the emotion “value” be spent while decoding. It seems similar to the idea of how much do we want to “attend” to the emotion value the key difference being that your total attention is limited. It would be interesting to see the shape of the distribution of how much of the emotion value is spent at each decoding time step. If the curve is highly biased towards say using most of the emotion value towards the end of the decoding process, maybe another regularisation term is needed to ensure a more balanced distribution of how the emotion is spent.</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Emotional-Chatting-Machine-Emotional-Conversation-Generation-with-Internal-and-External-Memory"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

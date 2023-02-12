@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Emergence of Grounded Compositional Language in Multi-Agent Populations &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Emergence of Grounded Compositional Language in Multi-Agent Populations</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAAI+2018" title="Pages tagged AAAI 2018" rel="tag">AAAI 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Emergent+Language" title="Pages tagged Emergent Language" rel="tag">Emergent Language</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Multi-Agent" title="Pages tagged Multi-Agent" rel="tag">Multi-Agent</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Natural+Language+Processing" title="Pages tagged Natural Language Processing" rel="tag">Natural Language Processing</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAAI" title="Pages tagged AAAI" rel="tag">AAAI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a></p>
+  <span class="post-date">12 Sep 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper provides a multi-agent learning environment and proposes a learning approach that facilitates the emergence of a basic compositional language.</p>
+  </li>
+  <li>
+    <p>The language is quite rudimentary and is essentially a sequence of abstract discrete symbols. But it does comprise of a defined vocabulary and syntax.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1703.04908">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Cooperative, partially observable Markov game (multi-agent extension of MDP).</p>
+  </li>
+  <li>
+    <p>All agents have identical action and observation spaces, use the same policy and receive a shared reward.</p>
+  </li>
+</ul>
+
+<h3 id="grounded-communication-environment">Grounded Communication Environment</h3>
+
+<ul>
+  <li>
+    <p>Physically simulated 2-D environment in continuous space and discrete time with N agents and M landmarks.</p>
+  </li>
+  <li>
+    <p>The agents and the landmarks would occupy some location and would have some attributes (colour, shape).</p>
+  </li>
+  <li>
+    <p>Within the environment, the agents can <em>go to</em> a location, <em>look</em> at a location or <em>do nothing</em>. Additionally, they can utter communication symbols c (from a shared vocabulary C). Agents themselves learn to assign a meaning to the symbols.</p>
+  </li>
+  <li>
+    <p>Each agent has an internal goal (which could require interaction with other agents to complete) which the other agents cannot see.</p>
+  </li>
+  <li>
+    <p>Goal for agent <em>i</em> consists of an action to perform, a landmark location where to perform the action and another agent who should be performing the action.</p>
+  </li>
+  <li>
+    <p>Since the agent is continuously emitting symbols, a memory module is provided and simple additive memory updates are done.</p>
+  </li>
+  <li>
+    <p>For interaction, the agents could use verbal utterances, non-verbal signals (gaze) or non-communicative strategies (pushing other agents).</p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>A model of all agent and environment state dynamics is created over time and the return gradient is computed.</p>
+  </li>
+  <li>
+    <p>Gumbel-Softmax distribution is used to obtain categorical word emission c.</p>
+  </li>
+  <li>
+    <p>A multi-layer perceptron is used to model the policy which returns action, communication symbol and the memory update for each agent.</p>
+  </li>
+  <li>
+    <p>Since the number of agents (and hence the number of communication streams etc) can vary across instantiations, an identical model is instantiated per agent and per communication stream.</p>
+  </li>
+  <li>
+    <p>The output of individual processing modules are pooled into feature vectors corresponding to communication and physical observations. These pooled features and the goal vectors are fed to the final processing module from which actions and categorical symbols are sampled.</p>
+  </li>
+  <li>
+    <p>In practice, using an additional task (each agent predicts the goal for another agent) encouraged more meaningful communication utterances.</p>
+  </li>
+</ul>
+
+<h3 id="compositionality-and-vocabulary-size">Compositionality and Vocabulary Size</h3>
+
+<ul>
+  <li>
+    <p>Authors recommend using a large vocabulary with a soft penalty that discourages use of too many words. This leads to use of a large vocabulary in the intermediate state which converges to a small vocabulary.</p>
+  </li>
+  <li>
+    <p>Along the lines of rich gets richer dynamics, the communication symbol c’s are modelled as being generated by a Dirichlet process. The resulting reward across all agents is the log-likelihood of all communication utterances to have been generated by a Dirichlet process.</p>
+  </li>
+  <li>
+    <p>Since the agents can only communicate in discrete symbols and do not have a global positioning reference, they need to unambiguously communicate landmark references to other agents.</p>
+  </li>
+</ul>
+
+<h2 id="case-i---agents-can-not-see-each-other">Case I - Agents can not see each other</h2>
+
+<ul>
+  <li>
+    <p>Non-verbal communication is not possible.</p>
+  </li>
+  <li>
+    <p>When trained with just 2 agents, symbols are assigned for each landmark and action.</p>
+  </li>
+  <li>
+    <p>As the number of agents is increased, additional symbols are used to refer to agents.</p>
+  </li>
+  <li>
+    <p>If the agents of the same colour are asked to perform conflicting tasks, they perform the average of conflicting tasks. If distractor locations are added, the agents learn to ignore them.</p>
+  </li>
+</ul>
+
+<h2 id="non-verbal-communication">Non-verbal communication</h2>
+
+<ul>
+  <li>
+    <p>Agents are allowed to observe other agents’ position, gaze etc.</p>
+  </li>
+  <li>
+    <p>Now the location can be pointed to using gaze.</p>
+  </li>
+  <li>
+    <p>If gaze is disabled, the agent could indicate the goal landmark by moving to it.</p>
+  </li>
+  <li>
+    <p>Basically even when the communication is disabled the agents can come up with strategies to complete the task.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

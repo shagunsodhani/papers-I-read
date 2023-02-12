@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      CAP twelve years later - How the rules have changed &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">CAP twelve years later - How the rules have changed</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2012" title="Pages tagged 2012" rel="tag">2012</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Big+Data" title="Pages tagged Big Data" rel="tag">Big Data</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Systems" title="Pages tagged Distributed Systems" rel="tag">Distributed Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACID" title="Pages tagged ACID" rel="tag">ACID</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#BASE" title="Pages tagged BASE" rel="tag">BASE</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CAP" title="Pages tagged CAP" rel="tag">CAP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Database" title="Pages tagged Database" rel="tag">Database</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DBMS" title="Pages tagged DBMS" rel="tag">DBMS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#IEEE" title="Pages tagged IEEE" rel="tag">IEEE</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Latency" title="Pages tagged Latency" rel="tag">Latency</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">07 Dec 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The CAP theorem states that any system sharing data over the network can only have at most two (out of three) desirable properties:</p>
+
+    <ul>
+      <li>
+        <p>consistency (C), i.e., a single, up-to-date copy of the data;</p>
+      </li>
+      <li>
+        <p>high availability (A) of that data (for updates); and</p>
+      </li>
+      <li>
+        <p>tolerance to network partitions (P).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>This “2 of 3” formulation is misleading as it oversimplifies the interplay between properties.</p>
+  </li>
+  <li>
+    <p><a href="https://ieeexplore.ieee.org/abstract/document/6133253">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="acid-vs-base">ACID vs. BASE</h2>
+
+<ul>
+  <li>
+    <p>ACID is a design philosophy that focuses on consistency as reflected in the traditional relational databases.</p>
+  </li>
+  <li>
+    <p>The four properties in ACID are:</p>
+
+    <ul>
+      <li>
+        <p>Atomicity (A), i.e., the operations are atomic, and either the entire operation succeeds or none of it succeeds.</p>
+      </li>
+      <li>
+        <p>Consistency (C), i.e., a transaction preserves all the rules. Note that the consistency in CAP is a subset of consistency in ACID.</p>
+      </li>
+      <li>
+        <p>Isolation (I), i.e., transactions occur in isolation and do not affect each other.</p>
+      </li>
+      <li>
+        <p>Durability (D), i.e., the transactions are durable irrespective of system failure.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>BASE is an alternate design philosophy that focuses on availability as reflected in the NoSQL databases.</p>
+  </li>
+  <li>
+    <p>The four properties in BASE are:</p>
+
+    <ul>
+      <li>
+        <p>Basic Availability (BA), i.e., the database appears to work most of the time.</p>
+      </li>
+      <li>
+        <p>Soft state (S), i.e., the system’s state can change over time as it becomes eventually consistent.</p>
+      </li>
+      <li>
+        <p>Eventual consistency (E), i.e., the system will eventually become consistent over time.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cap-confusion">CAP confusion</h2>
+
+<ul>
+  <li>
+    <p>Generally, partitionability is seen as a must-have, thus reducing the choice to be between availability and consistency.</p>
+  </li>
+  <li>
+    <p>This view is somewhat misleading because the choice between C, A, and P is not binary but granular.</p>
+  </li>
+  <li>
+    <p>The choice between C and A can occur at various granularity levels, and different components (of a larger system) can prioritize different aspects.</p>
+  </li>
+  <li>
+    <p>Similarly, the CAP theorem generally ignores latency even though it is closely related to partitionability. For example, failing to achieve consistency within a time-bound (i.e., latency) implies a partition.</p>
+  </li>
+  <li>
+    <p>In general, there is no global notion of partition - some subset of nodes may experience a partition, and others may not.</p>
+  </li>
+  <li>
+    <p>Once a partition is detected, the system can then choose between C and A.</p>
+  </li>
+</ul>
+
+<h2 id="managing-partitions">Managing Partitions</h2>
+
+<ul>
+  <li>
+    <p>Three-step process for managing partitions:</p>
+
+    <ul>
+      <li>
+        <p>Detect the start of a partition.</p>
+      </li>
+      <li>
+        <p>Enter an explicit partition mode that may limit some operations.</p>
+
+        <ul>
+          <li>
+            <p>Possible strategies:</p>
+
+            <ul>
+              <li>
+                <p>Reduce availability by limiting some operations.</p>
+              </li>
+              <li>
+                <p>Record extra information that can be used during partition recovery.</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>The strategy depends on the invariants that the system should maintain.</p>
+          </li>
+          <li>
+            <p>For example, if the invariant is that the keys (in a table) should be unique, the system could allow duplicate keys for some time and perform a de-duplication step during partition recovery.</p>
+          </li>
+          <li>
+            <p>A counterexample is a monetary transaction (e.g., charging a credit card). In such cases, the system could disable the operation and record it for performing later. Sometimes this “unavailability” is not visible to the user.</p>
+          </li>
+          <li>
+            <p>History of operations (over replicas across different partitions) can be tracked using version vectors of the form (node, logical time). The system can easily recreate the order in which they were executed (or mark them as being concurrent).</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Initiate partition recovery when communication is restored and make the state across the partitions consistent.</p>
+      </li>
+      <li>
+        <p>One common approach is to revert to the state when the partition was detected and apply the operations consistently across all the replicas.</p>
+      </li>
+      <li>
+        <p>This may require some extra effort to merge conflicts.</p>
+      </li>
+      <li>
+        <p>One workaround can be to constrain the use of certain operations so that the system does not encounter merge conflicts during recovery.</p>
+      </li>
+      <li>
+        <p>Sometimes, certain invariants may be violated when the system is in the partition mode and needs to be fixed during recovery.</p>
+      </li>
+      <li>
+        <p>The key takeaway is that when partitions exist, the choice between availability and consistency is not binary, and both can be optimized for.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/CAP-twelve-years-later-How-the-rules-have-changed"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/CAP-twelve-years-later-How-the-rules-have-changed"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

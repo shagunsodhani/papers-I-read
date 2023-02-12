@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      TaskNorm--Rethinking Batch Normalization for Meta-Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">TaskNorm--Rethinking Batch Normalization for Meta-Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Batch+Normalisation" title="Pages tagged Batch Normalisation" rel="tag">Batch Normalisation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2020%27" title="Pages tagged ICML 2020'" rel="tag">ICML 2020'</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#BatchNorm" title="Pages tagged BatchNorm" rel="tag">BatchNorm</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#BN" title="Pages tagged BN" rel="tag">BN</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MAML" title="Pages tagged MAML" rel="tag">MAML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Normalization" title="Pages tagged Normalization" rel="tag">Normalization</a></p>
+  <span class="post-date">23 Jul 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Meta-learning techniques are shown to benefit from the use of deep neural networks.</p>
+  </li>
+  <li>
+    <p>BatchNorm is a commonly used component when training deep networks, especially for vision tasks.</p>
+  </li>
+  <li>
+    <p>However, BatchNorm and meta-learning make contradictory assumptions, and their combination may not work well in practice.</p>
+  </li>
+  <li>
+    <p>The paper proposes TaskNorm, a normalization method that is designed explicitly for meta-learning.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2003.03284">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Standard meta-learning setup with $k$ tasks, each task with its own context and target set.</p>
+  </li>
+  <li>
+    <p>Two sets of parameters are considered during meta-learning - (i) global parameters, and (ii) task-specific parameters.</p>
+  </li>
+  <li>
+    <p>Meta-learning setup can be viewed as an inference task, where the task-specific parameters are inferred using a context set and some additional (trainable) parameters.</p>
+  </li>
+  <li>
+    <p>Normalization layers are commonly used to accelerate the training of neural networks. The general approach is to use normalization moments (statistics) along with some learned parameters.</p>
+  </li>
+  <li>
+    <p>BatchNorm is a well-known and widely used normalization approach. It relies on the implicit assumption that the dataset comprises of iid samples from some underlying distribution.</p>
+  </li>
+  <li>
+    <p>However, in meta-learning, data points are assumed to be iid only within a specific task.</p>
+  </li>
+  <li>
+    <p>This leaves open the question of what moments to use during meta-train and meta-test time.</p>
+  </li>
+</ul>
+
+<h2 id="variants-of-batchnorm">Variants of BatchNorm</h2>
+
+<h3 id="conventional-batchnorm-cbn">Conventional BatchNorm (CBN)</h3>
+
+<ul>
+  <li>
+    <p>Compute moments at meta train time and use during meta test time.</p>
+  </li>
+  <li>
+    <p>This is equivalent to lumping the moments with the global parameters. I.e., the running moments are shared globally, while the data is iid only locally.</p>
+  </li>
+  <li>
+    <p>Using CBN with MAML leads to poor results.</p>
+  </li>
+  <li>
+    <p>Moreover, meta-learning setup can some times require the use of a very small batch size. (e.g., 1-shot learning) In those cases, the computed statistics are likely to be inaccurate.</p>
+  </li>
+</ul>
+
+<h3 id="transductive-batchnorm-tbn">Transductive BatchNorm (TBN)</h3>
+
+<ul>
+  <li>
+    <p>Use context/target set statistics at both meta-train and meta-test time.</p>
+  </li>
+  <li>
+    <p>This is the default BatchNorm mode used in MAML.</p>
+  </li>
+</ul>
+
+<h3 id="instance-based-normalization">Instance-based normalization</h3>
+
+<ul>
+  <li>
+    <p>Moments are computed separately for each instance.</p>
+  </li>
+  <li>
+    <p>This mode corresponds to treating the statistics as local at the observation level.</p>
+  </li>
+  <li>
+    <p>These methods provide only limited improvement in performance, and can sometimes have a large overhead.</p>
+  </li>
+</ul>
+
+<h2 id="task-normalization-proposed">Task Normalization (Proposed)</h2>
+
+<ul>
+  <li>
+    <p>The normalization statistics are local at the task level, and statistics for a given data point should only depend on the context set’s data point. It should not depend on the other elements of the target set.</p>
+  </li>
+  <li>
+    <p>Meta-Batch Normalisation (METABN) is a precursor to TaskNorm where the context set alone is used to compute the normalization statistics for both the context and the target set (during both meta-test and meta-train time).</p>
+  </li>
+  <li>
+    <p>METABN does not perform well when used with small context sets.</p>
+  </li>
+  <li>
+    <p>TaskNorm overcomes this limitation by using a set of non-transductive, secondary moments (computed from the input being normalized).</p>
+  </li>
+  <li>
+    <p>When the context is small, using additional moments will help to improve the moment estimates.</p>
+  </li>
+  <li>
+    <p>In the general case, a trainable blending factor, $\alpha$, is used to combine the two sets of moments.</p>
+  </li>
+  <li>
+    <p>While the computational cost of TaskNorm is slightly more than CBN, it converges faster than CBN in practice.</p>
+  </li>
+  <li>
+    <p>Normalization mechanism in Reptile can be interpreted as a particular case of TaskNorm.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Small scale few-shot classification experiments</p>
+
+    <ul>
+      <li>
+        <p>Omniglot and imin ImageNet dataset</p>
+      </li>
+      <li>
+        <p>First order MAML, with different kinds of normalization schemes.</p>
+      </li>
+      <li>
+        <p>Transductive BatchNorm performs the best.</p>
+      </li>
+      <li>
+        <p>Among non-transductive approaches, TaskNorm using Instance Normalisation augmentation performs the best.</p>
+      </li>
+      <li>
+        <p>Similar trend holds for the speed of convergence as well.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Large scale few-shot classification experiments</p>
+
+    <ul>
+      <li>
+        <p>MetaDataset dataset</p>
+      </li>
+      <li>
+        <p>CNAPs model</p>
+      </li>
+      <li>
+        <p>The context set’s size varies across tasks in this setup and can be as small as 5.</p>
+      </li>
+      <li>
+        <p>TaskNorm with Instance Normalisation ranks first in 10 (out of 13) datasets and is also the fastest to train.</p>
+      </li>
+      <li>
+        <p>While Instance-based methods (Instance Normalisation and Layer Normalisation) are the slowest to converge, they still outperform the running average based methods (conventional BatchNorm).</p>
+      </li>
+      <li>
+        <p>The results demonstrate that designing meta-learning specific normalization methods can significantly improve performance and that Transductive BatchNorm may not always be the optimal choice.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/TASKNORM-Rethinking-Batch-Normalization-for-Meta-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/TASKNORM-Rethinking-Batch-Normalization-for-Meta-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

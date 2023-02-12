@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Net2Net-Accelerating Learning via Knowledge Transfer &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Net2Net-Accelerating Learning via Knowledge Transfer</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2016" title="Pages tagged ICLR 2016" rel="tag">ICLR 2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Knowledge+Transfer" title="Pages tagged Knowledge Transfer" rel="tag">Knowledge Transfer</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a></p>
+  <span class="post-date">21 May 2018</span>
+  <h2 id="notes">Notes</h2>
+
+<ul>
+  <li>
+    <p>The paper presents a simple yet effective approach for transferring knowledge from a trained neural network (referred to as the teacher network) to a large, untrained neural network (referred to as the student network).</p>
+  </li>
+  <li>
+    <p>The key idea is to use a function-preserving transformation that guarantees that for any given input, the output from the teacher network and the newly created student network would be the same.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1511.05641">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/paengs/Net2Net">Link to an implementation</a></p>
+  </li>
+  <li>
+    <p>The approach works as follows - Let us say that the teacher network was represented by the transformation <em>y = f(x, θ)</em> where <em>θ</em> refer to the parameters of the network. The task is to choose a new set of parameters <em>θ’</em> for the student network <em>g(x, θ’)</em> such that for all <em>x, f(x, θ) = g(x, θ’)</em></p>
+  </li>
+  <li>
+    <p>To start, we can assume that <em>f</em> and <em>g</em> are composed of standard linear layers. Layer <em>i</em> and <em>i+1</em> are represented by weights <em>W<sub>mxn</sub><sup>i</sup></em> and <em>W<sub>nxp</sub><sup>i+1</sup></em></p>
+  </li>
+  <li>
+    <p>We want to grow layer <em>i</em> to have <em>q</em> output units (where <em>q</em> &gt; <em>n</em>) and layer <em>i+1</em> to have <em>q</em> input units. The new weight matrix would be <em>U<sub>mxq</sub><sup>i</sup></em> and <em>U<sub>qxp</sub><sup>i+1</sup></em></p>
+  </li>
+  <li>
+    <p>The first <em>q</em> columns (rows) of <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>) would be copied as it is into <em>U<sup>i</sup></em>(<em>U<sup>i+1</sup></em>).</p>
+  </li>
+  <li>
+    <p>For filling the remaining <em>n-q</em> slots, columns (rows) would be sampled randomly from <em>W<sup>i</sup></em> (<em>W<sup>i+1</sup></em>).</p>
+  </li>
+  <li>
+    <p>Finally, each layer in <em>U<sup>i</sup></em> is scaled by dividing by the corresponding replication factor to ensure that the output value of function remains unchanged by the operation.</p>
+  </li>
+  <li>
+    <p>Since convolutions can be seen as multiplication by a double block circulant matrix, the approach can be readily extended for convolutional networks.</p>
+  </li>
+  <li>
+    <p>The benefits of using this approach are the following:</p>
+
+    <ul>
+      <li>The newly created student network performs at least as good as the teacher network.</li>
+      <li>Any changes to the network are guaranteed to be an improvement.</li>
+      <li>It is safe to optimize all the parameters in the network.</li>
+    </ul>
+  </li>
+  <li>
+    <p>The variant discussed above is called the <strong>Net2WiderNet</strong> variant. There is another variant called<strong>Net2DeeperNet</strong> that enables the network to grow in depth.</p>
+  </li>
+  <li>
+    <p>In that case, a new matrix, <em>U</em>, initialized as the identity matrix, is added to the network. Note that unlike the <strong>Net2WiderNet</strong>, this approach would not work with arbitrary activation function between the layers.</p>
+  </li>
+</ul>
+
+<h2 id="strengths">Strengths</h2>
+
+<ul>
+  <li>
+    <p>The model can accelerate the training of neural networks, especially during development cycle when the designers try out different models.</p>
+  </li>
+  <li>
+    <p>The approach could potentially be used in life-long learning systems where the model is trained over a stream of data and needs to grow over time.</p>
+  </li>
+</ul>
+
+<h2 id="limitations">Limitations</h2>
+
+<ul>
+  <li>The function preserving transformations need to be worked out manually. Extra care needs to be taken when operations like concatenation or batch norm are present.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Net2Net-Accelerating-Learning-via-Knowledge-Transfer"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

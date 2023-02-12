@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Data Management for Internet-Scale Single-Sign-On &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Data Management for Internet-Scale Single-Sign-On</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2006" title="Pages tagged 2006" rel="tag">2006</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Big+Data" title="Pages tagged Big Data" rel="tag">Big Data</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Distributed+Systems" title="Pages tagged Distributed Systems" rel="tag">Distributed Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Key+Value" title="Pages tagged Key Value" rel="tag">Key Value</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software+Engineering" title="Pages tagged Software Engineering" rel="tag">Software Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Data" title="Pages tagged Data" rel="tag">Data</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Database" title="Pages tagged Database" rel="tag">Database</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DBMS" title="Pages tagged DBMS" rel="tag">DBMS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Software" title="Pages tagged Software" rel="tag">Software</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#SSO" title="Pages tagged SSO" rel="tag">SSO</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#USENIX" title="Pages tagged USENIX" rel="tag">USENIX</a></p>
+  <span class="post-date">16 Nov 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes the architecture of an erstwhile single-sign-on (SSO) service used by Google, called Google Accounts (2006).</p>
+  </li>
+  <li>
+    <p>Note that some of the metrics and design decisions may be outdated now (the paper was written in 2006). However, the core message is still relevant.</p>
+  </li>
+  <li>
+    <p><a href="https://www.usenix.org/legacy/event/worlds06/tech/prelim_papers/perl/perl.pdf">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="operational-constraints">Operational Constraints</h2>
+
+<ul>
+  <li>
+    <p>SSO’s availability affects the availability of all applications that require user sign-in.</p>
+  </li>
+  <li>
+    <p>Generally, systems can achieve high availability by sacrificing consistency, but given the nature of SSO (matching username/passwords), providing an inconsistent view is not a good option, and single-copy consistency is a usability requirement.</p>
+  </li>
+</ul>
+
+<h2 id="berkeley-db">Berkeley DB</h2>
+
+<ul>
+  <li>
+    <p>Berkeley DB is an embedded, high-performance, scalable, transactional storage system for key-value data and provides both keyed and sequential lookup.</p>
+  </li>
+  <li>
+    <p>It provides a primary copy replication model with a single writer (called master) and multiple read-only replicas.</p>
+  </li>
+  <li>
+    <p>All writes are sent to the master, which first applies the changes and then propagates them to the replicas.</p>
+  </li>
+  <li>
+    <p>The master and the replicas have identical logs, and in case of master failure, a new master is elected from the replicas.</p>
+  </li>
+  <li>
+    <p>Some synchronization may be needed between the replicas in case, e.g., the master dies in between a transaction.</p>
+  </li>
+</ul>
+
+<h2 id="sso-architecture">SSO Architecture</h2>
+
+<ul>
+  <li>
+    <p>SSO service maps usernames to user account data and services to service-specific data.</p>
+  </li>
+  <li>
+    <p>The SSO database is partitioned into shards, where each shard is a replicated Berkeley DB (having 5 to 15 replicas).</p>
+  </li>
+  <li>
+    <p>Each replica stores the data in a B+-link tree data structure.</p>
+  </li>
+  <li>
+    <p>Consistent reads must go to the master, while non-master replicas can serve “ stale” reads.</p>
+  </li>
+  <li>
+    <p>In the case of larger replication groups (say 15 replicas), only a subset of replicas can become master (“electable replicas”).</p>
+  </li>
+  <li>
+    <p>In general, replicas are spread geographically to handle machine-failure, network-failure, and data center-failure.</p>
+  </li>
+  <li>
+    <p>Replicas in a share are kept close to reduce the communication latency, which affects the time to commit a write operation or electing a new master.</p>
+  </li>
+  <li>
+    <p>Some of the shards implement ID-map, i.e., map of username to userid and userid to shards.</p>
+  </li>
+</ul>
+
+<h2 id="database-integration">Database Integration</h2>
+
+<ul>
+  <li>Berkeley DB leaves decisions regarding quorums, leases, etc., up to the application.</li>
+</ul>
+
+<h3 id="quorums">Quorums</h3>
+
+<ul>
+  <li>
+    <p>SSO chooses a quorum protocol that guarantees that updates are never lost.</p>
+  </li>
+  <li>
+    <p>For the write queries, the master waits for a positive acknowledgment from a majority of the replicas, including itself, before marking the query as completed.</p>
+  </li>
+  <li>
+    <p>When selecting a new leader, SSO requires a majority of replicas to agree. Moreover, Berkeley DB elections always choose a replica with the latest log entry during an election, thus guaranteeing that the new master’s log will include all the previous master’s updates.</p>
+  </li>
+</ul>
+
+<h3 id="leases">Leases</h3>
+
+<ul>
+  <li>
+    <p>The master holds a <em>master lease</em> when responding to read queries and refreshes this lease periodically by communicating with a majority of replicas.</p>
+  </li>
+  <li>
+    <p>The lease guarantees that the master is not returning stale data if a partition or failure causes the master to lose its mastership, i.e., holding the lease guarantees that the master is still the master.</p>
+  </li>
+  <li>
+    <p>Moreover, elections can not be completed within the lease timeout interval.</p>
+  </li>
+</ul>
+
+<h3 id="replica-group-membership">Replica Group Membership</h3>
+
+<ul>
+  <li>
+    <p>SSO maintains a replica configuration containing the logical (DNS) name and IP address of each replica.</p>
+  </li>
+  <li>
+    <p>In case of any changes to the configuration, the changes are specified in a file that the master reads periodically.</p>
+  </li>
+  <li>
+    <p>If the configuration changes, the master initiates a configuration change and update the database.</p>
+  </li>
+  <li>
+    <p>Non-master replicas can get the new configuration from the database.</p>
+  </li>
+  <li>
+    <p>A new replica or a replica that lost state (say due to a failure) starts as a non-voting replica and can not participate in an election till it has caught up with the master as of the time the replica joined (again).</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Data-Management-for-Internet-Scale-Single-Sign-On"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Data-Management-for-Internet-Scale-Single-Sign-On"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

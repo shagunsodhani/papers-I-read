@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Gradient Surgery for Multi-Task Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Gradient Surgery for Multi-Task Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Gradient+Manipulation" title="Pages tagged Gradient Manipulation" rel="tag">Gradient Manipulation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Multi+Task" title="Pages tagged Multi Task" rel="tag">Multi Task</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a></p>
+  <span class="post-date">06 Aug 2020</span>
+  <ul>
+  <li>
+    <p>The paper hypothesizes that main optimization challenges in multi-task learning arise because of negative interference between different tasks’ gradients.</p>
+  </li>
+  <li>
+    <p>It hypothesizes that negative interference happens when:</p>
+
+    <ul>
+      <li>
+        <p>The gradients are conflicting (i.e., have a negative cosine similarity).</p>
+      </li>
+      <li>
+        <p>The gradients coincide with high positive curvature.</p>
+      </li>
+      <li>
+        <p>The difference in gradient magnitude is quite large.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The paper proses to work around this problem by performing “gradient surgery.”</p>
+  </li>
+  <li>
+    <p>If two gradients are conflicting, modify the gradients by projecting each onto the other’s normal plane.</p>
+  </li>
+  <li>
+    <p>This modification is equivalent to removing the conflicting component of the gradient.</p>
+  </li>
+  <li>
+    <p>This approach is referred to as <em>projecting conflicting gradients</em> (PCGrad).</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2001.06782">Link to the paper</a></p>
+  </li>
+  <li>
+    <p>Theoretical Analysis</p>
+
+    <ul>
+      <li>
+        <p>The paper proves the local conditions under which PCGrad improves multi-task gradient descent in the two-task setup.</p>
+      </li>
+      <li>
+        <p>The conditions are:</p>
+
+        <ul>
+          <li>
+            <p>Angle between the task gradients is not too small.</p>
+          </li>
+          <li>
+            <p>Difference in the magnitude of the gradients is sufficiently large.</p>
+          </li>
+          <li>
+            <p>Curvature of the multi-task gradient is large.</p>
+          </li>
+          <li>
+            <p>Large enough learning rate.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Experimental Setup</p>
+
+    <ul>
+      <li>
+        <p>Multi-task supervised learning</p>
+
+        <ul>
+          <li>
+            <p>MutliMNIST, Multi-task CIFAR100, NYUv2.</p>
+          </li>
+          <li>
+            <p>For Multi-task CIFAR-100, PCGrad is used with the shared parameters of the routing networks.</p>
+          </li>
+          <li>
+            <p>For NYUv2, PCGrad is combined with MTAN.</p>
+          </li>
+          <li>
+            <p>In all the cases, using PCGrad improves the performance.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Multi-task Reinforcement Learning</p>
+
+        <ul>
+          <li>
+            <p>Meta-World Benchmark</p>
+          </li>
+          <li>
+            <p>PCGrad + SAC outperforms all other baselines.</p>
+          </li>
+          <li>
+            <p>In the context of SAC, the paper suggests learning temperature $\alpha$ on a per-task basis.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Goal-conditioned Reinforcement Learning</p>
+
+        <ul>
+          <li>
+            <p>Goal-conditioned robotic pushing task with a Sawyer robot.</p>
+          </li>
+          <li>
+            <p>PCGrad + SAC outperforms vanilla SAC.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Gradient-Surgery-for-Multi-Task-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Gradient-Surgery-for-Multi-Task-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

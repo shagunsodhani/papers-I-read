@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Kronecker Recurrent Units &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Kronecker Recurrent Units</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML+2018" title="Pages tagged ICML 2018" rel="tag">ICML 2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Recurrent+Neural+Network" title="Pages tagged Recurrent Neural Network" rel="tag">Recurrent Neural Network</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICML" title="Pages tagged ICML" rel="tag">ICML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Kronecker" title="Pages tagged Kronecker" rel="tag">Kronecker</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#KRU" title="Pages tagged KRU" rel="tag">KRU</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RNN" title="Pages tagged RNN" rel="tag">RNN</a></p>
+  <span class="post-date">19 Jul 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Recurrent Neural Networks have two key issues:</p>
+
+    <ul>
+      <li>
+        <p><strong>Over parameterization</strong> which increases the time for training and inference.</p>
+      </li>
+      <li>
+        <p><strong>Ill conditioned</strong> recurrent weight matrix which makes training difficult due to vanishing or exploding gradients.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The paper presents a flexible RNN model called as KRU (Kronecker Recurrent Units) which overcomes the above problems by using a Kronecker factored recurrent matrix and soft unitary constraints on the factors.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1705.10142">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="related-work">Related Work</h2>
+
+<h3 id="existing-solutions-for-overparameterization">Existing solutions for overparameterization</h3>
+
+<ul>
+  <li>
+    <p>Low-rank decomposition.</p>
+  </li>
+  <li>
+    <p>Training a neural network on the soft targets predicted by a big pre-trained network.</p>
+  </li>
+  <li>
+    <p>Low-bit precision training.</p>
+  </li>
+  <li>
+    <p>Hashing.</p>
+  </li>
+</ul>
+
+<h3 id="existing-solutions-for-vanishing-and-exploding-gradients">Existing solutions for vanishing and exploding gradients</h3>
+
+<ul>
+  <li>
+    <p>Gating mechanism like in LSTMs.</p>
+  </li>
+  <li>
+    <p>Gradient Clipping.</p>
+  </li>
+  <li>
+    <p>Orthogonal Weight Initialization.</p>
+  </li>
+  <li>
+    <p>Parameterizing recurrent weight matrix.</p>
+  </li>
+</ul>
+
+<h2 id="kru">KRU</h2>
+
+<ul>
+  <li>
+    <p>Uses a Kronecker factored recurrent matrix which enables controlling the number of parameters and number of factor matrices.</p>
+  </li>
+  <li>
+    <p>Vanishing and exploding gradients are taken care of by using a soft unitary constraint.</p>
+  </li>
+  <li>
+    <p>Why not use strict unitary constraint:</p>
+
+    <ul>
+      <li>
+        <p>Restricts the search space and makes learning process unstable.</p>
+
+        <ul>
+          <li>
+            <p>Makes forgetting (irrelevant) information difficult.</p>
+          </li>
+          <li>
+            <p>Relaxing the strict constraint has shown to improve the convergence speed and generalization performance.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>KRU can be easily plugged into RNNs, LSTMs and other variants.</p>
+  </li>
+  <li>
+    <p>The recurrent matrix <em>W</em> is paramterized as a kronecker product of <em>F</em> matrices <em>W<sub>0</sub>, …, W<sub>F-1</sub></em> where each <em>W<sub>f</sub></em> is a complex matrix of shape <em>P<sub>f</sub> x Q<sub>f</sub></em> and the product of all <em>P<sub>f</sub></em> and producto of all <em>Q<sub>f</sub></em> are both equal to <em>N</em>.</p>
+  </li>
+  <li>
+    <p>Why is <em>W</em> a complex matrix?</p>
+
+    <ul>
+      <li>
+        <p>In the real space, the set of all unitary matrices have the determinant as 1 or -1.</p>
+
+        <ul>
+          <li>
+            <p>Given that determinant is a continuous function, the unitary set in the real space is disconnected.</p>
+          </li>
+          <li>
+            <p>The unitary set in the complex space is connected as its determinants are points on the unit circle.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="soft-unitary-constraint">Soft Unitary Constraint</h3>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>A soft unitary constraint is introduced in the form of regularization term</td>
+          <td> </td>
+          <td>W<sub>f</sub><sup>H</sup>W<sub>f</sub> - I</td>
+          <td> </td>
+          <td><sup>2</sup> (per kronecker factored recurrent matrix).</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>If each of the Kronecker factors is unitary, the resulting matrix <em>W</em> would also be unitary.</p>
+  </li>
+  <li>
+    <p>It is computationally inefficient to apply this constraint over the recurrent matrix <em>W</em> itself as the complexity of the regularizer is given as <em>O(N<sup>3</sup>)</em>.</p>
+  </li>
+  <li>Use of Kronecker factorisation makes it computationally feasible to use this regulariser.</li>
+</ul>
+
+<h2 id="experiment">Experiment</h2>
+
+<ul>
+  <li>
+    <p>The Kronecker recurrent model is compared against the existing recurrent models for multiple tasks including copy memory, adding memory, pixel-by-pixel MNIST, char level language models, polyphonic music modelling, and framewise phoneme classification.</p>
+  </li>
+  <li>
+    <p>For most of the task, KRU model produces results comparable to the best performing models despite using fewer parameters.</p>
+  </li>
+  <li>
+    <p>Using soft unitary constraints in KRU provides a principled alternative to gradient clipping (a common heuristic to avoid exploding gradients).</p>
+  </li>
+  <li>
+    <p>Further, recent theoretical results suggest the gradient descent converges to a global optimizer of linear recurrent networks even if the learning problem is non-convex provided that the spectral norm of the recurrent matrix is bound by 1.</p>
+  </li>
+  <li>
+    <p>The key take away from the paper is that state should be high dimensional so that high capacity network can be used for encoding and decoding the input and output. The recurrent dynamics should be implemented via a low capacity model.s per task.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Kronecker-Recurrent-Units"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Kronecker-Recurrent-Units"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

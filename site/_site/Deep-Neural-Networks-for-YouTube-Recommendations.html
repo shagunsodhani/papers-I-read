@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Deep Neural Networks for YouTube Recommendations &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Deep Neural Networks for YouTube Recommendations</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Machine+Learning" title="Pages tagged Machine Learning" rel="tag">Machine Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Recommender+Systems" title="Pages tagged Recommender Systems" rel="tag">Recommender Systems</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ACM" title="Pages tagged ACM" rel="tag">ACM</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Engineering" title="Pages tagged Engineering" rel="tag">Engineering</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Latency" title="Pages tagged Latency" rel="tag">Latency</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ML" title="Pages tagged ML" rel="tag">ML</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Ranking" title="Pages tagged Ranking" rel="tag">Ranking</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Recommender" title="Pages tagged Recommender" rel="tag">Recommender</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Scale" title="Pages tagged Scale" rel="tag">Scale</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Systems" title="Pages tagged Systems" rel="tag">Systems</a></p>
+  <span class="post-date">22 Mar 2021</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes YouTube’s deep learning-based recommendation system.</p>
+  </li>
+  <li>
+    <p><a href="https://research.google/pubs/pub45530/">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="challenges">Challenges</h2>
+
+<ul>
+  <li>
+    <p>Scale - Very large number of users and videos.</p>
+  </li>
+  <li>
+    <p>Freshness - Very large number of videos uploaded every hour. The recommendation system should take these new videos into account as well.</p>
+  </li>
+  <li>
+    <p>Noise - User satisfaction needs to be modeled from noisy implicit feedback signal as the explicit signal is very sparse.</p>
+  </li>
+</ul>
+
+<h2 id="system-overview">System Overview</h2>
+
+<ul>
+  <li>
+    <p>Two neural networks: one for candidate generation and another one for ranking.</p>
+  </li>
+  <li>
+    <p>Metrics</p>
+
+    <ul>
+      <li>
+        <p>Offline metrics like precision, recall, ranking loss</p>
+      </li>
+      <li>
+        <p>A/B testing via live experiments</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="candidate-generation">Candidate Generation</h3>
+
+<ul>
+  <li>
+    <p>Input: events from a user’s YouTube activity history.</p>
+  </li>
+  <li>
+    <p>Output: small subset (hundreds) of videos.</p>
+  </li>
+  <li>
+    <p>Approach:</p>
+
+    <ul>
+      <li>
+        <p>Recommendation is modeled as extreme multiclass classification.</p>
+      </li>
+      <li>
+        <p>Predict the video (from a corpus) that a user will watch at a given time.</p>
+      </li>
+      <li>
+        <p>The neural network’s task is to learn useful user embeddings, given the user’s context and history.</p>
+      </li>
+      <li>
+        <p>For each positive class (relevant video), negative classes (non-relevant videos) are sampled from the video corpus.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Model Architecture</p>
+
+    <ul>
+      <li>
+        <p>A feedforward network with input as user embeddings and context embeddings (watch history).</p>
+      </li>
+      <li>
+        <p>Watch history is a variable-length sequence of video ids, where each video id is mapped to an embedding.</p>
+      </li>
+      <li>
+        <p>The sequence of video ids is mapped to a sequence of embeddings, and this sequence is averaged to obtain fixed-sized embedding.</p>
+      </li>
+      <li>
+        <p>Additional signals like demographic features and search query embeddings can be added along with the context embeddings.</p>
+      </li>
+      <li>
+        <p>The age of a video is also used as a feature during training to account for the freshness of the content. This feature is set to zero (or slightly negative) during inference.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Other Insights</p>
+
+    <ul>
+      <li>
+        <p>Training examples are generated from all YouTube watches, including the watches from the videos embedded on other sites, to surface new content.</p>
+      </li>
+      <li>
+        <p>Generating the same number of training examples per user is important to avoid a small set of active users from dominating the model training.</p>
+      </li>
+      <li>
+        <p>Predicting a user’s next watch leads to better results than predicting a randomly held-out watch. This can be attributed to the general consumption pattern of videos (e.g., episodes are usually watched in order).</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ranking">Ranking</h3>
+
+<ul>
+  <li>
+    <p>Input: list of candidate videos to rank from.</p>
+  </li>
+  <li>
+    <p>Output: score for each video.</p>
+  </li>
+  <li>
+    <p>Approach</p>
+
+    <ul>
+      <li>A feedforward network (similar to candidate generation model) trained using logistic regression loss.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Feature representation</p>
+
+    <ul>
+      <li>
+        <p>Different types of features: categorical vs. continuous, univalent vs. multivalent, describes video vs. describes user or context.</p>
+      </li>
+      <li>
+        <p>Important signals include user’s interaction with the video (or similar videos), which source/channel added the video to the candidate set.</p>
+      </li>
+      <li>
+        <p>Embeddings are shared across features. For example, the representation for a video id remains the same, irrespective of whether it is being used for representing the “video to recommend” or the “last seen video.”</p>
+      </li>
+      <li>
+        <p>Feature normalization and transformations like exponents (square or square root) for continuous variables improve the performance.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>To model the expected watch time, the logistic regression loss is weighted by the observed watch time. For example, if a video was watched, its weight is given by the observed watch time, and if the video was not watched, its weight is set to 1.</p>
+  </li>
+  <li>
+    <p>In practice, this means that the logistic regression model learns odds that approximate the expected watch time of the video.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/The-Tail-at-Scale">
+            The Tail at Scale
+            <small>15 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Deep-Neural-Networks-for-YouTube-Recommendations"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Model Primitive Hierarchical Lifelong Reinforcement Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Model Primitive Hierarchical Lifelong Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAMAS+2019" title="Pages tagged AAMAS 2019" rel="tag">AAMAS 2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Catastrophic+Forgetting" title="Pages tagged Catastrophic Forgetting" rel="tag">Catastrophic Forgetting</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Continual+Learning" title="Pages tagged Continual Learning" rel="tag">Continual Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Hierarchical+Reinforcement+Learning" title="Pages tagged Hierarchical Reinforcement Learning" rel="tag">Hierarchical Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Lifelong+Learning" title="Pages tagged Lifelong Learning" rel="tag">Lifelong Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AAMAS" title="Pages tagged AAMAS" rel="tag">AAMAS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CL" title="Pages tagged CL" rel="tag">CL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#HRL" title="Pages tagged HRL" rel="tag">HRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">12 Mar 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents a framework that uses diverse suboptimal world models that can be used to break complex policies into simpler and modular sub-policies.</p>
+  </li>
+  <li>
+    <p>Given a task, both the sub-policies and the controller are simultaneously learned in a bottom-up manner.</p>
+  </li>
+  <li>
+    <p>The framework is called as Model Primitive Hierarchical Reinforcement Learning (MPHRL).</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1903.01567">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="idea">Idea</h2>
+
+<ul>
+  <li>
+    <p>Instead of learning a single transition model of the environment (aka <em>world model</em>) that can model the transitions very well, it is sufficient to learn several (say <em>k</em>) suboptimal models (aka <em>model primitives</em>).</p>
+  </li>
+  <li>
+    <p>Each <em>model primitive</em> will be good in only a small part of the state space (aka <em>region of specialization</em>).</p>
+  </li>
+  <li>
+    <p>These <em>model primitives</em> can then be used to train a gating mechanism for selecting sub-policies to solve a given task.</p>
+  </li>
+  <li>
+    <p>Since these <em>model primitives</em> are sub-optimal, they are not directly used with model-based RL but are used to obtain useful functional decompositions and sub-policies are trained with model-free approaches.</p>
+  </li>
+</ul>
+
+<h2 id="single-task-learning">Single Task Learning</h2>
+
+<ul>
+  <li>
+    <p>A gating controller is trained to choose the sub-policy whose <em>model primitive</em> makes the best prediction.</p>
+  </li>
+  <li>
+    <p>This requires modeling <em>p(M<sub>k</sub> | s<sub>t</sub>, a<sub>t</sub>, s<sub>t+1</sub>)</em> where <em>p(M<sub>k</sub>)</em> denotes the probability of selecting the <em>k<sup>th</sup> model primitive</em>. This is hard to compute as the system does not have access to <em>s<sub>t+1</sub></em>  and <em>a<sub>t</sub></em> at time <em>t</em> before it has choosen the sub-policy.</p>
+  </li>
+  <li>
+    <p>Properly marginalizing <em>s<sub>t+1</sub></em> and <em>a<sub>t</sub></em> would require expensive MC sampling. Hence an approximation is used and the gating controller is modeled as a categorical distribution - to produce <em>p(M<sub>k</sub> | s<sub>t</sub>)</em>. This is trained via a conditional cross entropy loss where the ground truth distribution is obtained from transitions sampled in a rollout.</p>
+  </li>
+  <li>
+    <p>The paper notes that technique is biased but reports that it still works for the downstream tasks.</p>
+  </li>
+  <li>
+    <p>The gating controller composes the sub-policies as a mixture of Gaussians.</p>
+  </li>
+  <li>
+    <p>For learning, PPO algorithm is used with each <em>model primitives</em> gradient weighted by the probability from the gating controller.</p>
+  </li>
+</ul>
+
+<h2 id="lifelong-learning">Lifelong Learning</h2>
+
+<ul>
+  <li>Different tasks could share common subtasks but may require a different composition of subtasks. Hence, the learned sub-policies are transferred across tasks but not the gating controller or the baseline estimator (from PPO).</li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Domains:</p>
+
+    <ul>
+      <li>
+        <p>Mujoco ant navigating different mazes.</p>
+      </li>
+      <li>
+        <p>Stacker arm picking up and placing different boxes.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Implementation Details:</p>
+
+    <ul>
+      <li>
+        <p>Gaussian subpolicies</p>
+      </li>
+      <li>
+        <p>PPO as the baseline</p>
+      </li>
+      <li>
+        <p>Model primitives are hand-crafted using the true next state provided by the environment simulator.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Single Task</p>
+
+    <ul>
+      <li>
+        <p>Only maze task is considered with the start position (of the ant) and the goal position is fixed.</p>
+      </li>
+      <li>
+        <p>Observation includes distance from the goal.</p>
+      </li>
+      <li>
+        <p>Forcing the agent to decompose the problem, when a more direct solution may be available, causes the sample complexity to increase on one task.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Lifelong Learning</p>
+
+    <ul>
+      <li>
+        <p>Maze</p>
+
+        <ul>
+          <li>
+            <p>10 random Mujoco ant mazes used as the task distribution.</p>
+          </li>
+          <li>
+            <p>MPHRL takes almost twice the number of steps (as compared to PPO baseline) to solve the first task but this cost gets amortized over the distribution and the model takes half the number of steps as compared to the baseline (summed over the 10 tasks).</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Pick and Place</p>
+
+        <ul>
+          <li>
+            <p>8 Pick and Place tasks are created with max 3 goal locations.</p>
+          </li>
+          <li>
+            <p>Observation includes the position of the goal.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Ablations</p>
+
+    <ul>
+      <li>
+        <p>Overlapping <em>model primitives</em> can degrade the performance (to some extent). Similarly, the performance suffers when redundant primitives are introduced indicating that the gating mechanism is not very robust.</p>
+      </li>
+      <li>
+        <p>Sub-policies could quickly adapt to the previous tasks (on which they were trained initially) despite being finetuned on subsequent tasks.</p>
+      </li>
+      <li>
+        <p>The order of tasks (in the 10-Mazz task) does not degrage the performance.</p>
+      </li>
+      <li>
+        <p>Transfering the gating controller leads to negative transfer.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Notes</p>
+
+    <ul>
+      <li>I think the biggest strength of the work is that accurate dynamics model are not needed (which are hard to train anyways!) through the experimental results are not conclusive given the limited number of domains on which the approach is tested.</li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Model-Primitive-Hierarchical-Lifelong-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

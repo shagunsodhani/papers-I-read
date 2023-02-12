@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR+2020" title="Pages tagged ICLR 2020" rel="tag">ICLR 2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#ICLR" title="Pages tagged ICLR" rel="tag">ICLR</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MAML" title="Pages tagged MAML" rel="tag">MAML</a></p>
+  <span class="post-date">16 Jan 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper investigated two possible reasons behind the usefulness of MAML algorithm:</p>
+
+    <ul>
+      <li>
+        <p><strong>Rapid Learning</strong> - Does MAML learn features that are amenable for rapid learning?</p>
+      </li>
+      <li>
+        <p><strong>Feature Reuse</strong> - Does the MAML initialization provide high-quality features that are useful for the unseen tasks.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>This leads to a follow-up question: how much task-specific inner loop adaptation is needed.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1909.09157">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>In a standard few-shot learning setup, the different datasets have different classes. Hence, the top-most layer (or the head) of the learning model should be different for different tasks.</p>
+  </li>
+  <li>
+    <p>The subsequent discussion only applies to the body of the network (ie, network minus the head).</p>
+  </li>
+  <li>
+    <p><strong>Freezing Layer Representations</strong></p>
+
+    <ul>
+      <li>
+        <p>In this setup, a subset (or all) of parameters are frozen (after MAML training) and are not adapted during the representation.</p>
+      </li>
+      <li>
+        <p>Even when the entire network is frozen, the performance drops only marginally.</p>
+      </li>
+      <li>
+        <p>This indicates that the representation learned by the meta-initialization is good enough to be useful on the test tasks (without requiring any adaptation step).</p>
+      </li>
+      <li>
+        <p>Note that the head of the network is still adapted during testing.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Representational Similarity</strong></p>
+
+    <ul>
+      <li>
+        <p>In this setup, the paper reports the change in the latent representation (learned by the network) during the inner loop update with a fully trained model.</p>
+      </li>
+      <li>
+        <p>Canonical Correlation Analysis (CCA) and Central Kernel Alignment (CKA) metrics are used to measure the similarity between the representations.</p>
+      </li>
+      <li>
+        <p>The main finding is that the representations in the body of the network are very similar before and after the inner loop updates while the representations in the head of the network are very different.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The above two observations indicate that feature reuse is the primary driving factor for the success of MAML.</p>
+  </li>
+  <li>
+    <p><strong>When does feature reuse happen</strong></p>
+
+    <ul>
+      <li>
+        <p>The paper considers the model at different stages of training and compares the similarity in the representation (before and after the inner loop update).</p>
+      </li>
+      <li>
+        <p>Even early in training, the CCA similarity between the representations (before and after the inner loop update) is quite high. Similarly, freezing the layers (for the test time update), early in training, does not degrade the test time performance much. This hints that the feature reuse happens early in the learning process.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-anil-almost-no-inner-loop-algorithm">The ANIL (Almost No Inner Loop) Algorithm</h2>
+
+<ul>
+  <li>
+    <p>The empirical evidence suggests that the success of MAML lies in the feature reuse.</p>
+  </li>
+  <li>
+    <p>The authors build on this observation and propose a simplification of the MAML algorithm: ANIL or Almost No Inner Loop Algorithm</p>
+  </li>
+  <li>
+    <p>In this algorithm, the inner loop updates are applied only to the head of the network.</p>
+  </li>
+  <li>
+    <p>Despite being much more straightforward, the performance of ANIL is close to the performance of MAML for both few-shot image classification and RL tasks.</p>
+  </li>
+  <li>
+    <p>Removing most of the inner loop parameters speed up the computation by a factor of 1.7 (during training) and 4.1 (during inference).</p>
+  </li>
+</ul>
+
+<h2 id="removing-the-inner-loop-update">Removing the Inner Loop Update</h2>
+
+<ul>
+  <li>
+    <p>Given that it is possible to remove most of the parameters from the inner loop update (without affecting the performance), the next step is to check if the inner loop update can be removed entirely.</p>
+  </li>
+  <li>
+    <p>This leads to the NIL (No Inner Loop) algorithm, which does not involve any inner loop adaptation steps.</p>
+  </li>
+</ul>
+
+<h3 id="algorithm">Algorithm</h3>
+
+<ul>
+  <li>
+    <p>A few-shot learning model is trained - either with MAML or ANIL.</p>
+  </li>
+  <li>
+    <p>During testing, the head is removed.</p>
+  </li>
+  <li>
+    <p>For each task, the K training examples are fed to the body to obtain class representations.</p>
+  </li>
+  <li>
+    <p>For a given test data point, the representation of the data point is compared with the different class representations to obtain the target class.</p>
+  </li>
+  <li>
+    <p>The NIL algorithm performs similar to the MAML and the ANIL algorithms for the few-shot image classification task.</p>
+  </li>
+  <li>
+    <p>Note that it is still important to use MAML/ANIL during training, even though the learned head is not used during evaluation.</p>
+  </li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<ul>
+  <li>The paper discusses the different classes of meta-learning approaches. It concludes with the observation that feature reuse (and not rapid adaptation) seems to be the common model of operation for both optimization-based meta-learning (e.g., MAML) and model-based meta-learning.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Rapid-Learning-or-Feature-Reuse-Towards-Understanding-the-Effectiveness-of-MAML"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Rapid-Learning-or-Feature-Reuse-Towards-Understanding-the-Effectiveness-of-MAML"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

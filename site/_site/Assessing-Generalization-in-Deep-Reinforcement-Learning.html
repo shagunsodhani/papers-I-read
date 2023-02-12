@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Assessing Generalization in Deep Reinforcement Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Assessing Generalization in Deep Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2018" title="Pages tagged 2018" rel="tag">2018</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Deep+Reinforcement+Learning" title="Pages tagged Deep Reinforcement Learning" rel="tag">Deep Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluating+Generalization" title="Pages tagged Evaluating Generalization" rel="tag">Evaluating Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reinforcement+Learning" title="Pages tagged Reinforcement Learning" rel="tag">Reinforcement Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#DRL" title="Pages tagged DRL" rel="tag">DRL</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Evaluation" title="Pages tagged Evaluation" rel="tag">Evaluation</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Generalization" title="Pages tagged Generalization" rel="tag">Generalization</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">01 Aug 2019</span>
+  <ul>
+  <li>
+    <p>The paper presents a benchmark and experimental protocol (environments, metrics, baselines, training/testing setup) to evaluate RL algorithms for generalization.</p>
+  </li>
+  <li>
+    <p>Several RL algorithms are evaluated and the key takeaway is that the “vanilla” RL algorithms can generalize better than the RL algorithms that are specifically designed to generalize, given enough diversity in the distribution of the training environments.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1810.12282">Link to the paper</a></p>
+  </li>
+  <li>
+    <p>The focus is on evaluating generalization to environmental changes that affect the system dynamics (and not the goal or rewards).</p>
+  </li>
+  <li>
+    <p>Two generalization regimes are considered:</p>
+
+    <ul>
+      <li>
+        <p>Interpolation - parameters of the test environment are similar to the parameters of the training environment.</p>
+      </li>
+      <li>
+        <p>Extrapolation - parameters of the test environment are different from the parameters of the training environment.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Following algorithms are considered as part of the benchmark:</p>
+
+    <ul>
+      <li>
+        <p>“Vanilla” RL algorithms - A2C, PPO</p>
+      </li>
+      <li>
+        <p>RL algorithms that are designed to generalize:</p>
+
+        <ul>
+          <li>
+            <p>EPOpt - Learn a (robust) policy that maximizes the expected reward over the most difficult distribution of environments (ones with the worst expected reward).</p>
+          </li>
+          <li>
+            <p>RL<sup>2</sup> - Learn an (adaptive) policy that can adapt to the current environment/task by considering the trajectory and not just the state transition sequence.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>These specially designed RL algorithms can be optimized using either A2C or PPO leading to combinations like EPOpt-A2C or EPOpt-PPO etc.</p>
+      </li>
+      <li>
+        <p>The models are either composed of feedforward networks completely or feedforward + recurrent networks.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Environments</p>
+
+    <ul>
+      <li>
+        <p>CartPole, MountainCar, Acrobot, and Pendulum from OpenAI Gym.</p>
+      </li>
+      <li>
+        <p>HalfCheetah and Hopper from OpenAI Roboschool.</p>
+      </li>
+      <li>
+        <p>Three versions of each environment are considered:</p>
+
+        <ul>
+          <li>
+            <p>Deterministic: Environment parameters are fixed. This case corresponds to the standard environment setup in classical RL.</p>
+          </li>
+          <li>
+            <p>Random: Environment parameters are sampled randomly. This case corresponds to sampling from a distribution of environments.</p>
+          </li>
+          <li>
+            <p>Extreme: Environment parameters are sampled from their extreme values. This case corresponds to the edge-case environments which would not be encountered during training generally.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Performance Metrics</p>
+
+    <ul>
+      <li>
+        <p>Average total reward per episode.</p>
+      </li>
+      <li>
+        <p>Success percentage: Percentage of episodes where a certain goal (or reward) is obtained.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Evaluation Metrics/Setups</p>
+
+    <ul>
+      <li>
+        <p>Default: success percentage when training and evaluating the deterministic version of the environment.</p>
+      </li>
+      <li>
+        <p>Interpolation: success percentage when training and evaluating on the random version of the environment.</p>
+      </li>
+      <li>
+        <p>Extrapolation: the geometric mean of the success percentage of following three versions:</p>
+
+        <ul>
+          <li>
+            <p>Train on deterministic and evaluate on the random version.</p>
+          </li>
+          <li>
+            <p>Train on deterministic and evaluate on extreme version.</p>
+          </li>
+          <li>
+            <p>Train on random and evaluate on the extreme version.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Observations</p>
+
+    <ul>
+      <li>
+        <p>Extrapolation is harder than interpolation.</p>
+      </li>
+      <li>
+        <p>Increasing the diversity in the training environments improves the interpolation generalization of vanilla RL methods.</p>
+      </li>
+      <li>
+        <p>EPOpt improves generalization only for continuous control environments and only with PPO.</p>
+      </li>
+      <li>
+        <p>RL<sup>2</sup> is difficult to train on the environments considered and did not provide a clear advantage in terms of generalization.</p>
+      </li>
+      <li>
+        <p>EPOpt-PPO outperforms PPO on only 3 environments and EPOpt-A2C does not</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Assessing-Generalization-in-Deep-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Assessing-Generalization-in-Deep-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

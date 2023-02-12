@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      A Foliated View of Transfer Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">A Foliated View of Transfer Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2020" title="Pages tagged 2020" rel="tag">2020</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Transfer+Learning" title="Pages tagged Transfer Learning" rel="tag">Transfer Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Geometry" title="Pages tagged Geometry" rel="tag">Geometry</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Theory" title="Pages tagged Theory" rel="tag">Theory</a></p>
+  <span class="post-date">28 Sep 2020</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents a formalism for transfer learning, offers a definition of relatedness between tasks, and proposes foliations as a mathematical framework to represent the relationship between tasks.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2008.00546">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>
+    <p>The term <em>representation</em> denotes a mechanism for <em>describing</em> and <em>realizing</em> abstract objects, thus allowing manipulation and reasoning about the objects. This description goes beyond the usual meaning (in deep learning), where <em>representation</em> denotes some useful information about data.</p>
+  </li>
+  <li>
+    <p><em>Relatedness</em> describes <em>what</em> changes between tasks. Consider a set of transformations (or functions) that convert one task to another. A <em>relationship</em> between two tasks is an element of this transformation set.</p>
+  </li>
+  <li>
+    <p>Given a transformation set, one can define a <em>set of related tasks</em>, which is the set of all the tasks that can be transformed into each other using the functions from the given transformation set. This set of tasks is an equivalence class, and the transformation set is the equivalence relationship.</p>
+  </li>
+  <li>
+    <p>Given two related tasks <em>t1</em> and <em>t2</em>, denote the corresponding models (trained on those tasks) as <em>m1</em> and <em>m2</em>. One can assume that <em>m1</em> and <em>m2</em> are related in the same way as <em>t1</em> and <em>t2</em> (equivariance).</p>
+  </li>
+  <li>
+    <p>Now, given a set of transformations, one can partition the space of continuous functions into non-overlapping spaces, which describe a set of related tasks. These spaces are referred to as the <em>parallel spaces</em> or <em>transfer spaces</em>.</p>
+  </li>
+  <li>
+    <p>The parallel space represents a lower dimension than the original space. So knowing which parallel space a model lies on can make it easier to find it. This is the primary motivation behind transfer learning - knowing the relationship between tasks can make it easier to find a solution to new tasks.</p>
+  </li>
+  <li>
+    <p>Another way of partitioning the set of transformations is to use tessellation (e.g., Voronoi diagrams). Tasks in the same partition are similar to each other as compared to a task from another partition.</p>
+  </li>
+  <li>
+    <p>Two tasks are defined as <em>similar</em> if the distance between them (under some distance metric) is small.</p>
+  </li>
+  <li>
+    <p>Similarity is a <em>geometric</em> notion, while relatedness is a <em>transformative</em> notion. Parallelized space is to relatedness what tessellation is to similarity.</p>
+  </li>
+  <li>
+    <p>The distinction between similarity and relatedness is quite nuanced, and the authors provide several examples to differentiate between them.</p>
+  </li>
+  <li>
+    <p>Similarity can only be measured in terms of a reference element (similar to what). For example, when one finetunes a pre-trained model on a new task, one assumes that the model’s pretraining task is similar to the current task.</p>
+  </li>
+  <li>
+    <p>Given a set (say <em>T</em>), a <em>quantity</em> (a function that maps elemenets of <em>T</em> to a <em>k</em> dimensional vector) is said to be <em>invariant</em> with respect to a transformation <em>p</em> (defined on <em>T</em>) if <em>q(f) = q(p(f))</em> ie the value of <em>f</em> (belonging to <em>T</em>) does not change if <em>f</em> is transformed by <em>p</em>.</p>
+  </li>
+  <li>
+    <p>If one assumes that the set of transformations is a group, specifically a Lie group whose action on the set of tasks is locally free and regular, then one can define a parallel partitioning of the space of tasks and the space of models.</p>
+  </li>
+  <li>
+    <p>One can develop a hierarchial categorization scheme for the set of all considered tasks using the invariant quantities.</p>
+  </li>
+  <li>
+    <p>One can consider the space of tasks and models to be smooth manifolds as manifolds naturally give a notion of representation and transformations between them.</p>
+  </li>
+  <li>
+    <p>A manifold is a topological space that can be locally mapped to a Euclidean space using coordinate charts. One can define regular foliation by choosing charts that satisfy certain conditions. In that case, the manifold has immersed, connected, non-intersecting submanifolds called leaves.</p>
+  </li>
+  <li>
+    <p>The charts (that satisfies those conditions) give a set of rectified coordinates, where the notions of “which leaf a point is on” and “where on the leaf it is” are clearly separated.</p>
+  </li>
+  <li>
+    <p>Thus, foliation can provide the theoretical tools to work with parallel spaces.</p>
+  </li>
+  <li>
+    <p>How can the foliations be incorporated into theory and solutions for transfer learning is left aa future work.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/A-Foliated-View-of-Transfer-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/A-Foliated-View-of-Transfer-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

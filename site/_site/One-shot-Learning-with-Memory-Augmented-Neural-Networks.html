@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      One-shot Learning with Memory-Augmented Neural Networks &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">One-shot Learning with Memory-Augmented Neural Networks</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Memory+Augmented+Neural+Network" title="Pages tagged Memory Augmented Neural Network" rel="tag">Memory Augmented Neural Network</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Meta+Learning" title="Pages tagged Meta Learning" rel="tag">Meta Learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#One+shot+learning" title="Pages tagged One shot learning" rel="tag">One shot learning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#MANN" title="Pages tagged MANN" rel="tag">MANN</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Memory" title="Pages tagged Memory" rel="tag">Memory</a></p>
+  <span class="post-date">25 Oct 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper demonstrates that Memory Augmented Neural Networks (MANN) are suitable for one-shot learning by introducing a new method for accessing an external memory.</p>
+  </li>
+  <li>
+    <p>This method focuses on memory content while earlier methods additionally used memory location based focusing mechanisms.</p>
+  </li>
+  <li>
+    <p>Here, MANN refers to neural networks that have an external memory. This includes Neural Turning Machines (NTMs) and excludes LSTMs.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1605.06065">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="meta-learning">Meta-Learning</h2>
+
+<ul>
+  <li>
+    <p>In meta-learning, a learner is learning at two levels.</p>
+  </li>
+  <li>
+    <p>The learner is shown a sequence of tasks D<sub>1</sub>, D<sub>2</sub>, …, D<sub>T</sub>.</p>
+  </li>
+  <li>
+    <p>When it is training on one of the datasets (say D<sub>T</sub>), it learns to solve the current dataset.</p>
+  </li>
+  <li>
+    <p>At the same time, the learner tries to incorporate knowledge about how task structure changes across different datasets (second level of learning).</p>
+  </li>
+</ul>
+
+<h2 id="mann--meta-learning">MANN + Meta Learning</h2>
+
+<ul>
+  <li>
+    <p>Following are the desirable characteristics for a scalable, combined architecture:</p>
+
+    <ul>
+      <li>
+        <p>Memory representation should be both stable and element-wise accessible.</p>
+      </li>
+      <li>
+        <p>Number of model parameters should not be tied to the size of the memory.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="task-setup">Task Setup</h2>
+
+<ul>
+  <li>
+    <p>In standard learning, the goal is to reduce error on some dataset D. In meta-learning, the goal is to reduce the error across a distribution of datasets p(D).</p>
+  </li>
+  <li>
+    <p>Each dataset is presented to the model in the form (x<sub>1</sub>, null), (x<sub>1</sub>, y<sub>0</sub>), …, (x<sub>t+1</sub>, y<sub>t</sub>) where y<sub>t</sub> is the correct label (or value) corresponding to the inpuit x<sub>t</sub>.</p>
+  </li>
+  <li>
+    <p>Further, the data labels are shuffled from dataset to dataset.</p>
+  </li>
+  <li>
+    <p>The model must learn to hold the data samples in memory till the appropriate candidate labels are presented in the next step.</p>
+  </li>
+  <li>
+    <p>The idea is that a model that meta learns would learn to map data representation to correct labels regardless of the actual context of data representation or the label.</p>
+  </li>
+  <li>
+    <p>The paper uses NTM as the MANN with one modification.</p>
+  </li>
+  <li>
+    <p>In the original formulation, the memories were addressed by both context and location. Location-based addressing is not optimal for the current setup where information encoding is not independent of the sequence.</p>
+  </li>
+  <li>
+    <p>A new access module - LRUA - Least Recent Used Access - is used to write to memory.</p>
+  </li>
+  <li>
+    <p>LRUA is purely content-based and writes to either least used memory location (to preserve recent information) or most recently used memory location (to overwrite recent information with more relevant information). This is decided on the basis of interpolation between previous read weights and weights scaled according to the usage weight.</p>
+  </li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>
+    <p>Omniglot (classification)</p>
+  </li>
+  <li>
+    <p>Sampled functions from Gaussian Processes</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>For the omniglot dataset, the model was trained with various combinations of randomly chosen classes with randomly chosen labels.</p>
+  </li>
+  <li>
+    <p>As baselines, following models were considered:</p>
+
+    <ul>
+      <li>Regular NTM</li>
+      <li>LSTM</li>
+      <li>Feedforward RNN</li>
+      <li>Nearest Neighbour Classifier</li>
+    </ul>
+  </li>
+  <li>
+    <p>Since each episode (dataset created by the combination of classes) contains unique classes (with their own unique labels) it is important to clear the memory across different episodes.</p>
+  </li>
+  <li>
+    <p>For the regression task, the data was generated from a GP prior with a fixed set of hyper-parameters which resulted in different functions.</p>
+  </li>
+  <li>
+    <p>For both the tasks, the MANN architecture outperforms the LSTM architecture baseline NTMs.</p>
+  </li>
+</ul>
+
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/One-shot-Learning-with-Memory-Augmented-Neural-Networks"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/One-shot-Learning-with-Memory-Augmented-Neural-Networks"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

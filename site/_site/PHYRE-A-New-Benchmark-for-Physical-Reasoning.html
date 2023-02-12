@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      PHYRE - A New Benchmark for Physical Reasoning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">PHYRE - A New Benchmark for Physical Reasoning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2019" title="Pages tagged 2019" rel="tag">2019</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Physical+Reasoning" title="Pages tagged Physical Reasoning" rel="tag">Physical Reasoning</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Benchmark" title="Pages tagged Benchmark" rel="tag">Benchmark</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Physics" title="Pages tagged Physics" rel="tag">Physics</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Reasoning" title="Pages tagged Reasoning" rel="tag">Reasoning</a></p>
+  <span class="post-date">29 Aug 2019</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes the PHYRE (PHYsical REasoning) benchmark - consisting of classic mechanical puzzles in 2D physical environments - as a means to evaluate the physical reasoning ability of machine learning models.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1908.05656">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="environment">Environment</h2>
+
+<ul>
+  <li>
+    <p>2D world that obeys Newtonian mechanics.</p>
+  </li>
+  <li>
+    <p>Gravitational force + Friction.</p>
+  </li>
+  <li>
+    <p>Non-deformable objects that can be static (ie fixed) or dynamic (ie can move and are affected by collisions etc).</p>
+  </li>
+</ul>
+
+<h2 id="task">Task</h2>
+
+<ul>
+  <li>
+    <p>The learning agent starts in some initial world state (ie configuration of objects).</p>
+  </li>
+  <li>
+    <p>Goal is described in the form of (<code class="language-plaintext highlighter-rouge">subject</code>, <code class="language-plaintext highlighter-rouge">relation</code>, <code class="language-plaintext highlighter-rouge">object</code>) where the agent’s task is to satisfy the <code class="language-plaintext highlighter-rouge">relation</code> between the <code class="language-plaintext highlighter-rouge">subject</code> and the <code class="language-plaintext highlighter-rouge">object</code>.</p>
+  </li>
+  <li>
+    <p>Currently, only the “touch” <code class="language-plaintext highlighter-rouge">relation</code> is supported.</p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>The learning agent has to take a single action - placing one or more new dynamic objects in the world.</p>
+  </li>
+  <li>
+    <p>A simulator is run on the new configuration (for a fixed amount of time) to check if the goal condition is satisfied.</p>
+  </li>
+  <li>
+    <p>At the end of the simulation, a binary reward and intermediate observations (collected as the simulator executes) are provided to the learning agent.</p>
+  </li>
+  <li>
+    <p>These observations are 256*256 grids where each grid cell can take 1 of the 7 values (denoting different types of objects).</p>
+  </li>
+  <li>
+    <p>Since only one relation supported currently, the color is sufficient to encode the goal.</p>
+  </li>
+</ul>
+
+<h2 id="benchmark-tiers">Benchmark Tiers</h2>
+
+<ul>
+  <li>
+    <p>Two benchmark tiers are provided where each tier comprises of a combination of:</p>
+
+    <ul>
+      <li>
+        <p>a predefined set of all the actions that the agent is allowed to perform.</p>
+      </li>
+      <li>
+        <p>set of tasks that can be solved by at least one action from the allowed action set.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>PHYRE-B</strong> - The agent is allowed to place a single (ball of any radii) at any valid location.</p>
+  </li>
+  <li>
+    <p><strong>PHYRE-2B</strong> - The agent is allowed to place 2 balls at any valid pair of locations.</p>
+  </li>
+  <li>
+    <p>Each of the two tiers has 25 task templates where each template comprises of variants of a single task (same goal but different initial conditions).</p>
+  </li>
+</ul>
+
+<h2 id="evaluation">Evaluation</h2>
+
+<ul>
+  <li>
+    <p>Two evaluation setups are considered:</p>
+
+    <ul>
+      <li>
+        <p><strong>within-template</strong> where the agent is trained on some tasks in a template and evaluated on a set of held-out tasks from the same template.</p>
+      </li>
+      <li>
+        <p><strong>cross-template</strong> where the agent is evaluated on tasks from a different template.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>In the training phase, the model has access to the simulator (but not to the correct solution). So the model could learn an action-prediction model or forward dynamics model or both.</p>
+  </li>
+  <li>
+    <p>In the testing phase, the model can query the simulator only a few times. Each query provides it with the binary reward and the intermediate observations.</p>
+  </li>
+</ul>
+
+<h2 id="performance-measure">Performance Measure</h2>
+
+<ul>
+  <li>
+    <p>The emphasis is on solving more tasks (in few queries) during the test phase.</p>
+  </li>
+  <li>
+    <p>This requirement is captured using a metric called AUCCESS.</p>
+  </li>
+  <li>
+    <p>In general, the tasks in PHYRE-2B are harder than tasks in PHYRE-B.</p>
+  </li>
+</ul>
+
+<h2 id="baseline-agents">Baseline Agents</h2>
+
+<ul>
+  <li>
+    <p>Random Agent - Randomly samples actions</p>
+  </li>
+  <li>
+    <p>Non-parametric agent (MEM) - generates R actions at random and uses the simulator to check how many tasks can be solved using these R random actions. During testing, try the R actions in the decreasing order of the number of tasks they solve.</p>
+  </li>
+  <li>
+    <p>Non-parametric agent with online learning (MEM-O) - Variant of MEM where an online adaptation step is performed during test time (to update the rank of the actions).</p>
+  </li>
+  <li>
+    <p>Deep Q Networks with an action encoder, observation encoder and fusion model (combine action and observation representation).</p>
+  </li>
+  <li>
+    <p>DQN with online learning (DQN-0): Variant of DQN with online updates (during the test phase).</p>
+  </li>
+  <li>
+    <p>Contextual bandits.</p>
+  </li>
+  <li>
+    <p>Policy learning approaches like PPO and A2C.</p>
+  </li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>Both Contextual bandits and policy-based approaches show poor training stability.</p>
+  </li>
+  <li>
+    <p>The best agent, DQN-O, reaches AUCCESS of 56.2\% on PHYRE-B and 39.26\% on PHYRE-2B. In general, agents with online adaptation perform better.</p>
+  </li>
+  <li>
+    <p>The tasks are designed such that 100000 attempts are sufficient to solve 100\% of tasks in PHYRE-B and 95\% of tasks in PHYRE-2B.</p>
+  </li>
+  <li>
+    <p>Even though only two tiers are provided right now, the benchmark is readily extensible and new tasks can be added in the future.</p>
+  </li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/PHYRE-A-New-Benchmark-for-Physical-Reasoning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/PHYRE-A-New-Benchmark-for-Physical-Reasoning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Improving Information Extraction by Acquiring External Evidence with Reinforcement Learning</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2016" title="Pages tagged 2016" rel="tag">2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP+2016" title="Pages tagged EMNLP 2016" rel="tag">EMNLP 2016</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Information+Retrieval" title="Pages tagged Information Retrieval" rel="tag">Information Retrieval</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#EMNLP" title="Pages tagged EMNLP" rel="tag">EMNLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#RL" title="Pages tagged RL" rel="tag">RL</a></p>
+  <span class="post-date">11 Mar 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Information Extraction  - Given a query to be answered and an external search engine, information extraction entails the task of issuing search queries, extracting information from new sources and reconciling the extracted values till we are sufficiently confident about the extracted values.</p>
+  </li>
+  <li>
+    <p>The paper proposes the use of Reinforcement Learning (RL) to solve this task.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1603.07954">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/karthikncode/DeepRL-InformationExtraction">Implementation</a></p>
+  </li>
+</ul>
+
+<h2 id="key-aspect">Key Aspect</h2>
+
+<ul>
+  <li>Use of Reinforcement Learning to resolve the ambiguity inherent in the textual documents.</li>
+  <li>Given a query, the RL agent would use template statement to formulate the queries (to be performed on the black box search engine). It would further resolve and combine the result for the query from the set of retrieved documents.</li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>Database of Mass Shootings in the United States.</li>
+  <li>Food Shield database of illegal food adulteration.</li>
+</ul>
+
+<h2 id="framework">Framework</h2>
+
+<ul>
+  <li>
+    <p>Information extraction task is modelled as a Markov Decision Process (MDP) &lt;S, A, T, R&gt;</p>
+  </li>
+  <li><strong>S</strong> - Set of all possible states
+    <ul>
+      <li>The state consists of:
+        <ul>
+          <li>Extractor’s confidence in predicted entity values.</li>
+          <li>Context from which values are extracted.</li>
+          <li>Similarity between the new document (extracted just now from the search engine) and the original document accompanying the given query.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>A</strong> - Set of all possible actions
+    <ul>
+      <li>Reconciliation decision - d
+        <ul>
+          <li>Accept all entities values.</li>
+          <li>Reject all entities values.</li>
+          <li>Stop the current episode.</li>
+        </ul>
+      </li>
+      <li>Query choice - q
+        <ul>
+          <li>Choose the next query from a set of automatically generated alternatives.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>R</strong> - Rewards
+    <ul>
+      <li>Maximise the final extraction accuracy while minimising the number of queries.</li>
+    </ul>
+  </li>
+  <li><strong>Q</strong> - Queries
+    <ul>
+      <li>Generated using a template.</li>
+      <li>The query is searched on a search engine and the top k links are retrieved.</li>
+    </ul>
+  </li>
+  <li><strong>Transition</strong>
+    <ul>
+      <li>Start with a single source article x<sub>i</sub> and extract the initial set of entities.</li>
+      <li>At each timestep, the agent is given the state (s) on basis of which it chooses the action (d, q). The episode stops whenever the action is a stop action.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Deep Q Network is used.</p>
+  </li>
+  <li>Parameters are learned using SGD and RMSProp.</li>
+</ul>
+
+<h2 id="experimental-setup">Experimental Setup</h2>
+
+<h3 id="extraction-model">Extraction Model</h3>
+
+<ul>
+  <li>Max Entropy Classifier is used as the base extraction system.</li>
+  <li>First, all the words in the document are tagged as one of the entity types and the mode of these values is used to obtain the set of extracted entities.</li>
+</ul>
+
+<h3 id="baseline">Baseline</h3>
+
+<ul>
+  <li>Basic Extractors</li>
+  <li>Aggregation System which either chooses the entity value with the highest confidence or takes a majority vote over all extracted values.</li>
+  <li>Meta-Classifier which operates over the same input state space and produces the same set of reconciliation decisions as the DQN.</li>
+  <li>Oracle Extractor which is computed assuming perfect reconciliation and query decisions on the top of the Maxnet base extractor.</li>
+</ul>
+
+<h3 id="rl-models">RL Models</h3>
+
+<ul>
+  <li>RL Basic - Only reconciliation decision.</li>
+  <li>RL Query - Only query decision with a fixed reconciliation strategy.</li>
+  <li>RL Extract - the full system with both reconciliation and query decision.</li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<ul>
+  <li>RL Extract obtains substantial gains eg up to 11% over Maxnet.</li>
+  <li>Simple aggregation schemes do not handle the task well.</li>
+  <li>In terms of reward structure, providing rewards after each step works better than a single delayed reward.</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Improving-Information-Extraction-by-Acquiring-External-Evidence-with-Reinforcement-Learning"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>

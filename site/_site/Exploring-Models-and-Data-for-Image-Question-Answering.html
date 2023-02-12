@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Exploring Models and Data for Image Question Answering &middot; Papers I Read
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/poole.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/syntax.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/css/style.css">
+  <link rel="stylesheet" href="https://shagunsodhani.github.io/papers-I-read/public/font-awesome-4.7.0/css/font-awesome.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://shagunsodhani.github.io/papers-I-read/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://shagunsodhani.github.io/papers-I-read/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-68140113-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-68140113-4');
+</script>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>I am trying a new initiative - <i>A Paper A Week</i>. This blog will hold all the notes and summaries.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/archieve">Archive</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/tags">Tags</a>
+        
+      
+    
+
+    <!-- <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read/archive/v1.0.0.zip">Download</a> -->
+    <a class="sidebar-nav-item" href="https://github.com/shagunsodhani/papers-I-read">GitHub project</a>
+    <a class="sidebar-nav-item" href="https://shagunsodhani.github.io/papers-I-read/atom.xml">Feed</a>
+    <!-- <span class="sidebar-nav-item">Currently v1.0.0</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2023. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://shagunsodhani.github.io/papers-I-read/" title="Home">Papers I Read</a>
+            <small>Notes and Summaries</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Exploring Models and Data for Image Question Answering</h1>
+  <p class="entry-tags"><a href="https://shagunsodhani.github.io/papers-I-read/tags.html#2015" title="Pages tagged 2015" rel="tag">2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NIPS+2015" title="Pages tagged NIPS 2015" rel="tag">NIPS 2015</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#AI" title="Pages tagged AI" rel="tag">AI</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#CV" title="Pages tagged CV" rel="tag">CV</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#Dataset" title="Pages tagged Dataset" rel="tag">Dataset</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NIPS" title="Pages tagged NIPS" rel="tag">NIPS</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#NLP" title="Pages tagged NLP" rel="tag">NLP</a> &bull; <a href="https://shagunsodhani.github.io/papers-I-read/tags.html#VQA" title="Pages tagged VQA" rel="tag">VQA</a></p>
+  <span class="post-date">14 Jan 2018</span>
+  <h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p><strong>Problem Statement</strong>: Given an image, answer a given question about the image.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1505.02074">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><strong>Assumptions</strong>:</p>
+    <ul>
+      <li>The answer is assumed to be a single word thereby bypassing the evaluation issues of multi-word generation tasks.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="vis-lstm-model">VIS-LSTM Model</h2>
+
+<ul>
+  <li>Treat the input image as the first word in the question.</li>
+  <li>Obtain the vector representation (skip-gram) for words in the question.</li>
+  <li>Obtain the VGG Net embeddings of the image and use a linear transformation (dimensionality reduction weight matrix) to match the dimensions of word embeddings.</li>
+  <li>Keep image embedding frozen during training and use an LSTM to combine the word vectors.</li>
+  <li>LSTM outputs are fed into a softmax layer which generates the answer.</li>
+</ul>
+
+<h2 id="dataset">Dataset</h2>
+
+<ul>
+  <li>DAtaset for QUestion Ansering on Real-world images (DAQUAR)
+    <ul>
+      <li>1300 images and 7000 questions with 37 object classes.</li>
+      <li>Downside is that even guess work can yield good results.</li>
+    </ul>
+  </li>
+  <li>The paper proposed an algorithm for generating questions using MS-COCO dataset.
+    <ul>
+      <li>Perform preprocessing steps like breaking large sentences and changing indefinite determines to definite ones.</li>
+      <li><em>object</em> questions, <em>number</em> questions, <em>colour</em> questions and <em>location</em> questions can be generated by searching for nouns, numbers, colours and prepositions respectively.</li>
+      <li>Resulting dataset has ~120K questions across above 4 semantic types.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="models">Models</h2>
+
+<ul>
+  <li>VIS+LSTM - explained above</li>
+  <li>2-VIS+BLSTM - Add the image features twice, in beginning and in the end (using different linear transformations) plus use bidirectional LSTM</li>
+  <li>IMG+BOW - Multinomial logistic regression on image features without dimensionality reduction + bag of words (averaging word vectors).</li>
+  <li>FULL - Simple average of above 2 models.</li>
+</ul>
+
+<h3 id="baseline">Baseline</h3>
+
+<ul>
+  <li>Includes models where the answer is guessed, or only image or question features are used or image features along with prior knowledge of object are used.</li>
+  <li>Also includes a KNN model where the system finds the nearest (image, question) pair.</li>
+</ul>
+
+<h3 id="metrics">Metrics</h3>
+
+<ul>
+  <li>Accuracy</li>
+  <li>Wu-Palmer similarity measure</li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>The VIS-LSTM model outperforms the baselines while the FULL model benefits from averaging across all the models.</li>
+  <li>Some useful information seems to be lost when downsizing the VGG vectors.</li>
+  <li>Fine tuning the word vectors helps with performance.</li>
+  <li>Normalising CNN hidden image features into zero mean and unit variance leads to faster training.</li>
+  <li>Model does not perform well on the task of considering spatial relations between multiple objects and counting objects when multiple objects are present</li>
+</ul>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Toolformer-Language-Models-Can-Teach-Themselves-to-Use-Tools">
+            Toolformer - Language Models Can Teach Themselves to Use Tools
+            <small>10 Feb 2023</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Synthesized-Policies-for-Transfer-and-Adaptation-across-Tasks-and-Environments">
+            Synthesized Policies for Transfer and Adaptation across Tasks and Environments
+            <small>29 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="https://shagunsodhani.github.io/papers-I-read/Deep-Neural-Networks-for-YouTube-Recommendations">
+            Deep Neural Networks for YouTube Recommendations
+            <small>22 Mar 2021</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "https://shagunsodhani.github.io/papers-I-read/Exploring-Models-and-Data-for-Image-Question-Answering"  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "/Exploring-Models-and-Data-for-Image-Question-Answering"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://papers-i-read.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+
+  </body>
+</html>
