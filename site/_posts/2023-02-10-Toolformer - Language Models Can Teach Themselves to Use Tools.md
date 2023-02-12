@@ -25,7 +25,7 @@ tags:
 
 - Starting with a language model, M, the goal is to enable the language model to use tools by invoking API calls.
 
-- An API call is denoted by the tuple $c = (api\_name, api\_input)$. It can be linearized as $e(c) = [api\_name(api\_input)]$ or as $e(c, r) = [api\_name(api\_input) -> r]$ where $r$ denotes the result of the API.
+- An API call is denoted by the tuple $c = (api-name, api-input)$. It can be linearized as $e(c) = [api-name(api-input)]$ or as $e(c, r) = [api-name(api-input) -> r]$ where $r$ denotes the result of the API.
 
 - The given dataset of plain text, $C$, is converted into a dataset $C*$ augmented with the API calls using a three-step process.
 
