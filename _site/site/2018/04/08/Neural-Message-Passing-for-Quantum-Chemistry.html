@@ -1,0 +1,162 @@
+<h1 id="introduction">Introduction</h1>
+
+<ul>
+  <li>
+    <p>The paper presents a general message passing architecture called as Message Passing Neural Networks (MPNNs) that unify various existing models for performing supervised learning on molecules.</p>
+  </li>
+  <li>
+    <p>Variants of the MPNN model achieve very good performance on the task of predicting the property of the molecules.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1704.01212">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h1 id="mpnn">MPNN</h1>
+
+<h2 id="setting">Setting</h2>
+
+<ul>
+  <li>
+    <p>The input to the model is an undirected graph <em>G</em> where node features are represented as <em>x<sub>v</sub></em> (corresponding to node <em>v</em>) and edge features are <em>e<sub>v, w</sub></em> (corresponding to edge between nodes <em>v, w</em>).</p>
+  </li>
+  <li>
+    <p>The idea is to learn a representation (or feature vector) for all the nodes (and possibly edges) in the graph and use that for the downstream supervised learning task.</p>
+  </li>
+  <li>
+    <p>The model can be easily extended to the setting of directed graphs.</p>
+  </li>
+  <li>
+    <p>The model works in 2 phases:</p>
+  </li>
+</ul>
+
+<h2 id="message-passing-phase">Message Passing Phase</h2>
+
+<ul>
+  <li>
+    <p>All nodes send a <em>message</em> to their neighbouring nodes. The message is a function of the feature vectors corresponding to the sender node (or vertex), the receiver node and the edge connecting the two nodes. The feature vectors can be combined to form the message using the <em>message function</em> which can be implemented as a neural network.</p>
+  </li>
+  <li>
+    <p>Once a node has received messages from all its neighbours, it updated its feature vector by aggregating all the message. The function used to aggregate and update the feature vector is called as the <em>update function</em> and can be implemented as a neural network.</p>
+  </li>
+  <li>
+    <p>After updating the feature vectors, the graph could initiate another round of message passing. After a sufficient number of message passing rounds, the Readout phase is invoked.</p>
+  </li>
+</ul>
+
+<h2 id="readout-phase">Readout Phase</h2>
+
+<ul>
+  <li>
+    <p>The feature vectors corresponding to different nodes in the graph are aggregated into a single feature vector (corresponding to the feature vector of the graph) using the <em>readout function</em>.</p>
+  </li>
+  <li>
+    <p>The <em>readout function</em> can also be implemented using a neural network with the condition that it is invariant to the permutation of the nodes within the graph (to ensure that the MPNN is independent of the graph isomorphism).</p>
+  </li>
+</ul>
+
+<h1 id="existing-variants-in-literature">Existing Variants in literature</h1>
+
+<ul>
+  <li>The paper provides various examples where the existing architectures could be explained in terms of the message passing framework. This includes examples like <a href="https://arxiv.org/abs/1509.09292">Convolutional Networks on Graphs for Learning Molecular Fingerprints</a>, <a href="https://arxiv.org/abs/1511.05493">
+Gated Graph Sequence Neural Networks</a>, <a href="http://tkipf.github.io/graph-convolutional-networks/">Graph Convolutional Networks</a> etc.</li>
+</ul>
+
+<h1 id="experiments">Experiments</h1>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Broadly speaking, the task is to predict the properties of given molecules (regression problem).</p>
+  </li>
+  <li>
+    <p>The QM9 dataset consists of 130K molecules whose properties have been measured using Quantum Mechanical Simulations (DFT).</p>
+  </li>
+  <li>
+    <p>Properties to be predicted include atomization energy, enthalpy, highest fundamental vibrational frequency etc.</p>
+  </li>
+  <li>
+    <p>There are two benchmarks for error:</p>
+
+    <ul>
+      <li>
+        <p>DFT Error - Estimated average error of DFT approximation</p>
+      </li>
+      <li>
+        <p>Chemical Accuracy - As established by the chemistry community</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="model">Model</h2>
+
+<ul>
+  <li>
+    <p>Following variants of <em>message function</em> are explored:</p>
+
+    <ul>
+      <li>
+        <p>Matrix multiplication between <em>A<sub>evw</sub></em> and <em>h<sub>v</sub></em> where <em>A</em> is the adjacency matrix <em>h<sub>v</sub></em> is the feature corresponding to node <em>v</em>.</p>
+      </li>
+      <li>
+        <p>Edge Network which is same as matrix multiplication case with the difference that <em>A</em> is a learned matrix for each edge type.</p>
+      </li>
+      <li>
+        <p>Pair Network where the feature vector corresponding to the source node, target node and edge is fed to a neural network.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="virtual-elements">Virtual Elements</h2>
+
+<ul>
+  <li>
+    <p>Since all messages are shared via edges, it could take a long time for the message to move between two ends of the graph. To fasten this process, virtual elements are provided.</p>
+  </li>
+  <li>
+    <p>In the first setting, “virtual edges” are inserted between nodes.</p>
+  </li>
+  <li>
+    <p>In the second setting, a “master” node connects to all the other nodes.</p>
+  </li>
+</ul>
+
+<h2 id="message-passing-complexity">Message Passing Complexity</h2>
+
+<ul>
+  <li>
+    <p>In a graph with <em>n</em> nodes and <em>d</em> dimensional feature vectors, a single step of message passing would have the worst case time complexity of <em>O(n<sup>2</sup>d<sup>2</sup></em>.</p>
+  </li>
+  <li>
+    <p>This complexity can be reduced by breaking the <em>d</em> dimensional embedding into <em>k</em> different groups of <em>d/k</em> embeddings which can be updated in parallel. The complexity of the modified approach is <em>O(n<sup>2</sup>d<sup>2</sup>/k</em>.</p>
+  </li>
+</ul>
+
+<h1 id="results">Results</h1>
+
+<ul>
+  <li>
+    <p>Best performing MPNN model uses edge network as the <em>message function</em> and <a href="https://arxiv.org/abs/1511.06391">set2set</a> as the <em>readout function</em>.</p>
+  </li>
+  <li>
+    <p>Using group of embeddings helps to improve generalization. This effect could also be because of ensemble-like nature of the modified architecture.</p>
+  </li>
+  <li>
+    <p>The model performs worse without the virtual elements.</p>
+  </li>
+</ul>
+
+<h1 id="takeaways">Takeaways</h1>
+
+<ul>
+  <li>
+    <p>Long range interaction between vertices is necessary.</p>
+  </li>
+  <li>
+    <p>Scaling to larger molecule sizes is challenging because the model creates a fully connected graph by incorporating virtual elements.</p>
+  </li>
+</ul>

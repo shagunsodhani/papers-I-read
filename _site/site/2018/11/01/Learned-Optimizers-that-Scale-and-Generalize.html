@@ -1,0 +1,70 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper introduces a learned gradient descent optimizer that has low memory and computational overhead and that generalizes well to new tasks.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1703.04813">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="key-advantage">Key Advantage</h2>
+
+<ul>
+  <li>
+    <p>Uses a hierarchial RNN architecture augmented by features like adapted input an output scaling, momentum etc.</p>
+  </li>
+  <li>
+    <p>A meta-learning set of small diverse optimization tasks, with diverse loss landscapes is developed. The learnt optimizer generalizes to much more complex tasks and setups.</p>
+  </li>
+</ul>
+
+<h2 id="architecture">Architecture</h2>
+
+<ul>
+  <li>
+    <p>A hierarchical RNN is designed to act as a learned optimizer. This RNN is the meta-learner and its parameters are shared across different tasks.</p>
+  </li>
+  <li>
+    <p>The learned optimizer takes as input the gradient (and related metadata) for each parameter and outputs the update to the parameters.</p>
+  </li>
+  <li>
+    <p>At the lowest level of hierarchical, a small “parameter RNN” ingests the gradient (and related metadata).</p>
+  </li>
+  <li>
+    <p>One level up, an intermediate “Tensor RNN” incorporates information from a subset of Parameter RNNS (eg one Tensor RNN per layer of feedforward network).</p>
+  </li>
+  <li>
+    <p>At the highest level is the glocal RNN which receives input from all the Tensor RNNs and can keep track of weight updates across the task.</p>
+  </li>
+  <li>
+    <p>the input of each RNN is averaged and fed as input to the subsequent RNN and the output of each RNN is fed as bias to the previous RNN.</p>
+  </li>
+  <li>
+    <p>In practice, the hidden states are fixed at 10, 30 and 20 respectively.</p>
+  </li>
+</ul>
+
+<h2 id="features-inspired-from-existing-optimizers">Features inspired from existing optimizers</h2>
+
+<ul>
+  <li>
+    <p>Attention and Nesterov’s momentum</p>
+
+    <ul>
+      <li>
+        <p>Attention mechanism is incorporated by attending to new regions of the loss surface (which are an offset from previous parameter location).</p>
+      </li>
+      <li>
+        <p>To incorporate momentum on multiple timescales, the exponential moving average of the gradient at several timescales is also provided as input.</p>
+      </li>
+      <li>
+        <p>The average gradients are rescaled (as in RMSProp and Adam)</p>
+      </li>
+      <li>
+        <p>Relative log gradient magnitudes are also provided as input so that the optimizer can access how the gradient magnitude changes with time.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

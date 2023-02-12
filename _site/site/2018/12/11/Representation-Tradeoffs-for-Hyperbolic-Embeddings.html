@@ -1,0 +1,181 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes a combinatorial approach to embed trees into hyperbolic spaces without performing optimization.</p>
+  </li>
+  <li>
+    <p>The resulting mechanism is analyzed to obtain dimensionality-precision tradeoffs.</p>
+  </li>
+  <li>
+    <p>To embed any metric spaces in the hyperbolic spaces, a hyperbolic generalization of the multidimensional scaling (h-MDS) is proposed.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1804.03329">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="preliminaries">Preliminaries</h2>
+
+<ul>
+  <li>
+    <p>Hyperbolic Spaces</p>
+
+    <ul>
+      <li>
+        <p>Have the “tree” like property ie the shortest path between a pair of points is almost the same as the path through the origin.</p>
+      </li>
+      <li>
+        <p>Generally, Poincare ball model is used given its advantages like conformity to the Euclidean spaces.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Fidelity Measures</p>
+
+    <ul>
+      <li>
+        <p>Mean Average Precision - MAP</p>
+
+        <ul>
+          <li>A local metric that ranks between distances of the immediate neighbors.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Distortion</p>
+
+        <ul>
+          <li>A global metric that depends on the underlying distances and not just the local relationship between distances.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="combinatorial-construction-for-embedding-hierarchies-into-hyperbolic-spaces">Combinatorial Construction for embedding hierarchies into Hyperbolic spaces</h2>
+
+<ul>
+  <li>
+    <p>Embed the given graph <em>G = (V, E)</em> into a tree <em>T</em>.</p>
+  </li>
+  <li>
+    <p>Embed the tree <em>T</em> into the poincare ball <em>H<sub>d</sub></em> of dimensionality <em>d</em>.</p>
+  </li>
+</ul>
+
+<h3 id="sarkars-construction-to-embed-points-in-a-2-d-poincare-ball">Sarkar’s construction to embed points in a 2-d Poincare ball</h3>
+
+<ul>
+  <li>
+    <p>Consider two points <em>a</em> and <em>b</em> (from the tree) where <em>b</em> is the parent of <em>a</em>.</p>
+  </li>
+  <li>
+    <p>Assume that <em>a</em> is embedded as <em>f(a)</em> and <em>b</em> is embedded as <em>f(b)</em> and the children of <em>a</em> needs to be embedded.</p>
+  </li>
+  <li>
+    <p>Reflect <em>f(a)</em> and <em>f(b)</em> across a geodesic such that <em>f(a)</em> is mapped to 0 (origin) while <em>f(b)</em> is mapped to some new point <em>z</em>.</p>
+  </li>
+  <li>
+    <p>Children of <em>a</em> are placed at points <em>y<sub>i</sub></em> which are equally placed around a circle of radius <em>(e<sup>r</sup> - 1) / (e<sup>r</sup> + 1)</em> and maximally seperated from <em>z</em>, where <em>r</em> is the scaling factor.</p>
+  </li>
+  <li>
+    <p>Then all the points are reflected back across the geodesic so that all children are at a distance <em>r</em> from <em>f(a)</em>.</p>
+  </li>
+  <li>
+    <p>To embed the tree itself, place the root node at the origin, place its children around it in a circle, then place their children and so on.</p>
+  </li>
+  <li>
+    <p>In this construct, precision scales logarithmically with the degree of the tree but linearly with the maximum path length.</p>
+  </li>
+</ul>
+
+<h3 id="d-dimensional-hyperbolic-spaces"><em>d</em>-dimensional hyperbolic spaces</h3>
+
+<ul>
+  <li>
+    <p>In the <em>d</em>-dimensional space, the points are embedded into hyperspheres (instead of circles).</p>
+  </li>
+  <li>
+    <p>The number of children node that can be placed for a particular angle grows with the dimension.</p>
+  </li>
+  <li>
+    <p>Increasing dimension helps with bushy trees (with high node degree).</p>
+  </li>
+</ul>
+
+<h2 id="hyperbolic-multidimensional-scaling-h-mds">Hyperbolic multidimensional scaling (h-MDS)</h2>
+
+<ul>
+  <li>
+    <p>Given the pairwise distance from a set of points in the hyperbolic space, how to recover the points?</p>
+  </li>
+  <li>
+    <p>The corresponding problem in the Euclidean space is solved using MDS.</p>
+  </li>
+  <li>
+    <p>A variant of MDS called as h-MDS is proposed.</p>
+  </li>
+  <li>
+    <p>MDS makes a centering assumption that points have 0 mean. In h-MDS, a new mean (called as the pseudo-Euclidean mean) is introduced to enable recovery via matrix factorization.</p>
+  </li>
+  <li>
+    <p>Instead of the Poincare model, the hyperboloid model is used (though the points can be mapped back and forth).</p>
+  </li>
+</ul>
+
+<h3 id="pseudo-euclidean-mean">pseudo-Euclidean Mean</h3>
+
+<ul>
+  <li>A set of points can always be centered without affecting their pairwise distance by simply finding their mean and sending it to 0 via isometry</li>
+</ul>
+
+<h3 id="recovery-via-matrix-factorization">Recovery via matrix factorization</h3>
+
+<ul>
+  <li>
+    <p>Given the pairwise distances, a new matrix <em>Y</em> is constructed by applying <em>cosh</em> on the pairwise distances.</p>
+  </li>
+  <li>
+    <p>Running PCA on <em>-Y</em> recovers X up to rotation.</p>
+  </li>
+</ul>
+
+<h2 id="dimensionality-reduction-with-pga-principal-geodesic-analysis">Dimensionality Reduction with PGA (Principal Geodesic Analysis)</h2>
+
+<ul>
+  <li>
+    <p>PGA is the counterpart of PCA in the hyperbolic spaces.</p>
+  </li>
+  <li>
+    <p>First the <em>Karcher</em> mean of the given points is computed.</p>
+  </li>
+  <li>
+    <p>All points <em>x<sub>i</sub></em> are reflected so that their mean is 0 in the Poincare disk model.</p>
+  </li>
+  <li>
+    <p>Combining that with Euclidean reflection formula and hyperbolic metrics leads to a non-convex loss function which can be optimized using gradient descent algorithm.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>Trees: fully balanced and phylogenic trees expressing genetic heritage.</li>
+      <li>Tree-like hierarchy: WordNet hypernym and graph of Ph.D. advisor-advisee relationships.</li>
+      <li>No-tree like disease relationships, proteins interactions etc</li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>Combinatorial construction outperforms approaches based on optimization in terms of both MAP and distortion.</li>
+      <li>eg on WordNet, the combinatorial approach achieves a MAP of 0.989 with just 2 dimensions while the previous best was 0.87 with 200 dimensions.</li>
+    </ul>
+  </li>
+</ul>
+

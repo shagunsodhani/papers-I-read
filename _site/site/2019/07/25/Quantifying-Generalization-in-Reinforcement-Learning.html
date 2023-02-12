@@ -1,0 +1,128 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper introduces a new, procedurally generated environment called as CoinRun that is designed to benchmark the generalization capabilities of RL algorithms.</p>
+  </li>
+  <li>
+    <p>The paper reports that deep convolutional architectures and techniques like L2 regularization, batch norm, etc (which were proposed in the context of generalization in supervised learning) are also useful for RL.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1812.02341">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="coinrun-environment">CoinRun Environment</h2>
+
+<ul>
+  <li>
+    <p>CoinRun is made of multiple levels.</p>
+  </li>
+  <li>
+    <p>In each level, the agent spawns on the far left side and needs to collect a single coin that lies on the far right side.</p>
+  </li>
+  <li>
+    <p>There are many obstacles in between and colliding with an obstacle leads to agent’s death.</p>
+  </li>
+  <li>
+    <p>Each episode extends for a maximum for 1000 steps.</p>
+  </li>
+  <li>
+    <p>CoinRun is designed such that given sufficient training time and levels, a near-optimal policy can be learned for all the levels.</p>
+  </li>
+</ul>
+
+<h2 id="generalization">Generalization</h2>
+
+<ul>
+  <li>
+    <p>Generalization can be measure by training an agent on a given set of training tasks and evaluating on an unseen set of test tasks.</p>
+  </li>
+  <li>
+    <p>9 agents are trained to play CoinRun, on different training sets (each with a different number of levels).</p>
+  </li>
+  <li>
+    <p>The first 8 agents are trained on sets of size 100 to 16000 levels while the last agent is trained on an unbounded set of levels.</p>
+  </li>
+  <li>
+    <p>Training a model on an unbounded set of levels provides a good proxy for the train-to-test generalization performance.</p>
+  </li>
+</ul>
+
+<h2 id="evaluating-architectures">Evaluating Architectures</h2>
+
+<ul>
+  <li>
+    <p>Two convolutional architectures (of different sizes) are compared:</p>
+
+    <ul>
+      <li>
+        <p>Nature-CNN: The CNN architecture used in the <a href="https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf">Deep Q Network</a>. This is the smaller network among the two models.</p>
+      </li>
+      <li>
+        <p>IMPALA-CNN: The CNN architecture used in the <a href="https://arxiv.org/abs/1802.01561">Imapla architecture</a>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>IMPALA-CNN agent always outperforms the Nature-CNN agent indicating that larger architecture has more capacity for generalization. But increasing the network size beyond a limit gives diminishing returns.</p>
+  </li>
+</ul>
+
+<h2 id="evaluating-regularization">Evaluating Regularization</h2>
+
+<ul>
+  <li>
+    <p>While both L2 regularization and Dropout helps to improve generalization, L2 regularization is more impactful.</p>
+  </li>
+  <li>
+    <p>A domain randomization/data augmentation approach is tested where rectangular regions of different sizes are masked and assigned a random color. This approach seems to improve performance.</p>
+  </li>
+  <li>
+    <p>Batch Normalization helps to improve performance as well.</p>
+  </li>
+  <li>
+    <p>Environment stochasticity is introduced by using sticky actions while policy stochasticity is introduced by controlling the entropy bonus. Both these forms of stochasticity boost performance.</p>
+  </li>
+  <li>
+    <p>While combining different regularization methods help, the gains are only marginally better than using just 1 regularization approach. This suggests that these different approaches induce similar generalization properties.</p>
+  </li>
+</ul>
+
+<h2 id="additional-environments">Additional Environments</h2>
+
+<ul>
+  <li>
+    <p>Two additional environments are also considered to verify the high degree of overfitting observed in the CoinRun environment:</p>
+
+    <ul>
+      <li>
+        <p>CoinRun-Platforms:</p>
+
+        <ul>
+          <li>
+            <p>Unlike CoinRun, each episode can have multiple coins and the time limit is 0increased to 1000 steps.</p>
+          </li>
+          <li>
+            <p>Levels are larger as well so the agent might need to backtrack their steps.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>RandomMazes:</p>
+
+        <ul>
+          <li>
+            <p>Partially observed environment with square mazes of dimensions 3x3 to 25x25.</p>
+          </li>
+          <li>
+            <p>Timelimit of 500 steps</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Overfitting is observed for both these environments as well.</p>
+  </li>
+</ul>

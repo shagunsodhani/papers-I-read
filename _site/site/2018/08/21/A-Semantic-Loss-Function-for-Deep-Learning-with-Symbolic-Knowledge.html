@@ -1,0 +1,155 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposes an approach for using symbolic knowledge in deep learning systems. These constraints are often expressed as boolean constraints on the output of the deep learning system and directly incorporating these constraints break the differentiability of the system.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1711.11157">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="problem-setting">Problem Setting</h2>
+
+<ul>
+  <li>
+    <p>The model is given some input data to perform predictions and symbolic knowledge is provided in form of boolean constraints like exactly-one constraint for one-hot output encoding.</p>
+  </li>
+  <li>
+    <p>Most approaches tend to encode the symbolic knowledge in the vector space embedding to keep the model pipeline differentiable. In this process, the precise meaning of symbolic knowledge is often lost.</p>
+  </li>
+  <li>
+    <p>A differentiable “semantic loss” is derived which captures the meaning of the constraint while being independent of its syntax.</p>
+  </li>
+</ul>
+
+<h2 id="terminology">Terminology</h2>
+
+<ul>
+  <li>
+    <p>A state <strong>x</strong> (state refers to the instantiation of boolean variables) satisfies a sentence <em>a</em> if <em>a</em> evaluates to true when using the variables as specified by <strong>x</strong>.</p>
+  </li>
+  <li>
+    <p>A sentence <em>a</em> entails another sentence <em>b</em> if all states that satisfy <em>a</em> also satisfy <em>b</em>.</p>
+  </li>
+  <li>
+    <p>The row output vector of the neural network is denoted as <em>p</em> where each value in <em>p</em> denotes the probability of an output.</p>
+  </li>
+  <li>
+    <p>Three different output constraints are studied:</p>
+
+    <ul>
+      <li>
+        <p><em>Exactly-one constraint</em></p>
+
+        <ul>
+          <li>Exactly one value in <em>p</em> should be true.</li>
+          <li>Can be expressed in boolean logic as follows: Let (x1, x2, …, xn) be variables in <em>p</em>. Then (not xi or not xj) for all pair of variables and (x1 or x2 or … xn).</li>
+        </ul>
+      </li>
+      <li><em>Valid Simple Path Constraint</em>
+        <ul>
+          <li>Set of edges must form a valid path.</li>
+        </ul>
+      </li>
+      <li><em>Ordering Constraint</em>
+        <ul>
+          <li>Defining an ordering over the variables.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="semantic-loss">Semantic Loss</h2>
+
+<ul>
+  <li>
+    <p>The semantic loss <em>L<sup>s</sup>(a, p)</em> is a function of a propositional logic sentence <em>a</em> (the symbolic knowldge constraint) and <em>p</em> (output of the neural network).</p>
+  </li>
+  <li>
+    <p><em>a</em> is defined over variables (x1, …, xn) and <em>p</em> is interpreted as a vector of probabilities corresponding to these variables <em>xi’s</em>.</p>
+  </li>
+  <li>
+    <p>The semantic loss is directly proportional to the negative log likelihood of generating a state that satisfies the constraints when sampling values according to the distribution <em>p</em>.</p>
+  </li>
+</ul>
+
+<h2 id="main-axioms-and-insights">Main Axioms and Insights</h2>
+
+<ul>
+  <li><strong>Monotonicity</strong>
+    <ul>
+      <li>If a sentence <em>a</em> entails another sentence <em>b</em> then for any given <em>p</em>, <em>L<sup>s</sup>(a, p) &gt; L<sup>s</sup>(b, p)</em> ie adding more constraints cannot decrease the semantic loss.</li>
+    </ul>
+  </li>
+  <li><strong>Semantic Equivalence</strong>
+    <ul>
+      <li>If two sentences are logically equivalent, their semantic loss is the same.</li>
+    </ul>
+  </li>
+  <li><strong>Identity</strong>
+    <ul>
+      <li>For any given sentence <em>a</em>, its representation as a sentence is equivalent to its representation as a deterministic vector ie writing the “one-hot” constraint as a boolean expression is equivalent to a one-hot vector.</li>
+    </ul>
+  </li>
+  <li><strong>Satisfaction</strong>
+    <ul>
+      <li>If <em>p</em> entails the sentence <em>a</em> then <em>L<sup>s</sup>(a, p) = 0</em>.</li>
+    </ul>
+  </li>
+  <li><strong>Label-literal correspondence</strong>
+    <ul>
+      <li>When the constraint is defined in terms of a single variable, it can be interpreted as the supervised label.</li>
+      <li>Hence the semantic loss in case of a single variable should be equivalent to the cross-entropy loss.</li>
+    </ul>
+  </li>
+  <li><strong>Truth</strong>
+    <ul>
+      <li>The semantic loss of a true sentence is 0</li>
+    </ul>
+  </li>
+  <li><strong>Non-negativity</strong>
+    <ul>
+      <li>Semantic loss should always be non-negative.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Probabilities of variables that are not part of the constraint, do not affect the semantic loss.</p>
+  </li>
+  <li>It can be shown that the semantic loss function satisfies all these axioms (and the other axioms specified in the paper) and is the only function to do so, up to a multiplicative constant.</li>
+</ul>
+
+<h2 id="experimental-evaluation">Experimental Evaluation</h2>
+
+<ul>
+  <li>
+    <p>Semantic Loss is used in the semi-supervised setting for Permuted MNIST, Fashion MNIST and CIFAR-10.</p>
+  </li>
+  <li>
+    <p>The key takeaway is that using semantic loss improves the performance of the state-of-the-art models for Fashion MNIST and CIFAR-10.</p>
+  </li>
+  <li>
+    <p>One downside is that the effectiveness of the semantic loss in this type of constraint strongly depends on the performance of the underlying model. Further, the semantic loss does not improve the performance in case of fully supervised scenario.</p>
+  </li>
+  <li>
+    <p>Further experiments are performed to evaluate the performance of the semantic loss on complex constraints. Since these tasks aim to highlight the effect of using semantic loss, only simple models (MLPs) are evaluated.</p>
+  </li>
+</ul>
+
+<h2 id="tractability-of-semantic-loss">Tractability of Semantic Loss</h2>
+
+<ul>
+  <li>
+    <p>The semantic loss is similar to the automated reasoning task called as weight model counting (wmc).</p>
+  </li>
+  <li>
+    <p>Circuit compiler techniques can be used to compute wmc while allowing backpropagation.</p>
+  </li>
+</ul>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+  <li>The proposed idea is simple and intuitive and the results on semi-supervised classification task are quite good. It would be interesting to extend and scale this method for more complex constraints.</li>
+</ul>

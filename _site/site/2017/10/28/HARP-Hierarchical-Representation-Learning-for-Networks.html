@@ -1,0 +1,55 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>HARP is an architecture to learn low-dimensional node embeddings by compressing the input graph into smaller graphs.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1706.07845">Link to the paper</a>.</p>
+  </li>
+  <li>
+    <p>Given a graph <em>G = (V, E)</em>, compute a series of successively smaller (coarse) graphs <em>G<sub>0</sub>, …, G<sub>L</sub></em>. Learn the node representations in <em>G<sub>L</sub></em> and successively refine the embeddings for larger graphs in the series.</p>
+  </li>
+  <li>
+    <p>The architecture is independent of the algorithms used to embed the nodes or to refine the node representations.</p>
+  </li>
+  <li>
+    <p><strong>Graph coarsening technique that preserves global structure</strong></p>
+
+    <ul>
+      <li>
+        <p>Collapse edges and stars to preserve first and second order proximity.</p>
+      </li>
+      <li>
+        <p><strong>Edge collapsing</strong> - select the subset of <em>E</em> such that no two edges are incident on the same vertex and merge their nodes into a single node and merge their edges as well.</p>
+      </li>
+      <li>
+        <p><strong>Star collapsing</strong> - given star structure, collapse the pairs of neighboring nodes (of the central node).</p>
+      </li>
+      <li>
+        <p>In practice, first apply star collapsing, followed by edge collapsing.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Extending node representation from coarse graph to finer graph</strong></p>
+
+    <ul>
+      <li>
+        <p>Lets say <em>node1</em> and <em>node2</em> were merged into <em>node12</em> during coarsening. First copy the representation of <em>node12</em> into <em>node1</em>, <em>node2</em>.</p>
+      </li>
+      <li>
+        <p>Additionally, if hierarchical softmax was used, extend the B-tree such that <em>node12</em> is replaced by 2 child nodes <em>node1</em> and <em>node2</em>.</p>
+      </li>
+      <li>
+        <p>Time complexity for HARP + DeepWalk is <em>O(number of walks * |V|)</em> while for HARP + LINE is <em>O(number of iterations * |E|)</em>.</p>
+      </li>
+      <li>
+        <p>The asymptotic complexity remains the same as the HARP-less version for the two cases.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Multilabel classification task shows that HAR improves all the node embedding technique with gains up to 14%.</p>
+  </li>
+</ul>

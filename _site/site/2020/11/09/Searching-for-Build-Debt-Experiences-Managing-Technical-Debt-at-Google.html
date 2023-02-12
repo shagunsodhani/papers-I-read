@@ -1,0 +1,140 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper describes the efforts to control and repay the technical debt in the build system at Google (called the Build Debt).</p>
+  </li>
+  <li>
+    <p>Guiding Principles:</p>
+
+    <ul>
+      <li>
+        <p>Automate techniques to analyze and fix issues that contribute to technical debt.</p>
+      </li>
+      <li>
+        <p>Make it easier to do the right thing as developers can incur technical debt unknowingly.</p>
+      </li>
+      <li>
+        <p>Make it hard to do the wrong thing, e.g., by building stricter checks into the build process.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Note that some of the metrics and design decisions may be outdated now (the paper was written in 2012). However, the core message is still relevant.</p>
+  </li>
+  <li>
+    <p><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/37755.pdf">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="googles-build-system-debt">Google’s Build System Debt</h2>
+
+<ul>
+  <li>
+    <p>BUILD files encapsulate the specifications for building software.</p>
+  </li>
+  <li>
+    <p>Generally, these files are maintained manually, and the dependencies may not be up-to-date over time.</p>
+  </li>
+  <li>
+    <p>In extreme cases, some of the build targets are not built for months. Such targets are called zombie targets.</p>
+  </li>
+  <li>
+    <p>Originally, any project could depend on any other project’s internal details, thus creating (sometimes unwanted) couplings.</p>
+  </li>
+  <li>
+    <p>If the lower-level project did not intend to expose some internal details, the unwanted couplings introduce technical debt and make it harder to modify the lower-level project.</p>
+  </li>
+  <li>
+    <p>One form of technical debt is the visibility debt or the cost of back-fitting visibility rules onto the existing build specifications to re-establish the appropriate encapsulations.</p>
+  </li>
+  <li>
+    <p>Another example of technical debt is dead code that can confuse the developers looking for useful APIs.</p>
+  </li>
+</ul>
+
+<h2 id="dependency-debt">Dependency Debt</h2>
+
+<ul>
+  <li>
+    <p><em>Over-declared</em> or <em>underutilized</em> dependencies can slow the build and testing of systems.</p>
+  </li>
+  <li>
+    <p><em>Under-declared</em> dependencies can make the build process brittle and make it difficult to remove <em>over-declared</em> dependencies.</p>
+  </li>
+  <li>
+    <p>Potential solutions for <em>over-declared</em> dependencies include:</p>
+
+    <ul>
+      <li>
+        <p>Setting aside some dedicated time for fixing build rules. But this approach is not automated, and potential breakages make it harder for developers to do the right thing.</p>
+      </li>
+      <li>
+        <p>Automatically add all the <em>under-declared</em> dependencies to the BUILD files. The system can raise an error if a direct dependency is missing, making it harder to do the wrong thing.</p>
+      </li>
+      <li>
+        <p>Automation can be applied for finding/reporting the over-declared dependencies as well.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Potential solutions for <em>underutilized</em> dependencies include:</p>
+
+    <ul>
+      <li>
+        <p>While it is challenging to automate fixing <em>underutilized</em> dependencies, automating the discovery of such dependencies is still useful.</p>
+      </li>
+      <li>
+        <p>Highlighting dependencies with high cost and low removal effort could incentivize developers to clean up their projects.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="zombie-targets">Zombie Targets</h2>
+
+<ul>
+  <li>
+    <p>Zombie targets can be identified by query the results of build and test runs.</p>
+  </li>
+  <li>
+    <p>A target is marked as “dead” if the attempts to build it have failed for at least 90 days. Until then, build errors are considered to be transient.</p>
+  </li>
+  <li>
+    <p>A zombie target can be eliminated by deleting its definition from the BUILD and deleting the source files, which are reachable only via the zombie target.</p>
+  </li>
+</ul>
+
+<h2 id="visibility-debt">Visibility Debt</h2>
+
+<ul>
+  <li>
+    <p>Originally, the default visibility of all the targets was public, leading to unintended dependencies.</p>
+  </li>
+  <li>
+    <p>The visibility of all the existing builds was set to <em>legacy_public</em>, and the default visibility was changed to private.</p>
+  </li>
+  <li>
+    <p>This encouraged developers to explicitly consider if they wanted other projects to depend on their project.</p>
+  </li>
+</ul>
+
+<h2 id="dead-flags">Dead Flags</h2>
+
+<ul>
+  <li>
+    <p>Google developed its command-line parsing utilities and defined a set of recognized command-line flags for libraries and binaries.</p>
+  </li>
+  <li>
+    <p>Overtime, the number of flags grew to half a million, and many of these flags are not useful anymore (i.e., dead).</p>
+  </li>
+  <li>
+    <p>These dead flags can it hard to understand and refactor code.</p>
+  </li>
+  <li>
+    <p>Existing flags are analyzed to check which ones have always been set to the same value and replaced by those contents, clearing about 150 thousand flags.</p>
+  </li>
+  <li>
+    <p>Removing dead flags also helps to clean up dead/unreachable code.</p>
+  </li>
+</ul>

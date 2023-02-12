@@ -1,0 +1,120 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Information Extraction  - Given a query to be answered and an external search engine, information extraction entails the task of issuing search queries, extracting information from new sources and reconciling the extracted values till we are sufficiently confident about the extracted values.</p>
+  </li>
+  <li>
+    <p>The paper proposes the use of Reinforcement Learning (RL) to solve this task.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1603.07954">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/karthikncode/DeepRL-InformationExtraction">Implementation</a></p>
+  </li>
+</ul>
+
+<h2 id="key-aspect">Key Aspect</h2>
+
+<ul>
+  <li>Use of Reinforcement Learning to resolve the ambiguity inherent in the textual documents.</li>
+  <li>Given a query, the RL agent would use template statement to formulate the queries (to be performed on the black box search engine). It would further resolve and combine the result for the query from the set of retrieved documents.</li>
+</ul>
+
+<h2 id="datasets">Datasets</h2>
+
+<ul>
+  <li>Database of Mass Shootings in the United States.</li>
+  <li>Food Shield database of illegal food adulteration.</li>
+</ul>
+
+<h2 id="framework">Framework</h2>
+
+<ul>
+  <li>
+    <p>Information extraction task is modelled as a Markov Decision Process (MDP) &lt;S, A, T, R&gt;</p>
+  </li>
+  <li><strong>S</strong> - Set of all possible states
+    <ul>
+      <li>The state consists of:
+        <ul>
+          <li>Extractor’s confidence in predicted entity values.</li>
+          <li>Context from which values are extracted.</li>
+          <li>Similarity between the new document (extracted just now from the search engine) and the original document accompanying the given query.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>A</strong> - Set of all possible actions
+    <ul>
+      <li>Reconciliation decision - d
+        <ul>
+          <li>Accept all entities values.</li>
+          <li>Reject all entities values.</li>
+          <li>Stop the current episode.</li>
+        </ul>
+      </li>
+      <li>Query choice - q
+        <ul>
+          <li>Choose the next query from a set of automatically generated alternatives.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>R</strong> - Rewards
+    <ul>
+      <li>Maximise the final extraction accuracy while minimising the number of queries.</li>
+    </ul>
+  </li>
+  <li><strong>Q</strong> - Queries
+    <ul>
+      <li>Generated using a template.</li>
+      <li>The query is searched on a search engine and the top k links are retrieved.</li>
+    </ul>
+  </li>
+  <li><strong>Transition</strong>
+    <ul>
+      <li>Start with a single source article x<sub>i</sub> and extract the initial set of entities.</li>
+      <li>At each timestep, the agent is given the state (s) on basis of which it chooses the action (d, q). The episode stops whenever the action is a stop action.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Deep Q Network is used.</p>
+  </li>
+  <li>Parameters are learned using SGD and RMSProp.</li>
+</ul>
+
+<h2 id="experimental-setup">Experimental Setup</h2>
+
+<h3 id="extraction-model">Extraction Model</h3>
+
+<ul>
+  <li>Max Entropy Classifier is used as the base extraction system.</li>
+  <li>First, all the words in the document are tagged as one of the entity types and the mode of these values is used to obtain the set of extracted entities.</li>
+</ul>
+
+<h3 id="baseline">Baseline</h3>
+
+<ul>
+  <li>Basic Extractors</li>
+  <li>Aggregation System which either chooses the entity value with the highest confidence or takes a majority vote over all extracted values.</li>
+  <li>Meta-Classifier which operates over the same input state space and produces the same set of reconciliation decisions as the DQN.</li>
+  <li>Oracle Extractor which is computed assuming perfect reconciliation and query decisions on the top of the Maxnet base extractor.</li>
+</ul>
+
+<h3 id="rl-models">RL Models</h3>
+
+<ul>
+  <li>RL Basic - Only reconciliation decision.</li>
+  <li>RL Query - Only query decision with a fixed reconciliation strategy.</li>
+  <li>RL Extract - the full system with both reconciliation and query decision.</li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<ul>
+  <li>RL Extract obtains substantial gains eg up to 11% over Maxnet.</li>
+  <li>Simple aggregation schemes do not handle the task well.</li>
+  <li>In terms of reward structure, providing rewards after each step works better than a single delayed reward.</li>
+</ul>

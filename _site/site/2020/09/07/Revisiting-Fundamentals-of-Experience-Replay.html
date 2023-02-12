@@ -1,0 +1,130 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper presents an extensive study of the effects of experience replay in Q-learning based methods.</p>
+  </li>
+  <li>
+    <p>It focuses explicitly on the replay capacity and replay ratio (ratio of learning updates to experience collected).</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2007.06700">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Replay capacity is defined as the total number of transitions stored in the replay buffer.</p>
+  </li>
+  <li>
+    <p>Age of a transition (stored in the replay buffer) is defined as the number of gradient steps taken by the agent since the transition was stored.</p>
+  </li>
+  <li>
+    <p>More is the replay capacity, more will be the age of the oldest transition (also referred to as the age of the oldest policy).</p>
+  </li>
+  <li>
+    <p>More is the replay capacity, more will be the degree of “off-policyness” of the transitions in the buffer (with everything else held constant).</p>
+  </li>
+  <li>
+    <p>Replay ratio is the number of gradient updates per environment transition. This ratio can be used as a proxy for how often the agent uses old data (vs. collecting new data) and is related to off-policyness.</p>
+  </li>
+  <li>
+    <p>In <a href="https://www.nature.com/articles/nature14236">DQN paper</a>, the replay ratio is set to be 0.25.</p>
+  </li>
+  <li>
+    <p>For experiments, a subset  (of 14 games) is selected from Atari ALE (Arcade Learning Environment) with sticky actions.</p>
+  </li>
+  <li>
+    <p>Each experiment is repeated with three seeds.</p>
+  </li>
+  <li>
+    <p>Rainbow is used as the base algorithm.</p>
+  </li>
+  <li>
+    <p>Total number of gradient updates and batch size (per gradient update) are fixed for all the experiments.</p>
+  </li>
+  <li>
+    <p>Rainbow used replay capacity of 1M and oldest policy of age 250K.</p>
+  </li>
+  <li>
+    <p>In experiments, replay capacity varies from 0.1M to 10M ( 5 values), and the age of the oldest policy varies from 25K to 25M (4 values).</p>
+  </li>
+</ul>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>With the age of the oldest policy fixed, performance improves with higher replay capacity, probably due to increased state-action coverage.</p>
+  </li>
+  <li>
+    <p>With fixed replay capacity, reducing the oldest policy’s age improves performance, probably due to the reduced off-policyness of the data in the replay buffer.</p>
+  </li>
+  <li>
+    <p>However, in some specific instances (with sparse reward, hard exploration setup), performance can drop when reducing the oldest policy’s age.</p>
+  </li>
+  <li>
+    <p>Increasing replay capacity, while keeping the replay ratio fixed, provides varying improvements and depends on the particular values of replacy capacity and replay ratio.</p>
+  </li>
+  <li>
+    <p>The paper reports the effect of these choices for DQN as well.</p>
+  </li>
+  <li>
+    <p>Unlike Rainbow, DQN does not improve with larger replay capacity, irrespective of whether the replay ratio or age of the oldest policy is kept fixed.</p>
+  </li>
+  <li>
+    <p>Given that the Rainbow agent is a DQN agent with additional components, the paper explores which of these components leads to an improvement in Rainbow’s performance as replay capacity increases.</p>
+  </li>
+</ul>
+
+<h2 id="additive-experiments">Additive Experiments</h2>
+
+<ul>
+  <li>
+    <p>Four new DQN variants are created by adding each of Rainbow’s four components to the base DQN agent.</p>
+  </li>
+  <li>
+    <p>DQN with n-step returns is the only variant that benefits by increased replay capacity.</p>
+  </li>
+  <li>
+    <p>The usefulness of n-step returns is further validated by verifying that Rainbow agent without n-step returns does not benefit by increased replay capacity. While Rainbow agent without any other component benefits by the increased capacity.</p>
+  </li>
+  <li>
+    <p>Prioritized Experience Replay does not significantly affect the performance with increased replay capacity.</p>
+  </li>
+  <li>
+    <p>The observation that n-step returns are critical for taking advantage of larger replay sizes is surprising because the uncorrected n-step returns are theoretically not suitable for off-policy learning.</p>
+  </li>
+  <li>
+    <p>The paper tests the limits of increasing replay capacity (with n-step returns) by performing experiments in the offline-RL setup, the agent collects a dataset of about 200M frames. These frames are used to train another agent.</p>
+  </li>
+  <li>
+    <p>Even in this extreme setup, n-step returns improve the learning agent’s performance.</p>
+  </li>
+</ul>
+
+<h2 id="why-do-n-step-returns-help">Why do n-step returns help?</h2>
+
+<ul>
+  <li>
+    <p>Hypothesis 1: n-step returns help to counter the increased off-policyness produced by a larger replay buffer.</p>
+
+    <ul>
+      <li>This hypothesis does not seem to hold as keeping the oldest policy fixed or using the same contrastive factor as an n-step update does not improve the 1-step update’s performance.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Hypothesis 2: Increasing the replay buffer’s capacity may reduce the variance of the n-step returns.</p>
+
+    <ul>
+      <li>
+        <p>This hypothesis is evaluated by training on environments with lesser variance or by turning off the sticky actions in the atari domain.</p>
+      </li>
+      <li>
+        <p>While the hypothesis does explain the gains by using n-step returns to some extent, n-step gains are observed even in environments with low variance.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

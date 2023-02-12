@@ -1,0 +1,154 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>BabyAI is a research platform to investigate and support the feasibility of including humans in the loop for grounded language learning.</p>
+  </li>
+  <li>
+    <p>The setup is a series of levels (of increasing difficulty) to train the agent to acquire a synthetic language (Baby Language) which is a proper subset of English language.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1810.08272">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="motivation">Motivation</h2>
+
+<ul>
+  <li>
+    <p>BabyAI platform provides support for curriculum learning and interactive learning as part of its human-in-the-loop training setup.</p>
+  </li>
+  <li>
+    <p>Curriculum learning is incorporated by having a curriculum of levels of increasing difficulty.</p>
+  </li>
+  <li>
+    <p>Interactive learning is supported by including a heuristic expert which can provide new demonstrations on the fly to the learning agent.</p>
+  </li>
+  <li>
+    <p>The heuristic expert can be thought of as the human-in-the-loop which can guide the agent through the learning process.</p>
+  </li>
+  <li>
+    <p>One downside of human-in-the-loop is the poor sample complexity of the learning agent. The heuristic agent can be used to estimate the sample  efficiency.</p>
+  </li>
+</ul>
+
+<h2 id="contribution">Contribution</h2>
+
+<ul>
+  <li>
+    <p>BabyAI research platform for grounded language learning with a simulated human-in-the-loop.</p>
+  </li>
+  <li>
+    <p>Baseline results for performance and sample efficiency for the different tasks.</p>
+  </li>
+</ul>
+
+<h2 id="babyai-platform">BabyAI Platform</h2>
+
+<h3 id="environment">Environment</h3>
+
+<ul>
+  <li>
+    <p>MiniGrid - A partially observable 2D grid-world environment.</p>
+  </li>
+  <li>
+    <p>Entities - Agent, ball, box, door, keys</p>
+  </li>
+  <li>
+    <p>Actions - pick, drop or move objects, unlock doors etc.</p>
+  </li>
+</ul>
+
+<h3 id="baby-language">Baby Language</h3>
+
+<ul>
+  <li>
+    <p>Synthetic Language (a proper subset of English) - Used to give instructions to the agent</p>
+  </li>
+  <li>
+    <p>Support for verifying if the task (and the subtasks) are completed or not</p>
+  </li>
+</ul>
+
+<h3 id="levels">Levels</h3>
+
+<ul>
+  <li>
+    <p>A level is an instruction-following task.</p>
+  </li>
+  <li>
+    <p>Formally, a level is a distribution of missions - a combination of initial state of the environment and an instruction (in Baby Language)</p>
+  </li>
+  <li>
+    <p>Motivated by curriculum learning, the authors create a series of tasks (with increasing difficulty).</p>
+  </li>
+  <li>
+    <p>A subset of skills (competencies) is required for solving each task. The platform takes into account this constraint when creating a level.</p>
+  </li>
+</ul>
+
+<h3 id="heuristic-expert">Heuristic Expert</h3>
+
+<ul>
+  <li>
+    <p>The platform supports a Heuristic expert that simulates the role of a human teacher and knows how to solve each task.</p>
+  </li>
+  <li>
+    <p>For any level, it can suggest actions or generate demonstrations (given the state of the environment).</p>
+  </li>
+</ul>
+
+<h2 id="experiment">Experiment</h2>
+
+<ul>
+  <li>
+    <p>An imitation learning baseline is trained for each level.</p>
+  </li>
+  <li>
+    <p>Data requirement for each level and the benefits of curriculum learning and imitation learning are investigated (in terms of sample efficiency).</p>
+  </li>
+</ul>
+
+<h2 id="model-architecture">Model Architecture</h2>
+
+<ul>
+  <li>
+    <p>GRU to encode the sentence, CNN to encode the input observation</p>
+  </li>
+  <li>
+    <p>FiLM layer to combine the two representations</p>
+  </li>
+  <li>
+    <p>LSTM to encode the per-timestep FiLM encoding (timesteps in the environment)</p>
+  </li>
+  <li>
+    <p>Two model variants are considered:</p>
+
+    <ul>
+      <li>
+        <p>Large Model - Bidirectional GRU + attention + large hidden state</p>
+      </li>
+      <li>
+        <p>Small Model - Unidirectional GRU + No attention + small hidden state</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Heuristic expert used to generate trajectory and the models are trained by imitation learning (to be used as baselines)</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>The key takeaway is that the current deep learning approaches are extremely sample inefficient when learning a compositional language.</p>
+  </li>
+  <li>
+    <p>Data efficiency of RL methods is much worse than that of imitation learning methods showing that the current imitation learning and reinforcement learning methods scale and generalize poorly.</p>
+  </li>
+  <li>
+    <p>Curriculum-based pretraining and interactive learning was found to be useful in only some cases.</p>
+  </li>
+</ul>
+

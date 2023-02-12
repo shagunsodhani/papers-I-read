@@ -1,0 +1,103 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Consider problems where the input to the model is a set. In such problems (referred to as the set-input problems), the model should be invariant to the permutation of the data points.</p>
+  </li>
+  <li>
+    <p>In “set pooling” methods (<a href="https://arxiv.org/abs/1606.02185">1</a>, <a href="https://arxiv.org/abs/1703.06114">2</a>), each data point (in the input set) is encoded using a feed-forward network and the resulting set of encoded representations are pooled using the “sum” operator.</p>
+  </li>
+  <li>
+    <p>This approach can be shown to be bot permutation-invariant and a universal function approximator.</p>
+  </li>
+  <li>
+    <p>The paper proposes an attention-based network module, called as the Set Transformer, which can model the interactions between the elements of an input set while being permutation invariant.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1810.00825">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="transformer">Transformer</h2>
+
+<ul>
+  <li>
+    <p>An attention function <em>Attn(Q, K, V) = (QK<sup>T</sup>)V</em> is used to map queries <em>Q</em> to output using key-value pairs <em>K, V</em>.</p>
+  </li>
+  <li>
+    <p>In case of multi-head attention, the key, query, and value are projected into <em>h</em> different vectors and attention is applied on all these vectors. The output is a linear transformation of the concatenation of all the vectors.</p>
+  </li>
+</ul>
+
+<h2 id="set-transformer">Set Transformer</h2>
+
+<ul>
+  <li>
+    <p>3 modules are introduced: MAB, SAB and ISAB.</p>
+  </li>
+  <li>
+    <p>Multihead Attention Block (MAB) is a module very similar to to the encoder in the Transformer, without the positional encoding and dropout.</p>
+  </li>
+  <li>
+    <p>Set Attention Block (SAB) is a module that takes as input a set and performs self-attention between the elements of the set to produce another set of the same size ie <em>SAB(X) = MAB(X, X)</em>.</p>
+  </li>
+  <li>
+    <p>The time complexity of the SAB operation is <em>O(n<sup>2</sup>)</em> where <em>n</em> is the number of elements in the set. It can be reduced to <em>O(m*n)</em> by using Induced Set Attention Blocks (ISAB) with <em>m</em> induced point vectors (denoted as I).</p>
+  </li>
+  <li>
+    <p><em>ISAB<sub>m</sub> = MAB(X, MAB(I, X))</em>.</p>
+  </li>
+  <li>
+    <p>ISAB can be seen as performing a low-rank projection of inputs.</p>
+  </li>
+  <li>
+    <p>These modules can be used to model the interactions between data points in any given set.</p>
+  </li>
+</ul>
+
+<h2 id="pooling-by-multihead-attention-pma">Pooling by Multihead Attention (PMA)</h2>
+
+<ul>
+  <li>
+    <p>Aggregation is performed by applying multi-head attention on a set of <em>k</em> seed vectors.</p>
+  </li>
+  <li>
+    <p>The interaction between the <em>k</em> outputs (from PMA) can be modeled by applying another SAB.</p>
+  </li>
+  <li>
+    <p>Thus the entire network is a stack of SABs and ISABs. Both the modules are permutation invariant and so is any network obtained by stacking them.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets include:</p>
+
+    <ul>
+      <li>Predicting the maximum value from a set.</li>
+      <li>Counting unique (Omniglot) characters from an image.</li>
+      <li>Clustering with a mixture of Gaussians (synthetic points and CIFAR 100).</li>
+      <li>Set Anomaly detection (celebA).</li>
+    </ul>
+  </li>
+  <li>
+    <p>Generally, increasing <em>m</em> (the number of inducing datapoints) improve performance, to some extent. This is somewhat expected.</p>
+  </li>
+  <li>
+    <p>The paper considers various ablations of the proposed approach (like disabling attention in the encoder or pooling layer) and shows that attention mechanism is needed during both the stages.</p>
+  </li>
+  <li>
+    <p>The work has two main benefits over prior work:</p>
+
+    <ul>
+      <li>
+        <p>Reducing the <em>O(n<sup>2</sup>)</em> complexity to <em>O(m*n)</em> complexity.</p>
+      </li>
+      <li>
+        <p>Using self-attention mechanism for both encodings the inputs and for aggregating the encoded representations.</p>
+      </li>
+    </ul>
+  </li>
+</ul>

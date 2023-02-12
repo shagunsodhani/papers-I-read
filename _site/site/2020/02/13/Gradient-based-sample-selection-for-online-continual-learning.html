@@ -1,0 +1,122 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Use of replay buffer (and rehearsal) is a common technique for mitigating catastrophic forgetting.</p>
+  </li>
+  <li>
+    <p>The paper builds on this idea but focuses on the sample selection aspect ie, which data points to store in the replay buffer.</p>
+  </li>
+  <li>
+    <p>It formulates sample selection as a constraint minimization problem and shows that the proposed formulation is equivalent to maximizing the diversity of the samples with respect to parameter gradient.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1903.08671">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<ul>
+  <li>
+    <p>Supervised learning tasks</p>
+  </li>
+  <li>
+    <p>Online stream of data (i.e., one or few datapoints accessed at a time).</p>
+  </li>
+  <li>
+    <p>When considering the $t^{th}$ task, the objective is: minimize the loss on the current task without increasing the loss on any of the previous tasks.</p>
+  </li>
+  <li>
+    <p>The above constraint can be rephrased as $dot(g_t, g_i) \gt 0 \forall i \in [0, t-1]$ where $g_t$ is the gradient for the $t^{th}$ task.</p>
+  </li>
+  <li>
+    <p>This is equivalent to saying that the current task gradient should not interfere negatively with the previous task gradient.</p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>In practice, the gradient constraint is enforced only over the examples in the minibatch (and not the full dataset).</p>
+  </li>
+  <li>
+    <p>The paper interprets the constraint satisfaction problem as approximating an optimal feasible region (in the gradient space) where current task performance can be improved without hurting the performance on the previous tasks.</p>
+  </li>
+  <li>
+    <p>The approximate region (of the shape of a polyhedral convex cone) is determined using only the examples from the replay buffer. Hence, the optimal region (defined for the entire dataset) would be contained within the approximate region.</p>
+  </li>
+  <li>
+    <p>The size of the approximate region can be measured in terms of the solid angle defined by the intersection between the approximate region and a unit sphere.</p>
+  </li>
+  <li>
+    <p>The paper argues that the approximate region can be made smaller by reducing the angle between each pair of gradients.</p>
+  </li>
+  <li>
+    <p>The set of points, satisfying the constraint, can be computed using the Integer Quadratic Programming (IQP).</p>
+  </li>
+  <li>
+    <p>Given that the problem setup is online learning, using IDP for every new data point is not feasible.</p>
+  </li>
+  <li>
+    <p>An in-exact, greedy alternative is suggested where a score is maintained for each example in the buffer.</p>
+  </li>
+  <li>
+    <p>When a new datapoint comes in, the score is computed and used to decide if the existing datapoint in the buffer should be replaced.</p>
+  </li>
+  <li>
+    <p>The score is the maximal cosine similarity of the current example with a random sample in the buffer.</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>Benchmarks</p>
+
+    <ul>
+      <li>
+        <p>Disjoint MNIST</p>
+      </li>
+      <li>
+        <p>Permuted MNIST</p>
+      </li>
+      <li>
+        <p>Disjoint CIFAR10</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Shared head setup</p>
+  </li>
+  <li>
+    <p>Baselines for sample selection</p>
+
+    <ul>
+      <li>
+        <p>Randomly select examples to keep in the buffer.</p>
+      </li>
+      <li>
+        <p>Perform clustering - either in the feature space or in the gradient space.</p>
+      </li>
+      <li>
+        <p>Use IQP to select the examples. This approach is not used for CIFAR10, as it is computationally costly.</p>
+      </li>
+      <li>
+        <p>It would be interesting if the paper had considered baselines like selecting samples which had the largest loss.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The proposed greedy approach outperforms the other methods.</p>
+  </li>
+  <li>
+    <p>In an ablation experiment, the paper shows that the proposed approach works better than reservoir sampling (when the underlying data distribution is imbalanced).</p>
+  </li>
+  <li>
+    <p>Another experiment compares the proposed approach with <a href="https://papers.nips.cc/paper/7225-gradient-episodic-memory-for-continual-learning.pdf">Gradient Episodic Memory</a> and <a href="https://arxiv.org/abs/1611.07725">iCaRL</a>. For Permuted and Disjoint MNIST, the different methods perform quite similar though the proposed approach performs better on Disjoint CIFAR10.</p>
+  </li>
+</ul>
+

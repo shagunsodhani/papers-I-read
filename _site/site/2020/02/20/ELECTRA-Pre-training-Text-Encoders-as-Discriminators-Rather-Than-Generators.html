@@ -1,0 +1,150 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Masked Language Modeling (MLM) is a common technique for pre-training language-based models. The idea is to “corrupt” some tokens in the input text (around 15%) by replacing them with the [MASK] token and then training the network to reconstruct (or predict) the corrupted tokens.</p>
+  </li>
+  <li>
+    <p>Since the network learns from only about 15% of the tokens, the computational cost of training using MLM can be quite high.</p>
+  </li>
+  <li>
+    <p>The paper proposes to use a “replaced token detection” task where some tokens in the input text are replaced by other plausible tokens.</p>
+  </li>
+  <li>
+    <p>For each token in the modified text, the network has to predict if the token has been replaced or not.</p>
+  </li>
+  <li>
+    <p>The alternative token is generated using a small generator network.</p>
+  </li>
+  <li>
+    <p>Unlike the previous MLM setup, the proposed task is defined for all the input tokens, thus utilizing the training data more efficiently.</p>
+  </li>
+  <li>
+    <p><a href="https://openreview.net/forum?id=r1xMH1BtvB">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>The proposed approach is called ELECTRA (Efficiently Learning an Encoder that Classifies Token Replacements Accurately)</p>
+  </li>
+  <li>
+    <p>Two neural networks - Generator (G) and Discriminator (D) are trained.</p>
+  </li>
+  <li>
+    <p>Each network has a Transformer-based text encoder that maps a sequence of words into a sequence of vectors.</p>
+  </li>
+  <li>
+    <p>Given an input sequence x (of length N), k indices are chosen for replacing the tokens.</p>
+  </li>
+  <li>
+    <p>For each index, the generator produces a distribution over tokens. A token is sampled to replace in the original sequence. The resulting sequence is referred to as the corrupted sequence.</p>
+  </li>
+  <li>
+    <p>Given the corrupted sequence, the Discriminator predicts which token comes from the data distribution and which comes from the generator.</p>
+  </li>
+  <li>
+    <p>The generator is trained using the MLM setup, and the Discriminator is trained using the discriminative loss.</p>
+  </li>
+  <li>
+    <p>After pre-training, only the Discriminator is finetuned on the downstream tasks.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Datasets</p>
+
+    <ul>
+      <li>
+        <p>GLUE Benchmark</p>
+      </li>
+      <li>
+        <p>Stanford QA dataset</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Architecture Choices</p>
+
+    <ul>
+      <li>
+        <p>Sharing word embeddings between generator and Discriminator helps.</p>
+      </li>
+      <li>
+        <p>Tying all the encoder weights leads to marginal improvement but forces the generator and the Discriminator to be of the same size. Hence only embeddings are shared.</p>
+      </li>
+      <li>
+        <p>Generator model is kept smaller than the discriminator model as a strong generator can make the training difficult for the Discriminator.</p>
+      </li>
+      <li>
+        <p>A two-stage training procedure was explored where only the generator is trained for n steps. Then the weights of the generator are used to initialize the Discriminator. The Discriminator is then trained for n steps while keeping the generator fixed.</p>
+      </li>
+      <li>
+        <p>This two-stage setup provides a nice curriculum for the Discriminator but does not outperform the joint training based setup.</p>
+      </li>
+      <li>
+        <p>An adversarial loss based setup is also explored but it does not work well probably because of the following reasons:</p>
+
+        <ul>
+          <li>
+            <p>Adverserially trained generator is not as good as the MLM generator.</p>
+          </li>
+          <li>
+            <p>Adverserially trained generator produces a low entropy output distribution.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Results</p>
+
+    <ul>
+      <li>Both small and large ELECTRA models outperform baselines models like <a href="https://arxiv.org/abs/1810.04805">BERT</a>, <a href="https://arxiv.org/abs/1907.11692">RoBERTa</a>, <a href="https://arxiv.org/abs/1802.05365">ELMo</a> and <a href="https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf">GPT</a>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Ablations</p>
+
+    <ul>
+      <li>
+        <p>ELECTRA-15 is a variant of ELECTRA where the Discriminator is trained on only 15% of the tokens (similar to the MLM setup). This reduces performance significantly.</p>
+      </li>
+      <li>
+        <p>Replace MLM setup</p>
+
+        <ul>
+          <li>
+            <p>Perform MLM training, but instead of using [MASK], use a toke sampled from the generator.</p>
+          </li>
+          <li>
+            <p>This improves the performance marginally.</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>All-token MLM</p>
+
+        <ul>
+          <li>
+            <p>In the MLM setup, replace the [MASK] token by the sampled tokens and train the MLM model to generate all the words.</p>
+          </li>
+          <li>
+            <p>In practice, the MLM model can either generate a word or copy the existing word.</p>
+          </li>
+          <li>
+            <p>This approach closes much of the gap between BERT and ELECTRA.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Interestingly, ELECTRA outperforms All-token MLM BERT suggesting the ELECTRA may be benefitting from parameter efficiency since it does not have to learn a distribution over all the words.</p>
+  </li>
+</ul>

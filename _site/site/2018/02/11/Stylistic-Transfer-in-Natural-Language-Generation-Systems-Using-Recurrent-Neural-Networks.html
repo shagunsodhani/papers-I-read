@@ -1,0 +1,48 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li><a href="https://aclweb.org/anthology/W/W16/W16-6010.pdf">This workshop paper</a> explores the problem of style transfer in natural language generation (NLG).</li>
+  <li>One possible manifestation would be rewriting technical articles in an easy-to-understate manner.</li>
+</ul>
+
+<h2 id="challenges">Challenges</h2>
+
+<ul>
+  <li>Identifying relevant stylistic cues and using them to control text generation in NLG systems.</li>
+  <li>Absence of a large amount of training data.</li>
+</ul>
+
+<h2 id="pitch">Pitch</h2>
+
+<ul>
+  <li>Using Recurrent Neural Networks (RNNs) to disentangle the style from semantic content.</li>
+  <li>Autoencoder model with two components - one for learning style and another for learning content.</li>
+  <li>This allows for “style” component to be replaced while keeping the “content” component same, resulting in a style transfer.</li>
+  <li>One way to think about this is - the encoder generates a 100-dimensional vector. In this, the first 50 entries, correspond to the “style” component and remaining to the “content” component.</li>
+  <li>The proposal is that the loss function should be modified to include a cross-covariance term for ensuring disentanglement.</li>
+  <li>I think one way of doing this is to have two loss functions:
+    <ul>
+      <li>The <strong>first loss</strong> function ensures that the input sentence is decoded properly into the target sentence. This loss is computed for each sentence.</li>
+      <li>The <strong>second loss</strong> ensures that the first 50 entries across all the encoded represenations are are correlated. This loss operates at the batch level.</li>
+      <li>The <strong>total loss</strong> is the weighted sum of these 2 losses.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="possible-datasets">Possible Datasets</h2>
+
+<ul>
+  <li><a href="http://norvig.com/ngrams/shakespeare.txt">Complete works of Shakespeare</a></li>
+  <li><a href="https://www.kaggle.com/c/wikichallenge/data">Wikpedia Kaggle dataset</a></li>
+  <li><a href="https://ota.ox.ac.uk/">Oxford Text Archive</a></li>
+  <li>Twitter data</li>
+</ul>
+
+<h2 id="possible-metrics">Possible Metrics</h2>
+
+<ul>
+  <li>Soundness - is the generated text entailed with the input sentence.</li>
+  <li>Coherence - free of grammatical errors, proper word usage etc.</li>
+  <li>Effectiveness - how effective was the style transfer</li>
+  <li>Since some of the metrics are subjective, human evaluators also need to be employed.</li>
+</ul>

@@ -1,0 +1,78 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>The paper proposed a Technique for improving the generalization ability of RL agents when evaluated on an unseen environment (which is similar to the training environment).</p>
+  </li>
+  <li>
+    <p><a href="https://openreview.net/forum?id=HJgcvJBFvB">Link to the paper</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pokaxpoka/netrand">Link to the code</a></p>
+  </li>
+</ul>
+
+<h2 id="approach">Approach</h2>
+
+<ul>
+  <li>
+    <p>The key idea is to learn features that are invariant across environments by using a randomized CNN (<em>f</em>) that randomly perturbs the inputs.</p>
+  </li>
+  <li>
+    <p>The policy is trained using the randomized observations obtained using <em>f</em>.</p>
+  </li>
+  <li>
+    <p>Invariant features are learned using a feature matching (FM) loss that matches the feature representation of the original and randomized observations.</p>
+  </li>
+  <li>
+    <p>The random network’s parameters are initialized as $\alpha I + (1 - \alpha) N(0, \sqrt\frac{2}{n_{in} + n_{out}})$ where $\alpha \in [0, 1]$, $N$ denotes the Gaussian Distribution and $n_{in}, n_{out}$ denote the number of input and output channels respectively.</p>
+  </li>
+  <li>
+    <p>Xavier Normal distribution is used for randomization to maintain the variance between the input and the randomized input.</p>
+  </li>
+  <li>
+    <p><em>f</em> is randomized per iteration.</p>
+  </li>
+  <li>
+    <p>During inference, the expected action is computed by approximating over <em>M</em> samples (i.e., randomizing the input <em>M</em> times).</p>
+  </li>
+</ul>
+
+<h2 id="environments">Environments</h2>
+
+<ul>
+  <li>
+    <p>2D CoinRun, 3D DeepMind Lab, 3D Robotics Control Task</p>
+  </li>
+  <li>
+    <p>The evaluation environments consist of different styles of backgrounds, objects, and floors.</p>
+  </li>
+</ul>
+
+<h2 id="baselines">Baselines</h2>
+
+<ul>
+  <li>
+    <p>Regularization methods: Dropout, L2 regularization, Batch Normalization</p>
+  </li>
+  <li>
+    <p>Dataset Augmentation methods: Cutout, Gray out, Inversion, Color Jitter</p>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<ul>
+  <li>
+    <p>On CoinRun, the proposed approaches significantly outperforms the other baselines during evaluation. The performance improvement saturates around 10 <em>M</em> samples.</p>
+  </li>
+  <li>
+    <p>Cycle consistency is used to measure the similarity between two trajectories. The proposed method improves the cycle consistency as compared to the vanilla PPO baseline. It also produces sharper activation maps in the evaluation environments.</p>
+  </li>
+  <li>
+    <p>For the large-scale experiments, when evaluated on 500 levels of CoinRun, the proposed method improves the success rates from 39.8% to 58.7%.</p>
+  </li>
+  <li>
+    <p>On DeepMind Lab and Surreal robotics control tasks, the proposed method leads to agents that generalize better on the unseen environments (during evaluation).</p>
+  </li>
+</ul>

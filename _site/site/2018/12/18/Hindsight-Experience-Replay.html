@@ -1,0 +1,76 @@
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+  <li>
+    <p>Hindsight Experience Replay(HER) is a sample efficient technique to learn from sparse rewards.</p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/1707.01495">Link to the paper</a></p>
+  </li>
+</ul>
+
+<h2 id="idea">Idea</h2>
+
+<ul>
+  <li>
+    <p>Assume a footballer misses the goal narrowly. Even though the player does not get any “reward”(in terms of goal), the player realizes that had the goal post been shifted a bit, it would have resulted in a goal(reward).</p>
+  </li>
+  <li>
+    <p>The same intuition is applied for the RL agent - let us say that the true goal state was <em>g</em> while the agent ends up in the state <em>s</em>.</p>
+  </li>
+  <li>
+    <p>While the action sequence is not useful for reaching the goal state <em>g</em>, it is indeed useful for reaching state <em>s</em>. Hence the trajectory could be replayed with the goal as <em>s</em>(and not <em>g</em>).</p>
+  </li>
+</ul>
+
+<h2 id="technical-details">Technical Details</h2>
+
+<ul>
+  <li>
+    <p>Multi-goal policy trained using Universal Value Function Approximation (UVFA).</p>
+  </li>
+  <li>
+    <p>Every episode starts by sampling a start state and a goal state. Each goal has a different reward function.</p>
+  </li>
+  <li>
+    <p>Policy uses both the current state and the current goal state and leads to a state transition sequence <em>s<sub>1</sub>, s<sub>2</sub>,…, s<sub>n</sub></em>.</p>
+  </li>
+  <li>
+    <p>Each of these transitions <em>s<sub>i</sub> -&gt; s<sub>i+1</sub></em> are stored in a buffer with both the original goal and a subset of the other goals.</p>
+  </li>
+  <li>
+    <p>For the goal selection, following strategies are tried:</p>
+
+    <ul>
+      <li>
+        <p><em>Future</em> - goal state is the state <em>k</em> steps after observing the state transition.</p>
+      </li>
+      <li>
+        <p><em>Final</em> - goal state is the final state of the current episode.</p>
+      </li>
+      <li>
+        <p><em>Episode</em> - <em>k</em> random states are selected from the current episode.</p>
+      </li>
+      <li>
+        <p><em>Randon</em> - <em>k</em> states are selected randomly.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Any off-policy algorithm can be used. Specifically, DDPG is used.</p>
+  </li>
+</ul>
+
+<h2 id="experiments">Experiments</h2>
+
+<ul>
+  <li>
+    <p>Robotic arm simulated using MuJoCo for <em>push</em>, <em>slide</em> and <em>pick and place</em> tasks.</p>
+  </li>
+  <li>
+    <p>DDPG with and without HER evaluated on the 3 tasks.</p>
+  </li>
+  <li>
+    <p>DDPG with the HER variant significantly outperforms the baseline in all the cases.</p>
+  </li>
+</ul>
